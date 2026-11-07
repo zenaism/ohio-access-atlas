@@ -1,0 +1,128 @@
+# Declarative source registry. Each entry is fetched by the connector named in `type`,
+# clipped to the region boundary, and mapped into the observation schema.
+#
+#   regions:  which regions the source covers
+#   entity:   entity_type for the observation rows
+#   observe:  how to turn a record into observations
+#             attribute: name   value: constant | value_field: column   signal: constant (optional)
+#   license:  stored on every row; decides what we may redistribute
+
+osm:
+  type: overpass
+  regions: [cincinnati, oxford]
+  license: ODbL-1.0 (c) OpenStreetMap contributors
+
+# ---- Cincinnati / Hamilton County (CAGIS) --------------------------------------
+cagis_curb_ramps:
+  type: arcgis
+  regions: [cincinnati]
+  url: https://cagisonline.hamilton-co.org/arcgis/rest/services/DTE/DOTE_Versioned/FeatureServer/0
+  where: "SIDEWALKTYPE = '7'"
+  fields: [OBJECTID, ASSETTYPE, RAMP1DETWARN, RAMP2DETWARN, BOUNDARYSOURCE, LASTEDITEDDATE]
+  entity: curb_ramp
+  observe: {attribute: curb_ramp, value: present, signal: supports}
+  license: CAGIS public data (City of Cincinnati / Hamilton County); confirm redistribution terms
+
+cagis_public_steps:
+  type: arcgis
+  regions: [cincinnati]
+  url: https://cagisonline.hamilton-co.org/arcgis/rest/services/Cincinnati/PS_Maintenance/MapServer/1
+  where: "1=1"
+  fields: [OBJECTID, ID, LENGTH, NEIGHBORHO]
+  entity: path_segment
+  observe: {attribute: highway, value: steps, signal: barrier}
+  license: CAGIS public data; confirm redistribution terms
+
+cagis_sidewalks:
+  type: arcgis
+  regions: [cincinnati]
+  url: https://cagisonline.hamilton-co.org/arcgis/rest/services/DTE/DOTE_Versioned/FeatureServer/0
+  where: "SIDEWALKTYPE IN ('6', '8')"   # 6 sidewalk, 8 walkway
+  fields: [OBJECTID, SIDEWALKTYPE, ASSETTYPE, AREASF, BOUNDARYSOURCE]
+  entity: sidewalk_polygon
+  observe: {attribute: sidewalk, value: present, signal: supports}
+  license: CAGIS public data; confirm redistribution terms
+
+cagis_traffic_signals:
+  type: arcgis
+  regions: [cincinnati]
+  url: https://cagisonline.hamilton-co.org/arcgis/rest/services/DTE/DOTE_Traffic_Engineering/FeatureServer/8
+  where: "1=1"
+  entity: crossing
+  observe: {attribute: traffic_signal, value: present}
+  license: CAGIS public data; confirm redistribution terms
+
+cincy_311:
+  type: socrata
+  regions: [cincinnati]
+  domain: data.cincinnati-oh.gov
+  dataset: gcej-gmiw
+  where: >-
+    sr_type_desc in ('SIDEWALK, REPAIR HAZ', 'SIDEWALK, OBSTRUCTIONS', 'CURBS, REPAIR',
+    'SIDEWALK, BUSHES ENCUMBERING', 'SIDEWALK, REPAIRS INSPECTION', 'SIDEWALK REPAIR, INVSTG',
+    'SIDEWALK REPAIR HAZ, INVSTG', 'SIDEWALK, NEW', 'CURBS, CURBS NEW', 'DEFAULT, ACCESSIBILITY',
+    'SIGN, HANDICAP PARKING SIGNS', 'SIGN, ACCESSIBLE PARKING SIGN', 'SIGNAL, AUDIBLE SIGNAL REPAIR',
+    'PEDESTRIAN INCIDENT REPORT', 'ICY, SNOWY STREETS', 'LITTER, ON PUBLIC STEPS/WALKWY')
+  fields: [sr_number, sr_type_desc, priority, date_created, sr_status_flag, date_status_change,
+           neighborhood, latitude, longitude]
+  entity: reported_issue
+  observe: {attribute: reported_issue, value_field: sr_type_desc}
+  license: Open Data Cincy (public domain per portal terms; confirm)
+
+# ---- Transit (GTFS) -------------------------------------------------------------
+gtfs_metro:
+  type: gtfs
+  regions: [cincinnati]
+  # Mobility Database mirror (mdb-307) is a stable URL; agency URL changes each service period
+  url: https://files.mobilitydatabase.org/mdb-307/latest.zip
+  agency: metro
+  license: Cincinnati Metro GTFS (agency terms)
+
+gtfs_bcrta:
+  type: gtfs
+  regions: [oxford]
+  # STALE: 2019 upload, last mirrored 2024-06; predates Aug 2025 Chestnut St station changes,
+  # and has no wheelchair_boarding column. Request a current feed from BCRTA.
+  url: https://files.mobilitydatabase.org/mdb-240/latest.zip
+  agency: bcrta
+  license: BCRTA GTFS (agency terms)
+
+# ---- Derived: slope from elevation (runs after `osm`) ------------------------------
+slope_3dep:            # remote service: slow (~18 s / 300 pts); kept for Oxford as a cross-check
+  type: slope
+  regions: [oxford]
+  url: https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer
+  step_m: 10
+  license: USGS 3DEP (public domain)
+
+slope_3dep_local:     # same 3DEP 1 m data, sampled from downloaded tiles (fast, pinned tiles)
+  type: slope
+  dem: 3dep_local       # run `python -m atlas.cli dem --region <r>` first
+  regions: [cincinnati, oxford]
+  url: https://www.usgs.gov/3d-elevation-program
+  step_m: 10
+  license: USGS 3DEP (public domain)
+
+slope_cagis:          # second DEM for Cincinnati -> DEM agreement analysis
+  type: slope
+  regions: [cincinnati]
+  url: https://cagisonline.hamilton-co.org/arcgis/rest/services/CAGIS_Elevation_Current/ImageServer
+  to_metres: 0.3048006096   # values are US survey feet (EPSG:3735)
+  step_m: 10
+  license: CAGIS public data; confirm redistribution terms
+
+# ---- Text (needs credentials; not part of `fetch all`) -----------------------------
+reddit:
+  type: reddit
+  regions: [cincinnati, oxford]
+  credentials: true
+  subreddits:
+    cincinnati: [cincinnati, UCincinnati, Xavier]
+    oxford: [miamioh, MiamiOhio, miamiuniversity]
+  global_subreddits: [wheelchairs, disability, Disabled, accessibility, ADA, spinalcordinjuries, MultipleSclerosis]
+  place_terms:
+    cincinnati: [Cincinnati, Cincy]
+    oxford: ["Oxford Ohio", "Miami University"]
+  keywords: [wheelchair, accessible, accessibility, ADA, ramp, curb cut, elevator, stairs,
+             sidewalk, mobility scooter, paratransit, handicap parking]
+  license: Reddit Data API terms; store ids + hashed authors only, do not redistribute text

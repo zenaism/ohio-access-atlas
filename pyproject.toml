@@ -1,0 +1,37 @@
+[project]
+name = "ohio-access-atlas"
+version = "0.1.0"
+description = "Multi-source, provenance-tracked wheelchair accessibility data for Cincinnati and Oxford, Ohio"
+requires-python = ">=3.11"
+dependencies = [
+  "geopandas>=1.0",
+  "pyarrow",
+  "pyyaml",
+  "requests",
+  "tabulate",
+]
+
+[project.optional-dependencies]
+reddit = ["praw", "python-dotenv"]
+analysis = ["lifelines", "statsmodels", "matplotlib", "rasterio", "libpysal", "esda"]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+atlas = "atlas.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
