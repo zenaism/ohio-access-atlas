@@ -1,6 +1,6 @@
 # Sources
 
-✅ in pipeline · 🔜 next · 💡 idea · ⚠️ terms/ethics check needed
+This list separates data already collected from ideas for later. Google Places and Reddit are not currently in the processed data. AllTrails is not a source we plan to scrape.
 
 ## In pipeline
 - OpenStreetMap (Overpass) ✅: https://overpass-api.de/api/interpreter
@@ -11,7 +11,7 @@
 - Cincinnati 311 requests ✅: https://data.cincinnati-oh.gov/resource/gcej-gmiw
 - Cincinnati Metro GTFS ✅: https://files.mobilitydatabase.org/mdb-307/latest.zip
 - BCRTA GTFS (stale, 2019) ✅: https://files.mobilitydatabase.org/mdb-240/latest.zip
-- Reddit API ✅ ⚠️ (needs keys): https://www.reddit.com/dev/api/
+- Reddit API (collector exists, but needs keys; no posts collected yet): https://www.reddit.com/dev/api/
 
 ## Next
 - CAGIS elevation (2 ft DEM, slopes) 🔜: https://cagisonline.hamilton-co.org/arcgis/rest/services/CAGIS_Elevation_Current/ImageServer
@@ -35,7 +35,7 @@
 - City of Oxford (ADA transition plan, sidewalk program) 💡: https://www.cityofoxford.org/
 - Project Sidewalk (deploy for Oxford?) 💡: https://projectsidewalk.org/
 - Wheelmap / accessibility.cloud 💡: https://www.accessibility.cloud/
-- Google Places accessibility options 💡 ⚠️ (no long-term storage): https://developers.google.com/maps/documentation/places/web-service
+- Google Places API accessibility options (possible comparison source; not collected): https://developers.google.com/maps/documentation/places/web-service
 - Yelp Fusion attributes 💡 ⚠️: https://docs.developer.yelp.com/
 - Venue accessibility pages (zoo, stadiums, museums) 💡: per-venue sites
 - Tile2Net (sidewalks from aerial imagery) 💡: https://github.com/VIDA-NYU/tile2net
@@ -53,4 +53,4 @@
 - Oxford Seniors (equipment lending) 💡: https://www.oxfordsenior.org/services
 - CILO (Center for Independent Living Options) 💡 site down when checked: https://www.cilo.net
 - Reddit additions 🔜: r/miamioh, r/Disabled, r/accessibility, r/ADA
-- Not usable: AllTrails ❌ (blocks bots, ToS), Wheel the World ❌ (robots disallow all), Wheelmap ❌ (= OSM, already have), Facebook groups ❌, The Mighty ❌ (not location data), OOD maps page ❌ (empty), bcrta.org ❌ (wrong org; BCRTA is butlercountyrta.com)
+- Not using: AllTrails (automated access is blocked and its terms may restrict scraping); Wheel the World (robots disallow access); Facebook groups (privacy/no API); The Mighty (not location data); OOD maps page (empty). Wheelmap duplicates OSM, which is already collected. The correct BCRTA site is butlercountyrta.com.
