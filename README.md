@@ -62,13 +62,12 @@ These are **not all equivalent measures**: for example, CAGIS ramp counts are ma
 
 The Cincinnati equity analysis also uses population, race, disability, and household-income estimates from the U.S. Census American Community Survey, accessed through [Esri's ACS race service](https://p3eplmys2rvchkjx.svcs.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/ACS_Race_and_Hispanic_Origin_View_Boundaries/FeatureServer/2), [income service](https://p3eplmys2rvchkjx.svcs.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/ACS_Median_Household_Income_View_Boundaries/FeatureServer/2), and [disability service](https://p3eplmys2rvchkjx.svcs.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/ACS_Disability_Status_View_Boundaries/FeatureServer/2). It also uses public road geometries from [OpenStreetMap via Overpass](https://overpass-api.de/api/interpreter) to calculate road length by census tract. These analysis inputs are not included in the 355,568 source-observation total. Reddit is configured as an optional source, but there are no Reddit posts in the processed dataset. Google data is not used.
 
-### Other websites we are considering
+### Possible future sources
 
-These are ideas for possible future data, not sources in the current processed dataset:
-
-- **Google Places API:** could help compare details such as accessible entrances or restrooms. This would use Google's API, not scrape Google search results.
-- **Reddit:** an optional collector is already in the code for public accessibility discussions. It needs API credentials, and no Reddit data has been collected yet.
-- **AllTrails:** we are not planning to scrape it because automated access is blocked and its terms may not allow it. For trail details, we can use official sources such as [Great Parks of Hamilton County](https://www.greatparks.org/) and [Ohio Department of Natural Resources](https://ohiodnr.gov/).
+- [Google Places](https://developers.google.com/maps/documentation/places/web-service)
+- [Reddit](https://www.reddit.com/dev/api/)
+- [Great Parks of Hamilton County](https://www.greatparks.org/)
+- [Ohio Department of Natural Resources](https://ohiodnr.gov/)
 
 See [`SOURCES.md`](SOURCES.md) for all current and possible data sources.
 
