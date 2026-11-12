@@ -57,6 +57,9 @@ TEMPLATE = r"""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <style>
  .leaflet-tile-pane{filter:grayscale(.85) brightness(1.06) contrast(.9)}  /* calm basemap so markers stand out */
  html,body,#map{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif}
@@ -70,6 +73,8 @@ TEMPLATE = r"""<!DOCTYPE html>
  .legend .sw{display:inline-block;width:14px;height:14px;border-radius:50%;flex:none}
  .legend .ln{display:inline-block;width:22px;height:4px;border-radius:2px;flex:none}
  .legend .note{color:#555;margin-top:6px;font-size:11.5px}
+ .marker-cluster-small,.marker-cluster-medium,.marker-cluster-large{background:rgba(60,60,60,.18)}  /* neutral: colour is reserved for ratings */
+ .marker-cluster-small div,.marker-cluster-medium div,.marker-cluster-large div{background:#fff;border:2px solid #444;color:#222;font-weight:700}
  .pop{max-height:360px;overflow-y:auto;padding-right:4px} .pop h3{margin:0 0 4px;font-size:15px} .pop .rt{display:inline-block;padding:1px 7px;border-radius:9px;color:#fff;font-size:11.5px}
  .pop table{border-collapse:collapse;margin-top:6px;font-size:12px} .pop td{border-top:1px solid #eee;padding:3px 4px;vertical-align:top}
  .pop .q{color:#555;font-style:italic} .pop ul{padding-left:16px;margin:4px 0;font-size:12px}
@@ -79,9 +84,18 @@ TEMPLATE = r"""<!DOCTYPE html>
 <script>
 const DATA = __DATA__, RATINGS = __RATINGS__, ICONS = __ICONS__;
 const map = L.map('map', {zoomControl:true});
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19,
-  attribution:'Map tiles &copy; OpenStreetMap contributors. Data: OpenStreetMap (ODbL), Overture Maps, venue and agency websites, TrailLink, Census geocoder. Built by the Ohio Access Atlas project.'}).addTo(map);
-const groups = {}; Object.keys(ICONS).forEach(k => groups[k] = L.layerGroup().addTo(map));
+const CREDIT = ' | Data: OpenStreetMap (ODbL), Overture Maps, venue and agency websites, TrailLink, Census geocoder. Ohio Access Atlas.';
+const usgs = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',
+  {maxZoom:16, maxNativeZoom:16, attribution:'Basemap: USGS The National Map' + CREDIT});
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {maxZoom:19, attribution:'Map tiles &copy; OpenStreetMap contributors' + CREDIT});
+usgs.addTo(map);
+L.control.layers({'USGS topographic (works offline-opened)': usgs, 'OpenStreetMap (web page only)': osm}, null,
+  {position:'topright', collapsed:true}).addTo(map);
+const groups = {};
+Object.keys(ICONS).forEach(k => groups[k] = (k === 'trail' ? L.layerGroup()
+  : L.markerClusterGroup({showCoverageOnHover:false, maxClusterRadius:45, disableClusteringAtZoom:15})).addTo(map));
+const unknownItems = [];
 function icon(layer, rating){
   const c = RATINGS[rating][1], g = ICONS[layer][1];
   return L.divIcon({className:'', iconSize:[26,26], iconAnchor:[13,13], popupAnchor:[0,-12],
@@ -112,6 +126,7 @@ for (const region of Object.keys(DATA)){
       ? L.geoJSON(f, {style:{color:RATINGS[p.access_rating][1], weight:4, opacity:.9}})
       : L.marker([f.geometry.coordinates[1], f.geometry.coordinates[0]], {icon:icon(p.layer, p.access_rating), title:p.name});
     layer.bindPopup(popup(p), {maxWidth:380}); groups[p.layer].addLayer(layer);
+    if (p.access_rating === 'unknown') unknownItems.push([p.layer, layer]);
   }
 }
 document.getElementById('count').textContent = ` · ${n} features · data as of ${Object.values(DATA)[0].generated}`;
@@ -126,14 +141,16 @@ legend.onAdd = () => {
   }
   h += '<h4 style="margin-top:8px">What the colours mean</h4>';
   for (const [k,[label,c]] of Object.entries(RATINGS)) h += `<label style="cursor:default"><span class="sw" style="background:${c}"></span>${label}</label>`;
-  h += '<div class="note">Untick a layer to hide it. Click any icon for the facts, the quoted source text and its date. Grey means we have no information, not that the place is inaccessible.</div>';
+  h += '<label style="margin-top:6px"><input type="checkbox" id="known"><span><b>Only show places with accessibility information</b></span></label>';
+  h += '<div class="note">Numbers are groups of nearby places: zoom in or click to split them. Untick a layer to hide it. Click any icon for the facts, the quoted source text and its date. Grey means we have no information, not that the place is inaccessible.</div>';
   d.innerHTML = h;
-  d.querySelectorAll('input').forEach(i => i.onchange = () => i.checked ? map.addLayer(groups[i.dataset.k]) : map.removeLayer(groups[i.dataset.k]));
+  d.querySelectorAll('input[data-k]').forEach(i => i.onchange = () => i.checked ? map.addLayer(groups[i.dataset.k]) : map.removeLayer(groups[i.dataset.k]));
+  d.querySelector('#known').onchange = e => unknownItems.forEach(([k, l]) => e.target.checked ? groups[k].removeLayer(l) : groups[k].addLayer(l));
   return d;
 };
 legend.addTo(map);
 const VIEW = {cincinnati:[[39.10,-84.51],12], oxford:[[39.535,-84.755],13]};
-function go(r){ map.setView(VIEW[r][0], VIEW[r][1]); }
+function go(r){ map.setView(VIEW[r][0], Math.min(VIEW[r][1], 16)); }
 go(Object.keys(DATA)[0]);
 </script></body></html>
 """
