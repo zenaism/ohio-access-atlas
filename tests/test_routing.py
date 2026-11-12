@@ -50,3 +50,26 @@ def test_far_points_return_none():
 )
 def test_turns(a, b, word):
     assert routing._turn(a, b) == word
+
+
+def test_crossing_words_and_counts():
+    assert routing._crossing_words({"signals": True, "audible": True, "tactile": True}) == (
+        "Cross at the traffic signal",
+        "audible signal; tactile paving at the curb",
+    )
+    assert routing._crossing_words({"kind": "unmarked"})[0] == "Cross at an unmarked crossing"
+    es = [
+        {"footway": "crossing", "highway": "footway", "signals": True, "sound": "yes"},
+        {"footway": "crossing", "highway": "footway", "signals": True},  # same crossing, second piece
+        {"footway": "sidewalk", "highway": "footway"},
+        {"footway": "crossing", "highway": "footway", "crossing": "unmarked"},
+    ]
+    c = routing._crossing_counts(es)
+    assert (c["total"], c["signals"], c["audible"], c["unmarked_or_unknown"]) == (2, 1, 1, 1)
+
+
+def test_blind_profile_prefers_signals():
+    assert routing.blind_penalty({"footway": "crossing", "crossing": "unmarked"}) > routing.blind_penalty(
+        {"footway": "crossing", "signals": True}
+    )
+    assert routing.blind_penalty({"footway": "sidewalk"}) == 1.0

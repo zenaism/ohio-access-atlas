@@ -27,7 +27,8 @@ WALKABLE = (
 Q = """[out:json][timeout:900];{area}
 way["highway"~"^({walk})$"]["foot"!~"^(no|private)$"]["access"!~"^(no|private)$"](area.a)->.w;
 .w out body geom;
-node(w.w)["kerb"];
+(node(w.w)["kerb"];node(w.w)["highway"="crossing"];node(w.w)["crossing"];node(w.w)["tactile_paving"];
+ node(w.w)["highway"="traffic_signals"];);
 out tags;"""
 
 
@@ -41,11 +42,31 @@ def _metres(lon1, lat1, lon2, lat2) -> float:
     return 2 * r * math.asin(math.sqrt(a))
 
 
+def _crossing(way: dict, na: dict, nb: dict) -> dict:
+    """Crossing details that matter to blind travellers, from the crossing way or its nodes."""
+    node = next((n for n in (na, nb) if n.get("highway") == "crossing" or "crossing" in n), {})
+    tags = {**node, **way} if way.get("footway") == "crossing" or way.get("highway") == "crossing" else node
+    signals = (
+        tags.get("crossing") == "traffic_signals"
+        or tags.get("crossing:signals") == "yes"
+        or (na.get("highway") == "traffic_signals" or nb.get("highway") == "traffic_signals")
+    )
+    tactile = "yes" in {na.get("tactile_paving"), nb.get("tactile_paving"), tags.get("tactile_paving")}
+    return {
+        "crossing": tags.get("crossing") or ("traffic_signals" if signals and tags else None),
+        "signals": bool(signals) if tags else None,
+        "sound": tags.get("traffic_signals:sound"),
+        "vibration": tags.get("traffic_signals:vibration"),
+        "tactile": tactile,
+    }
+
+
 def run(name: str, spec: dict, region: str) -> None:
     area = f"area({3600000000 + config('regions')[region]['osm_relation']})->.a;"
     raw = fetch(URL, method="POST", data={"data": Q.format(area=area, walk=WALKABLE)}, timeout=1200)
     els = json.loads(raw)["elements"]
-    kerb = {e["id"]: e.get("tags", {}).get("kerb") for e in els if e["type"] == "node"}
+    ntags = {e["id"]: e.get("tags", {}) for e in els if e["type"] == "node"}
+    kerb = {k: t.get("kerb") for k, t in ntags.items()}
     nodes, edges = {}, []
     for w in (e for e in els if e["type"] == "way"):
         t = w.get("tags", {})
@@ -76,6 +97,8 @@ def run(name: str, spec: dict, region: str) -> None:
                     "surface": t.get("surface"),
                     "wheelchair": t.get("wheelchair"),
                     "incline": t.get("incline"),
+                    # crossings: the way's own tags, or those of the crossing node at either end
+                    **_crossing(t, ntags.get(a, {}), ntags.get(b, {})),
                 }
             )
     nd = pd.DataFrame([(k, x, y) for k, (x, y) in nodes.items()], columns=["node_id", "lon", "lat"])

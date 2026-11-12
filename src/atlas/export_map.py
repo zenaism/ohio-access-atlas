@@ -1369,8 +1369,10 @@ def _route(region: str, start, end) -> dict | None:
     r = route(region, a.y, a.x, b.y, b.x)
     if not r:
         return None
+    bl = route(region, a.y, a.x, b.y, b.x, profile="blind")
     keep = (
         "length_feet",
+        "crossings_text",
         "steps",
         "steep_sections",
         "raised_kerbs",
@@ -1379,7 +1381,10 @@ def _route(region: str, start, end) -> dict | None:
         "compared_with_shortest",
         "line",
     )
-    return {k: r[k] for k in keep}
+    out = {k: r[k] for k in keep}
+    if bl and bl["line"] != r["line"]:  # a route with safer crossings, for blind and low-vision travellers
+        out["blind"] = {k: bl[k] for k in keep}
+    return out
 
 
 # ------------------------------------------- posters that mark accessible entrances ----

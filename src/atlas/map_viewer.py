@@ -371,9 +371,12 @@ function details(it){
     h += '<h4>Getting there</h4><ul>' + li.map(x => `<li>${x}</li>`).join('') + '</ul><p class="note">Computed from map data, not checked on site. Distances in this list are straight-line; slopes are estimated from elevation data.</p>';
     const r = g.route;
     if (r){
-      h += `<h4>Step-free route from ${esc(r.from)}</h4><p>About ${r.length_feet.toLocaleString()} feet. ${esc(r.compared_with_shortest)}</p>`
+      h += `<h4>Step-free route from ${esc(r.from)}</h4><p>About ${r.length_feet.toLocaleString()} feet. ${esc(r.compared_with_shortest)} ${esc(r.crossings_text || '')}</p>`
         + '<ol class="route">' + r.directions.map(d => `<li>${esc(d)}</li>`).join('') + '</ol>'
-        + `<button type="button" class="ghost" data-a="route">Show route on map<span class="vh"> to ${esc(p.name)}</span></button>`
+        + `<button type="button" class="ghost" data-a="route">Show route on map<span class="vh"> to ${esc(p.name)}</span></button>`;
+      if (r.blind) h += `<h4>Route with safer crossings (for blind or low-vision travelers)</h4><p>About ${r.blind.length_feet.toLocaleString()} feet. Prefers crossings with traffic signals and avoids unmarked ones. ${esc(r.blind.crossings_text)}</p>`
+        + '<ol class="route">' + r.blind.directions.map(d => `<li>${esc(d)}</li>`).join('') + '</ol>'
+        + `<button type="button" class="ghost" data-a="route-blind">Show this route on map<span class="vh"> (safer crossings) to ${esc(p.name)}</span></button>`
         + '<p class="note">Suggested from OpenStreetMap paths and USGS elevation; avoids mapped stairs and steep sections. Not checked on site: sidewalks and curb ramps may be missing from the map.</p>';
     }
   }
@@ -418,8 +421,8 @@ function card(it){
   return li;
 }
 let routeLayer = null;
-function showRoute(it){
-  const r = it.p.getting_there.route;
+function showRoute(it, blind){
+  const r = blind ? it.p.getting_there.route.blind : it.p.getting_there.route;
   if (routeLayer) map.removeLayer(routeLayer);
   routeLayer = L.polyline(r.line.map(c => [c[1], c[0]]), {color:'#1d4ed8', weight:6, opacity:.85, dashArray:'1 9', lineCap:'round'}).addTo(map);
   if (PHONE.matches) setSheet(false);
@@ -432,6 +435,7 @@ function toggle(it, btn, force){
   if (open && !box.innerHTML){
     box.innerHTML = details(it); box.querySelector('[data-a=copy]').onclick = () => copyLink(it);
     const rb = box.querySelector('[data-a=route]'); if (rb) rb.onclick = () => showRoute(it);
+    const rbb = box.querySelector('[data-a=route-blind]'); if (rbb) rbb.onclick = () => showRoute(it, true);
   }
 }
 // the map shows the same places as the list (filters and search apply to both)

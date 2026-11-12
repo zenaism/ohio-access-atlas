@@ -138,11 +138,20 @@ def _getting_there(g: dict) -> str:
     if r:
         out += (
             f"<h2>Step-free route from {escape(r['from'])}</h2>"
-            f"<p>About {r['length_feet']:,} feet. {escape(r['compared_with_shortest'])}</p>"
+            f"<p>About {r['length_feet']:,} feet. {escape(r['compared_with_shortest'])} "
+            f"{escape(r.get('crossings_text', ''))}</p>"
             "<ol>" + "".join(f"<li>{escape(d)}</li>" for d in r["directions"]) + "</ol>"
             '<p class="note">Suggested from OpenStreetMap paths and USGS elevation; avoids mapped stairs and '
             "steep sections. Not checked on site: sidewalks and curb ramps may be missing from the map.</p>"
         )
+        b = r.get("blind")
+        if b:
+            out += (
+                "<h2>Route with safer crossings (for blind or low-vision travelers)</h2>"
+                f"<p>About {b['length_feet']:,} feet. Prefers crossings with traffic signals and avoids unmarked "
+                f"ones. {escape(b['crossings_text'])}</p>"
+                "<ol>" + "".join(f"<li>{escape(d)}</li>" for d in b["directions"]) + "</ol>"
+            )
     return out
 
 

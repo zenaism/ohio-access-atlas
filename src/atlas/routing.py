@@ -77,6 +77,31 @@ def penalty(e: dict) -> float:
     return p
 
 
+def is_crossing(e: dict) -> bool:
+    return e.get("footway") == "crossing" or e.get("highway") == "crossing"
+
+
+def _yes(v) -> bool:
+    return v is True or v == "yes"
+
+
+def blind_penalty(e: dict) -> float:
+    """Extra weight for crossings a blind traveller would avoid: unmarked or unsignalised ones.
+    Signals with sound or vibration are preferred; tactile paving helps find the kerb edge."""
+    if not is_crossing(e):
+        return 1.0
+    kind = (e.get("crossing") or "").lower()
+    if _yes(e.get("sound")) or _yes(e.get("vibration")):
+        p = 1.0
+    elif e.get("signals") is True or kind == "traffic_signals":
+        p = 1.3
+    elif kind in ("marked", "zebra", "uncontrolled"):
+        p = 2.0
+    else:  # unmarked or not mapped
+        p = 3.5
+    return p * (0.9 if e.get("tactile") is True else 1.0)
+
+
 @cache
 def network(region: str):
     """(graph, node table, KD-tree) for a region, built once per process."""
@@ -87,10 +112,14 @@ def network(region: str):
     for e in edges.to_dict("records"):
         e["raised_kerb"] = e["u"] in raised or e["v"] in raised
         e["grade"] = None if pd.isna(e["grade"]) else float(e["grade"])
+        for k in ("crossing", "sound", "vibration"):
+            e[k] = None if pd.isna(e.get(k)) else e.get(k)
+        for k in ("signals", "tactile"):
+            e[k] = None if pd.isna(e.get(k)) else bool(e.get(k))
         cost = e["length_m"] * penalty(e)
         if g.has_edge(e["u"], e["v"]) and g[e["u"]][e["v"]]["cost"] <= cost:
             continue
-        g.add_edge(e["u"], e["v"], cost=cost, **e)
+        g.add_edge(e["u"], e["v"], cost=cost, cost_blind=cost * blind_penalty(e), **e)
     nodes = nodes[nodes.node_id.isin(g.nodes)].reset_index(drop=True)
     lat0 = math.radians(nodes.lat.mean())
     xy = np.c_[nodes.lon.values * math.cos(lat0), nodes.lat.values] * 111_320
@@ -173,6 +202,18 @@ def _legs(g, nodes_xy: dict, path: list[int]) -> list[dict]:
             legs.append(leg)
         leg["length_m"] += e["length_m"]
         leg["end_bearing"] = brg
+        if (
+            e["highway"] in ROADS
+            and e["footway"] is None
+            and (e.get("sidewalk") or "") in ("", "no", "none", "separate")
+        ):
+            leg["road_m"] = leg.get("road_m", 0.0) + e["length_m"]
+        if name == "the crosswalk":
+            c = leg.setdefault("cross", {"signals": False, "audible": False, "tactile": False, "kind": None})
+            c["signals"] |= e.get("signals") is True or (e.get("crossing") or "") == "traffic_signals"
+            c["audible"] |= _yes(e.get("sound")) or _yes(e.get("vibration"))
+            c["tactile"] |= e.get("tactile") is True
+            c["kind"] = c["kind"] or e.get("crossing")
         if e["grade"] is not None:
             leg["max_grade"] = max(leg["max_grade"], e["grade"])
             leg["steep"] += e["grade"] > 8.33
@@ -184,6 +225,11 @@ def _legs(g, nodes_xy: dict, path: list[int]) -> list[dict]:
             out[-1]["end_bearing"] = leg["end_bearing"]
             continue
         if out and out[-1]["name"] == leg["name"]:  # e.g. two crosswalk pieces in a row
+            if "cross" in leg:
+                c = out[-1].setdefault("cross", dict(leg["cross"]))
+                for k in ("signals", "audible", "tactile"):
+                    c[k] |= leg["cross"][k]
+                c["kind"] = c["kind"] or leg["cross"]["kind"]
             out[-1]["length_m"] += leg["length_m"]
             out[-1]["end_bearing"] = leg["end_bearing"]
             out[-1]["steep"] += leg["steep"]
@@ -198,18 +244,35 @@ def _feet(m: float) -> str:
     return f"{max(10, round(ft / 10) * 10)} feet" if ft < 1000 else f"{ft / 5280:.1f} miles"
 
 
+def _crossing_words(c: dict) -> tuple[str, str]:
+    """(what to do, details) for a crossing, e.g. ("Cross at the traffic signal", "audible signal")."""
+    extra = "; tactile paving at the curb" if c.get("tactile") else ""
+    if c.get("signals"):
+        sig = "audible signal" if c.get("audible") else "no audible signal mapped"
+        return "Cross at the traffic signal", sig + extra
+    kind = c.get("kind")
+    if kind in ("marked", "zebra", "uncontrolled"):
+        return "Cross at the marked crosswalk", "no signal" + extra
+    if kind == "unmarked":
+        return "Cross at an unmarked crossing", "no signal" + extra
+    return "Cross the street", "crossing type not mapped" + extra
+
+
 def _describe(legs: list[dict]) -> list[str]:
     steps = []
     for i, leg in enumerate(legs):
         heading = COMPASS[round(leg["start_bearing"] / 45) % 8]
         if leg["name"] == "the crosswalk":
-            s = f"Cross using the crosswalk ({_feet(leg['length_m'])})"
+            head, detail = _crossing_words(leg.get("cross") or {})
+            s = f"{head}, {_feet(leg['length_m'])} ({detail})"
         elif i == 0:
             s = f"Head {heading} on {leg['name']} for {_feet(leg['length_m'])}"
         else:
             t = _turn(legs[i - 1]["end_bearing"], leg["start_bearing"])
             verb = "Continue" if t == "continue" else t.capitalize()
             s = f"{verb} onto {leg['name']} for {_feet(leg['length_m'])}"
+        if leg.get("road_m", 0) > 0.5 * leg["length_m"]:
+            s += "; no sidewalk mapped here"
         if leg["steep"]:
             n = leg["steep"]
             s += f"; caution: {n} short section{'s' if n > 1 else ''} steeper than a ramp"
@@ -235,12 +298,51 @@ def _summary(g, path: list[int]) -> dict:
             1,
         ),
         "raised_kerbs": sum(bool(e.get("raised_kerb")) for e in es),
+        "crossings": _crossing_counts(es),
     }
 
 
-def route(region: str, from_lat: float, from_lon: float, to_lat: float, to_lon: float) -> dict | None:
+def _crossing_counts(es: list[dict]) -> dict:
+    """Count crossings once per street crossed (consecutive crossing edges are one crossing)."""
+    out = {"total": 0, "signals": 0, "audible": 0, "marked": 0, "unmarked_or_unknown": 0, "tactile": 0}
+    prev = False
+    for e in es:
+        cur = is_crossing(e)
+        if cur and not prev:
+            out["total"] += 1
+            kind = (e.get("crossing") or "").lower()
+            if e.get("signals") is True or kind == "traffic_signals":
+                out["signals"] += 1
+                out["audible"] += _yes(e.get("sound")) or _yes(e.get("vibration"))
+            elif kind in ("marked", "zebra", "uncontrolled"):
+                out["marked"] += 1
+            else:
+                out["unmarked_or_unknown"] += 1
+            out["tactile"] += e.get("tactile") is True
+        prev = cur
+    return out
+
+
+def crossing_sentence(c: dict) -> str:
+    if not c or not c["total"]:
+        return "No street crossings."
+    parts = []
+    if c["signals"]:
+        parts.append(f"{c['signals']} with traffic signals ({c['audible']} audible)")
+    if c["marked"]:
+        parts.append(f"{c['marked']} marked without a signal")
+    if c["unmarked_or_unknown"]:
+        parts.append(f"{c['unmarked_or_unknown']} unmarked or not mapped")
+    n = c["total"]
+    return f"{n} street crossing{'s' if n > 1 else ''}: " + ", ".join(parts) + "."
+
+
+def route(
+    region: str, from_lat: float, from_lon: float, to_lat: float, to_lon: float, profile: str = "wheelchair"
+) -> dict | None:
     """Easiest wheelchair route between two points, with directions in words, plus a comparison
-    with the shortest route. None when either end is more than 150 m from the network or no
+    with the shortest route. profile="blind" also prefers signalised (ideally audible) crossings
+    and avoids unmarked ones. None when either end is more than 150 m from the network or no
     step-free route exists."""
     g, nodes, _, _ = network(region)
     a, da = _snap(region, from_lat, from_lon)
@@ -248,7 +350,7 @@ def route(region: str, from_lat: float, from_lon: float, to_lat: float, to_lon: 
     if da > 150 or db > 150:
         return None
     try:
-        easy = nx.shortest_path(g, a, b, weight="cost")
+        easy = nx.shortest_path(g, a, b, weight="cost_blind" if profile == "blind" else "cost")
     except nx.NetworkXNoPath:
         return None
     if not math.isfinite(nx.path_weight(g, easy, "cost")):
@@ -273,6 +375,9 @@ def route(region: str, from_lat: float, from_lon: float, to_lat: float, to_lon: 
         "steep_sections": s_easy["steep_sections"],
         "steps": s_easy["steps"],
         "raised_kerbs": s_easy["raised_kerbs"],
+        "crossings": s_easy["crossings"],
+        "crossings_text": crossing_sentence(s_easy["crossings"]),
+        "profile": profile,
         "road_without_sidewalk_feet": round(s_easy["road_without_sidewalk_m"] * FT),
         "directions": _describe(legs),
         "compared_with_shortest": compare,
