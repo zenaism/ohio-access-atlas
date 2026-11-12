@@ -22,17 +22,21 @@ def browser_api_key() -> str:
 
 
 def matched_place_ids(records: dict) -> dict[str, str]:
-    """Return only matched Place IDs; other Google Places content stays private."""
-    return {
-        link_id: record["google_id"]
-        for link_id, record in records.items()
-        if record.get("matched") and isinstance(record.get("google_id"), str)
-    }
+    """Return matched IDs from either the IDs-only file or the legacy private cache."""
+    ids = {}
+    for link_id, record in records.items():
+        if isinstance(record, str) and record:
+            ids[link_id] = record
+        elif isinstance(record, dict) and record.get("matched") and isinstance(record.get("google_id"), str):
+            ids[link_id] = record["google_id"]
+    return ids
 
 
 def public_place_ids() -> dict[str, str]:
-    path = ROOT / "data/private/google_accessibility.json"
-    if not path.exists():
-        return {}
-    records = json.loads(path.read_text()).get("places", {})
-    return matched_place_ids(records)
+    ids_path = ROOT / "data/private/google_place_ids.json"
+    if ids_path.exists():
+        return matched_place_ids(json.loads(ids_path.read_text()).get("places", {}))
+    legacy_path = ROOT / "data/private/google_accessibility.json"
+    if legacy_path.exists():
+        return matched_place_ids(json.loads(legacy_path.read_text()).get("places", {}))
+    return {}

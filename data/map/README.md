@@ -8,10 +8,11 @@
 They are served by GitHub Pages from this folder and update whenever `make map` output is pushed.
 
 **Google Places accessibility:** the same Cincinnati and Oxford maps can request live accessibility
-details from Google when a matched place is selected. Run `scripts/google_places_private.py` to
-fetch matches, configure a referrer-restricted Maps JavaScript API key, then run `make map`.
-When enabled, the existing map pages use a Google basemap and publish matched Place IDs only; they
-do not embed saved Google Places details.
+details from Google when a matched place is selected. Configure a referrer-restricted Maps
+JavaScript API key, then run `scripts/google_places_private.py`. It fetches matches and refreshes
+the existing map pages. If the browser key is not configured, it fetches locally and tells you to
+run `make map` after configuring the key. Google data in the map files is limited to matched Place
+IDs; accessibility details are fetched live and are not embedded.
 
 **Quick preview inside GitHub:** click [github/cincinnati.geojson](github/cincinnati.geojson) or
 [github/oxford.geojson](github/oxford.geojson). GitHub draws them as maps; click a marker for its facts.

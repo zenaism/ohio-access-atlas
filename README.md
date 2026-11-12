@@ -51,7 +51,7 @@ Per-source counts, categories and failed pages: [`docs/source_inventory.md`](doc
 make setup       # Python venv, packages, headless browser
 make data        # download the open sources for both cities (cached)
 make extract     # turn saved pages into facts, trails and events
-make map         # build data/map: GeoJSON, the two maps and the text pages
+make map         # build data/map; includes Google Places when configured
 make inventory   # refresh docs/source_inventory.md
 make test
 ```
