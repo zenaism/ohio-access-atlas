@@ -13,7 +13,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
+import string
 from datetime import date
 from pathlib import Path
 
@@ -564,6 +566,7 @@ def write() -> list[Path]:
         feats += event_features(region, g, matches, hosts, review)
         enrich(feats, g)
         add_getting_there(feats, region)
+        add_arrival(feats, region)
         seen: dict[str, int] = {}
         for f in feats:  # same name at the same spot (OSM node + way): keep links unique
             k = f["properties"]["link_id"]
@@ -1024,7 +1027,7 @@ def add_getting_there(feats: list, region: str) -> None:
             dist = c.distance(here)
             best = c.iloc[dist.argmin()]
             g["bus_stop"] = {
-                "name": best.stop_name,
+                "name": _stop(best.stop_name),
                 "metres": round(float(dist.min())),
                 "boarding": str(best.wheelchair_boarding),
             }
@@ -1074,3 +1077,110 @@ def add_getting_there(feats: list, region: str) -> None:
             )
         g["text"] = "Getting there: " + "; ".join(parts) + "."
         p["getting_there"] = g
+
+
+# ---------------------------------------------------------------- arrival ----
+# A short description in words of how to reach the door, for people who cannot see the map.
+# Computed from mapped entrances, bus stops and the venue's own entrance text; never a route.
+COMPASS = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+DOORS = {
+    "automatic": "automatic door",
+    "sliding": "sliding door",
+    "revolving": "revolving door",
+    "hinged": "hinged door",
+    "swinging": "hinged door",
+    "no": "open doorway",
+}
+
+
+def _towards(a, b) -> str:
+    """8-point compass direction from point a to point b (metric CRS)."""
+    ang = (math.degrees(math.atan2(b.x - a.x, b.y - a.y)) + 360) % 360
+    return COMPASS[round(ang / 45) % 8]
+
+
+def _stop(name: str) -> str:
+    """CENTRAL PKWY & EZZARD CHARLES DR -> Central Pkwy & Ezzard Charles Dr."""
+    return string.capwords(name) if name.isupper() else name
+
+
+def _feet(m: float) -> str:
+    return f"about {max(50, round(m * 3.28084 / 50) * 50)} feet"
+
+
+def add_arrival(feats: list, region: str) -> None:
+    d = PROCESSED / region
+    e = gpd.read_parquet(d / "osm.entities.parquet")
+    ent = e[e.entity_type == "entrance"].copy()
+    ent["t"] = ent.tags.map(json.loads)
+    ent["wc"] = ent.t.map(lambda t: (t.get("wheelchair") or "").split(";")[-1])
+    ent = _metric(ent[ent.wc.isin(["yes", "designated", "limited", "no"])])
+    bld = d / "osm_entrances.entities.parquet"
+    bld = _metric(gpd.read_parquet(bld)) if bld.exists() else None
+    gt = "gtfs_metro" if region == "cincinnati" else "gtfs_bcrta"
+    s = gpd.read_parquet(d / f"{gt}.entities.parquet")
+    if "geometry" not in s or s.geometry.isna().all():
+        s = gpd.GeoDataFrame(
+            s, geometry=gpd.points_from_xy(s.stop_lon.astype(float), s.stop_lat.astype(float)), crs=WGS84
+        )
+    stops = _metric(s)
+    for f in feats:
+        p = f["properties"]
+        if p["layer"] in ("trail", "restroom", "event"):
+            continue
+        here = gpd.GeoSeries([point(f["geometry"])], crs=WGS84).to_crs(METRIC).iloc[0]
+        centre, mine = here, None
+        if bld is not None:
+            oid = p.get("matched_to", "").split(" ")[0]
+            hit = bld[bld.entity_id == oid]
+            if hit.empty:
+                hit = bld[bld.contains(here)]
+            if not hit.empty:
+                centre, mine = hit.geometry.iloc[0].centroid, set(json.loads(hit.entrance_ids.iloc[0]))
+        near = ent[ent.entity_id.isin(mine)] if mine else ent.iloc[list(ent.sindex.query(here.buffer(80)))]
+        parts, door_pt = [], None
+        ok = near[near.wc.isin(["yes", "designated"])]
+        if len(ok):
+            best = ok.iloc[ok.distance(here).argmin()]
+            door_pt = best.geometry
+            t = best.t
+            bits = []
+            if centre.distance(door_pt) > 8:
+                bits.append(f"on the {_towards(centre, door_pt)} side")
+            if t.get("addr:street"):
+                bits.append(f"on {t['addr:street']}")
+            what = t.get("name") or ("main entrance" if t.get("entrance") == "main" else "entrance")
+            door = DOORS.get(t.get("door", ""))
+            parts.append(
+                f"A wheelchair-accessible {what} is mapped "
+                + " ".join(bits)
+                + (f", {door}" if door else "")
+                + "."
+            )
+            if len(ok) > 1:
+                parts.append(f"{len(ok)} accessible entrances are mapped in all.")
+            mains = near[(near.t.map(lambda x: x.get("entrance")) == "main") & (near.wc == "no")]
+            if len(mains):
+                parts.append("The main entrance is mapped as not accessible; use the accessible one.")
+        elif len(near[near.wc == "no"]):
+            parts.append(
+                f"{len(near)} nearby entrance{'s are' if len(near) > 1 else ' is'} mapped as not "
+                "wheelchair accessible; no accessible entrance is mapped. Call ahead."
+            )
+        said = [x for x in p.get("facts", []) if x["attribute"] == "Step-free entrance" and x.get("detail")]
+        if said:
+            parts.append(f"The venue says: {said[0]['detail']}.")
+        target = door_pt or here
+        idx = list(stops.sindex.query(target.buffer(800)))
+        if idx:
+            c = stops.iloc[idx]
+            dist = c.distance(target)
+            st = c.iloc[dist.argmin()]
+            parts.append(
+                f"From the {_stop(st.stop_name)} bus stop, "
+                f"the {'accessible entrance' if door_pt is not None else 'place'} is {_feet(dist.min())} "
+                f"to the {_towards(st.geometry, target)}, in a straight line."
+            )
+        if not parts:
+            continue
+        p.setdefault("getting_there", {})["arrival"] = " ".join(parts)

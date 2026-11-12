@@ -320,15 +320,16 @@ function details(it){
   }
   if (p.getting_there){
     const g = p.getting_there, li = [];
-    if (g.bus_stop) li.push(`Nearest bus stop: ${esc(g.bus_stop.name)}, about ${Math.round(g.bus_stop.metres*3.28084/50)*50} feet${g.bus_stop.boarding === '1' ? ' (marked wheelchair boarding)' : ''}`);
-    else li.push('No bus stop within half a mile');
+    if (g.arrival) li.push(`<strong>Arriving:</strong> ${esc(g.arrival)}`);
+    if (g.arrival && g.arrival.includes('bus stop')) {} else if (g.bus_stop) li.push(`Nearest bus stop: ${esc(g.bus_stop.name)}, about ${Math.round(g.bus_stop.metres*3.28084/50)*50} feet${g.bus_stop.boarding === '1' ? ' (marked wheelchair boarding)' : ''}`);
+    else if (!g.bus_stop) li.push('No bus stop within half a mile');
     li.push(g.steep_sections ? `${g.steep_sections} path section${g.steep_sections > 1 ? 's' : ''} steeper than a ramp (8.33%) within 500 feet; steepest about ${g.steepest_pct}%` : 'No path steeper than a ramp (8.33%) within 500 feet');
     if (g.stairs) li.push(`${g.stairs} mapped stairway${g.stairs > 1 ? 's' : ''} within 500 feet`);
     if (g.curb_ramps !== undefined) li.push(`${g.curb_ramps} city-mapped curb ramp${g.curb_ramps !== 1 ? 's' : ''} within 500 feet`);
     if (g.accessible_signals) li.push(`${g.accessible_signals} crossing${g.accessible_signals > 1 ? 's' : ''} with accessible signals (sound or vibration) within 500 feet`);
     if (g.tactile_paving) li.push(`${g.tactile_paving} mapped spot${g.tactile_paving > 1 ? 's' : ''} with tactile paving within 500 feet`);
     if (g.reports_12m) li.push(`${g.reports_12m} sidewalk or curb problem report${g.reports_12m > 1 ? 's' : ''} to 311 in the past year (${g.reports_open} still open)`);
-    h += '<h4>Getting there</h4><ul>' + li.map(x => `<li>${x}</li>`).join('') + '</ul><p class="note">Slopes are estimated from elevation data, not measured on site.</p>';
+    h += '<h4>Getting there</h4><ul>' + li.map(x => `<li>${x}</li>`).join('') + '</ul><p class="note">Computed from map data, not checked on site. Directions and distances are straight-line; slopes are estimated from elevation data.</p>';
   }
   const c = p.contacts || {emails:[], phones:[]};
   if (c.emails.length || c.phones.length)
