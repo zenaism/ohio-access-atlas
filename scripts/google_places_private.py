@@ -162,7 +162,7 @@ def fetch() -> dict:
     return out
 
 
-def private_map(google: dict) -> None:
+def private_map(google: dict, extra: dict | None = None) -> None:
     """Copy of the public map with Google's answers added as facts; rating and key line recomputed."""
     sys.path.insert(0, str(ROOT / "src"))
     import pandas as pd
@@ -203,6 +203,44 @@ def private_map(google: dict) -> None:
             p.pop("summary_text", None)
             p["summary"] = summarise(p)
             p["keys"] = key_facts(p)
+        for gid, n in (extra or {}).items():
+            if n["region"] != region:
+                continue
+            facts = [
+                {
+                    "attribute": label,
+                    "value": "yes" if n["accessibility"][field] else "no",
+                    "detail": "Google Maps (private copy)",
+                    "quote": "",
+                    "source": n["url"] or "",
+                    "date": date.today().isoformat()[:7],
+                }
+                for field, (label, _a) in FIELDS.items()
+                if field in n["accessibility"]
+            ]
+            props = {
+                "name": n["name"],
+                "layer": LAYER.get(n["type"] or "", "food_drink"),
+                "facts": facts,
+                "matched_to": f"google:{gid} ({n['name']})",
+                "region": region,
+                "contacts": {"emails": [], "phones": []},
+                "link_id": "g-" + gid[-10:].lower(),
+                "newest_source": date.today().isoformat()[:7],
+                "details": {"address": n["address"], "sources": {"address": "Google Maps"}},
+            }
+            rows = [(LABEL_TO_ATTR.get(x["attribute"], x["attribute"]), x["value"]) for x in facts]
+            props["access_rating"] = rate(pd.DataFrame(rows, columns=["attribute", "value"]))
+            props["summary"] = summarise(props)
+            props["keys"] = key_facts(props)
+            fc["features"].append(
+                {
+                    "type": "Feature",
+                    "id": f"{region}:g{gid}",
+                    "geometry": {"type": "Point", "coordinates": [n["lon"], n["lat"]]},
+                    "properties": props,
+                }
+            )
         (out_dir / f"{region}_atlas.geojson").write_text(json.dumps(fc, ensure_ascii=False))
         data[region] = fc
         title = f"{region.title()} accessibility map (PRIVATE, with Google data)"
@@ -210,6 +248,127 @@ def private_map(google: dict) -> None:
     print(f"private map written to {out_dir.relative_to(ROOT)}/ (git-ignored)")
 
 
+# ---------------------------------------------------------------- area searches ----
+# Places we do not have yet, in the areas people ask about. One request per query (no paging),
+# accessibility tier only; well under the daily quota.
+AREA_QUERIES = [
+    ("cincinnati", "coffee shop in Over-the-Rhine, Cincinnati"),
+    ("cincinnati", "restaurant in Over-the-Rhine, Cincinnati"),
+    ("cincinnati", "bar in Over-the-Rhine, Cincinnati"),
+    ("cincinnati", "brewery in Over-the-Rhine, Cincinnati"),
+    ("cincinnati", "Findlay Market vendors, Cincinnati"),
+    ("cincinnati", "coffee shop in downtown Cincinnati"),
+    ("cincinnati", "restaurant in downtown Cincinnati"),
+    ("cincinnati", "hotel in downtown Cincinnati"),
+    ("cincinnati", "pharmacy in downtown Cincinnati"),
+    ("cincinnati", "grocery store in Cincinnati"),
+    ("cincinnati", "restaurant in Northside, Cincinnati"),
+    ("cincinnati", "brewery in Northside, Cincinnati"),
+    ("cincinnati", "coffee shop in Northside, Cincinnati"),
+    ("cincinnati", "restaurant on Ludlow Avenue, Clifton, Cincinnati"),
+    ("cincinnati", "coffee shop in Clifton, Cincinnati"),
+    ("cincinnati", "Skyline Chili Ludlow Avenue Cincinnati"),
+    ("cincinnati", "restaurant in Hyde Park, Cincinnati"),
+    ("cincinnati", "restaurant in Mount Adams, Cincinnati"),
+    ("cincinnati", "restaurant at The Banks, Cincinnati"),
+    ("oxford", "restaurant in Uptown Oxford, Ohio"),
+    ("oxford", "coffee shop in Oxford, Ohio"),
+    ("oxford", "bar in Uptown Oxford, Ohio"),
+    ("oxford", "hotel in Oxford, Ohio"),
+    ("oxford", "pharmacy in Oxford, Ohio"),
+    ("oxford", "grocery store in Oxford, Ohio"),
+]
+AREA_MASK = MASK + ",places.primaryType,places.formattedAddress"
+LAYER = {
+    "lodging": "lodging",
+    "hotel": "lodging",
+    "pharmacy": "service",
+    "drugstore": "service",
+    "grocery_store": "service",
+    "supermarket": "service",
+    "convenience_store": "service",
+}
+
+
+def area_search(k: str, query: str) -> list[dict]:
+    body = {"textQuery": query, "pageSize": 20}
+    cache = (
+        PRIVATE
+        / "raw"
+        / ("area-" + hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()[:20] + ".json")
+    )
+    if cache.exists():
+        return json.loads(cache.read_text()).get("places", [])
+    r = requests.post(
+        URL,
+        json=body,
+        timeout=30,
+        headers={"X-Goog-Api-Key": k, "X-Goog-FieldMask": AREA_MASK, "Content-Type": "application/json"},
+    )
+    if r.status_code != 200:
+        raise SystemExit(f"Google returned {r.status_code} for {query!r}: {r.text[:300]}")
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    cache.write_text(r.text)
+    time.sleep(0.2)
+    return r.json().get("places", [])
+
+
+def new_places(google: dict) -> dict:
+    """Places from area searches that are not on our map yet and have accessibility answers."""
+    sys.path.insert(0, str(ROOT / "src"))
+    from shapely.geometry import Point
+
+    from atlas.core import area
+
+    k, known_ids = key(), {v.get("google_id") for v in google.values() if v.get("matched")}
+    ours = []
+    for region in ("cincinnati", "oxford"):
+        for f in json.loads((ROOT / f"data/map/{region}_atlas.geojson").read_text())["features"]:
+            if f["geometry"]["type"] == "Point":
+                lon, lat = f["geometry"]["coordinates"]
+                ours.append((f["properties"]["name"], lat, lon))
+    found = {}
+    for region, q in AREA_QUERIES:
+        for res in area_search(k, q):
+            loc = res["location"]
+            if res["id"] in known_ids or res["id"] in found or not res.get("accessibilityOptions"):
+                continue
+            if not area(region).contains(Point(loc["longitude"], loc["latitude"])):
+                continue
+            name = res["displayName"]["text"]
+            if any(
+                metres(lat, lon, loc["latitude"], loc["longitude"]) < 40 and same_name(n, name)
+                for n, lat, lon in ours
+            ):
+                continue  # already on our map under another source
+            found[res["id"]] = {
+                "name": name,
+                "region": region,
+                "lat": loc["latitude"],
+                "lon": loc["longitude"],
+                "type": res.get("primaryType"),
+                "address": res.get("formattedAddress"),
+                "url": res.get("googleMapsUri"),
+                "accessibility": res["accessibilityOptions"],
+                "query": q,
+            }
+    (PRIVATE / "google_new_places.json").write_text(
+        json.dumps(
+            {
+                "fetched": date.today().isoformat(),
+                "note": "PRIVATE: Google Places content; do not commit or publish.",
+                "queries": len(AREA_QUERIES),
+                "places": found,
+            },
+            indent=1,
+            ensure_ascii=False,
+        )
+    )
+    print(f"{len(AREA_QUERIES)} area searches; {len(found)} new places with accessibility answers")
+    return found
+
+
 if __name__ == "__main__":
     g = fetch()
-    private_map(g)
+    extra = new_places(g) if "--areas" in sys.argv else {}
+    private_map(g, extra)
