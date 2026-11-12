@@ -691,6 +691,65 @@ SUMMARY_ORDER = [
     "ramp_steep",
 ]
 LABEL_TO_ATTR = {v: k for k, v in LABELS.items()}
+# The short "what is known" line on each card: (key, card label). Entrance and restroom are always
+# shown (as "not known" when missing) because they are what a wheelchair user asks first.
+KEY_FACTS = [
+    ("entrance", "Entrance"),
+    ("restroom", "Restroom"),
+    ("inside", "Inside"),
+    ("elevator", "Elevator"),
+    ("adult_changing_table", "Adult changing table"),
+    ("accessible_rooms", "Accessible rooms"),
+    ("accessible_parking", "Parking"),
+    ("accessible_seating", "Wheelchair seating"),
+    ("wheelchair_loan", "Wheelchair loan"),
+    ("braille", "Braille"),
+    ("audio_description", "Audio description"),
+    ("large_print", "Large print"),
+    ("tactile", "Touch"),
+    ("service_animals", "Service animals"),
+]
+KEY_SOURCES = {  # fact attribute (label or OSM tag) -> key
+    "Step-free entrance": "entrance",
+    "Accessible entrance": "entrance",
+    "wheelchair": "entrance",
+    "entrance:wheelchair": "entrance",
+    "Accessible restroom": "restroom",
+    "toilets:wheelchair": "restroom",
+    "Elevator / lift": "elevator",
+    "Getting around inside": "inside",
+    "Adult changing table": "adult_changing_table",
+    "Accessible rooms": "accessible_rooms",
+    "Accessible parking": "accessible_parking",
+    "Wheelchair seating": "accessible_seating",
+    "Wheelchair loan": "wheelchair_loan",
+    "Braille": "braille",
+    "Audio description": "audio_description",
+    "Large print": "large_print",
+    "Touch / tactile": "tactile",
+    "Service animals": "service_animals",
+}
+WORD = {"yes": "yes", "designated": "yes", "limited": "partly", "no": "no"}
+
+
+def key_facts(p: dict) -> list[list[str]]:
+    """[[label, yes|partly|no|not known], ...] for places; empty for restrooms, trails and events."""
+    if p["layer"] in ("restroom", "trail", "event"):
+        return []
+    got: dict[str, str] = {}
+    for f in p.get("facts", []):
+        k = KEY_SOURCES.get(f["attribute"])
+        v = WORD.get(str(f.get("value", "")).split(";")[-1])
+        if k and v and (k not in got or got[k] == "no" and v != "no"):
+            got[k] = v
+    if p["layer"] == "food_drink" or p["layer"] == "service":
+        got.setdefault("restroom", "not known")
+    out = [
+        [lab, got.get(k, "not known")] for k, lab in KEY_FACTS if k in got or k in ("entrance", "restroom")
+    ]
+    return out if any(v != "not known" for _, v in out) else []
+
+
 EMAIL = re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+")
 PHONE = re.compile(r"\(?\b\d{3}\)?[-. ]\d{3}[-. ]\d{4}\b")
 
@@ -823,6 +882,7 @@ def enrich(feats: list, g: gpd.GeoDataFrame) -> None:
             if best:
                 p["name"] = f"Restroom near {best}"
         p["summary"] = summarise(p)
+        p["keys"] = key_facts(p)
         dates = sorted(
             str(x.get("date")) for x in p.get("facts", []) if re.match(r"\d{4}", str(x.get("date") or ""))
         )

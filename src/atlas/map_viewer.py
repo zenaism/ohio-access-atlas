@@ -88,6 +88,10 @@ TEMPLATE = r"""<!DOCTYPE html>
  .rb{display:inline-flex;align-items:center;gap:6px;color:#374151;font-weight:550}
  .rb i{font-style:normal;width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
  .sum{margin:7px 0 8px;font-size:14px;color:#374151}
+ .keys{list-style:none;margin:8px 0 6px;padding:0;display:flex;flex-wrap:wrap;gap:4px 6px;font-size:13px}
+ .keys li{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 4px;border-radius:999px;background:#f3f4f6;color:#1f2937}
+ .keys i{font-style:normal;font-weight:700;width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;color:#fff;background:#767676}
+ .keys .k-yes i{background:#0072B2} .keys .k-partly i{background:#E69F00;color:#1b1f24} .keys .k-no i{background:#D55E00}
  .actions{display:flex;gap:2px;flex-wrap:wrap;margin-left:-8px}
  .det{margin:6px 0 0;padding:10px 12px;background:var(--soft);border-radius:12px;font-size:13.5px}
  .det table{border-collapse:collapse;width:100%} .det th,.det td{text-align:left;vertical-align:top;padding:6px 4px;border-bottom:1px solid #e5e7eb}
@@ -306,6 +310,7 @@ function directions(it){ const [la, lo] = here ? it.near : it.pts[0];
   return `https://www.google.com/maps/dir/?api=1&destination=${la},${lo}&travelmode=walking`; }
 function details(it){
   const p = it.p; let h = '';
+  if (keyLine(p) && p.summary.length > 160) h += `<p class="sum">${esc(p.summary)}</p>`;
   if (p.facts && p.facts.length){
     h += `<table><caption class="vh">Accessibility facts for ${esc(p.name)}</caption><thead><tr><th scope="col">Feature</th><th scope="col">What the source says</th></tr></thead><tbody>`
       + p.facts.map(f => `<tr><th scope="row">${esc(f.attribute)}: ${esc(f.value)}</th><td>${esc(f.detail)}`
@@ -340,15 +345,24 @@ function details(it){
     + `<a class="btn ghost" href="${issue}" target="_blank" rel="noopener">Report a problem<span class="vh"> with ${esc(p.name)} (opens GitHub in a new tab)</span></a></div>`;
   return h || '<p>No further details yet.</p>';
 }
+const KEYMARK = {'yes':'✓', 'partly':'~', 'no':'✕', 'not known':'?'};
+function keyLine(p){
+  if (!p.keys || !p.keys.length) return '';
+  return '<ul class="keys" aria-label="What is known">' + p.keys.map(([k, v]) =>
+    `<li class="k-${v.replace(' ', '-')}"><i aria-hidden="true">${KEYMARK[v]}</i>${esc(k)}: ${esc(v)}</li>`).join('') + '</ul>';
+}
 function card(it){
   const p = it.p, li = document.createElement('li'); li.className = 'card'; li.id = 'card-' + it.i;
   const where = it.dist != null ? `<span>${fmt(it.dist)} ${it.dir}</span>` : '';
   const evs = windowEvents(it);
   const evline = p.events && p.layer !== 'event' && evs.length ? `<span>${evs.length} upcoming event${evs.length > 1 ? 's' : ''}</span>` : '';
+  const keys = keyLine(p);
+  const longSum = keys && p.summary.length > 160;   // long text moves into Details; the key line says it first
   const old = p.newest_source && p.newest_source < OLD ? `<span class="old">Source from ${p.newest_source.slice(0, 4)}, may be out of date</span>` : '';
   li.innerHTML = `<h3 tabindex="-1">${esc(p.name)}</h3>
     <p class="meta">${badge(p.access_rating)}<span>${ICONS[p.layer][0]}</span>${where}${evline}${old}</p>
-    <p class="sum">${esc(p.summary)}</p>
+    ${keys}
+    ${longSum ? '' : `<p class="sum">${esc(p.summary)}</p>`}
     <div class="actions">
       <button type="button" class="ghost" data-a="map">Show on map<span class="vh">: ${esc(p.name)}</span></button>
       <a class="btn ghost" href="${directions(it)}" target="_blank" rel="noopener">Directions<span class="vh"> to ${esc(p.name)} in Google Maps (opens in a new tab)</span></a>
