@@ -94,7 +94,12 @@ TEMPLATE = r"""<!DOCTYPE html>
  .det tr:last-child th,.det tr:last-child td{border-bottom:0} .det th{width:36%;font-weight:600} .q{color:var(--muted);font-style:italic}
  .det ul{margin:4px 0;padding-left:18px}
  .old{color:#92400e} .det .links{display:flex;gap:2px;flex-wrap:wrap;margin:8px 0 0 -8px}
- #more{width:100%;justify-content:center;margin-top:12px}
+ .pager{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px;margin:12px 0 4px}
+ .pager button{font-size:1rem;min-width:38px;min-height:40px;padding:0 6px;justify-content:center}
+ .pager button[aria-current=page]{background:#1b1f24;color:#fff;border-color:#1b1f24}
+ @media (min-width:721px) and (max-width:1100px){.pager{gap:2px} .pager button{min-width:32px;padding:0 4px}}
+ .pager .gap{padding:0 4px;color:#555}
+ .pager .where{width:100%;text-align:center;font-size:.85rem;color:#555;margin-top:2px}
  /* map */
  .mapwrap{position:relative;min-height:0} #map{position:absolute;inset:0;background:#eef0f2}
  .leaflet-tile-pane{filter:grayscale(.9) brightness(1.07) contrast(.88)}
@@ -165,7 +170,7 @@ TEMPLATE = r"""<!DOCTYPE html>
    </div>
    <p id="status" role="status" aria-live="polite"></p>
    <ol id="list"></ol>
-   <button id="more" type="button" hidden>Show more</button>
+   <nav id="pager" class="pager" aria-label="Pages of places" hidden></nav>
   </div>
  </section>
  <section class="mapwrap" aria-label="Map. Visual companion: every place on the map is also in the list.">
@@ -180,7 +185,7 @@ TEMPLATE = r"""<!DOCTYPE html>
 </main>
 <script>
 const DATA = __DATA__, RATINGS = __RATINGS__, HELP = __HELP__, ICONS = __ICONS__;
-const PAGE = 30;
+const PAGE = 20;
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const svg = (layer, colour, size=20) => `<svg aria-hidden="true" width="${size}" height="${size}" viewBox="0 0 20 20" style="color:${colour}">${ICONS[layer][1]}</svg>`;
 const badge = r => `<span class="rb"><i aria-hidden="true" style="background:${RATINGS[r][1]};color:${RATINGS[r][3]}">${RATINGS[r][2]}</i>${RATINGS[r][0]}</span>`;
@@ -279,7 +284,7 @@ function windowEvents(it){
   return ev.filter(e => e.start.slice(0, 10) >= TODAY && e.start.slice(0, 10) <= end);
 }
 const OLD = String(new Date().getFullYear() - 3);   // sources older than 3 years get a warning
-let here = null, shown = PAGE, hereMarker = null;
+let here = null, page = 0, hereMarker = null;
 
 function metres(a, b){ const R=6371000, r=Math.PI/180, dLa=(b[0]-a[0])*r, dLo=(b[1]-a[1])*r;
   const h=Math.sin(dLa/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dLo/2)**2; return 2*R*Math.asin(Math.sqrt(h)); }
@@ -371,9 +376,10 @@ function syncMap(list){
 function render(announce){
   const list = current(), ol = document.getElementById('list'); ol.innerHTML = '';
   syncMap(list);
-  list.slice(0, shown).forEach(it => ol.appendChild(card(it)));
-  const more = document.getElementById('more'); more.hidden = list.length <= shown;
-  more.textContent = `Show ${Math.min(PAGE, list.length - shown)} more of ${list.length - shown} remaining`;
+  const pages = Math.max(1, Math.ceil(list.length / PAGE)); page = Math.min(page, pages - 1);
+  list.slice(page * PAGE, (page + 1) * PAGE).forEach(it => ol.appendChild(card(it)));
+  ol.start = page * PAGE + 1;
+  drawPager(list.length, pages);
   if (announce !== false){
     const t = q.value.trim();
     document.getElementById('sheet-label').textContent = `${list.length} place${list.length === 1 ? '' : 's'}`;
@@ -390,18 +396,37 @@ function openCard(i){
   map.closePopup();
   const it = ITEMS[i]; let idx = current().indexOf(it);
   if (idx < 0){ q.value = ''; need.value = 'All places'; known.checked = false; idx = current().indexOf(it); }
-  if (idx >= shown){ shown = idx + 1; }
+  page = Math.floor(idx / PAGE);
   render(false);
   const li = document.getElementById('card-' + i); toggle(it, li.querySelector('[data-a=det]'), true);
   if (PHONE.matches) setSheet(true); else setList(true);
   const box = PHONE.matches ? document.getElementById('side-body') : li.closest('.side-body');
   box.scrollTop = li.offsetTop - box.offsetTop - 8; li.querySelector('h3').focus({preventScroll:true});
 }
-[need, known, when].forEach(el => el.onchange = () => { when.hidden = need.value !== 'Events'; shown = PAGE; render(); });
-q.oninput = () => { shown = PAGE; render(); };
-document.getElementById('more').onclick = () => {
-  const first = shown; shown += PAGE; render(false);
-  const cards = document.querySelectorAll('#list .card'); if (cards[first]) cards[first].querySelector('h3').focus();
+[need, known, when].forEach(el => el.onchange = () => { when.hidden = need.value !== 'Events'; page = 0; render(); });
+q.oninput = () => { page = 0; render(); };
+// ---------- paging ----------
+function pageNumbers(n, cur){  // 1 … 4 5 6 … 24 (0-based in, mixed out)
+  const keep = new Set([0, n - 1, cur - 1, cur, cur + 1]), out = [];
+  for (let i = 0; i < n; i++) if (keep.has(i)){ if (out.length && i - out[out.length - 1] > 1) out.push('…'); out.push(i); }
+  return out;
+}
+function drawPager(total, pages){
+  const nav = document.getElementById('pager'); nav.hidden = pages < 2; if (pages < 2){ nav.innerHTML = ''; return; }
+  const b = (label, to, extra = '') => `<button type="button" data-page="${to}" ${extra}>${label}</button>`;
+  nav.innerHTML = (page > 0 ? b('<span aria-hidden="true">‹</span><span class="vh">Previous page</span>', page - 1, 'title="Previous page"') : '')
+    + pageNumbers(pages, page).map(i => i === '…' ? '<span class="gap" aria-hidden="true">…</span>'
+        : b(`<span class="vh">Page </span>${i + 1}`, i, i === page ? 'aria-current="page"' : '')).join('')
+    + (page < pages - 1 ? b('<span class="vh">Next page</span><span aria-hidden="true">›</span>', page + 1, 'title="Next page"') : '')
+    + `<div class="where">Page ${page + 1} of ${pages} · places ${page * PAGE + 1}–${Math.min(total, (page + 1) * PAGE)} of ${total}</div>`;
+}
+document.getElementById('pager').onclick = e => {
+  const btn = e.target.closest('button[data-page]'); if (!btn) return;
+  page = +btn.dataset.page; render(false);
+  const list = current(), pages = Math.ceil(list.length / PAGE);
+  document.getElementById('status').textContent = `Page ${page + 1} of ${pages}, places ${page * PAGE + 1} to ${Math.min(list.length, (page + 1) * PAGE)} of ${list.length}.`;
+  const box = document.getElementById('side-body') || document.querySelector('.side-body'); box.scrollTop = 0;
+  const first = document.querySelector('#list .card h3'); if (first) first.focus({preventScroll:true});
 };
 // ---------- share links ----------
 function placeUrl(it){ return location.href.split('#')[0] + '#place=' + encodeURIComponent(it.p.link_id); }
@@ -428,7 +453,7 @@ function setHere(latlng, note){
   hereMarker = L.circleMarker(here, {pane:'here', radius:9, color:'#fff', weight:3, fillColor:'#d6006f', fillOpacity:1})
     .addTo(map).bindTooltip('You are here', {permanent:true, direction:'right', offset:[10,0]});
   map.setView(here, Math.max(map.getZoom(), 14));
-  shown = PAGE; render();
+  page = 0; render();
   if (PHONE.matches) setSheet(true); else setList(true);
   document.getElementById('status').textContent += ' ' + note + ' Distances are straight-line, not routes.';
 }
