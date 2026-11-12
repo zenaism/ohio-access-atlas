@@ -7,12 +7,14 @@
 
 They are served by GitHub Pages from this folder and update whenever `make map` output is pushed.
 
-**Google Places accessibility:** the same Cincinnati and Oxford maps can request live accessibility
-details from Google when a matched place is selected. Configure a referrer-restricted Maps
-JavaScript API key, then run `scripts/google_places_private.py`. It fetches matches and refreshes
-the existing map pages. If the browser key is not configured, it fetches locally and tells you to
-run `make map` after configuring the key. Google data in the map files is limited to matched Place
-IDs; accessibility details are fetched live and are not embedded.
+**Google Places accessibility:** the same Cincinnati and Oxford maps keep their original
+Leaflet/USGS basemap and can request live accessibility details from Google when a matched place
+is selected. Configure a referrer-restricted Maps JavaScript API key, then run
+`scripts/google_places_private.py`. It fetches matches and refreshes the existing map pages. If
+the browser key is not configured, it fetches locally and tells you to run `make map` after
+configuring the key. Google data in the map files is limited to matched Place IDs; accessibility
+details are fetched live and are not embedded. `google_place_matches.csv` joins Atlas feature
+records with their matched Google Place IDs; it does not contain Google Places detail responses.
 
 **Quick preview inside GitHub:** click [github/cincinnati.geojson](github/cincinnati.geojson) or
 [github/oxford.geojson](github/oxford.geojson). GitHub draws them as maps; click a marker for its facts.
@@ -43,6 +45,7 @@ IDs; accessibility details are fetched live and are not embedded.
 |---|---|
 | `cincinnati.html`, `oxford.html`, `index.html` | Interactive viewers (one city each, or both) |
 | `cincinnati_atlas.geojson`, `oxford_atlas.geojson` | Full map data: every fact with quote, source and date |
+| `google_place_matches.csv` | Atlas features joined to matched Google Place IDs; no Google detail responses |
 | `github/*.geojson` | Simplified copies styled for GitHub's map preview |
 | `review.csv` | Everything that could not be placed on the map, and why |
 

@@ -3,6 +3,7 @@
   data/map/<region>_atlas.geojson   FeatureCollection (WGS84), one feature per place/trail/event venue
   data/map/atlas_viewer.html        open by double-click: icons per layer, colour per access rating, legend
   data/map/review.csv               everything that could not be placed, and why
+  data/map/google_place_matches.csv Atlas features joined to cached Google Place IDs
 
 Nothing is placed by fuzzy guessing: fact places are pinned in config/place_matches.yaml; event venues
 are matched by exact name, by a park name in the event text, or by street address (U.S. Census
@@ -11,6 +12,7 @@ geocoder). Whatever fails goes to review.csv.
 
 from __future__ import annotations
 
+import csv
 import hashlib
 import json
 import math
@@ -635,11 +637,23 @@ def write() -> list[Path]:
         counts = pd.Series([f["properties"]["layer"] for f in fc["features"]]).value_counts().to_dict()
         log.info("[%s] map: %d features %s", region, len(fc["features"]), counts)
     pd.DataFrame(review).drop_duplicates().to_csv(MAP / "review.csv", index=False)
-    from .google_places import browser_api_key, public_place_ids
+    from .google_places import (
+        PLACE_MATCH_CSV_FIELDS,
+        browser_api_key,
+        place_match_rows,
+        public_place_ids,
+    )
     from .map_viewer import render
 
     google_api_key = browser_api_key()
-    google_place_ids = public_place_ids() if google_api_key else {}
+    all_google_place_ids = public_place_ids()
+    google_place_ids = all_google_place_ids if google_api_key else {}
+    matches_path = MAP / "google_place_matches.csv"
+    with matches_path.open("w", encoding="utf-8", newline="") as output:
+        writer = csv.DictWriter(output, fieldnames=PLACE_MATCH_CSV_FIELDS)
+        writer.writeheader()
+        writer.writerows(place_match_rows(data, all_google_place_ids))
+    written.append(matches_path)
     if google_api_key and not google_place_ids:
         log.warning(
             "Google Maps is enabled, but no matched Google Place IDs were found; "

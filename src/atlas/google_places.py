@@ -7,6 +7,15 @@ import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+PLACE_MATCH_CSV_FIELDS = (
+    "region",
+    "link_id",
+    "name",
+    "layer",
+    "access_rating",
+    "google_place_id",
+    "atlas_feature_json",
+)
 
 
 def browser_api_key() -> str:
@@ -40,3 +49,27 @@ def public_place_ids() -> dict[str, str]:
     if legacy_path.exists():
         return matched_place_ids(json.loads(legacy_path.read_text()).get("places", {}))
     return {}
+
+
+def place_match_rows(data: dict, place_ids: dict[str, str]) -> list[dict[str, str]]:
+    rows = []
+    for region, collection in data.items():
+        for feature in collection["features"]:
+            properties = feature["properties"]
+            place_id = place_ids.get(properties["link_id"])
+            if not place_id:
+                continue
+            rows.append(
+                {
+                    "region": region,
+                    "link_id": properties["link_id"],
+                    "name": properties.get("name", ""),
+                    "layer": properties.get("layer", ""),
+                    "access_rating": properties.get("access_rating", ""),
+                    "google_place_id": place_id,
+                    "atlas_feature_json": json.dumps(
+                        feature, ensure_ascii=False, separators=(",", ":")
+                    ),
+                }
+            )
+    return rows

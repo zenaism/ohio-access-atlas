@@ -60,8 +60,9 @@ Downloaded and processed data stay on your computer (`data/raw`, `data/processed
 To show Google Places details in those same maps, configure `GOOGLE_MAPS_BROWSER_API_KEY` in `.env`
 with Maps JavaScript API and Places API (New) enabled, and restrict it to the site's HTTP referrer
 (`https://zenaism.github.io/*`). The key is visible in the generated HTML, so never use an
-unrestricted server key. The maps publish matched Place IDs only and fetch Places details live
-when a place is selected.
+unrestricted server key. The maps keep their original Leaflet/USGS basemap; Google is used only
+to fetch matched Places details on demand when a place is selected. The maps publish matched
+Place IDs only, not the fetched details.
 
 ## Layout
 

@@ -222,22 +222,19 @@ __GOOGLE_API_SCRIPT__
 </main>
 <script>
 (async () => {
-let GOOGLE_ENABLED = __GOOGLE_ENABLED__;
+const GOOGLE_ENABLED = false;
+let GOOGLE_PLACES_ENABLED = __GOOGLE_PLACES_ENABLED__;
 const GOOGLE_PLACE_IDS = __GOOGLE_PLACE_IDS__;
 let googleMaps = null, GooglePlace = null, googleInfoWindow = null;
 let googleWarning = '';
-if (GOOGLE_ENABLED) {
+if (GOOGLE_PLACES_ENABLED) {
   try {
-    const [mapsLibrary, placesLibrary] = await Promise.all([
-      google.maps.importLibrary('maps'),
-      google.maps.importLibrary('places')
-    ]);
-    googleMaps = mapsLibrary;
+    const placesLibrary = await google.maps.importLibrary('places');
     GooglePlace = placesLibrary.Place;
   } catch (error) {
-    GOOGLE_ENABLED = false;
-    googleWarning = ' Google Maps could not start; showing the atlas map without Google Places details.';
-    console.error('Google Maps initialization failed', error);
+    GOOGLE_PLACES_ENABLED = false;
+    googleWarning = ' Google Places details could not start; the original atlas map remains available.';
+    console.error('Google Places initialization failed', error);
   }
 }
 const DATA = __DATA__, RATINGS = __RATINGS__, HELP = __HELP__, ICONS = __ICONS__;
@@ -290,6 +287,7 @@ async function fetchGoogleDetails(placeId){
     const request = (async () => {
       const place = new GooglePlace({id:placeId});
       await place.fetchFields({fields:['displayName','formattedAddress','googleMapsURI','accessibilityOptions','attributions']});
+      if (!place.displayName) throw new Error('Google Places returned no place details.');
       return {
         displayName:place.displayName,
         formattedAddress:place.formattedAddress,
@@ -350,8 +348,8 @@ function loadGoogleDetails(it, target){
   fetchGoogleDetails(it.googlePlaceId)
     .then(detail => target.replaceChildren(googleDetailsNode(detail)))
     .catch(error => {
-      target.textContent = 'Google Places details could not be loaded. Please try again later.';
-      document.getElementById('status').textContent = 'A Google Places request failed. Check the browser key, API access, and network.';
+      target.textContent = 'Google Places details could not be loaded. Check the browser key, API access, and referrer restrictions.';
+      document.getElementById('status').textContent = 'A Google Places request failed. Check the browser key, API access, and referrer restrictions.';
       console.error('Google Places detail request failed', error);
     });
 }
@@ -361,7 +359,7 @@ function googleInfoContent(it){
   const rating = document.createElement('p'); rating.textContent = RATINGS[it.p.access_rating][0]; root.append(rating);
   const summary = document.createElement('p'); summary.textContent = it.p.summary; root.append(summary);
   const details = document.createElement('div'); root.append(details);
-  if (it.googlePlaceId) loadGoogleDetails(it, details);
+  if (GOOGLE_PLACES_ENABLED && it.googlePlaceId) loadGoogleDetails(it, details);
   else details.textContent = 'No matched Google Place for this location.';
   const button = document.createElement('button'); button.type = 'button'; button.textContent = 'Details in the list';
   button.addEventListener('click', () => openCard(it.i)); root.append(button);
@@ -395,9 +393,9 @@ for (const region of Object.keys(DATA)) for (const f of DATA[region].features){
       it.googleLine.addListener('click', () => showGoogleInfo(it));
     } else {
       const [, color, symbol, glyph] = RATINGS[p.access_rating];
-      it.googleMarker = new googleMaps.Marker({
+      it.googleMarker = new google.maps.Marker({
         position:{lat:pts[0][0], lng:pts[0][1]}, title:p.name,
-        icon:{path:googleMaps.SymbolPath.CIRCLE, scale:12, fillColor:color, fillOpacity:1, strokeColor:'#fff', strokeWeight:2},
+        icon:{path:google.maps.SymbolPath.CIRCLE, scale:12, fillColor:color, fillOpacity:1, strokeColor:'#fff', strokeWeight:2},
         label:{text:symbol, color:glyph, fontSize:'13px', fontWeight:'bold'}
       });
       it.googleMarker.addListener('click', () => showGoogleInfo(it));
@@ -491,7 +489,7 @@ function directions(it){ const [la, lo] = here ? it.near : it.pts[0];
   return `https://www.google.com/maps/dir/?api=1&destination=${la},${lo}&travelmode=walking`; }
 function details(it){
   const p = it.p; let h = '';
-  if (GOOGLE_ENABLED && it.googlePlaceId)
+  if (GOOGLE_PLACES_ENABLED && it.googlePlaceId)
     h += `<div class="google-details" id="google-details-${it.i}"></div>`;
   if (keyLine(p) && p.summary.length > 160) h += `<p class="sum">${esc(p.summary)}</p>`;
   if (p.facts && p.facts.length){
@@ -724,9 +722,9 @@ function setHere(latlng, note){
     it.dist = best; it.near = near; it.dir = bearing(here, near); });
   if (hereMarker) GOOGLE_ENABLED ? hereMarker.setMap(null) : map.removeLayer(hereMarker);
   if (GOOGLE_ENABLED){
-    hereMarker = new googleMaps.Marker({
+    hereMarker = new google.maps.Marker({
       map, position:{lat:here[0], lng:here[1]}, title:'You are here',
-      icon:{path:googleMaps.SymbolPath.CIRCLE, scale:9, fillColor:'#d6006f', fillOpacity:1, strokeColor:'#fff', strokeWeight:3}
+      icon:{path:google.maps.SymbolPath.CIRCLE, scale:9, fillColor:'#d6006f', fillOpacity:1, strokeColor:'#fff', strokeWeight:3}
     });
     map.setCenter({lat:here[0], lng:here[1]});
     map.setZoom(Math.max(map.getZoom(), 14));
@@ -776,7 +774,7 @@ def render(
     google_place_ids: dict[str, str] | None = None,
 ) -> str:
     """data = {region: FeatureCollection}; nav = extra HTML after the date (e.g. a link to the other city)."""
-    google_enabled = bool(google_api_key)
+    google_places_enabled = bool(google_api_key)
     visible_link_ids = {
         feature["properties"]["link_id"]
         for collection in data.values()
@@ -785,12 +783,12 @@ def render(
     google_ids = {
         link_id: place_id
         for link_id, place_id in (google_place_ids or {}).items()
-        if google_enabled and link_id in visible_link_ids
+        if google_places_enabled and link_id in visible_link_ids
     }
     google_ids_json = json.dumps(google_ids, ensure_ascii=False).replace("<", "\\u003c")
     google_api_script = (
         f'<script src="https://maps.googleapis.com/maps/api/js?key={quote(google_api_key, safe="")}&v=weekly&libraries=places"></script>'
-        if google_enabled
+        if google_places_enabled
         else ""
     )
     return (
@@ -798,7 +796,7 @@ def render(
         .replace("__TITLE__", title)
         .replace("__NAV__", nav)
         .replace("__GOOGLE_API_SCRIPT__", google_api_script)
-        .replace("__GOOGLE_ENABLED__", str(google_enabled).lower())
+        .replace("__GOOGLE_PLACES_ENABLED__", str(google_places_enabled).lower())
         .replace("__GOOGLE_PLACE_IDS__", google_ids_json)
         .replace("__RATINGS__", json.dumps(RATINGS, ensure_ascii=False))
         .replace("__HELP__", json.dumps(RATING_HELP))
