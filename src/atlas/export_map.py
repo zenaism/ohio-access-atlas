@@ -157,7 +157,9 @@ def fact_list(facts: pd.DataFrame) -> list[dict]:
             "detail": r.detail,
             "quote": r.evidence_quote,
             "source": r.url,
-            "date": r.observed_at or r.extracted_at[:10],
+            "date": r.observed_at
+            if isinstance(r.observed_at, str) and r.observed_at
+            else str(r.extracted_at)[:10],
         }
         for r in facts.sort_values("attribute").itertuples()
     ]
@@ -535,6 +537,7 @@ def write() -> list[Path]:
     for region in ("cincinnati", "oxford"):
         feats = [f for f in shared if region_of(f["geometry"]) == region]
         feats += restroom_features(region) + event_features(region, g, matches, places, review)
+        enrich(feats, g)
         fc = collection(region, feats)
         p = MAP / f"{region}_atlas.geojson"
         p.write_text(json.dumps(fc, ensure_ascii=False))
@@ -549,7 +552,7 @@ def write() -> list[Path]:
     other = {"cincinnati": "oxford", "oxford": "cincinnati"}
     for region in data:
         page = MAP / f"{region}.html"
-        nav = f'<a href="{other[region]}.html">{other[region].title()} map &rarr;</a>'
+        nav = f' · <a href="{other[region]}.html">Switch to the {other[region].title()} map</a>'
         page.write_text(render({region: data[region]}, f"{region.title()} accessibility map", nav))
         written.append(page)
     (MAP / "index.html").write_text(render(data, "Ohio Access Atlas: Cincinnati and Oxford"))
@@ -627,3 +630,141 @@ def write_github(data: dict) -> list[Path]:
         p.write_text(json.dumps(github_copy(fc), ensure_ascii=False, indent=0))
         paths.append(p)
     return paths
+
+
+# ------------------------------------------------------ plain-language layer ---
+# Every feature gets a one-sentence summary, contacts and (for restrooms) a name a screen-reader
+# user can tell apart. Built only from the facts already on the feature: nothing new is claimed.
+SUMMARY_ORDER = [
+    "entrance_step_free",
+    "restroom_accessible",
+    "adult_changing_table",
+    "elevator",
+    "wheelchair_loan",
+    "all_terrain_chair",
+    "accessible_parking",
+    "accessible_seating",
+    "accessible_lodging",
+    "trail_surface",
+    "accessible_route_inside",
+    "ramp_steep",
+]
+LABEL_TO_ATTR = {v: k for k, v in LABELS.items()}
+EMAIL = re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+")
+PHONE = re.compile(r"\(?\b\d{3}\)?[-. ]\d{3}[-. ]\d{4}\b")
+
+
+def _phrase(attr: str, value: str, detail: str) -> str | None:
+    label = LABELS.get(attr, attr).lower()
+    d = f" ({detail})" if detail and len(detail) <= 70 else ""
+    if attr == "ramp_steep":
+        return f"caution: a ramp steeper than ADA guidance{d}" if value == "yes" else None
+    if value == "yes":
+        return f"{label}{d}"
+    if value == "limited":
+        return f"{label} limited{d}"
+    if value == "no":
+        return f"no {label}{d}"
+    return None
+
+
+def summarise(p: dict) -> str:
+    facts = p.get("facts", [])
+    if p["layer"] == "event":
+        nxt = p["events"][0] if p.get("events") else None
+        s = f"{p['event_count']} upcoming event{'s' if p['event_count'] != 1 else ''}"
+        return s + (f"; next: {nxt['title']} on {nxt['start'][:10]}." if nxt else ".")
+    if p["layer"] == "restroom":
+        tags = {f["attribute"]: f["value"] for f in facts}
+        w = tags.get("toilets:wheelchair") or tags.get("wheelchair")
+        parts = [
+            {
+                "yes": "wheelchair accessible",
+                "designated": "wheelchair accessible",
+                "limited": "partly wheelchair accessible",
+                "no": "not wheelchair accessible",
+            }.get(w or "", "no accessibility information yet")
+        ]
+        if tags.get("changing_table") == "yes":
+            parts.append("has a changing table")
+        if tags.get("fee") == "yes":
+            parts.append("fee required")
+        if tags.get("opening_hours"):
+            parts.append(f"hours {tags['opening_hours']}")
+        return "Public restroom: " + ", ".join(parts) + " (OpenStreetMap)."
+    if p["layer"] == "trail":
+        surf = next((f for f in facts if f["attribute"] == "Path surface"), None)
+        if surf:
+            m = re.match(r"(?P<s>[^;]+); (?P<mi>[\d.]+) mi", surf.get("detail", ""))
+            kind = "Paved trail" if surf["value"] == "yes" else "Partly paved trail"
+            if m:
+                return (
+                    f"{kind} ({m['s'].lower()}), {m['mi']} miles long in total; listed as wheelchair "
+                    "accessible by TrailLink, which warns not every section may be."
+                )
+            return f"{kind}: {surf.get('detail', '')}."
+    by_attr: dict[str, dict] = {}
+    for f in facts:
+        a = LABEL_TO_ATTR.get(f["attribute"], f["attribute"])
+        by_attr.setdefault(a, f)
+    parts = [
+        x
+        for a in SUMMARY_ORDER
+        if a in by_attr
+        for x in [_phrase(a, by_attr[a]["value"], by_attr[a].get("detail", ""))]
+        if x
+    ]
+    if not parts and facts:  # facts outside the main list (e.g. a map symbol): say them as they are
+        parts = [f"{f['attribute'].lower()}: {f.get('detail') or f['value']}" for f in facts[:3]]
+    if not parts:
+        return "No accessibility information yet."
+    dates = sorted(str(f.get("date")) for f in facts if re.match(r"\d{4}", str(f.get("date") or "")))
+    sentence = "; ".join(parts[:5])
+    return (
+        sentence[0].upper() + sentence[1:] + "." + (f" Sources dated up to {dates[-1][:7]}." if dates else "")
+    )
+
+
+def contacts(p: dict) -> dict:
+    text = " ".join(
+        f"{f.get('detail', '')} {f.get('quote', '')}"
+        for f in p.get("facts", [])
+        if f.get("attribute") in ("Accessibility contact", "accessibility_contact")
+    )
+    return {"emails": sorted(set(EMAIL.findall(text))), "phones": sorted(set(PHONE.findall(text)))}
+
+
+def enrich(feats: list, g: gpd.GeoDataFrame) -> None:
+    named = g[g.category.str.contains("park|museum|garden|attraction|library|theatre|stadium|zoo|nature")]
+    named = named[
+        (named.name.str.len() > 3)
+        & ~named.category.str.contains("parking", case=False)
+        & ~named.name.str.contains(r"\bparking\b|\blot\b", case=False)
+    ]
+    pts = gpd.GeoDataFrame(named[["name"]], geometry=named.geometry.map(point), crs=WGS84).to_crs(METRIC)
+    anyp = g[
+        (g.name.str.len() > 3)
+        & ~g.category.str.contains("parking", case=False)
+        & ~g.name.str.contains(r"^parking|\bparking\b|\blot\b", case=False)
+    ]
+    allpts = gpd.GeoDataFrame(anyp[["name"]], geometry=anyp.geometry.map(point), crs=WGS84).to_crs(METRIC)
+
+    def nearest_name(here, layer, radius):
+        idx = list(layer.sindex.query(here.buffer(radius)))
+        if not idx:
+            return None
+        cand = layer.iloc[idx]
+        return cand.iloc[cand.distance(here).argmin()]["name"]
+
+    for f in feats:
+        p = f["properties"]
+        p["name"] = p["name"].split("; ")[
+            -1
+        ]  # "Miami University; Souers Recital Hall" -> "Souers Recital Hall"
+        if p["layer"] == "restroom" and p["name"].lower() in ("public restroom", "toilets", "restroom", ""):
+            here = gpd.GeoSeries([point(f["geometry"])], crs=WGS84).to_crs(METRIC).iloc[0]
+            best = nearest_name(here, pts, 400) or nearest_name(here, allpts, 250)
+            if best:
+                p["name"] = f"Restroom near {best}"
+        p["summary"] = summarise(p)
+        p["contacts"] = contacts(p)

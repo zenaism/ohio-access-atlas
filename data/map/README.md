@@ -10,24 +10,25 @@ They are served by GitHub Pages from this folder and update whenever `make map` 
 **Quick preview inside GitHub:** click [github/cincinnati.geojson](github/cincinnati.geojson) or
 [github/oxford.geojson](github/oxford.geojson). GitHub draws them as maps; click a marker for its facts.
 
-## Legend
+## How the maps work
 
-| Marker colour | Meaning |
-|---|---|
-| Blue `#0072B2` | Accessible: step-free entry and accessible restroom stated, or a paved trail |
-| Orange `#E69F00` | Partly accessible / some access features stated |
-| Red-orange `#D55E00` | Not accessible |
-| Grey `#8C8C8C` | No accessibility information yet (not the same as inaccessible) |
+- **List first.** The list of places on the left is the main way to use the map with a screen reader or
+  keyboard. Each place has a one-sentence summary, its rating in words, distance and direction after
+  "Near me", a "Directions" link, and expandable details with every quoted source and date.
+- **The map is a visual companion.** Markers are kept out of the keyboard tab order; everything on the
+  map is also in the list.
+- **Ratings use words and symbols, not only colour:**
 
-| Icon (GitHub preview) | Category |
+| Badge | Meaning |
 |---|---|
-| Museum | Museums, venues and attractions |
-| Park | Parks and gardens |
-| Toilet (small marker) | Public restrooms |
-| Wheelchair | Adaptive recreation: all-terrain chair loans, accessible launches |
-| Bed | Accessible lodging |
-| Star | Venue with upcoming events |
-| Coloured line | Trail (blue = paved, orange = partly paved) |
+| ✓ Accessible (blue) | step-free entry and an accessible restroom are stated, or the trail is paved |
+| ~ Partly accessible (orange) | some access features are stated |
+| ✕ Not accessible (red-orange) | a source says it is not accessible |
+| ? No information yet (grey) | no source yet; this does not mean it is inaccessible |
+
+- Icons show the kind of place: museum/attraction, park, restroom (WC), adaptive recreation, lodging,
+  event venue; trails are coloured lines. Numbered white circles are groups of nearby places.
+- Checked with the axe accessibility engine: no violations on any page.
 
 ## Files
 

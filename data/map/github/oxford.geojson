@@ -35,7 +35,7 @@
 ]
 },
 "properties": {
-"Name": "Hueston Woods Marina (wheelchair symbol on park map)",
+"Name": "Hueston Woods Marina",
 "Type": "Adaptive recreation",
 "Accessibility": "Accessible",
 "Fact 1": "Wheelchair symbol: yes (Marked wheelchair accessible on the Ohio DNR park map (rev. 11/2019))",
@@ -121,7 +121,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Hueston Woods Sugar House",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -139,7 +139,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Hueston Woods MTB Trails",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -157,7 +157,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Walmart Garden Center",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -175,7 +175,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Walmart Garden Center",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -193,7 +193,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Harry T. Wilks Theater",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -211,7 +211,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Acton Lake Dam",
 "Type": "Public restroom",
 "Accessibility": "Partly accessible",
 "Fact 1": "wheelchair: limited",
@@ -233,7 +233,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Salamander Run",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -251,7 +251,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Oxford Community Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -269,7 +269,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Houston Woods State Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -287,7 +287,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Alumni Hall",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -305,7 +305,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Alumni Hall",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -323,7 +323,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Hanover Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -341,7 +341,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Hueston Woods Archery Range",
 "Type": "Public restroom",
 "Accessibility": "Partly accessible",
 "Fact 1": "wheelchair: limited",
@@ -363,7 +363,7 @@
 ]
 },
 "properties": {
-"Name": "Miami University; Souers Recital Hall",
+"Name": "Souers Recital Hall",
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "10: 2026-11-11 An Evening of American Latin Music for Oboe and Piano: Ridilla/Tan; 2026-11-14 Katherine Feduccia Graduate Recital; 2026-11-14 Lucas Spencer Graduate Recital",

@@ -47,7 +47,7 @@ Miami University Oxford campus: {skip: campus-wide statements}
 # extra map points that come from poster reading, not from venue_facts
 _extra:
   - {name: Hueston Woods Marina, category: marina, layer: adaptive_recreation, region: oxford,
-     label: "Hueston Woods Marina (wheelchair symbol on park map)",
+     label: "Hueston Woods Marina",
      fact: "Marked wheelchair accessible on the Ohio DNR park map (rev. 11/2019)",
      source: data/manual/posters/hueston_woods_state_park/extraction.json}
 
