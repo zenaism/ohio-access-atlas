@@ -742,12 +742,27 @@ def enrich(feats: list, g: gpd.GeoDataFrame) -> None:
         & ~named.name.str.contains(r"\bparking\b|\blot\b", case=False)
     ]
     pts = gpd.GeoDataFrame(named[["name"]], geometry=named.geometry.map(point), crs=WGS84).to_crs(METRIC)
-    anyp = g[
-        (g.name.str.len() > 3)
+    anyp = g[  # OSM names only: Overture fallbacks were businesses ("Benson Cleaning Service, Inc.")
+        (g.src == "osm")
+        & (g.name.str.len() > 3)
         & ~g.category.str.contains("parking", case=False)
         & ~g.name.str.contains(r"^parking|\bparking\b|\blot\b", case=False)
     ]
     allpts = gpd.GeoDataFrame(anyp[["name"]], geometry=anyp.geometry.map(point), crs=WGS84).to_crs(METRIC)
+
+    street_parts = []
+    for region in (
+        "cincinnati",
+        "oxford",
+    ):  # named streets and paths (city network) + named trails (wider area)
+        for f, kind in (("osm", "path_segment"), ("osm_destinations", "trail")):
+            x = gpd.read_parquet(
+                PROCESSED / region / f"{f}.entities.parquet", columns=["name", "entity_type", "geometry"]
+            )
+            street_parts.append(
+                x[(x.entity_type == kind) & (x.name.fillna("").str.len() > 3)][["name", "geometry"]]
+            )
+    streets = gpd.GeoDataFrame(pd.concat(street_parts, ignore_index=True), crs=WGS84).to_crs(METRIC)
 
     def nearest_name(here, layer, radius):
         idx = list(layer.sindex.query(here.buffer(radius)))
@@ -763,7 +778,11 @@ def enrich(feats: list, g: gpd.GeoDataFrame) -> None:
         ]  # "Miami University; Souers Recital Hall" -> "Souers Recital Hall"
         if p["layer"] == "restroom" and p["name"].lower() in ("public restroom", "toilets", "restroom", ""):
             here = gpd.GeoSeries([point(f["geometry"])], crs=WGS84).to_crs(METRIC).iloc[0]
-            best = nearest_name(here, pts, 400) or nearest_name(here, allpts, 250)
+            best = (
+                nearest_name(here, pts, 400)
+                or nearest_name(here, allpts, 250)
+                or nearest_name(here, streets, 150)
+            )
             if best:
                 p["name"] = f"Restroom near {best}"
         p["summary"] = summarise(p)

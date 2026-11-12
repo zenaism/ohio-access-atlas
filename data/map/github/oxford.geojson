@@ -139,7 +139,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Hueston Woods MTB Trails",
+"Name": "Restroom near Campground, Red, Green, Blue Loop",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -211,7 +211,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Acton Lake Dam",
+"Name": "Restroom near Equestrian Overlook",
 "Type": "Public restroom",
 "Accessibility": "Partly accessible",
 "Fact 1": "wheelchair: limited",
@@ -341,7 +341,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Hueston Woods Archery Range",
+"Name": "Restroom near Trail C",
 "Type": "Public restroom",
 "Accessibility": "Partly accessible",
 "Fact 1": "wheelchair: limited",
@@ -351,63 +351,6 @@
 "marker-color": "#E69F00",
 "marker-symbol": "toilet",
 "marker-size": "small"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.73214282117432,
-39.504991020990126
-]
-},
-"properties": {
-"Name": "Souers Recital Hall",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "10: 2026-11-11 An Evening of American Latin Music for Oboe and Piano: Ridilla/Tan; 2026-11-14 Katherine Feduccia Graduate Recital; 2026-11-14 Lucas Spencer Graduate Recital",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.732855,
-39.505377
-]
-},
-"properties": {
-"Name": "Hiestand Galleries",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "7: 2026-11-11 Self In Digital Age; 2026-11-12 Self In Digital Age; 2026-11-13 Self In Digital Age",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7295822,
-39.5070547
-]
-},
-"properties": {
-"Name": "Bachelor Hall",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "10: 2026-11-11 Diplomacy During the Russo-Ukrainian War: A Conversation; 2026-11-12 A Political Economy of Attention in Three Registers; 2026-11-19 An Evening with Acclaimed Author Nicole R. Fleetwood '94",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
 }
 },
 {
@@ -443,6 +386,44 @@
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "9: 2026-11-12 Miami University Percussion Ensemble; 2026-11-19 Miami University Jazz Ensemble Concert; 2026-11-21 Playing Together: Music and Sports at Miami, Symphony Orchestra",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.732855,
+39.505377
+]
+},
+"properties": {
+"Name": "Hiestand Galleries",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "6: 2026-11-12 Self In Digital Age; 2026-11-13 Self In Digital Age; 2026-11-16 Self In Digital Age",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7295822,
+39.5070547
+]
+},
+"properties": {
+"Name": "Bachelor Hall",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "9: 2026-11-12 A Political Economy of Attention in Three Registers; 2026-11-19 An Evening with Acclaimed Author Nicole R. Fleetwood '94; 2027-02-11 Reclaiming Attention: An Immersive Audio Experience",
 "marker-color": "#8C8C8C",
 "marker-symbol": "star",
 "marker-size": "medium"
@@ -519,6 +500,25 @@
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "74: 2026-11-14 Friday Public Skate; 2026-11-14 Saturday Public Skate; 2026-11-15 Pitch Perfect Skate-In Movie",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73214282117432,
+39.504991020990126
+]
+},
+"properties": {
+"Name": "Souers Recital Hall",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "9: 2026-11-14 Katherine Feduccia Graduate Recital; 2026-11-14 Lucas Spencer Graduate Recital; 2026-11-14 Stout/Heydorn Student Recital",
 "marker-color": "#8C8C8C",
 "marker-symbol": "star",
 "marker-size": "medium"

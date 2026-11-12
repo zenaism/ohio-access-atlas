@@ -37,78 +37,132 @@ ICONS = {
 
 TEMPLATE = r"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>__TITLE__ · Ohio Access Atlas</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Wheelchair accessibility of places, restrooms, trails and events, with sources.">
+<meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <style>
- :root{--ink:#1b1f24;--muted:#555d66;--line:#e3e6ea;--bg:#f5f6f8;--navy:#14213d;--focus:#ffbf47}
- *{box-sizing:border-box} html,body{height:100%;margin:0}
- body{font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);display:flex;flex-direction:column}
- a{color:#0b5cad} :focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+ :root{--ink:#111827;--muted:#6b7280;--line:#eceef1;--soft:#f6f7f9;--accent:#111827;--focus:#2563eb;--side:380px;--head:60px;
+       --shadow:0 1px 2px rgba(17,24,39,.06),0 4px 16px rgba(17,24,39,.08);--r:14px}
+ *{box-sizing:border-box} [hidden]{display:none!important} html,body{height:100%;margin:0}
+ body{font:15px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:#fff;
+      display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+ a{color:var(--ink);text-underline-offset:2px} :focus-visible{outline:2.5px solid var(--focus);outline-offset:2px;border-radius:6px}
  .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
- .skip{position:absolute;left:8px;top:-60px;background:#fff;padding:8px 12px;border-radius:6px;z-index:3000;font-weight:600}
- .skip:focus{top:8px}
- header{background:var(--navy);color:#fff;padding:12px 18px;display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between}
- header h1{font-size:20px;margin:0;letter-spacing:.2px} header .sub{margin:2px 0 0;font-size:13px;color:#c9d2e3} header .sub a{color:#fff}
- .tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
- .tools input{width:min(320px,70vw);padding:9px 12px;border-radius:8px;border:0;font-size:15px}
- button,.btn{font:inherit;font-size:14px;padding:8px 12px;border-radius:8px;border:1px solid #c4cad2;background:#fff;color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
- button:hover,.btn:hover{background:#eef2f7} .primary{background:#ffbf47;border-color:#ffbf47;font-weight:600}
- main{flex:1;display:grid;grid-template-columns:minmax(330px,420px) 1fr;min-height:0}
- .side{overflow-y:auto;background:var(--bg);border-right:1px solid var(--line);padding:14px}
- .filters{display:grid;gap:8px;margin-bottom:10px} .filters select{font:inherit;padding:7px 8px;border-radius:8px;border:1px solid #c4cad2;width:100%}
- .filters label.cb{display:flex;gap:8px;align-items:center;font-size:14px}
- #status{font-size:13px;color:var(--muted);margin:2px 0 6px;min-height:1.2em}
- ol#list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
- .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
- .card .top{display:flex;gap:10px;align-items:flex-start}
- .card h3{font-size:16px;margin:0 0 2px;line-height:1.25} .card h3:focus{outline:3px solid var(--focus)}
- .meta{font-size:13px;color:var(--muted);margin:0;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
- .badge{display:inline-flex;gap:4px;align-items:center;font-weight:600;font-size:12.5px;border-radius:999px;padding:1px 9px}
- .sum{margin:8px 0;font-size:14px}
- .actions{display:flex;gap:6px;flex-wrap:wrap}
- .det{margin-top:10px;border-top:1px solid var(--line);padding-top:8px;font-size:13.5px}
- .det table{border-collapse:collapse;width:100%} .det th,.det td{text-align:left;vertical-align:top;padding:5px 4px;border-bottom:1px solid #eef0f2}
- .det th{width:34%;font-weight:600} .q{color:var(--muted);font-style:italic} .det ul{margin:4px 0;padding-left:18px}
- #more{width:100%;justify-content:center;margin-top:10px}
- .mapwrap{position:relative;min-height:0} #map{position:absolute;inset:0}
- .leaflet-tile-pane{filter:grayscale(.75) brightness(1.05) contrast(.92)}
- .legend{position:absolute;right:12px;bottom:26px;z-index:1000;background:#fff;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.18);padding:10px 14px;font-size:13px;max-width:340px}
- .legend summary{font-weight:700;cursor:pointer} .legend ul{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:5px}
- .legend li{display:flex;gap:8px;align-items:center} .legend .badge{white-space:nowrap;flex:none}
- .leaflet-control-attribution{font-size:10.5px}
- .mc{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#fff;border:2px solid #1b1f24;font-weight:700;color:#1b1f24;box-shadow:0 0 0 5px rgba(27,31,36,.12)}
- .leaflet-popup-content{margin:12px 14px;font-size:14px} .leaflet-popup-content h3{margin:0 0 4px;font-size:15px}
- @media (max-width:860px){ main{grid-template-columns:1fr;grid-template-rows:48vh auto} .mapwrap{order:-1;min-height:48vh}
-   .side{border-right:0;overflow:visible} .legend{max-width:220px} .legend:not([open]){padding:8px 12px} }
+ .skip{position:absolute;left:12px;top:-80px;background:#fff;padding:10px 14px;border-radius:10px;z-index:4000;box-shadow:var(--shadow);font-weight:600}
+ .skip:focus{top:10px}
+ button,.btn{font:inherit;font-size:14px;line-height:1;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);
+   cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:background .15s,border-color .15s}
+ button:hover,.btn:hover{background:var(--soft)} .ghost{border-color:transparent;background:transparent;padding:7px 8px;color:#374151}
+ .primary{background:var(--accent);border-color:var(--accent);color:#fff} .primary:hover{background:#1f2937}
+ svg.i{width:18px;height:18px;flex:none}
+ /* top bar */
+ header{height:var(--head);flex:none;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid var(--line);background:#fff;z-index:1200}
+ .brand{min-width:0;flex:1} header h1{font-size:16px;font-weight:650;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+ header .sub{margin:0;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis} header .sub a{color:var(--muted)}
+ .search{position:relative;width:min(340px,34vw)} .search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted)}
+ .search input{width:100%;font:inherit;font-size:14px;padding:10px 12px 10px 36px;border-radius:10px;border:1px solid var(--line);background:var(--soft)}
+ .search input:focus{background:#fff}
+ /* layout */
+ .app{flex:1;min-height:0;display:grid;grid-template-columns:var(--side) 1fr;position:relative}
+ body.list-closed .app{grid-template-columns:0 1fr}
+ .side{min-height:0;display:flex;flex-direction:column;border-right:1px solid var(--line);background:#fff;overflow:hidden}
+ body.list-closed .side{visibility:hidden}
+ .sheet-bar{display:none}
+ .side-body{overflow-y:auto;padding:14px 16px 24px;flex:1}
+ .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+ .filters select{font:inherit;font-size:14px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#fff;flex:1;min-width:160px}
+ .filters label.cb{display:flex;gap:8px;align-items:center;font-size:13.5px;color:#374151;width:100%}
+ #status{font-size:12.5px;color:var(--muted);margin:6px 0 8px}
+ ol#list{list-style:none;margin:0;padding:0}
+ .card{padding:14px 2px;border-top:1px solid var(--line)} .card:first-child{border-top:0}
+ .card h3{font-size:15.5px;font-weight:620;margin:0;line-height:1.3;letter-spacing:-.005em} .card h3:focus{outline:2.5px solid var(--focus)}
+ .meta{font-size:12.5px;color:var(--muted);margin:3px 0 0;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+ .rb{display:inline-flex;align-items:center;gap:6px;color:#374151;font-weight:550}
+ .rb i{font-style:normal;width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+ .sum{margin:7px 0 8px;font-size:14px;color:#374151}
+ .actions{display:flex;gap:2px;flex-wrap:wrap;margin-left:-8px}
+ .det{margin:6px 0 0;padding:10px 12px;background:var(--soft);border-radius:12px;font-size:13.5px}
+ .det table{border-collapse:collapse;width:100%} .det th,.det td{text-align:left;vertical-align:top;padding:6px 4px;border-bottom:1px solid #e5e7eb}
+ .det tr:last-child th,.det tr:last-child td{border-bottom:0} .det th{width:36%;font-weight:600} .q{color:var(--muted);font-style:italic}
+ .det ul{margin:4px 0;padding-left:18px}
+ #more{width:100%;justify-content:center;margin-top:12px}
+ /* map */
+ .mapwrap{position:relative;min-height:0} #map{position:absolute;inset:0;background:#eef0f2}
+ .leaflet-tile-pane{filter:grayscale(.9) brightness(1.07) contrast(.88)}
+ .leaflet-bar{border:0!important;box-shadow:var(--shadow)!important;border-radius:12px!important;overflow:hidden}
+ .leaflet-bar a{width:36px!important;height:36px!important;line-height:36px!important;border-bottom:1px solid var(--line)!important;color:var(--ink)!important}
+ .leaflet-control-attribution{font-size:10.5px;background:rgba(255,255,255,.8)!important;border-radius:8px 0 0 0}
+ .leaflet-popup-content-wrapper{border-radius:14px;box-shadow:var(--shadow)} .leaflet-popup-content{margin:12px 14px;font-size:14px}
+ .leaflet-popup-content h3{margin:0 0 4px;font-size:15px}
+ .mc{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);font-weight:650;font-size:13px;
+     box-shadow:0 0 0 4px rgba(17,24,39,.10),0 2px 6px rgba(17,24,39,.18)}
+ .legend{position:absolute;right:12px;bottom:28px;z-index:1000;background:#fff;border-radius:var(--r);box-shadow:var(--shadow);font-size:13px;max-width:330px}
+ .legend summary{list-style:none;cursor:pointer;padding:9px 14px;font-weight:600;display:flex;gap:8px;align-items:center}
+ .legend summary::-webkit-details-marker{display:none}
+ .legend[open] summary{border-bottom:1px solid var(--line)} .legend-body{padding:8px 14px 12px}
+ .legend ul{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:6px} .legend li{display:flex;gap:9px;align-items:center}
+ .legend .rb{min-width:150px}
+ /* tablet */
+ @media (max-width:1100px){ :root{--side:330px} .search{width:min(280px,30vw)} }
+ /* phone: map full screen, list as a bottom sheet */
+ @media (max-width:720px){
+   :root{--head:auto}
+   header{flex-wrap:wrap;padding:10px 12px;gap:8px}
+   .brand{flex:1 1 100%} header h1{font-size:15.5px} header .sub{white-space:normal}
+   .search{flex:1 1 auto;width:auto;min-width:0}
+   #near{flex:none}
+   #toggle{display:none}
+   .app{display:block}
+   .mapwrap{position:absolute;inset:0}
+   .side{position:fixed;left:0;right:0;bottom:0;z-index:1500;border:0;border-radius:18px 18px 0 0;box-shadow:0 -6px 24px rgba(17,24,39,.16);
+         height:72vh;transform:translateY(calc(72vh - 64px - env(safe-area-inset-bottom)));transition:transform .25s ease;visibility:visible!important}
+   body.sheet-open .side{transform:translateY(0)}
+   .sheet-bar{display:flex;width:100%;border:0;border-radius:18px 18px 0 0;padding:10px 16px 14px;justify-content:space-between;align-items:center;
+              flex-direction:column;gap:8px;background:#fff;font-weight:600}
+   .sheet-bar::before{content:"";width:40px;height:4px;border-radius:4px;background:#d1d5db}
+   .sheet-bar span{display:flex;width:100%;justify-content:space-between}
+   body:not(.sheet-open) .side-body{visibility:hidden}
+   .legend{bottom:calc(76px + env(safe-area-inset-bottom));right:10px;max-width:calc(100vw - 20px)}
+   .leaflet-bottom .leaflet-control-attribution{margin-bottom:64px;font-size:9.5px}
+ }
+ @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
 </style></head><body>
 <a class="skip" href="#list-h">Skip to the list of places</a>
 <header>
- <div><h1>__TITLE__</h1><p class="sub">Wheelchair accessibility, with sources · data as of <span id="asof"></span>__NAV__</p></div>
- <div class="tools" role="search">
+ <button id="toggle" class="ghost" type="button" aria-controls="side" aria-expanded="true" title="Hide or show the list">
+  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  <span id="toggle-label">Hide list</span></button>
+ <div class="brand"><h1>__TITLE__</h1><p class="sub">Data as of <span id="asof"></span>__NAV__</p></div>
+ <div class="search" role="search">
+  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="m14 14 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
   <label for="q" class="vh">Search places, trails and venues</label>
-  <input id="q" type="search" placeholder="Search places, trails, venues" autocomplete="off">
-  <button id="near" class="primary" type="button">Near me</button>
- </div>
+  <input id="q" type="search" placeholder="Search" autocomplete="off"></div>
+ <button id="near" class="primary" type="button">
+  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3" fill="currentColor"/><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>Near me</button>
 </header>
-<main>
- <section class="side" aria-labelledby="list-h">
-  <h2 id="list-h" tabindex="-1" class="vh">Places</h2>
-  <div class="filters">
-   <label for="need">Show</label>
-   <select id="need"></select>
-   <label class="cb"><input type="checkbox" id="known"> Only places with accessibility information</label>
+<main class="app">
+ <section class="side" id="side" aria-labelledby="list-h">
+  <button class="sheet-bar" id="sheet" type="button" aria-controls="side-body" aria-expanded="false"><span><span id="sheet-label">Places</span><span>Show list</span></span></button>
+  <div class="side-body" id="side-body">
+   <h2 id="list-h" tabindex="-1" class="vh">Places</h2>
+   <div class="filters">
+    <label for="need" class="vh">Show</label><select id="need"></select>
+    <label class="cb"><input type="checkbox" id="known"> Only places with accessibility information</label>
+   </div>
+   <p id="status" role="status" aria-live="polite"></p>
+   <ol id="list"></ol>
+   <button id="more" type="button" hidden>Show more</button>
   </div>
-  <p id="status" role="status" aria-live="polite"></p>
-  <ol id="list"></ol>
-  <button id="more" type="button" hidden>Show more</button>
  </section>
  <section class="mapwrap" aria-label="Map. Visual companion: every place on the map is also in the list.">
   <div id="map"></div>
-  <details class="legend" id="legend" open><summary>Legend</summary><div id="legend-body"></div></details>
+  <details class="legend" id="legend"><summary>
+   <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><circle cx="5" cy="6" r="2" fill="currentColor"/><path d="M9 6h8M9 14h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="5" cy="14" r="2" fill="currentColor"/></svg>Legend</summary>
+   <div class="legend-body" id="legend-body"></div></details>
  </section>
 </main>
 <script>
@@ -116,14 +170,16 @@ const DATA = __DATA__, RATINGS = __RATINGS__, HELP = __HELP__, ICONS = __ICONS__
 const PAGE = 30;
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const svg = (layer, colour, size=20) => `<svg aria-hidden="true" width="${size}" height="${size}" viewBox="0 0 20 20" style="color:${colour}">${ICONS[layer][1]}</svg>`;
-const badge = r => `<span class="badge" style="background:${RATINGS[r][1]};color:${RATINGS[r][3]}"><span aria-hidden="true">${RATINGS[r][2]}</span>${RATINGS[r][0]}</span>`;
+const badge = r => `<span class="rb"><i aria-hidden="true" style="background:${RATINGS[r][1]};color:${RATINGS[r][3]}">${RATINGS[r][2]}</i>${RATINGS[r][0]}</span>`;
 document.getElementById('asof').textContent = Object.values(DATA)[0].generated;
-if (window.matchMedia('(max-width:860px)').matches) document.getElementById('legend').open = false;
 
 // ---------- map ----------
+const PHONE_EARLY = window.matchMedia('(max-width:720px)');
 const map = L.map('map', {zoomControl:true, keyboard:true});
 L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',
-  {maxZoom:18, maxNativeZoom:16, attribution:'Basemap: map services and data available from U.S. Geological Survey, National Geospatial Program | Data: OpenStreetMap (ODbL), Overture Maps, venue and agency websites, TrailLink, Census geocoder'}).addTo(map);
+  {maxZoom:18, maxNativeZoom:16, attribution: PHONE_EARLY.matches
+    ? 'Basemap: U.S. Geological Survey · Data: OpenStreetMap, Overture, venue sites'
+    : 'Basemap: map services and data available from U.S. Geological Survey, National Geospatial Program | Data: OpenStreetMap (ODbL), Overture Maps, venue and agency websites, TrailLink, Census geocoder'}).addTo(map);
 const cluster = L.markerClusterGroup({showCoverageOnHover:false, maxClusterRadius:45, disableClusteringAtZoom:15,
   iconCreateFunction: c => L.divIcon({html:`<div class="mc">${c.getChildCount()}</div>`, className:'', iconSize:[34,34]})}).addTo(map);
 const trails = L.layerGroup().addTo(map);
@@ -154,6 +210,28 @@ for (const region of Object.keys(DATA)) for (const f of DATA[region].features){
   ITEMS.push({i, p, pts, leaf, dist:null, dir:'', text:(p.name + ' ' + p.summary).toLowerCase()});
 }
 const VIEW = {cincinnati:[[39.10,-84.51],12], oxford:[[39.535,-84.755],13]};
+if (PHONE_EARLY.matches) map.attributionControl.setPrefix(false);
+// ---------- collapsible list (desktop/tablet) and bottom sheet (phone) ----------
+const PHONE = window.matchMedia('(max-width:720px)');
+const toggleBtn = document.getElementById('toggle'), sheetBtn = document.getElementById('sheet');
+function setList(open){
+  document.body.classList.toggle('list-closed', !open);
+  toggleBtn.setAttribute('aria-expanded', open);
+  document.getElementById('toggle-label').textContent = open ? 'Hide list' : 'Show list';
+  try { localStorage.setItem('atlas-list-open', open ? '1' : '0'); } catch (e) {}
+  setTimeout(() => map.invalidateSize(), 220);
+}
+function setSheet(open){
+  document.body.classList.toggle('sheet-open', open);
+  sheetBtn.setAttribute('aria-expanded', open);
+  sheetBtn.querySelector('span span:last-child').textContent = open ? 'Hide list' : 'Show list';
+}
+toggleBtn.onclick = () => setList(document.body.classList.contains('list-closed'));
+sheetBtn.onclick = () => setSheet(!document.body.classList.contains('sheet-open'));
+document.querySelector('.skip').onclick = () => { PHONE.matches ? setSheet(true) : setList(true); };
+let saved = null; try { saved = localStorage.getItem('atlas-list-open'); } catch (e) {}
+if (saved === '0' && !PHONE.matches) setList(false);
+
 map.setView(...VIEW[Object.keys(DATA)[0]]);
 
 // ---------- filters ----------
@@ -211,14 +289,13 @@ function details(it){
 function card(it){
   const p = it.p, li = document.createElement('li'); li.className = 'card'; li.id = 'card-' + it.i;
   const where = it.dist != null ? `<span>${fmt(it.dist)} ${it.dir}</span>` : '';
-  li.innerHTML = `<div class="top">${svg(p.layer, '#14213d', 22)}<div>
-      <h3 tabindex="-1">${esc(p.name)}</h3>
-      <p class="meta"><span>${ICONS[p.layer][0]}</span>${badge(p.access_rating)}${where}</p></div></div>
+  li.innerHTML = `<h3 tabindex="-1">${esc(p.name)}</h3>
+    <p class="meta">${badge(p.access_rating)}<span>${ICONS[p.layer][0]}</span>${where}</p>
     <p class="sum">${esc(p.summary)}</p>
     <div class="actions">
-      <button type="button" data-a="map">Show on map<span class="vh">: ${esc(p.name)}</span></button>
-      <a class="btn" href="${directions(it)}" target="_blank" rel="noopener">Directions<span class="vh"> to ${esc(p.name)} in Google Maps (opens in a new tab)</span></a>
-      <button type="button" data-a="det" aria-expanded="false" aria-controls="det-${it.i}">Details<span class="vh">: ${esc(p.name)}</span></button>
+      <button type="button" class="ghost" data-a="map">Show on map<span class="vh">: ${esc(p.name)}</span></button>
+      <a class="btn ghost" href="${directions(it)}" target="_blank" rel="noopener">Directions<span class="vh"> to ${esc(p.name)} in Google Maps (opens in a new tab)</span></a>
+      <button type="button" class="ghost" data-a="det" aria-expanded="false" aria-controls="det-${it.i}">Details<span class="vh">: ${esc(p.name)}</span></button>
     </div>
     <div class="det" id="det-${it.i}" hidden></div>`;
   li.querySelector('[data-a=map]').onclick = () => showOnMap(it);
@@ -236,12 +313,13 @@ function render(announce){
   more.textContent = `Show ${Math.min(PAGE, list.length - shown)} more of ${list.length - shown} remaining`;
   if (announce !== false){
     const t = q.value.trim();
+    document.getElementById('sheet-label').textContent = `${list.length} place${list.length === 1 ? '' : 's'}`;
     document.getElementById('status').textContent = `${list.length} place${list.length === 1 ? '' : 's'}`
       + (t ? ` matching “${t}”` : '') + (here ? ', nearest first' : ', best documented first') + '.';
   }
 }
 function showOnMap(it){
-  if (window.matchMedia('(max-width:860px)').matches) document.getElementById('map').scrollIntoView({behavior:'smooth'});
+  if (PHONE.matches) setSheet(false);
   if (it.p.layer === 'trail'){ map.fitBounds(it.leaf.getBounds(), {maxZoom:15}); it.leaf.openPopup(); return; }
   cluster.zoomToShowLayer(it.leaf, () => it.leaf.openPopup());
 }
@@ -252,6 +330,7 @@ function openCard(i){
   if (idx >= shown){ shown = idx + 1; }
   render(false);
   const li = document.getElementById('card-' + i); toggle(it, li.querySelector('[data-a=det]'), true);
+  if (PHONE.matches) setSheet(true); else setList(true);
   li.scrollIntoView({block:'start'}); li.querySelector('h3').focus();
 }
 [need, known].forEach(el => el.onchange = () => { shown = PAGE; render(); });
@@ -272,6 +351,7 @@ function setHere(latlng, note){
     .addTo(map).bindTooltip('You are here', {permanent:true, direction:'right', offset:[10,0]});
   map.setView(here, Math.max(map.getZoom(), 14));
   shown = PAGE; render();
+  if (PHONE.matches) setSheet(true); else setList(true);
   document.getElementById('status').textContent += ' ' + note + ' Distances are straight-line, not routes.';
 }
 document.getElementById('near').onclick = () => {
@@ -284,7 +364,7 @@ document.getElementById('near').onclick = () => {
 // ---------- legend ----------
 document.getElementById('legend-body').innerHTML = '<ul>'
   + Object.entries(RATINGS).map(([k, r]) => `<li>${badge(k)}<span>${HELP[k]}</span></li>`).join('') + '</ul><ul>'
-  + Object.entries(ICONS).map(([k, [label]]) => `<li>${svg(k, '#14213d', 18)}<span>${label}${k === 'trail' ? ' (coloured line)' : ''}</span></li>`).join('')
+  + Object.entries(ICONS).map(([k, [label]]) => `<li>${svg(k, '#374151', 18)}<span>${label}${k === 'trail' ? ' (coloured line)' : ''}</span></li>`).join('')
   + '<li><span class="mc" style="width:22px;height:22px;font-size:11px;box-shadow:none">5</span><span>Group of nearby places: zoom in</span></li></ul>';
 render();
 </script></body></html>

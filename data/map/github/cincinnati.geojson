@@ -6294,7 +6294,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Interstate 75 Rest Area Northbound",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -6316,7 +6316,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Rest Area I-71 Southbound",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6406,7 +6406,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near TMC Construction Services",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: private",
@@ -6699,7 +6699,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Twin Bridges Road Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6985,7 +6985,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Miami Whitewater Outer Loop",
+"Name": "Restroom near Shaker Trace Outer Loop",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7101,7 +7101,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Winton Woods Campground",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -7121,7 +7121,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Winton Woods Campground",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7139,7 +7139,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Winton Woods Campground",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -7231,7 +7231,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Rest Area I-71 Southbound",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7249,7 +7249,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Ohio Cat",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7346,7 +7346,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Horse Trail 'B'",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7364,7 +7364,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Horse Trail 'B'",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7382,7 +7382,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Parkside Neighborhood Pool",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "changing_table: yes",
@@ -7403,7 +7403,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Parkside Neighborhood Pool",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "changing_table: yes",
@@ -7691,7 +7691,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Brooks Brothers",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7911,7 +7911,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Torn Basil",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8006,7 +8006,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near TMC Construction Services",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: private",
@@ -8225,7 +8225,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Granite Springs",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8263,7 +8263,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Hamilton Boat Club",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8353,7 +8353,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Forty-nine Inc",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8950,7 +8950,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Hawks Landing",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "unisex: yes",
@@ -10052,7 +10052,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Notre Dame Academy",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: private",
@@ -10289,7 +10289,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Blue Note Harrison",
+"Name": "Restroom near Horse Trail A",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10475,7 +10475,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Winton Woods Fitness Trail",
+"Name": "Restroom near Parcours Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10551,7 +10551,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Sharon Woods Harbor & Boathouse",
+"Name": "Restroom near Sharon Woods Lake Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10713,7 +10713,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Little Miami Scenic Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11290,7 +11290,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Tailwater Shelter",
+"Name": "Restroom near Tailwater Trail",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -11311,7 +11311,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Perimeter Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11671,7 +11671,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Fern Hill Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11901,7 +11901,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Morgan Stables",
+"Name": "Restroom near Campground Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11937,7 +11937,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Perimeter Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11973,7 +11973,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near East Fork State Park Campground",
+"Name": "Restroom near Campground Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -12116,25 +12116,6 @@
 "geometry": {
 "type": "Point",
 "coordinates": [
--84.490116,
-39.1152203
-]
-},
-"properties": {
-"Name": "Krohn Conservatory",
-"Type": "Event venue",
-"Accessibility": "Partly accessible",
-"Upcoming events": "163: 2026-11-11 A Spider's Gift; 2026-11-11 Bonsai Society; 2026-11-11 Krohn Discovery Space with the Cincinnati Public Library",
-"marker-color": "#E69F00",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
 -84.519123,
 39.1214543
 ]
@@ -12145,6 +12126,25 @@
 "Accessibility": "No information yet",
 "Upcoming events": "1: 2026-11-12 Bellevue Hill Park and Fairview Park Conservation Work Days",
 "marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.490116,
+39.1152203
+]
+},
+"properties": {
+"Name": "Krohn Conservatory",
+"Type": "Event venue",
+"Accessibility": "Partly accessible",
+"Upcoming events": "160: 2026-11-12 A Spider's Gift; 2026-11-13 A Spider's Gift; 2026-11-13 Krohn Early Closures 11/13",
+"marker-color": "#E69F00",
 "marker-symbol": "star",
 "marker-size": "medium"
 }
@@ -12296,44 +12296,6 @@
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "1: 2026-11-14 Power Soccer Fall Practices",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.490094020841,
-39.099749385852
-]
-},
-"properties": {
-"Name": "111 Beech St suite b, Newport, KY 41071",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "1: 2026-11-11 CrossFit (Northern Kentucky) Program",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.71224487448772,
-39.193141657384835
-]
-},
-"properties": {
-"Name": "Mitchell Memorial Forest",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "1: 2026-11-11 Homeschool Science: Fire to Feast",
 "marker-color": "#8C8C8C",
 "marker-symbol": "star",
 "marker-size": "medium"
