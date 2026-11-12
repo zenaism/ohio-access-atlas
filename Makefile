@@ -16,6 +16,9 @@ extract:          ## rebuild data/extracted/* from saved pages (quotes are re-ch
 	$(PY) scripts/venue_facts_2026_11.py && $(PY) scripts/extract_traillink.py && \
 	$(PY) scripts/extract_page_events.py && $(PY) scripts/classify_miami_events.py
 
+map:              ## GeoJSON per region + data/map/atlas_viewer.html (icons, legend) + review.csv
+	$(PY) -m atlas.cli map
+
 inventory:        ## per-source summary -> docs/source_inventory.md + data/source_inventory.csv
 	$(PY) -m atlas.cli inventory
 
@@ -31,4 +34,4 @@ test:
 lint:
 	.venv/bin/ruff check src tests
 
-.PHONY: setup data report dem equity extract inventory figure test lint
+.PHONY: setup data report dem equity extract map inventory figure test lint

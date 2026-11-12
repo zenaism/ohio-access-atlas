@@ -1,0 +1,167 @@
+region,item,kind,reason
+cincinnati,Cincinnati Metro buses,fact place,transit system
+cincinnati,Cincinnati Connector streetcar,fact place,transit line
+cincinnati,TANK buses (Northern Kentucky),fact place,transit system
+cincinnati,Cincinnati Parks (city park system),fact place,park system; facts shown on its parks
+cincinnati,Great Parks of Hamilton County,fact place,park system
+cincinnati,BLINK 2026 festival,fact place,festival is over (October 2026)
+oxford,Five Rivers MetroParks paved trail network (Dayton),fact place,outside both areas
+oxford,Oxford Area Trail System,fact place,trail network; drawn from trail data
+cincinnati,Ohio River paved path (Smale Riverfront Park - Sawyer Point - Friendship Park),fact place,drawn from trail data
+cincinnati,The Bridge Adaptive Sports & Recreation,fact place,no fixed site; its events are mapped
+cincinnati,UC Adaptive Athletics,fact place,student program
+oxford,Miami University Oxford campus,fact place,campus-wide statements
+both,4-C Bicentennial Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Aero Parkway Bicycle Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Dayton-Kettering Connector,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Dearborn County Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Great American Rail-Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Great Miami River Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Great-Little Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Hamilton Beltline Recreational Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Iron Horse Trail (Montgomery County),TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Lowe's Drive Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Luther Warren Peace Path,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Mad River Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Ogden Trail / Elizabeth J. Looney Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Ohio to Erie Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Steve Whalen Boulevard Bikeway,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Wolf Creek Trail (OH),TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Xenia-Jamestown Connector,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Archway Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Cardinal Greenway,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Clinton-Fayette Friendship Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,James Ranch Connecting Spur,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Judy Gano Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Nickel Plate Trail (Connersville),TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Prairie Grass Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Stillwater River Bikeway,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Towler Road Spur,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Whitewater Gorge Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Wilberforce Switch Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Tecumseh Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Ohio-to-Indiana Trail (River's Edge Trail),TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Tecumseh Trail Multi-use Pathway,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+both,Union City Gateway Trail,TrailLink trail,no OSM path with this name inside either area (most are outside it)
+cincinnati,Monsters In The Sky - Planetarium Show (2026-11-12),event,venue not placed: None
+cincinnati,A Spider's Gift: Paint N Sip (2026-11-13),event,venue not placed: None
+cincinnati,Monsters In The Sky - Planetarium Show (2026-11-13),event,venue not placed: None
+cincinnati,Caldwell Nature Preserve Habitat Restoration (2026-11-14),event,venue not placed: None
+cincinnati,Primitive Survival Skills Series for Adults (2026-11-14),event,venue not placed: None
+cincinnati,Student Success Series  11/14 (2026-11-14),event,venue not placed: None
+cincinnati,Even More Before the Roar (2026-11-15),event,venue not placed: None
+cincinnati,A Spider's Gift: Game Night (2026-11-18),event,venue not placed: None
+cincinnati,Mt. Storm Conservation (2026-11-19),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-11-20),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-11-21),event,venue not placed: None
+cincinnati,Avon Woods Habitat Restoration (2026-11-21),event,venue not placed: None
+cincinnati,California Woods Habitat Restoration (2026-11-21),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-11-22),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-11-23),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-11-24),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-11-25),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-11-26),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-11-27),event,venue not placed: None
+cincinnati,A Spider's Gift: Botany and Brews (2026-11-27),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-11-28),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-11-29),event,venue not placed: None
+cincinnati,Even More Before the Roar (2026-11-29),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-11-30),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-01),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-02),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-03),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-04),event,venue not placed: None
+cincinnati,Winter in the Woodlands (2026-12-04),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-05),event,venue not placed: None
+cincinnati,Country Chic Holiday Wreath Workshop (2026-12-05),event,venue not placed: None
+cincinnati,Live Music on Weekends (2026-12-05),event,venue not placed: None
+cincinnati,Winter in the Woodlands (2026-12-05),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-06),event,venue not placed: None
+cincinnati,Live Music on Weekends (2026-12-06),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-07),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-08),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-09),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-10),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-11),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-12),event,venue not placed: None
+cincinnati,Caldwell Nature Preserve Habitat Restoration (2026-12-12),event,venue not placed: None
+cincinnati,Primitive Survival Skills Series for Adults (2026-12-12),event,venue not placed: None
+cincinnati,Live Music on Weekends (2026-12-12),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-13),event,venue not placed: None
+cincinnati,Even More Before the Roar (2026-12-13),event,venue not placed: None
+cincinnati,Live Music on Weekends (2026-12-13),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-14),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-15),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-16),event,venue not placed: None
+cincinnati,Holiday Skies - Planetarium Show (2026-12-16),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-17),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-18),event,venue not placed: None
+cincinnati,Holiday Skies - Planetarium Show (2026-12-18),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-19),event,venue not placed: None
+cincinnati,California Woods Habitat Restoration (2026-12-19),event,venue not placed: None
+cincinnati,California Woods Habitat Forest Restoration (2026-12-19),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-20),event,venue not placed: None
+cincinnati,Live Music on weekends (2026-12-20),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-21),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-22),event,venue not placed: None
+cincinnati,Winter Break Day Camps: Ice Age (2026-12-22),event,venue not placed: None
+cincinnati,Winter Break Day Camps: Blizzard Blast (2026-12-22),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-23),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-24),event,venue not placed: None
+cincinnati,Live Music on Chrismas Eve (2026-12-24),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-25),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-26),event,venue not placed: None
+cincinnati,Live Music on weekends (2026-12-26),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-27),event,venue not placed: None
+cincinnati,Cincinnati Christkindlmarkt (click for special hours) (2026-12-28),event,venue not placed: None
+cincinnati,Winter Break Day Camp: Winter Wizards (2026-12-29),event,venue not placed: None
+cincinnati,Winter Break Day Camps: Over/ Under the Snow Camp (2026-12-29),event,venue not placed: None
+cincinnati,Even More Before the Roar (2026-12-31),event,venue not placed: None
+cincinnati,End of Show Plant Sale (2027-01-05),event,venue not placed: None
+cincinnati,Caldwell Nature Preserve Habitat Restoration (2027-02-13),event,venue not placed: None
+cincinnati,Student Success Series 2/20 (2027-02-20),event,venue not placed: None
+cincinnati,Caldwell Nature Preserve Habitat Restoration (2027-03-13),event,venue not placed: None
+cincinnati,Caldwell Nature Preserve Habitat Restoration (2027-04-10),event,venue not placed: None
+cincinnati,CrossFit (Cincinnati) Program (2026-11-12),event,"venue not placed: '8980 Blue Ash Rd, Blue Ash, OH 45242'"
+cincinnati,Storytime on the Farm (2026-11-13),event,venue not placed: 'Winton Woods Farm & Equestrian Center | Hayloft Barn'
+oxford,You Can Make It @ the TEC Lab Makerspace! Buttons and Magnets (2026-11-11),event,"venue not placed: 'Gardner-Harvey Library, 125, Tec Lab'"
+oxford,Miami Hamilton Men's and Women's Basketball 1st Home Games of the Season! (2026-11-11),event,venue not placed: 'Hamilton Gymnasium'
+oxford,SongFarmers (2026-11-12),event,venue not placed: 'Downtown Hamilton'
+oxford,Open Life Drawing Session (2026-11-12),event,venue not placed: 'Art Center'
+oxford,Creativa Convergence (2026-11-15),event,venue not placed: 'Downtown Hamilton'
+oxford,Newport Aquarium Trip,event,venue outside area
+oxford,Aurora Henry-Jones Student Recital (2026-11-15),event,venue not placed: None
+oxford,"""Dan Patch: The 20th Century's Greatest Forgotten Celebrity"" (2026-11-18)",event,venue not placed: 'Downtown Hamilton'
+oxford,Maxfield Scholar Lecture:           Amanda Loper,event,venue outside area
+oxford,National Parks: Cooper’s Ferry (2026-11-18),event,venue not placed: None
+oxford,Christmas Traditions 1900: An Edwardian Christmas (2026-11-18),event,venue not placed: 'Verity Lodge'
+oxford,Open Life Drawing Session (2026-11-19),event,venue not placed: 'Art Center'
+oxford,Fantastic Free Fridays: Miami University Steel Band (2026-11-20),event,venue not placed: 'Dave Finkelman Auditorium'
+oxford,Dangling Earrings (2026-11-21),event,venue not placed: 'Art Center'
+oxford,Peyton Klug Student Recital (2026-11-21),event,venue not placed: None
+oxford,Poetry Reading with Kathy Fagan (2026-11-23),event,venue not placed: None
+oxford,Miami Hamilton Men's and Women's Basketball Home Games (2026-11-24),event,venue not placed: 'Hamilton Gymnasium'
+oxford,Miami Hamilton Men's and Women's Basketball Home Games (2026-11-28),event,venue not placed: 'Hamilton Gymnasium'
+oxford,Felted Pets (2026-11-30),event,venue not placed: 'Art Center'
+oxford,Fascinating Physiological Features: Muscular System (2026-12-02),event,"venue not placed: 'Gardner-Harvey Library, 111'"
+oxford,Miami Hamilton Men's and Women's Basketball Home Games (2026-12-02),event,venue not placed: 'Hamilton Gymnasium'
+oxford,Felted Pets (2026-12-02),event,venue not placed: 'Art Center'
+oxford,Open Life Drawing Session (2026-12-03),event,venue not placed: 'Art Center'
+oxford,Cyanotypes (2026-12-05),event,venue not placed: 'Art Center'
+oxford,“What’s In Our Food?!” (2026-12-05),event,venue not placed: 'Downtown Hamilton'
+oxford,A Cappella Winter Concert All Stars (2026-12-06),event,"venue not placed: 'Taylor Auditorium, Farmer School of Business'"
+oxford,SongFarmers (2026-12-10),event,venue not placed: 'Downtown Hamilton'
+oxford,Fantastic Free Fridays: Children’s Theatre of Cincinnati: “Bah Humbug!” (2026-12-11),event,venue not placed: 'Dave Finkelman Auditorium'
+oxford,Miami Hamilton Men's and Women's Basketball Home Games (2026-12-11),event,venue not placed: 'Hamilton Gymnasium'
+oxford,Creativa Convergence (2026-12-13),event,venue not placed: 'Downtown Hamilton'
+oxford,Miami Hamilton Men's and Women's Basketball Home Games (2026-12-20),event,venue not placed: 'Hamilton Gymnasium'
+oxford,Winter Holiday Break Holiday Skate (2026-12-21),event,venue not placed: None
+oxford,National Skating Month Skate (2027-01-09),event,venue not placed: None
+oxford,Miami Hamilton Men's Basketball Home Game (2027-01-30),event,venue not placed: 'Hamilton Gymnasium'
+oxford,Miami Hamilton Men's and Women's Basketball Home Games (2027-02-17),event,venue not placed: 'Hamilton Gymnasium'
+oxford,Miami Hamilton Men's Basketball Home Game (2027-02-20),event,venue not placed: 'Hamilton Gymnasium'
+oxford,Miami Hamilton Men's and Women's Basketball Away Games VS Miami Middletown Thunderhawks (2027-02-24),event,"venue not placed: 'MIAMI MIDDLETOWN GYMMNASIUM (C. Eugene Bennett Recreation Center), 4200 North University Boulevard, Middletown, OHIO 45042, United States'"
+oxford,Miami Hamilton Men's and Women's Basketball Home Games (2027-02-28),event,venue not placed: 'Hamilton Gymnasium'
+oxford,Sparkfest (2027-04-16),event,venue not placed: 'Miami University Arts Quad'
+oxford,Glass Blowing with Larchmere Fire Works (2027-05-01),event,venue not placed: 'Art Center'
+oxford,Electric Root Festival (2027-05-01),event,venue not placed: 'Oxford Uptown Parks'

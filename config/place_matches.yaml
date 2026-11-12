@@ -1,0 +1,86 @@
+# Where each place named in data/extracted/venue_facts.jsonl sits on the map.
+# Matched by EXACT name (case-insensitive) in the gazetteer (OSM destinations > OSM POIs > Overture),
+# optionally filtered by category text. Fuzzy matching was tried and rejected: it scores
+# "Cincinnati Art Museum" 100 against an artwork named "Cincinnati".
+#   name:     gazetteer name to look up        category: substring the category must contain
+#   layer:    culture | park | lodging | adaptive_recreation
+#   skip:     reason the place is not a single point (it stays in the data, just not on the map)
+
+Cincinnati Museum Center: {name: Cincinnati Museum Center at Union Terminal, category: museum, layer: culture}
+Cincinnati Art Museum: {name: Cincinnati Art Museum, category: museum, layer: culture}
+Taft Museum of Art: {name: Taft Museum of Art, category: museum, layer: culture}
+William Howard Taft National Historic Site: {name: William Howard Taft National Historic Site, category: historic, layer: culture}
+Great American Ball Park: {name: Great American Ball Park, category: stadium, layer: culture}
+Cincinnati Reds Hall of Fame & Museum: {name: Cincinnati Reds Hall of Fame and Museum, category: museum, layer: culture}
+Kings Island: {name: Kings Island, category: theme_park, layer: culture}
+Cincinnati Zoo & Botanical Garden: {name: Cincinnati Zoo and Botanical Garden, category: zoo, layer: culture}
+Newport Aquarium: {name: Newport Aquarium, category: aquarium, layer: culture}
+BB Riverboats: {name: BB Riverboats, category: attraction, layer: culture}
+Krohn Conservatory: {name: Krohn Conservatory, category: museum, layer: culture}
+Seasongood Pavilion, Eden Park: {name: Seasongood Pavilion, category: theatre, layer: culture}
+Carol Ann's Carousel: {name: "Carol Ann’s Carousel", category: attraction, layer: culture}
+Smale Riverfront Park: {name: John G. and Phyllis W. Smale Riverfront Park, category: park, layer: park}
+Everybody's Treehouse, Mt. Airy Forest: {name: Mount Airy Forest Treehouse, layer: park}
+Washington Park: {name: Washington Park, category: park, layer: park}
+Bettman Sensory Garden and Pathway: {name: Bettman Preserve, category: nature_reserve, layer: park}
+Hyde Park Square: {name: Hyde Park Square, category: park, layer: park}
+Burnet Woods: {name: Burnet Woods, category: park, layer: park}
+Fountain Square: {name: Fountain Square, layer: park}
+Hueston Woods Lodge: {name: "Hueston Woods Lodge & Conference Center", category: lodging, layer: lodging}
+MetroParks of Butler County: {name: Voice of America MetroPark, category: park, layer: adaptive_recreation,
+                              label: "GRIT all-terrain chair pickup (MetroParks of Butler County)"}
+
+# not single points: kept in the data, listed in data/map/review.csv
+Cincinnati Metro buses: {skip: transit system}
+Cincinnati Connector streetcar: {skip: transit line}
+TANK buses (Northern Kentucky): {skip: transit system}
+Cincinnati Parks (city park system): {skip: park system; facts shown on its parks}
+Great Parks of Hamilton County: {skip: park system}
+BLINK 2026 festival: {skip: festival is over (October 2026)}
+Five Rivers MetroParks paved trail network (Dayton): {skip: outside both areas}
+Oxford Area Trail System: {skip: trail network; drawn from trail data}
+Ohio River paved path (Smale Riverfront Park - Sawyer Point - Friendship Park): {skip: drawn from trail data}
+The Bridge Adaptive Sports & Recreation: {skip: no fixed site; its events are mapped}
+UC Adaptive Athletics: {skip: student program}
+Miami University Oxford campus: {skip: campus-wide statements}
+
+# extra map points that come from poster reading, not from venue_facts
+_extra:
+  - {name: Hueston Woods Marina, category: marina, layer: adaptive_recreation, region: oxford,
+     label: "Hueston Woods Marina (wheelchair symbol on park map)",
+     fact: "Marked wheelchair accessible on the Ohio DNR park map (rev. 11/2019)",
+     source: data/manual/posters/hueston_woods_state_park/extraction.json}
+
+# event venue names as written in calendars -> gazetteer names
+_venue_aliases:
+  center for performing arts: Center for Performing Arts
+  souers recital hall: "Miami University; Souers Recital Hall"
+  lane library - oxford ohio: Oxford Lane Library
+  millett hall: Millett Assembly Hall
+  mayerson jcc 8485 ridge ave: "Manuel D. & Rhoda Mayerson JCC"
+  winton woods farm & equestrian center: Winton Woods Farm and Equestrian Center
+
+# TrailLink names -> the name the same trail has in OpenStreetMap
+_trail_aliases:
+  Sharon Woods Loop Trail: Sharon Woods Lake Trail
+  Armleder Park Trail: Armleder Trail
+  Armleder-Lunken Connector Trail: Armleder Trail Connector
+  Williamsburg to Batavia Hike/Bike Trail: Williamsburg-Batavia Trail
+  Lebanon Countryside YMCA Trail: Lebanon Countryside Trail
+
+# trails drawn from OSM because another source describes them
+_extra_trails:
+  - osm_name: "OATS Trail - Miami University Portion"
+    label: "Oxford Area Trails (OATS), Miami University portion"
+    rating: accessible
+    facts:
+      - {attribute: "Path surface", value: "yes", detail: "Oxford Area Trail System: over 7 miles paved (Travel Butler County)",
+         quote: "the Oxford Area Trail System offers over 7 miles of paved trails and scenic routes.",
+         source: "https://www.travelbutlercounty.com/explore/oxford/sports-recreation", date: "2026-11-11"}
+      - {attribute: "Trail map", value: "yes", detail: "Future Oxford Area Trails System poster, 2025-01-21 (phases 1-4 completed)",
+         quote: "", source: "data/manual/posters/oxford_area_trails_system_2025/extraction.json", date: "2025-01-21"}
+
+# words in Cincinnati Parks event text -> the place they mean
+_event_text_aliases:
+  Krohn: Krohn Conservatory
+  Mt. Airy: Mount Airy Forest
