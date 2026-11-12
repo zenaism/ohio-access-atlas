@@ -66,6 +66,13 @@ TEMPLATE = r"""<!DOCTYPE html>
  .bar{position:absolute;top:10px;left:56px;z-index:1000;background:#fff;padding:6px 8px;border-radius:6px;
       box-shadow:0 1px 4px rgba(0,0,0,.3);font-size:13px}
  .bar button{margin-right:4px;padding:4px 10px;border:1px solid #bbb;border-radius:4px;background:#f6f6f6;cursor:pointer}
+ .bar input[type=search]{padding:4px 8px;border:1px solid #bbb;border-radius:4px;width:210px;font-size:13px}
+ .panel{position:absolute;top:52px;left:56px;z-index:1000;background:#fff;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.3);
+        font-size:13px;max-width:380px;max-height:60vh;overflow-y:auto;display:none}
+ .panel .row{padding:6px 10px;border-top:1px solid #eee;cursor:pointer;display:flex;gap:8px;align-items:center}
+ .panel .row:hover,.panel .row:focus{background:#eef4fb;outline:none}
+ .panel .hd{padding:8px 10px;font-weight:600;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+ .panel .muted{color:#666;font-weight:400;font-size:12px} .panel .dot{width:11px;height:11px;border-radius:50%;flex:none}
  .legend{background:#fff;padding:10px 12px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.3);font-size:12.5px;
          line-height:1.35;max-width:300px}
  .legend h4{margin:2px 0 6px;font-size:13px}
@@ -80,7 +87,10 @@ TEMPLATE = r"""<!DOCTYPE html>
  .pop .q{color:#555;font-style:italic} .pop ul{padding-left:16px;margin:4px 0;font-size:12px}
 </style></head><body>
 <div id="map"></div>
-<div class="bar"><b>__TITLE__</b> &nbsp;__NAV__ <span id="count"></span></div>
+<div class="bar"><b>__TITLE__</b> &nbsp;__NAV__ <span id="count"></span><br>
+ <input id="q" type="search" placeholder="Search places, trails, venues…" aria-label="Search places" autocomplete="off">
+ <button id="near" type="button" title="Find the closest places to you">&#9678; Near me</button></div>
+<div class="panel" id="panel" role="listbox" aria-live="polite"></div>
 <script>
 const DATA = __DATA__, RATINGS = __RATINGS__, ICONS = __ICONS__;
 const map = L.map('map', {zoomControl:true});
@@ -118,7 +128,7 @@ function popup(p){
   }
   return h + `<div class="q" style="margin-top:4px">matched to: ${esc(p.matched_to)}</div></div>`;
 }
-let n = 0;
+let n = 0; const ITEMS = [];
 for (const region of Object.keys(DATA)){
   for (const f of DATA[region].features){
     const p = f.properties; n++;
@@ -127,9 +137,99 @@ for (const region of Object.keys(DATA)){
       : L.marker([f.geometry.coordinates[1], f.geometry.coordinates[0]], {icon:icon(p.layer, p.access_rating), title:p.name});
     layer.bindPopup(popup(p), {maxWidth:380}); groups[p.layer].addLayer(layer);
     if (p.access_rating === 'unknown') unknownItems.push([p.layer, layer]);
+    const pts = p.layer === 'trail'
+      ? (f.geometry.type === 'LineString' ? [f.geometry.coordinates] : (f.geometry.coordinates || [])).flat().map(c => [c[1], c[0]])
+      : [[f.geometry.coordinates[1], f.geometry.coordinates[0]]];
+    ITEMS.push({name: p.name, layer: p.layer, rating: p.access_rating, pts, leaf: layer});
   }
 }
 document.getElementById('count').textContent = ` · ${n} features · data as of ${Object.values(DATA)[0].generated}`;
+
+const panel = document.getElementById('panel');
+const LAYER_NAME = {culture:'Museum / venue', park:'Park', restroom:'Restroom', adaptive_recreation:'Adaptive recreation',
+                    lodging:'Lodging', event:'Event venue', trail:'Trail'};
+function show(it){
+  panel.style.display = 'none';
+  if (it.layer === 'trail'){ map.fitBounds(it.leaf.getBounds(), {maxZoom:15}); it.leaf.openPopup(); return; }
+  const g = groups[it.layer];
+  if (!map.hasLayer(g)) map.addLayer(g);
+  if (!g.hasLayer(it.leaf)) g.addLayer(it.leaf);           // un-hide if the info filter had removed it
+  g.zoomToShowLayer ? g.zoomToShowLayer(it.leaf, () => it.leaf.openPopup()) : (map.setView(it.pts[0], 16), it.leaf.openPopup());
+}
+function row(it, extra){
+  const d = document.createElement('div'); d.className = 'row'; d.tabIndex = 0; d.setAttribute('role','option');
+  d.innerHTML = `<span class="dot" style="background:${RATINGS[it.rating][1]}"></span><span><b>${esc(it.name)}</b><br>`
+    + `<span class="muted">${LAYER_NAME[it.layer]} · ${RATINGS[it.rating][0].split(' (')[0]}${extra ? ' · ' + extra : ''}</span></span>`;
+  d.onclick = () => show(it); d.onkeydown = e => { if (e.key === 'Enter') show(it); };
+  return d;
+}
+// ---- search
+const q = document.getElementById('q');
+q.oninput = () => {
+  const t = q.value.trim().toLowerCase();
+  panel.innerHTML = '';
+  if (t.length < 2){ panel.style.display = 'none'; return; }
+  const hits = ITEMS.filter(it => it.name.toLowerCase().includes(t))
+    .sort((a, b) => a.name.toLowerCase().indexOf(t) - b.name.toLowerCase().indexOf(t) || (a.rating === 'unknown') - (b.rating === 'unknown'))
+    .slice(0, 8);
+  const hd = document.createElement('div'); hd.className = 'hd';
+  hd.textContent = hits.length ? `${hits.length} match${hits.length > 1 ? 'es' : ''}` : 'No match on this map';
+  panel.appendChild(hd); hits.forEach(it => panel.appendChild(row(it)));
+  panel.style.display = 'block';
+};
+q.onkeydown = e => { if (e.key === 'Escape'){ q.value = ''; panel.style.display = 'none'; } };
+// ---- near me
+const NEEDS = {
+  'Accessible restroom': it => it.layer === 'restroom' && (it.rating === 'accessible' || it.rating === 'partial'),
+  'Any restroom': it => it.layer === 'restroom',
+  'Museums & attractions': it => it.layer === 'culture',
+  'Parks': it => it.layer === 'park',
+  'Trails': it => it.layer === 'trail',
+  'Events': it => it.layer === 'event',
+  'Adaptive recreation': it => it.layer === 'adaptive_recreation',
+  'Lodging': it => it.layer === 'lodging',
+};
+function metres(a, b){
+  const R = 6371000, r = Math.PI / 180, dLat = (b[0] - a[0]) * r, dLon = (b[1] - a[1]) * r;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+const fmt = m => m < 300 ? `${Math.round(m * 3.28084 / 50) * 50} ft` : `${(m / 1609.34).toFixed(m < 16000 ? 1 : 0)} mi`;  // US units
+let here = null, hereNote = '', hereMarker = null, need = 'Accessible restroom';
+function nearest(){
+  const list = ITEMS.filter(NEEDS[need]).map(it => ({it, d: Math.min(...it.pts.map(pt => metres(here, pt)))}))
+    .sort((a, b) => a.d - b.d).slice(0, 5);
+  panel.innerHTML = '';
+  const hd = document.createElement('div'); hd.className = 'hd';
+  hd.innerHTML = '<label for="need">Closest:</label>';
+  const sel = document.createElement('select'); sel.id = 'need';
+  Object.keys(NEEDS).forEach(k => sel.add(new Option(k, k, false, k === need)));
+  sel.onchange = () => { need = sel.value; nearest(); };
+  hd.appendChild(sel);
+  const note = document.createElement('span'); note.className = 'muted'; note.textContent = hereNote; hd.appendChild(note);
+  panel.appendChild(hd);
+  if (!list.length){ const r = document.createElement('div'); r.className = 'row'; r.textContent = 'None on this map yet.'; panel.appendChild(r); }
+  list.forEach(({it, d}) => panel.appendChild(row(it, fmt(d) + ' straight-line')));
+  panel.style.display = 'block';
+}
+function setHere(latlng, note){
+  here = latlng; hereNote = note;
+  if (hereMarker) map.removeLayer(hereMarker);
+  if (!map.getPane('here')){ map.createPane('here').style.zIndex = 650; }   // above markers and clusters
+  hereMarker = L.circleMarker(here, {pane:'here', radius:9, color:'#fff', weight:3, fillColor:'#d6006f', fillOpacity:1})
+    .addTo(map).bindTooltip('You are here', {permanent:true, direction:'right', offset:[10,0]});
+  map.setView(here, Math.max(map.getZoom(), 14));
+  nearest();
+}
+document.getElementById('near').onclick = () => {
+  const centre = () => { const c = map.getCenter(); setHere([c.lat, c.lng], 'Location not shared: measured from the map centre.'); };
+  if (!navigator.geolocation){ centre(); return; }
+  navigator.geolocation.getCurrentPosition(
+    pos => setHere([pos.coords.latitude, pos.coords.longitude], 'From your location.'),
+    centre, {enableHighAccuracy:true, timeout:8000, maximumAge:60000});
+};
+map.on('click', () => { panel.style.display = 'none'; });
+
 const legend = L.control({position:'bottomright'});
 legend.onAdd = () => {
   const d = L.DomUtil.create('div','legend'); L.DomEvent.disableClickPropagation(d);
