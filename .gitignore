@@ -19,3 +19,4 @@ data/dem/*.part
 .obsidian/
 .vscode/
 data/kb/
+data/private/
