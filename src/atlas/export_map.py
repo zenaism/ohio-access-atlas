@@ -587,7 +587,10 @@ def write() -> list[Path]:
     other = {"cincinnati": "oxford", "oxford": "cincinnati"}
     for region in data:
         page = MAP / f"{region}.html"
-        nav = f' · <a href="{other[region]}.html">Switch to the {other[region].title()} map</a>'
+        nav = (
+            f' · <a href="{other[region]}.html">Switch to the {other[region].title()} map</a>'
+            f' · <a href="places/{region}/index.html">All places A–Z (text only)</a>'
+        )
         page.write_text(render({region: data[region]}, f"{region.title()} accessibility map", nav))
         written.append(page)
     (MAP / "index.html").write_text(render(data, "Ohio Access Atlas: Cincinnati and Oxford"))
@@ -595,6 +598,9 @@ def write() -> list[Path]:
     if old.exists():
         old.unlink()  # replaced by index.html
     written += write_github(data)
+    from .place_pages import write as write_places
+
+    written += write_places(data, MAP)
     return [*written, MAP / "review.csv", MAP / "index.html"]
 
 

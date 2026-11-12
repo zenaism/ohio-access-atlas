@@ -341,7 +341,7 @@ function details(it){
     h += '<p><strong>Ask before you go:</strong> ' + [...c.emails.map(e => `<a href="mailto:${esc(e)}">${esc(e)}</a>`), ...c.phones.map(t => `<a href="tel:${esc(t.replace(/\D/g,''))}">${esc(t)}</a>`)].join(' · ') + '</p>';
   const issue = 'https://github.com/zenaism/ohio-access-atlas/issues/new?title=' + encodeURIComponent('Report: ' + p.name)
     + '&body=' + encodeURIComponent(`Place: ${p.name}\nLink: ${placeUrl(it)}\n\nWhat is wrong or missing? (for example: ramp broken, restroom not accessible, new information)\n\n`);
-  h += `<div class="links"><button type="button" class="ghost" data-a="copy">Copy link<span class="vh"> to ${esc(p.name)}</span></button>`
+  h += `<div class="links"><a class="btn ghost" href="places/${esc(p.region)}/${esc(p.link_id)}.html">Text-only page<span class="vh"> for ${esc(p.name)}</span></a><button type="button" class="ghost" data-a="copy">Copy link<span class="vh"> to ${esc(p.name)}</span></button>`
     + `<a class="btn ghost" href="${issue}" target="_blank" rel="noopener">Report a problem<span class="vh"> with ${esc(p.name)} (opens GitHub in a new tab)</span></a></div>`;
   return h || '<p>No further details yet.</p>';
 }
