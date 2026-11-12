@@ -635,7 +635,18 @@ def write() -> list[Path]:
         counts = pd.Series([f["properties"]["layer"] for f in fc["features"]]).value_counts().to_dict()
         log.info("[%s] map: %d features %s", region, len(fc["features"]), counts)
     pd.DataFrame(review).drop_duplicates().to_csv(MAP / "review.csv", index=False)
+    from .google_places import browser_api_key, public_place_ids
     from .map_viewer import render
+
+    google_api_key = browser_api_key()
+    google_place_ids = public_place_ids() if google_api_key else {}
+    if google_api_key and not google_place_ids:
+        log.warning(
+            "Google Maps is enabled, but no matched Google Place IDs were found; "
+            "run the Places fetch script."
+        )
+    elif not google_api_key:
+        log.info("No browser Maps key configured; generating atlas maps with the existing basemap.")
 
     # one page per city (for GitHub Pages links) + an index page with both
     other = {"cincinnati": "oxford", "oxford": "cincinnati"}
@@ -654,9 +665,24 @@ def write() -> list[Path]:
                 else ""
             )
         )
-        page.write_text(render({region: data[region]}, f"{region.title()} accessibility map", nav))
+        page.write_text(
+            render(
+                {region: data[region]},
+                f"{region.title()} accessibility map",
+                nav,
+                google_api_key,
+                google_place_ids,
+            )
+        )
         written.append(page)
-    (MAP / "index.html").write_text(render(data, "Ohio Access Atlas: Cincinnati and Oxford"))
+    (MAP / "index.html").write_text(
+        render(
+            data,
+            "Ohio Access Atlas: Cincinnati and Oxford",
+            google_api_key=google_api_key,
+            google_place_ids=google_place_ids,
+        )
+    )
     old = MAP / "atlas_viewer.html"
     if old.exists():
         old.unlink()  # replaced by index.html

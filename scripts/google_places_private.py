@@ -1,19 +1,3 @@
-"""PRIVATE, LOCAL ONLY: Google Places accessibility for our places, plus a private copy of the map.
-
-Google's terms do not allow storing Places content (except place IDs) or showing it on a
-non-Google map. Everything this script writes goes to data/private/, which is git-ignored and
-must never be committed or published. The public map in data/map/ is not touched.
-
-  1. For each place on the map (not restrooms, trails or events), one Text Search request with
-     a location bias at our point; the match is accepted only within 150 m.
-     Responses are cached in data/private/raw/ so reruns cost nothing.
-  2. data/private/google_accessibility.json: Google's four wheelchair fields per place.
-  3. data/private/map/<region>.html and <region>_atlas.geojson: the map with Google's answers
-     added as facts (source "Google Maps"), for local viewing only.
-
-Needs GOOGLE_MAPS_API_KEY in .env.
-"""
-
 from __future__ import annotations
 
 import hashlib

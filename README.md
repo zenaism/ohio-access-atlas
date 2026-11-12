@@ -8,6 +8,8 @@ A Miami University research project.
 **Maps:** [Cincinnati](https://zenaism.github.io/ohio-access-atlas/data/map/cincinnati.html) · [Oxford](https://zenaism.github.io/ohio-access-atlas/data/map/oxford.html)
 **Text-only, screen-reader friendly:** [All Cincinnati places](https://zenaism.github.io/ohio-access-atlas/data/map/places/cincinnati/index.html) · [All Oxford places](https://zenaism.github.io/ohio-access-atlas/data/map/places/oxford/index.html)
 
+The Cincinnati and Oxford maps can show live Google Places accessibility details when a matched Place ID and a restricted browser API key are configured; details load when a place is selected.
+
 <img src="docs/figures/atlas_overview.png" width="100%" alt="Three maps of Cincinnati: city curb ramps versus OpenStreetMap kerbs, path slope classes, and density of 311 accessibility complaints"/>
 
 </div>
@@ -55,6 +57,11 @@ make test
 ```
 
 Downloaded and processed data stay on your computer (`data/raw`, `data/processed`); the map files, extracted facts and posters are in git.
+To show Google Places details in those same maps, configure `GOOGLE_MAPS_BROWSER_API_KEY` in `.env`
+with Maps JavaScript API and Places API (New) enabled, and restrict it to the site's HTTP referrer
+(`https://zenaism.github.io/*`). The key is visible in the generated HTML, so never use an
+unrestricted server key. The maps publish matched Place IDs only and fetch Places details live
+when a place is selected.
 
 ## Layout
 

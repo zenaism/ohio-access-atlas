@@ -10,6 +10,7 @@ Okabe-Ito (colour-blind safe); marker glyphs meet 3:1 contrast against their dis
 from __future__ import annotations
 
 import json
+from urllib.parse import quote
 
 RATINGS = {  # value -> (label, colour, symbol, glyph colour on the disc)
     "accessible": ("Accessible", "#0072B2", "✓", "#ffffff"),
@@ -77,6 +78,7 @@ TEMPLATE = r"""<!DOCTYPE html>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+__GOOGLE_API_SCRIPT__
 <style>
  :root{--ink:#111827;--muted:#6b7280;--line:#eceef1;--soft:#f6f7f9;--accent:#111827;--focus:#2563eb;--side:380px;--head:60px;
        --shadow:0 1px 2px rgba(17,24,39,.06),0 4px 16px rgba(17,24,39,.08);--r:14px}
@@ -219,6 +221,25 @@ TEMPLATE = r"""<!DOCTYPE html>
  </section>
 </main>
 <script>
+(async () => {
+let GOOGLE_ENABLED = __GOOGLE_ENABLED__;
+const GOOGLE_PLACE_IDS = __GOOGLE_PLACE_IDS__;
+let googleMaps = null, GooglePlace = null, googleInfoWindow = null;
+let googleWarning = '';
+if (GOOGLE_ENABLED) {
+  try {
+    const [mapsLibrary, placesLibrary] = await Promise.all([
+      google.maps.importLibrary('maps'),
+      google.maps.importLibrary('places')
+    ]);
+    googleMaps = mapsLibrary;
+    GooglePlace = placesLibrary.Place;
+  } catch (error) {
+    GOOGLE_ENABLED = false;
+    googleWarning = ' Google Maps could not start; showing the atlas map without Google Places details.';
+    console.error('Google Maps initialization failed', error);
+  }
+}
 const DATA = __DATA__, RATINGS = __RATINGS__, HELP = __HELP__, ICONS = __ICONS__;
 const PAGE = 20;
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -228,15 +249,27 @@ document.getElementById('asof').textContent = Object.values(DATA)[0].generated;
 
 // ---------- map ----------
 const PHONE_EARLY = window.matchMedia('(max-width:720px)');
-const map = L.map('map', {zoomControl:false, keyboard:true});
-L.control.zoom({position:'topright'}).addTo(map);
-L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',
-  {maxZoom:18, maxNativeZoom:16, attribution: PHONE_EARLY.matches
-    ? 'Basemap: U.S. Geological Survey · Data: OpenStreetMap, Overture, venue sites'
-    : 'Basemap: map services and data available from U.S. Geological Survey, National Geospatial Program | Data: OpenStreetMap (ODbL), Overture Maps, venue and agency websites, TrailLink, Census geocoder'}).addTo(map);
-const cluster = L.markerClusterGroup({showCoverageOnHover:false, maxClusterRadius:45, disableClusteringAtZoom:15,
-  iconCreateFunction: c => L.divIcon({html:`<div class="mc">${c.getChildCount()}</div>`, className:'', iconSize:[34,34]})}).addTo(map);
-const trails = L.layerGroup().addTo(map);
+const VIEW = {cincinnati:[[39.10,-84.51],12], oxford:[[39.535,-84.755],13]};
+const firstRegion = Object.keys(DATA)[0];
+let map, cluster = null, trails = null;
+if (GOOGLE_ENABLED) {
+  const [center, zoom] = VIEW[firstRegion];
+  map = new googleMaps.Map(document.getElementById('map'), {
+    center: {lat:center[0], lng:center[1]}, zoom,
+    mapTypeControl:false, streetViewControl:false
+  });
+  googleInfoWindow = new googleMaps.InfoWindow();
+} else {
+  map = L.map('map', {zoomControl:false, keyboard:true});
+  L.control.zoom({position:'topright'}).addTo(map);
+  L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',
+    {maxZoom:18, maxNativeZoom:16, attribution: PHONE_EARLY.matches
+      ? 'Basemap: U.S. Geological Survey · Data: OpenStreetMap, Overture, venue sites'
+      : 'Basemap: map services and data available from U.S. Geological Survey, National Geospatial Program | Data: OpenStreetMap (ODbL), Overture Maps, venue and agency websites, TrailLink, Census geocoder'}).addTo(map);
+  cluster = L.markerClusterGroup({showCoverageOnHover:false, maxClusterRadius:45, disableClusteringAtZoom:15,
+    iconCreateFunction: c => L.divIcon({html:`<div class="mc">${c.getChildCount()}</div>`, className:'', iconSize:[34,34]})}).addTo(map);
+  trails = L.layerGroup().addTo(map);
+}
 function markerIcon(layer, r){
   const [_, col, sym, glyph] = RATINGS[r];
   return L.divIcon({className:'', iconSize:[30,30], iconAnchor:[15,15], popupAnchor:[0,-14],
@@ -246,25 +279,139 @@ function markerIcon(layer, r){
       <text x="24" y="27" text-anchor="middle" font-size="8" font-weight="700" font-family="Arial,sans-serif" fill="#1b1f24">${sym}</text></svg>`});
 }
 // markers are mouse/touch only; keyboard and screen-reader users get the list (same content)
-new MutationObserver(() => document.querySelectorAll('#map .leaflet-marker-icon:not([data-q])').forEach(e => {
+if (!GOOGLE_ENABLED) new MutationObserver(() => document.querySelectorAll('#map .leaflet-marker-icon:not([data-q])').forEach(e => {
   e.setAttribute('tabindex','-1'); e.setAttribute('aria-hidden','true'); e.dataset.q = 1; })).observe(document.getElementById('map'), {childList:true, subtree:true});
 
 // ---------- items ----------
 const ITEMS = [];
+const googleDetailCache = new Map();
+async function fetchGoogleDetails(placeId){
+  if (!googleDetailCache.has(placeId)){
+    const request = (async () => {
+      const place = new GooglePlace({id:placeId});
+      await place.fetchFields({fields:['displayName','formattedAddress','googleMapsURI','accessibilityOptions','attributions']});
+      return {
+        displayName:place.displayName,
+        formattedAddress:place.formattedAddress,
+        googleMapsURI:place.googleMapsURI,
+        accessibilityOptions:place.accessibilityOptions,
+        attributions:place.attributions
+      };
+    })();
+    googleDetailCache.set(placeId, request);
+  }
+  try { return await googleDetailCache.get(placeId); }
+  catch (error) { googleDetailCache.delete(placeId); throw error; }
+}
+function googleDetailsNode(detail){
+  const root = document.createElement('section');
+  root.className = 'google-accessibility';
+  const heading = document.createElement('h4');
+  heading.textContent = 'Google Maps accessibility details';
+  root.append(heading);
+  if (detail.displayName){
+    const name = document.createElement('p'); name.textContent = detail.displayName; root.append(name);
+  }
+  if (detail.formattedAddress){
+    const address = document.createElement('p'); address.textContent = detail.formattedAddress; root.append(address);
+  }
+  const fields = [
+    ['hasWheelchairAccessibleEntrance','Wheelchair-accessible entrance'],
+    ['hasWheelchairAccessibleRestroom','Wheelchair-accessible restroom'],
+    ['hasWheelchairAccessibleParking','Wheelchair-accessible parking'],
+    ['hasWheelchairAccessibleSeating','Wheelchair-accessible seating']
+  ];
+  const list = document.createElement('ul');
+  for (const [field, label] of fields){
+    const value = detail.accessibilityOptions?.[field];
+    const row = document.createElement('li');
+    row.textContent = `${label}: ${value === true ? 'Yes' : value === false ? 'No' : 'Not reported'}`;
+    list.append(row);
+  }
+  root.append(list);
+  const attribution = document.createElement('p');
+  attribution.textContent = 'Accessibility details from Google Maps.';
+  root.append(attribution);
+  if (detail.attributions?.length){
+    const providers = document.createElement('p');
+    providers.textContent = `Data providers: ${detail.attributions.map(item => item.provider).filter(Boolean).join(', ')}`;
+    root.append(providers);
+  }
+  if (detail.googleMapsURI){
+    const link = document.createElement('a');
+    link.href = detail.googleMapsURI; link.target = '_blank'; link.rel = 'noopener noreferrer';
+    link.textContent = 'Open in Google Maps'; root.append(link);
+  }
+  return root;
+}
+function loadGoogleDetails(it, target){
+  if (!it.googlePlaceId) return;
+  target.textContent = 'Loading live accessibility details from Google Places...';
+  fetchGoogleDetails(it.googlePlaceId)
+    .then(detail => target.replaceChildren(googleDetailsNode(detail)))
+    .catch(error => {
+      target.textContent = 'Google Places details could not be loaded. Please try again later.';
+      document.getElementById('status').textContent = 'A Google Places request failed. Check the browser key, API access, and network.';
+      console.error('Google Places detail request failed', error);
+    });
+}
+function googleInfoContent(it){
+  const root = document.createElement('div');
+  const title = document.createElement('h3'); title.textContent = it.p.name; root.append(title);
+  const rating = document.createElement('p'); rating.textContent = RATINGS[it.p.access_rating][0]; root.append(rating);
+  const summary = document.createElement('p'); summary.textContent = it.p.summary; root.append(summary);
+  const details = document.createElement('div'); root.append(details);
+  if (it.googlePlaceId) loadGoogleDetails(it, details);
+  else details.textContent = 'No matched Google Place for this location.';
+  const button = document.createElement('button'); button.type = 'button'; button.textContent = 'Details in the list';
+  button.addEventListener('click', () => openCard(it.i)); root.append(button);
+  return root;
+}
+function showGoogleInfo(it){
+  googleInfoWindow.setContent(googleInfoContent(it));
+  if (it.p.layer === 'trail'){
+    const point = it.pts[0];
+    googleInfoWindow.setPosition({lat:point[0], lng:point[1]});
+    googleInfoWindow.open({map});
+  } else googleInfoWindow.open({map, anchor:it.googleMarker});
+}
 for (const region of Object.keys(DATA)) for (const f of DATA[region].features){
   const p = f.properties, i = ITEMS.length;
   const pts = p.layer === 'trail'
     ? (f.geometry.type === 'LineString' ? [f.geometry.coordinates] : (f.geometry.coordinates || [])).flat().map(c => [c[1], c[0]])
     : [[f.geometry.coordinates[1], f.geometry.coordinates[0]]];
-  const leaf = p.layer === 'trail'
-    ? L.geoJSON(f, {style:{color:RATINGS[p.access_rating][1], weight:5, opacity:.9}}).addTo(trails)
-    : L.marker(pts[0], {icon:markerIcon(p.layer, p.access_rating), keyboard:false, title:p.name});
-  if (p.layer !== 'trail') cluster.addLayer(leaf);
-  leaf.bindPopup(() => `<h3>${esc(p.name)}</h3>${badge(p.access_rating)}<p>${esc(p.summary)}</p><button type="button" onclick="openCard(${i})">Details in the list</button>`, {maxWidth:320});
-  ITEMS.push({i, p, pts, leaf, dist:null, dir:'', text:(p.name + ' ' + p.summary).toLowerCase()});
+  const it = {
+    i, p, pts, leaf:null, googleMarker:null, googleLine:null,
+    googlePlaceId:GOOGLE_PLACE_IDS[p.link_id] || null,
+    dist:null, dir:'', text:(p.name + ' ' + p.summary).toLowerCase()
+  };
+  if (GOOGLE_ENABLED){
+    if (p.layer === 'trail'){
+      const segments = f.geometry.type === 'LineString' ? [f.geometry.coordinates] : f.geometry.coordinates;
+      it.googleLine = new googleMaps.Polyline({
+        path:segments.map(segment => segment.map(c => ({lat:c[1], lng:c[0]}))),
+        strokeColor:RATINGS[p.access_rating][1], strokeWeight:5, strokeOpacity:.9, clickable:true
+      });
+      it.googleLine.addListener('click', () => showGoogleInfo(it));
+    } else {
+      const [, color, symbol, glyph] = RATINGS[p.access_rating];
+      it.googleMarker = new googleMaps.Marker({
+        position:{lat:pts[0][0], lng:pts[0][1]}, title:p.name,
+        icon:{path:googleMaps.SymbolPath.CIRCLE, scale:12, fillColor:color, fillOpacity:1, strokeColor:'#fff', strokeWeight:2},
+        label:{text:symbol, color:glyph, fontSize:'13px', fontWeight:'bold'}
+      });
+      it.googleMarker.addListener('click', () => showGoogleInfo(it));
+    }
+  } else {
+    it.leaf = p.layer === 'trail'
+      ? L.geoJSON(f, {style:{color:RATINGS[p.access_rating][1], weight:5, opacity:.9}}).addTo(trails)
+      : L.marker(pts[0], {icon:markerIcon(p.layer, p.access_rating), keyboard:false, title:p.name});
+    if (p.layer !== 'trail') cluster.addLayer(it.leaf);
+    it.leaf.bindPopup(() => `<h3>${esc(p.name)}</h3>${badge(p.access_rating)}<p>${esc(p.summary)}</p><button type="button" onclick="openCard(${i})">Details in the list</button>`, {maxWidth:320});
+  }
+  ITEMS.push(it);
 }
-const VIEW = {cincinnati:[[39.10,-84.51],12], oxford:[[39.535,-84.755],13]};
-if (PHONE_EARLY.matches) map.attributionControl.setPrefix(false);
+if (!GOOGLE_ENABLED && PHONE_EARLY.matches) map.attributionControl.setPrefix(false);
 // ---------- collapsible list (desktop/tablet) and bottom sheet (phone) ----------
 const PHONE = window.matchMedia('(max-width:720px)');
 const toggleBtn = document.getElementById('toggle'), sheetBtn = document.getElementById('sheet');
@@ -274,7 +421,7 @@ function setList(open){
   document.getElementById('toggle-label').textContent = open ? 'Hide list' : 'Show list';
   toggleBtn.title = open ? 'Hide list' : 'Show list';
   try { localStorage.setItem('atlas-list-open', open ? '1' : '0'); } catch (e) {}
-  setTimeout(() => map.invalidateSize(), 220);
+  setTimeout(() => GOOGLE_ENABLED ? google.maps.event.trigger(map, 'resize') : map.invalidateSize(), 220);
 }
 function setSheet(open){
   document.body.classList.toggle('sheet-open', open);
@@ -287,7 +434,7 @@ document.querySelector('.skip').onclick = () => { PHONE.matches ? setSheet(true)
 let saved = null; try { saved = localStorage.getItem('atlas-list-open'); } catch (e) {}
 if (saved === '0' && !PHONE.matches) setList(false);
 
-map.setView(...VIEW[Object.keys(DATA)[0]]);
+if (!GOOGLE_ENABLED) map.setView(...VIEW[firstRegion]);
 
 // ---------- filters ----------
 const VISION = new Set(['Braille', 'Large print', 'Audio description', 'Touch / tactile', 'Service animals']);
@@ -344,6 +491,8 @@ function directions(it){ const [la, lo] = here ? it.near : it.pts[0];
   return `https://www.google.com/maps/dir/?api=1&destination=${la},${lo}&travelmode=walking`; }
 function details(it){
   const p = it.p; let h = '';
+  if (GOOGLE_ENABLED && it.googlePlaceId)
+    h += `<div class="google-details" id="google-details-${it.i}"></div>`;
   if (keyLine(p) && p.summary.length > 160) h += `<p class="sum">${esc(p.summary)}</p>`;
   if (p.facts && p.facts.length){
     h += `<table><caption class="vh">Accessibility facts for ${esc(p.name)}</caption><thead><tr><th scope="col">Feature</th><th scope="col">What the source says</th></tr></thead><tbody>`
@@ -436,17 +585,32 @@ function card(it){
 let routeLayer = null;
 function showRoute(it, blind){
   const r = blind ? it.p.getting_there.route.blind : it.p.getting_there.route;
-  if (routeLayer) map.removeLayer(routeLayer);
-  routeLayer = L.polyline(r.line.map(c => [c[1], c[0]]), {color:'#1d4ed8', weight:6, opacity:.85, dashArray:'1 9', lineCap:'round'}).addTo(map);
+  if (routeLayer) GOOGLE_ENABLED ? routeLayer.setMap(null) : map.removeLayer(routeLayer);
+  if (GOOGLE_ENABLED){
+    const path = r.line.map(c => ({lat:c[1], lng:c[0]}));
+    routeLayer = new googleMaps.Polyline({
+      path, map, strokeColor:'#1d4ed8', strokeWeight:6, strokeOpacity:.85, icons:[{
+        icon:{path:'M 0,-1 0,1', strokeOpacity:1, scale:4}, offset:'0', repeat:'12px'
+      }]
+    });
+    const bounds = new googleMaps.LatLngBounds();
+    path.forEach(point => bounds.extend(point));
+    map.fitBounds(bounds, 40);
+  } else {
+    routeLayer = L.polyline(r.line.map(c => [c[1], c[0]]), {color:'#1d4ed8', weight:6, opacity:.85, dashArray:'1 9', lineCap:'round'}).addTo(map);
+    map.fitBounds(routeLayer.getBounds(), {padding:[40, 40], maxZoom:18});
+  }
   if (PHONE.matches) setSheet(false);
-  map.fitBounds(routeLayer.getBounds(), {padding:[40, 40], maxZoom:18});
   document.getElementById('status').textContent = `Route to ${it.p.name} shown on the map: about ${r.length_feet.toLocaleString()} feet.`;
 }
 function toggle(it, btn, force){
   const box = document.getElementById('det-' + it.i), open = force ?? btn.getAttribute('aria-expanded') !== 'true';
   btn.setAttribute('aria-expanded', open); box.hidden = !open;
   if (open && !box.innerHTML){
-    box.innerHTML = details(it); box.querySelector('[data-a=copy]').onclick = () => copyLink(it);
+    box.innerHTML = details(it);
+    const googleBox = box.querySelector('.google-details');
+    if (googleBox) loadGoogleDetails(it, googleBox);
+    box.querySelector('[data-a=copy]').onclick = () => copyLink(it);
     const rb = box.querySelector('[data-a=route]'); if (rb) rb.onclick = () => showRoute(it);
     const rbb = box.querySelector('[data-a=route-blind]'); if (rbb) rbb.onclick = () => showRoute(it, true);
   }
@@ -457,6 +621,13 @@ function syncMap(list){
   const key = list.map(it => it.i).join(',');
   if (key === mapKey) return; mapKey = key;
   const on = new Set(list);
+  if (GOOGLE_ENABLED){
+    ITEMS.forEach(it => {
+      if (it.googleMarker) it.googleMarker.setMap(on.has(it) ? map : null);
+      if (it.googleLine) it.googleLine.setMap(on.has(it) ? map : null);
+    });
+    return;
+  }
   cluster.clearLayers();
   cluster.addLayers(ITEMS.filter(it => it.p.layer !== 'trail' && on.has(it)).map(it => it.leaf));
   ITEMS.filter(it => it.p.layer === 'trail').forEach(it => on.has(it) ? trails.addLayer(it.leaf) : trails.removeLayer(it.leaf));
@@ -477,11 +648,25 @@ function render(announce){
 }
 function showOnMap(it){
   if (PHONE.matches) setSheet(false);
+  if (GOOGLE_ENABLED){
+    if (it.p.layer === 'trail'){
+      const bounds = new googleMaps.LatLngBounds();
+      it.pts.forEach(([lat, lng]) => bounds.extend({lat, lng}));
+      map.fitBounds(bounds, 40);
+      showGoogleInfo(it);
+    } else {
+      const position = it.googleMarker.getPosition();
+      map.panTo(position);
+      map.setZoom(Math.max(map.getZoom(), 15));
+      showGoogleInfo(it);
+    }
+    return;
+  }
   if (it.p.layer === 'trail'){ map.fitBounds(it.leaf.getBounds(), {maxZoom:15}); it.leaf.openPopup(); return; }
   cluster.zoomToShowLayer(it.leaf, () => it.leaf.openPopup());
 }
 function openCard(i){
-  map.closePopup();
+  if (GOOGLE_ENABLED) googleInfoWindow.close(); else map.closePopup();
   const it = ITEMS[i]; let idx = current().indexOf(it);
   if (idx < 0){ q.value = ''; need.value = 'All places'; known.checked = false; idx = current().indexOf(it); }
   page = Math.floor(idx / PAGE);
@@ -491,6 +676,7 @@ function openCard(i){
   const box = PHONE.matches ? document.getElementById('side-body') : li.closest('.side-body');
   box.scrollTop = li.offsetTop - box.offsetTop - 8; li.querySelector('h3').focus({preventScroll:true});
 }
+window.openCard = openCard;
 [need, known, when].forEach(el => el.onchange = () => { when.hidden = !/[Ee]vents|shows/.test(need.value); page = 0; render(); });
 q.oninput = () => { page = 0; render(); };
 // ---------- paging ----------
@@ -536,17 +722,29 @@ function setHere(latlng, note){
   ITEMS.forEach(it => { let best = Infinity, near = it.pts[0];
     for (const pt of it.pts){ const d = metres(here, pt); if (d < best){ best = d; near = pt; } }
     it.dist = best; it.near = near; it.dir = bearing(here, near); });
-  if (hereMarker) map.removeLayer(hereMarker);
-  if (!map.getPane('here')) map.createPane('here').style.zIndex = 650;
-  hereMarker = L.circleMarker(here, {pane:'here', radius:9, color:'#fff', weight:3, fillColor:'#d6006f', fillOpacity:1})
-    .addTo(map).bindTooltip('You are here', {permanent:true, direction:'right', offset:[10,0]});
-  map.setView(here, Math.max(map.getZoom(), 14));
+  if (hereMarker) GOOGLE_ENABLED ? hereMarker.setMap(null) : map.removeLayer(hereMarker);
+  if (GOOGLE_ENABLED){
+    hereMarker = new googleMaps.Marker({
+      map, position:{lat:here[0], lng:here[1]}, title:'You are here',
+      icon:{path:googleMaps.SymbolPath.CIRCLE, scale:9, fillColor:'#d6006f', fillOpacity:1, strokeColor:'#fff', strokeWeight:3}
+    });
+    map.setCenter({lat:here[0], lng:here[1]});
+    map.setZoom(Math.max(map.getZoom(), 14));
+  } else {
+    if (!map.getPane('here')) map.createPane('here').style.zIndex = 650;
+    hereMarker = L.circleMarker(here, {pane:'here', radius:9, color:'#fff', weight:3, fillColor:'#d6006f', fillOpacity:1})
+      .addTo(map).bindTooltip('You are here', {permanent:true, direction:'right', offset:[10,0]});
+    map.setView(here, Math.max(map.getZoom(), 14));
+  }
   page = 0; render();
   if (PHONE.matches) setSheet(true); else setList(true);
   document.getElementById('status').textContent += ' ' + note + ' Distances are straight-line, not routes.';
 }
 document.getElementById('near').onclick = () => {
-  const centre = () => { const c = map.getCenter(); setHere([c.lat, c.lng], 'Location not shared, so distances are from the centre of the map.'); };
+  const centre = () => {
+    const c = map.getCenter();
+    setHere(GOOGLE_ENABLED ? [c.lat(), c.lng()] : [c.lat, c.lng], 'Location not shared, so distances are from the centre of the map.');
+  };
   if (!navigator.geolocation) return centre();
   document.getElementById('status').textContent = 'Finding your location…';
   navigator.geolocation.getCurrentPosition(pos => setHere([pos.coords.latitude, pos.coords.longitude], 'Measured from your location.'),
@@ -556,19 +754,52 @@ document.getElementById('near').onclick = () => {
 document.getElementById('legend-body').innerHTML = '<ul>'
   + Object.entries(RATINGS).map(([k, r]) => `<li>${badge(k)}<span>${HELP[k]}</span></li>`).join('') + '</ul><ul>'
   + Object.entries(ICONS).map(([k, [label]]) => `<li>${svg(k, '#374151', 18)}<span>${label}${k === 'trail' ? ' (coloured line)' : ''}</span></li>`).join('')
-  + '<li><span class="mc" style="width:22px;height:22px;font-size:11px;box-shadow:none">5</span><span>Group of nearby places: zoom in</span></li></ul>';
+  + (GOOGLE_ENABLED
+    ? '<li><span>Google Maps markers</span><span>Zoom in to separate nearby places</span></li></ul>'
+    : '<li><span class="mc" style="width:22px;height:22px;font-size:11px;box-shadow:none">5</span><span>Group of nearby places: zoom in</span></li></ul>');
 render();
+if (googleWarning) document.getElementById('status').textContent += googleWarning;
 openFromHash();
+})().catch(error => {
+  document.getElementById('status').textContent = 'The map could not be initialized. Check the browser key, APIs, and network, then reload.';
+  console.error('Atlas initialization failed', error);
+});
 </script></body></html>
 """
 
 
-def render(data: dict, title: str = "Ohio Access Atlas", nav: str = "") -> str:
+def render(
+    data: dict,
+    title: str = "Ohio Access Atlas",
+    nav: str = "",
+    google_api_key: str = "",
+    google_place_ids: dict[str, str] | None = None,
+) -> str:
     """data = {region: FeatureCollection}; nav = extra HTML after the date (e.g. a link to the other city)."""
+    google_enabled = bool(google_api_key)
+    visible_link_ids = {
+        feature["properties"]["link_id"]
+        for collection in data.values()
+        for feature in collection["features"]
+    }
+    google_ids = {
+        link_id: place_id
+        for link_id, place_id in (google_place_ids or {}).items()
+        if google_enabled and link_id in visible_link_ids
+    }
+    google_ids_json = json.dumps(google_ids, ensure_ascii=False).replace("<", "\\u003c")
+    google_api_script = (
+        f'<script src="https://maps.googleapis.com/maps/api/js?key={quote(google_api_key, safe="")}&v=weekly&libraries=places"></script>'
+        if google_enabled
+        else ""
+    )
     return (
         TEMPLATE.replace("__DATA__", json.dumps(data, ensure_ascii=False))
         .replace("__TITLE__", title)
         .replace("__NAV__", nav)
+        .replace("__GOOGLE_API_SCRIPT__", google_api_script)
+        .replace("__GOOGLE_ENABLED__", str(google_enabled).lower())
+        .replace("__GOOGLE_PLACE_IDS__", google_ids_json)
         .replace("__RATINGS__", json.dumps(RATINGS, ensure_ascii=False))
         .replace("__HELP__", json.dumps(RATING_HELP))
         .replace("__ICONS__", json.dumps(ICONS))

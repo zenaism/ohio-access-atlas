@@ -1,6 +1,6 @@
 # Sources
 
-This list separates data already collected from ideas for later. Google Places and Reddit are not currently in the processed data. AllTrails is not a source we plan to scrape.
+This list separates data already collected from ideas for later. Google Places matches are fetched for a local comparison workflow; accessibility details are requested live in the Cincinnati and Oxford maps and are not included in the atlas's processed data. Reddit is not currently in the processed data. AllTrails is not a source we plan to scrape.
 
 ## In pipeline
 - OpenStreetMap (Overpass) ✅: https://overpass-api.de/api/interpreter
@@ -12,6 +12,7 @@ This list separates data already collected from ideas for later. Google Places a
 - Cincinnati Metro GTFS ✅: https://files.mobilitydatabase.org/mdb-307/latest.zip
 - BCRTA GTFS (stale, 2019) ✅: https://files.mobilitydatabase.org/mdb-240/latest.zip
 - Reddit API (collector exists, but needs keys; no posts collected yet): https://www.reddit.com/dev/api/
+- Google Places API (New) (local place matching; live details in the atlas maps): https://developers.google.com/maps/documentation/places/web-service
 
 ## Next
 - CAGIS elevation (2 ft DEM, slopes) 🔜: https://cagisonline.hamilton-co.org/arcgis/rest/services/CAGIS_Elevation_Current/ImageServer
@@ -35,7 +36,6 @@ This list separates data already collected from ideas for later. Google Places a
 - City of Oxford (ADA transition plan, sidewalk program) 💡: https://www.cityofoxford.org/
 - Project Sidewalk (deploy for Oxford?) 💡: https://projectsidewalk.org/
 - Wheelmap / accessibility.cloud 💡: https://www.accessibility.cloud/
-- Google Places API accessibility options (possible comparison source; not collected): https://developers.google.com/maps/documentation/places/web-service
 - Yelp Fusion attributes 💡 ⚠️: https://docs.developer.yelp.com/
 - Venue accessibility pages (zoo, stadiums, museums) 💡: per-venue sites
 - Tile2Net (sidewalks from aerial imagery) 💡: https://github.com/VIDA-NYU/tile2net
