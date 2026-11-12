@@ -380,6 +380,15 @@ function details(it){
         + '<p class="note">Suggested from OpenStreetMap paths and USGS elevation; avoids mapped stairs and steep sections. Not checked on site: sidewalks and curb ramps may be missing from the map.</p>';
     }
   }
+  if (p.details){
+    const d = p.details, rows = [];
+    if (d.address) rows.push(`<li>Address: ${esc(d.address)}</li>`);
+    if (d.phone) rows.push(`<li>Phone: <a href="tel:${esc(d.phone.replace(/[^+\d]/g, ''))}">${esc(fmtPhone(d.phone))}</a></li>`);
+    if (d.website) rows.push(`<li><a href="${esc(d.website)}" target="_blank" rel="noopener">Website<span class="vh"> of ${esc(p.name)} (opens in a new tab)</span></a></li>`);
+    if (d.hours) rows.push(`<li>Hours: ${esc(d.hours)}</li>`);
+    const src = [...new Set(Object.values(d.sources || {}))].join(' and ');
+    h += '<h4>Address, phone and hours</h4><ul>' + rows.join('') + `</ul><p class="note">From ${esc(src)}; check before you go.</p>`;
+  }
   const c = p.contacts || {emails:[], phones:[]};
   if (c.emails.length || c.phones.length)
     h += '<p><strong>Ask before you go:</strong> ' + [...c.emails.map(e => `<a href="mailto:${esc(e)}">${esc(e)}</a>`), ...c.phones.map(t => `<a href="tel:${esc(t.replace(/\D/g,''))}">${esc(t)}</a>`)].join(' · ') + '</p>';
@@ -391,6 +400,10 @@ function details(it){
 }
 const ACCESS = {audio_description:'audio described', asl:'ASL interpreted', sensory_friendly:'sensory-friendly'};
 const accessText = e => (e.access && e.access.length) ? ' (' + e.access.map(a => ACCESS[a] || a).join(', ') + ')' : '';
+function fmtPhone(s){
+  const d = String(s).replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '');
+  return d.length === 10 ? `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}` : s;
+}
 const KEYMARK = {'yes':'✓', 'partly':'~', 'no':'✕', 'not known':'?'};
 function keyLine(p){
   if (!p.keys || !p.keys.length) return '';

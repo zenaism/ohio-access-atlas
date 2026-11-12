@@ -189,6 +189,30 @@ def _events(p: dict, today: str) -> str:
     return f"<h2>Upcoming events ({len(evs)})</h2><ul>{li}</ul>"
 
 
+def _phone(s: str) -> str:
+    d = "".join(ch for ch in str(s) if ch.isdigit())
+    d = d[1:] if len(d) == 11 and d.startswith("1") else d
+    return f"({d[:3]}) {d[3:6]}-{d[6:]}" if len(d) == 10 else str(s)
+
+
+def _details(p: dict) -> str:
+    d = p.get("details") or {}
+    if not d:
+        return ""
+    rows = []
+    if d.get("address"):
+        rows.append(f"<li>Address: {escape(d['address'])}</li>")
+    if d.get("phone"):
+        tel = "".join(ch for ch in d["phone"] if ch.isdigit() or ch == "+")
+        rows.append(f'<li>Phone: <a href="tel:{tel}">{escape(_phone(d["phone"]))}</a></li>')
+    if d.get("website"):
+        rows.append(f'<li><a href="{escape(d["website"])}">Website</a></li>')
+    if d.get("hours"):
+        rows.append(f"<li>Hours: {escape(d['hours'])}</li>")
+    src = " and ".join(dict.fromkeys((d.get("sources") or {}).values()))
+    return f'<h2>Address, phone and hours</h2><ul>{"".join(rows)}</ul><p class="note">From {escape(src)}; check before you go.</p>'
+
+
 def _contacts(p: dict) -> str:
     c = p.get("contacts") or {}
     items = [f'<a href="mailto:{escape(e)}">{escape(e)}</a>' for e in c.get("emails", [])]
@@ -223,6 +247,7 @@ def place_html(f: dict, region: str, generated: str) -> str:
     body += _getting_there(p.get("getting_there") or {})
     body += _facts(p)
     body += _events(p, generated)
+    body += _details(p)
     body += _contacts(p)
     links = [f'<a href="../../{region}.html#place={escape(p["link_id"])}">Show on the map</a>']
     if lat is not None:

@@ -100,6 +100,10 @@ def _brief(row: dict, here: tuple[float, float] | None = None) -> dict:
         "notice": row["notice"],
         "newest_source": row["newest_source"],
         "page": row["page"],
+        "address": row.get("address"),
+        "phone": row.get("phone"),
+        "website": row.get("website"),
+        "hours": row.get("hours"),
     }
     if here:
         out["miles"] = round(_miles(here[0], here[1], row["lat"], row["lon"]), 2)
@@ -155,9 +159,17 @@ def search_places(
         name = r["name"].lower()
         if words:
             in_name = sum(weight[w] for w in words if w in name)
-            body = r["summary"].lower() + " " + text.get(r["link_id"], "")
+            body = (
+                r["summary"].lower()
+                + " "
+                + (r.get("address") or "").lower()
+                + " "
+                + text.get(r["link_id"], "")
+            )
             in_body = sum(weight[w] for w in words if w in body)
-            if in_name == 0 and in_body == 0:
+            # a place must match its name, or else every word of the query (so "Skyline Ludlow" does
+            # not return some other building on Ludlow Avenue)
+            if in_name == 0 and not all(w in body for w in words):
                 continue
             exact = 3 if " ".join(words) in name else 0
             score = exact + 2 * in_name + 0.5 * in_body

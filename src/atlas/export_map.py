@@ -620,6 +620,7 @@ def write() -> list[Path]:
         enrich(feats, g)
         add_getting_there(feats, region)
         add_arrival(feats, region)
+        add_details(feats, region)
         seen: dict[str, int] = {}
         for f in feats:  # same name at the same spot (OSM node + way): keep links unique
             k = f["properties"]["link_id"]
@@ -1505,3 +1506,87 @@ def listing_features(region: str, feats: list, review: list) -> list:
             }
         )
     return out
+
+
+# ------------------------------------------------- address, phone, website, hours ----
+NAME_STOP = {
+    "the",
+    "of",
+    "and",
+    "at",
+    "a",
+    "cincinnati",
+    "oxford",
+    "ohio",
+    "oh",
+    "inc",
+    "llc",
+    "co",
+    "center",
+    "hall",
+    "park",
+    "saint",
+    "st",
+    "cafe",
+    "building",
+    "company",
+    "restroom",
+    "near",
+}
+
+
+def _name_words(s: str) -> set[str]:
+    return {
+        w[:5]
+        for w in re.findall(r"[a-z0-9]+", s.lower().replace("’", "'"))
+        if w not in NAME_STOP and len(w) > 2
+    }
+
+
+def add_details(feats: list, region: str) -> None:
+    """Address, phone, website and opening hours for each place, from its own OSM tags first and
+    otherwise from the nearest Overture place (within 60 m) that shares a distinctive name word.
+    Both sources are openly licensed (ODbL / CDLA), so these can be published."""
+    d = PROCESSED / region
+    tags: dict[str, dict] = {}
+    for f in ("osm.entities.parquet", "osm_destinations.entities.parquet", "osm_entrances.entities.parquet"):
+        if (d / f).exists():
+            x = pd.read_parquet(d / f, columns=["entity_id", "tags"])
+            tags.update(
+                {e: json.loads(t) for e, t in zip(x.entity_id, x.tags, strict=True) if isinstance(t, str)}
+            )
+    ov = gpd.read_parquet(d / "overture_places.entities.parquet")
+    ov = _metric(ov[["name", "address", "locality", "postcode", "phone", "website", "geometry"]])
+    for f in feats:
+        p = f["properties"]
+        if p["layer"] in ("trail",) or f["geometry"].geom_type != "Point":
+            continue
+        t = tags.get(p.get("matched_to", "").split(" ")[0], {})
+        info, src = {}, {}
+        street = " ".join(x for x in (t.get("addr:housenumber"), t.get("addr:street")) if x)
+        if street:
+            info["address"] = street + (f", {t['addr:city']}" if t.get("addr:city") else "")
+            src["address"] = "OpenStreetMap"
+        for k, keys in (
+            ("phone", ("phone", "contact:phone")),
+            ("website", ("website", "contact:website")),
+            ("hours", ("opening_hours",)),
+        ):
+            v = next((t[x] for x in keys if t.get(x)), None)
+            if v:
+                info[k], src[k] = v, "OpenStreetMap"
+        if p["layer"] != "restroom" and not all(k in info for k in ("address", "phone", "website")):
+            here = gpd.GeoSeries([point(f["geometry"])], crs=WGS84).to_crs(METRIC).iloc[0]
+            near = ov.iloc[list(ov.sindex.query(here.buffer(60)))]
+            mine = _name_words(p["name"])
+            near = near[[bool(mine & _name_words(str(n))) for n in near.name]] if len(near) else near
+            if len(near):
+                o = near.iloc[near.distance(here).argmin()]
+                if "address" not in info and isinstance(o.address, str):
+                    info["address"] = o.address + (f", {o.locality}" if isinstance(o.locality, str) else "")
+                    src["address"] = "Overture Maps"
+                for k in ("phone", "website"):
+                    if k not in info and isinstance(o[k], str) and o[k]:
+                        info[k], src[k] = o[k], "Overture Maps"
+        if info:
+            p["details"] = {**info, "sources": src}

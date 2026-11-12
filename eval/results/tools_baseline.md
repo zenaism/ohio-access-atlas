@@ -26,7 +26,7 @@ Caveat: the expected places were written after looking at our data, so this is a
 | paved-trails-cincinnati | trails | hit | Armleder Park Trail; Armleder-Lunken Connector Trail; Creekside Trail; Five Mile Trail; Lebanon Countryside YMCA Trail |
 | oxford-flat-trail | trails | hit | Oxford Area Trails (OATS), Miami University portion; DeWitt Log Homestead; Helen S. Ruder Preserve; Leonard Howell Park; Peffer Park |
 | sharon-woods-loop | trails | hit | Sharon Woods; Sharon Woods Loop Trail; MobilityWorks of Sharonville-Cincinnati, OH; Restroom near Sharonville Presbyterian Church; Sharonville Convention Center |
-| waterfall | trails | unknown (gap) | Krohn Conservatory |
+| waterfall | trails | unknown (gap) | Krohn Conservatory; Northern Kentucky University |
 | treehouse | trails | hit | Everybody's Treehouse, Mt. Airy Forest |
 | hueston-woods | trails | hit | Hueston Woods Marina; Hueston Woods Lodge; Restroom near Hueston Woods State Nature Preserve; Restroom near Hueston Woods Sugar House |
 | all-terrain-chair | trails | hit | GRIT all-terrain chair pickup (MetroParks of Butler County); MetroParks of Butler County |
@@ -42,10 +42,10 @@ Caveat: the expected places were written after looking at our data, so this is a
 | adaptive-sports | events | hit | Manuel D. & Rhoda Mayerson JCC |
 | support-groups | events | unknown (gap) | (none) |
 | wheelchair-repair | services | hit | Mobility Plus Cincinnati East; MobilityWorks of Sharonville-Cincinnati, OH; Superior Van & Mobility |
-| report-ramp | services | hit | City of Cincinnati 311 (accessibility reports); William Howard Taft National Historic Site; Cincinnati Museum Center; Aronoff Center for the Arts; BB Riverboats |
+| report-ramp | services | hit | City of Cincinnati 311 (accessibility reports) |
 | oxford-roll-in | services | hit | Hueston Woods Lodge |
 | miami-entrances | services | hit | Hall Auditorium; Armstrong Student Center; Alumni Hall; Anderson Hall; Art Building |
-| van-rental | services | hit | Superior Van & Mobility; Mobility Plus Cincinnati East; MobilityWorks of Sharonville-Cincinnati, OH |
+| van-rental | services | hit | Superior Van & Mobility |
 | up-to-date | trust | hit | Cincinnati Museum Center |
 | facebook-ramp | trust | hit | Taft Theatre |
 | google-disagrees | trust | hit | Thomson Hall |

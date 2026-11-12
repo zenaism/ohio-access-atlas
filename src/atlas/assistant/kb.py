@@ -52,6 +52,10 @@ def _rows(region: str):
                 "newest_source": p.get("newest_source"),
                 "contacts": json.dumps(p.get("contacts") or {}),
                 "page": f"{SITE}/places/{region}/{p['link_id']}.html",
+                "address": (p.get("details") or {}).get("address"),
+                "phone": (p.get("details") or {}).get("phone"),
+                "website": (p.get("details") or {}).get("website"),
+                "hours": (p.get("details") or {}).get("hours"),
                 "generated": fc["generated"],
             }
         )
