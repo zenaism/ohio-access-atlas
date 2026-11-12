@@ -250,6 +250,7 @@ if (saved === '0' && !PHONE.matches) setList(false);
 map.setView(...VIEW[Object.keys(DATA)[0]]);
 
 // ---------- filters ----------
+const VISION = new Set(['Braille', 'Large print', 'Audio description', 'Touch / tactile', 'Service animals']);
 const NEEDS = {
   'All places': () => true,
   'Accessible restrooms': it => it.p.layer === 'restroom' && ['accessible','partial'].includes(it.p.access_rating),
@@ -261,6 +262,7 @@ const NEEDS = {
   'Parks & gardens': it => it.p.layer === 'park',
   'Trails': it => it.p.layer === 'trail',
   'Events': it => it.p.layer === 'event' || !!(it.p.events && it.p.events.length),
+  'Blind or low vision': it => (it.p.facts || []).some(f => VISION.has(f.attribute)) || it.p.getting_there?.accessible_signals > 0,
   'Adaptive recreation': it => it.p.layer === 'adaptive_recreation',
   'Lodging': it => it.p.layer === 'lodging',
 };
@@ -318,6 +320,8 @@ function details(it){
     li.push(g.steep_sections ? `${g.steep_sections} path section${g.steep_sections > 1 ? 's' : ''} steeper than a ramp (8.33%) within 500 feet; steepest about ${g.steepest_pct}%` : 'No path steeper than a ramp (8.33%) within 500 feet');
     if (g.stairs) li.push(`${g.stairs} mapped stairway${g.stairs > 1 ? 's' : ''} within 500 feet`);
     if (g.curb_ramps !== undefined) li.push(`${g.curb_ramps} city-mapped curb ramp${g.curb_ramps !== 1 ? 's' : ''} within 500 feet`);
+    if (g.accessible_signals) li.push(`${g.accessible_signals} crossing${g.accessible_signals > 1 ? 's' : ''} with accessible signals (sound or vibration) within 500 feet`);
+    if (g.tactile_paving) li.push(`${g.tactile_paving} mapped spot${g.tactile_paving > 1 ? 's' : ''} with tactile paving within 500 feet`);
     if (g.reports_12m) li.push(`${g.reports_12m} sidewalk or curb problem report${g.reports_12m > 1 ? 's' : ''} to 311 in the past year (${g.reports_open} still open)`);
     h += '<h4>Getting there</h4><ul>' + li.map(x => `<li>${x}</li>`).join('') + '</ul><p class="note">Slopes are estimated from elevation data, not measured on site.</p>';
   }
@@ -354,8 +358,19 @@ function toggle(it, btn, force){
   btn.setAttribute('aria-expanded', open); box.hidden = !open;
   if (open && !box.innerHTML){ box.innerHTML = details(it); box.querySelector('[data-a=copy]').onclick = () => copyLink(it); }
 }
+// the map shows the same places as the list (filters and search apply to both)
+let mapKey = '';
+function syncMap(list){
+  const key = list.map(it => it.i).join(',');
+  if (key === mapKey) return; mapKey = key;
+  const on = new Set(list);
+  cluster.clearLayers();
+  cluster.addLayers(ITEMS.filter(it => it.p.layer !== 'trail' && on.has(it)).map(it => it.leaf));
+  ITEMS.filter(it => it.p.layer === 'trail').forEach(it => on.has(it) ? trails.addLayer(it.leaf) : trails.removeLayer(it.leaf));
+}
 function render(announce){
   const list = current(), ol = document.getElementById('list'); ol.innerHTML = '';
+  syncMap(list);
   list.slice(0, shown).forEach(it => ol.appendChild(card(it)));
   const more = document.getElementById('more'); more.hidden = list.length <= shown;
   more.textContent = `Show ${Math.min(PAGE, list.length - shown)} more of ${list.length - shown} remaining`;

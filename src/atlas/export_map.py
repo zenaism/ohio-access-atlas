@@ -51,6 +51,10 @@ LABELS = {  # plain-language attribute names for popups
     "captioning": "Captioning",
     "assistive_listening": "Assistive listening",
     "service_animals": "Service animals",
+    "braille": "Braille",
+    "large_print": "Large print",
+    "audio_description": "Audio description",
+    "tactile": "Touch / tactile",
     "accessibility_map": "Accessibility map / guide",
     "accessibility_contact": "Accessibility contact",
     "transit_access": "Transit",
@@ -985,6 +989,13 @@ def getting_there_layers(region: str) -> dict:
     steps = [net[net.tags.str.contains('"highway": "steps"')][["geometry"]]]
     if (d / "cagis_public_steps.entities.parquet").exists():
         steps.append(gpd.read_parquet(d / "cagis_public_steps.entities.parquet")[["geometry"]])
+    net_all = gpd.read_parquet(d / "osm.entities.parquet")
+    xs = net_all[net_all.entity_type.isin(["crossing", "kerb", "path_segment"])]
+    snd = xs.tags.str.contains('"traffic_signals:sound": "yes"') | xs.tags.str.contains(
+        '"traffic_signals:vibration": "yes"'
+    )
+    L["aps"] = _metric(xs[snd][["geometry"]])
+    L["tactile"] = _metric(xs[xs.tags.str.contains('"tactile_paving": "yes"')][["geometry"]])
     L["stairs"] = _metric(gpd.GeoDataFrame(pd.concat(steps, ignore_index=True), crs=WGS84))
     if (d / "cagis_curb_ramps.entities.parquet").exists():
         r = gpd.read_parquet(d / "cagis_curb_ramps.entities.parquet")
@@ -1023,6 +1034,8 @@ def add_getting_there(feats: list, region: str) -> None:
         g["stairs"] = len(list(L["stairs"].sindex.query(zone, predicate="intersects")))
         if "ramps" in L:
             g["curb_ramps"] = len(list(L["ramps"].sindex.query(zone, predicate="intersects")))
+        g["accessible_signals"] = len(list(L["aps"].sindex.query(zone, predicate="intersects")))
+        g["tactile_paving"] = len(list(L["tactile"].sindex.query(zone, predicate="intersects")))
         if "reports" in L:
             rep = L["reports"].iloc[list(L["reports"].sindex.query(zone, predicate="intersects"))]
             g["reports_12m"] = len(rep)

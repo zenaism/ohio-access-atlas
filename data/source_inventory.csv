@@ -18,7 +18,7 @@ overture_places,overture,cincinnati,True,92859.0,"home_service 5,959, financial_
 overture_places,overture,oxford,True,2758.0,"restaurant 149, home_service 136, christian_place_of_worship 125, financial_service 104, automotive_service 82, personal_or_beauty_service 81",,,,,,,,0,0,2026-11-12
 osm_destinations,osm_destinations,cincinnati,True,5054.0,"culture 1,780, trail 1,525, park 856, recreation 583, restroom 310",,,,,2170.0,"surface 941, access 306, lit 142, trail_visibility 122, opening_hours 120",,0,0,2026-11-12
 osm_destinations,osm_destinations,oxford,True,285.0,"trail 109, culture 86, park 56, recreation 20, restroom 14",,,,,71.0,"surface 27, wheelchair 9, incline 8, crossing 5, access 5",,0,0,2026-11-12
-web_venues_cincinnati,web,cincinnati,True,,,7.0,17.0,1.0,126152.0,98.0,"accessible_route_inside 13, restroom_accessible 9, elevator 9, wheelchair_loan 8, accessible_parking 6",20.0,20,0,2026-11-12
+web_venues_cincinnati,web,cincinnati,True,,,7.0,17.0,1.0,126152.0,107.0,"accessible_route_inside 13, restroom_accessible 9, elevator 9, wheelchair_loan 8, accessible_parking 6",20.0,20,0,2026-11-12
 web_venues_oxford,web,oxford,True,,,55.0,12.0,12.0,438248.0,10.0,"accessible_lodging 3, entrance_step_free 2, trail_surface 1, adaptive_recreation 1, accessibility_map 1",3.0,114,0,2026-11-12
 web_trails_oxford,web,oxford,True,,,9.0,0.0,20.0,44281.0,,,,1,45,2026-11-12
 web_trails_cincinnati,web,cincinnati,True,,,7.0,6.0,1.0,122500.0,,,,1,20,2026-11-12
@@ -32,7 +32,7 @@ web_gov_oxford_rendered,web,oxford,True,,,1.0,2.0,0.0,15246.0,,,,0,0,2026-11-12
 web_metroparks,web,oxford,True,,,2.0,4.0,12.0,57547.0,7.0,"all_terrain_chair 4, accessibility_contact 1, mobility_device_policy 1, trail_surface 1",2.0,0,0,2026-11-12
 events_cincy_parks,mura_calendar,cincinnati,True,264.0,events; 261 upcoming,,,,,,,,0,0,2026-11-12
 web_parks_cincinnati_city,web,cincinnati,True,,,9.0,0.0,0.0,47809.0,11.0,"accessible_route_inside 5, adaptive_recreation 2, accessible_seating 1, elevator 1, restroom_accessible 1",8.0,0,0,2026-11-12
-web_venues_cincinnati_2,web,cincinnati,True,,,14.0,16.0,1.0,158674.0,37.0,"entrance_step_free 7, restroom_accessible 4, accessible_seating 4, wheelchair_loan 3, accessible_parking 3",10.0,1,0,2026-11-12
+web_venues_cincinnati_2,web,cincinnati,True,,,14.0,16.0,1.0,158674.0,50.0,"entrance_step_free 7, audio_description 5, restroom_accessible 4, accessible_seating 4, service_animals 3",11.0,1,0,2026-11-12
 web_miami_maps,web,oxford,True,,,1.0,1.0,0.0,18783.0,,,,1,0,2026-11-12
 osm_entrances,osm_entrances,cincinnati,True,28.0,building 28,,,,,28.0,entrance_wheelchair_counts 28,,0,0,2026-11-12
 osm_entrances,osm_entrances,oxford,True,97.0,building 97,,,,,97.0,entrance_wheelchair_counts 97,,0,0,2026-11-12
