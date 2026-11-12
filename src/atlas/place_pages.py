@@ -20,6 +20,28 @@ from .map_viewer import ICONS, RATING_HELP, RATINGS
 SITE = "https://zenaism.github.io/ohio-access-atlas/data/map"
 REPO = "https://github.com/zenaism/ohio-access-atlas"
 MARK = {"yes": "✓", "partly": "~", "no": "✕", "not known": "?"}
+ACCESS = {
+    "audio_description": "audio described",
+    "asl": "ASL interpreted",
+    "sensory_friendly": "sensory-friendly",
+}
+
+
+def _access(e: dict) -> str:
+    a = [ACCESS.get(x, x) for x in e.get("access") or []]
+    if a:
+        return f" <strong>({', '.join(a)})</strong>"
+    return " (listed as accessible)" if e.get("accessible_tag") else ""
+
+
+def _when(start: str) -> str:
+    """2026-12-05T14:00 -> Saturday, December 5, 2026, 2 PM"""
+    from datetime import datetime
+
+    d = datetime.fromisoformat(start[:16])
+    t = d.strftime("%-I:%M %p").replace(":00 ", " ") if len(start) > 10 and start[11:16] != "00:00" else ""
+    return d.strftime("%A, %B %-d, %Y") + (f", {t}" if t else "")
+
 
 CSS = """
 :root{color-scheme:light;--ink:#1b1f24;--muted:#4b5563;--line:#e5e7eb;--link:#0a58ca}
@@ -140,8 +162,8 @@ def _events(p: dict, today: str) -> str:
     if not evs:
         return ""
     li = "".join(
-        f'<li>{escape(e["start"].replace("T", " "))}: <a href="{escape(e["url"])}">{escape(e["title"])}</a>'
-        + (" (listed as accessible)" if e.get("accessible_tag") else "")
+        f'<li>{escape(_when(e["start"]))}: <a href="{escape(e["url"])}">{escape(e["title"])}</a>'
+        + _access(e)
         + "</li>"
         for e in evs[:25]
     )
@@ -218,6 +240,10 @@ def index_html(fc: dict, region: str) -> str:
         f"<p>{len(fc['features'])} places, grouped by type and sorted A to Z. Each name opens a page with what is "
         "known about wheelchair and blind or low vision access, how to get there, and the sources.</p>"
     )
+    if any(e.get("access") for f in fc["features"] for e in f["properties"].get("events") or []):
+        body += (
+            '<p><a href="shows.html">Audio-described, ASL and sensory-friendly performances by date</a></p>'
+        )
     body += (
         "<p>Jump to: "
         + " · ".join(
@@ -242,6 +268,40 @@ def index_html(fc: dict, region: str) -> str:
     return _page(f"All places in {city}: Ohio Access Atlas", body, f"{SITE}/places/{region}/index.html", up)
 
 
+def shows_html(fc: dict, region: str) -> str | None:
+    """Audio-described, ASL-interpreted and sensory-friendly performances by date."""
+    city, today = region.title(), fc["generated"]
+    rows = sorted(
+        ((e["start"], e["title"]), e, f["properties"])
+        for f in fc["features"]
+        for e in f["properties"].get("events") or []
+        if e.get("access") and e["start"][:10] >= today
+    )
+    if not rows:
+        return None
+    body = f"<h1>Accessible performances in {city}</h1>"
+    body += (
+        "<p>Audio-described, sign language (ASL) interpreted and sensory-friendly performances that theatres "
+        f"list on their own websites, soonest first ({len(rows)} upcoming). Book through the theatre and say "
+        "you need the service; dates can change.</p>"
+    )
+    month = None
+    for (start, _), e, p in rows:
+        if start[:7] != month:
+            from datetime import date as _d
+
+            label = _d.fromisoformat(start[:10]).strftime("%B %Y")
+            body += ("</ul>" if month else "") + f"<h2>{label}</h2><ul>"
+            month = start[:7]
+        body += (
+            f'<li><strong>{escape(_when(start))}</strong>: <a href="{escape(e["url"])}">{escape(e["title"])}</a>'
+            f'{_access(e)}, at <a href="{escape(p["link_id"])}.html">{escape(p["name"])}</a></li>'
+        )
+    body += "</ul>"
+    up = f'<a href="index.html">All places in {city}</a> · <a href="../../{region}.html">{city} map</a>'
+    return _page(f"Accessible performances in {city}", body, f"{SITE}/places/{region}/shows.html", up)
+
+
 def write(data: dict[str, dict], out: Path) -> list[Path]:
     written = []
     for region, fc in data.items():
@@ -255,4 +315,8 @@ def write(data: dict[str, dict], out: Path) -> list[Path]:
             written.append(path)
         (d / "index.html").write_text(index_html(fc, region))
         written.append(d / "index.html")
+        shows = shows_html(fc, region)
+        if shows:
+            (d / "shows.html").write_text(shows)
+            written.append(d / "shows.html")
     return written

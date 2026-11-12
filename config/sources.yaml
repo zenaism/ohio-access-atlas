@@ -433,3 +433,37 @@ web_access_performances:    # dated audio-described / ASL / sensory-friendly / t
     - https://www.cincyplay.com/tickets/
     - https://cincyplay.com/tickets/
   license: venue websites; facts with short quotes and links only
+
+web_venues_3:    # third batch: venues still gray on the map
+  type: web
+  render: true
+  regions: [cincinnati, oxford]
+  author_type: official
+  max_pages: 45
+  assets: true
+  urls:
+    - https://tafttheatre.org/plan-your-visit/accessibility
+    - https://tafttheatre.org/venue-info/faq
+    - https://chpl.org/about/accessibility/
+    - https://chpl.org/services/blind-physically-disabled/
+    - https://chpl.org/accessibility-services/
+    - https://mysmaleriverfrontpark.org/inclusion.htm
+    - https://mysmaleriverfrontpark.org/map.htm
+    - https://www.cincinnati-oh.gov/cincyparks/krohn-conservatory/
+    - https://www.krohn.org/visit/
+    - https://www.cincinnati-oh.gov/cincyparks/customer-service/faq1/
+    - https://ensemblecincinnati.org/accessibility/
+    - https://www.miamioh.edu/cca/performing-arts-series/visit-us/index.html
+    - https://miamioh.edu/student-life/armstrong-student-center/about/offices/index.html
+    - https://miamioh.edu/centers-institutes/campus-services-center/parking-transit/_documents/miami-university-parking-areas-map-2025_508.pdf
+    - https://demo.lib.miamioh.edu/research/instruction/accessibility
+    - https://www.lib.miamioh.edu/about/accessibility/
+    - https://www.lanepl.org/
+  follow:
+    - https://www.cincinnati-oh.gov/cincyparks/krohn
+    - https://www.krohn.org/
+    - https://www.lanepl.org/about
+    - https://www.lanepl.org/services
+    - https://www.lanepl.org/locations
+    - https://www.lib.miamioh.edu/about/
+  license: venue websites; facts with short quotes and links only

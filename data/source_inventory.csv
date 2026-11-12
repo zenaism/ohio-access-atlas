@@ -36,3 +36,6 @@ web_venues_cincinnati_2,web,cincinnati,True,,,14.0,16.0,1.0,158674.0,50.0,"entra
 web_miami_maps,web,oxford,True,,,1.0,1.0,0.0,18783.0,,,,1,0,2026-11-12
 osm_entrances,osm_entrances,cincinnati,True,28.0,building 28,,,,,28.0,entrance_wheelchair_counts 28,,0,0,2026-11-12
 osm_entrances,osm_entrances,oxford,True,97.0,building 97,,,,,97.0,entrance_wheelchair_counts 97,,0,0,2026-11-12
+web_access_performances,web,cincinnati,True,,,24.0,0.0,0.0,275467.0,,,,0,0,2026-11-12
+web_venues_3,web,cincinnati,False,,,,,,,,,,2,0,2026-11-12
+web_venues_3,web,oxford,False,,,,,,,,,,2,0,2026-11-12

@@ -271,6 +271,7 @@ const NEEDS = {
   'Parks & gardens': it => it.p.layer === 'park',
   'Trails': it => it.p.layer === 'trail',
   'Events': it => it.p.layer === 'event' || !!(it.p.events && it.p.events.length),
+  'Audio described, ASL & sensory-friendly shows': it => windowEvents(it).some(e => e.access && e.access.length && e.start.slice(0, 10) >= TODAY),
   'Blind or low vision': it => (it.p.facts || []).some(f => VISION.has(f.attribute)) || it.p.getting_there?.accessible_signals > 0,
   'Adaptive recreation': it => it.p.layer === 'adaptive_recreation',
   'Lodging': it => it.p.layer === 'lodging',
@@ -321,7 +322,7 @@ function details(it){
   const evs = windowEvents(it);
   if (evs.length){
     h += `<p><strong>${evs.length} upcoming event${evs.length > 1 ? 's' : ''}</strong></p><ul>`
-      + evs.slice(0, 10).map(e => `<li>${esc(e.start.replace('T', ' '))}: <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>${e.accessible_tag ? ' (listed as accessible)' : ''}</li>`).join('') + '</ul>';
+      + evs.slice(0, 10).map(e => `<li>${esc(e.start.replace('T', ' '))}: <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>${e.access && e.access.length ? `<strong>${esc(accessText(e))}</strong>` : (e.accessible_tag ? ' (listed as accessible)' : '')}</li>`).join('') + '</ul>';
   }
   if (p.getting_there){
     const g = p.getting_there, li = [];
@@ -345,6 +346,8 @@ function details(it){
     + `<a class="btn ghost" href="${issue}" target="_blank" rel="noopener">Report a problem<span class="vh"> with ${esc(p.name)} (opens GitHub in a new tab)</span></a></div>`;
   return h || '<p>No further details yet.</p>';
 }
+const ACCESS = {audio_description:'audio described', asl:'ASL interpreted', sensory_friendly:'sensory-friendly'};
+const accessText = e => (e.access && e.access.length) ? ' (' + e.access.map(a => ACCESS[a] || a).join(', ') + ')' : '';
 const KEYMARK = {'yes':'✓', 'partly':'~', 'no':'✕', 'not known':'?'};
 function keyLine(p){
   if (!p.keys || !p.keys.length) return '';
@@ -418,7 +421,7 @@ function openCard(i){
   const box = PHONE.matches ? document.getElementById('side-body') : li.closest('.side-body');
   box.scrollTop = li.offsetTop - box.offsetTop - 8; li.querySelector('h3').focus({preventScroll:true});
 }
-[need, known, when].forEach(el => el.onchange = () => { when.hidden = need.value !== 'Events'; page = 0; render(); });
+[need, known, when].forEach(el => el.onchange = () => { when.hidden = !/Events|shows/.test(need.value); page = 0; render(); });
 q.oninput = () => { page = 0; render(); };
 // ---------- paging ----------
 function pageNumbers(n, cur){  // 1 … 4 5 6 … 24 (0-based in, mixed out)

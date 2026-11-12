@@ -20,6 +20,7 @@ from datetime import date
 from pathlib import Path
 
 import geopandas as gpd
+import numpy as np
 import pandas as pd
 import yaml
 from shapely.geometry import mapping
@@ -409,6 +410,10 @@ def event_features(region, g, matches, facts_feats, review):
     if pe.exists():
         p = pd.read_json(pe, lines=True, convert_dates=False, dtype=False)
         ev.append(p[p.region == region].assign(feed="page_events", description=""))
+    ap = ROOT / "data/extracted/access_performances.jsonl"  # audio-described / ASL / sensory-friendly shows
+    if ap.exists():
+        a = pd.read_json(ap, lines=True, convert_dates=False, dtype=False)
+        ev.append(a[a.region == region].assign(feed="access_performances", description=""))
     if not ev:
         return []
     ev = pd.concat(ev, ignore_index=True)
@@ -435,9 +440,14 @@ def event_features(region, g, matches, facts_feats, review):
     venues: dict[str, dict] = {}
     for r in ev.itertuples():
         hit, how = None, ""
+        if r.feed == "access_performances" and isinstance(matches.get(r.venue), dict):
+            pin = matches[r.venue]  # the venue's own pinned place, same as its facts
+            hit = lookup(g, pin["name"], pin.get("category"))
+            how = f"pinned venue {r.venue!r}" if hit is not None else ""
         segs = [s.strip() for s in re.split(r"[|,]", str(r.venue or "")) if s.strip()]
         first = segs[0] if segs else ""
-        if first and not re.match(r"\d", first):  # first part is the venue name; addresses go to geocoder
+        # the first part is the venue name; street addresses go to the geocoder below
+        if hit is None and first and not re.match(r"\d", first):
             name = aliases.get(first.lower(), first)
             hit = lookup(g, name)
             how = f"venue name {first!r}" if hit is not None else ""
@@ -484,6 +494,9 @@ def event_features(region, g, matches, facts_feats, review):
                 "accessible_tag": getattr(r, "site_tagged_accessible", None) is True
                 or "wheelchair-accessible" in str(getattr(r, "feed_url", "")),
                 "disability_focused": getattr(r, "is_disability_focused", None) is True,
+                "access": [str(x) for x in getattr(r, "access", None)]
+                if isinstance(getattr(r, "access", None), (list, tuple, np.ndarray))
+                else [],
             }
         )
     place_by_eid = {f["properties"]["matched_to"].split(" ")[0]: f for f in facts_feats}
@@ -590,6 +603,15 @@ def write() -> list[Path]:
         nav = (
             f' · <a href="{other[region]}.html">Switch to the {other[region].title()} map</a>'
             f' · <a href="places/{region}/index.html">All places A–Z (text only)</a>'
+            + (
+                f' · <a href="places/{region}/shows.html">Accessible shows by date</a>'
+                if any(
+                    e.get("access")
+                    for f in data[region]["features"]
+                    for e in f["properties"].get("events") or []
+                )
+                else ""
+            )
         )
         page.write_text(render({region: data[region]}, f"{region.title()} accessibility map", nav))
         written.append(page)
