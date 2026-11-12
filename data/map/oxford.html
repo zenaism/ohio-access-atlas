@@ -231,6 +231,7 @@ const NEEDS = {
   'Parks & gardens': it => it.p.layer === 'park',
   'Trails': it => it.p.layer === 'trail',
   'Events': it => it.p.layer === 'event' || !!(it.p.events && it.p.events.length),
+  'Adaptive sports & disability events': it => it.p.layer === 'adaptive_recreation' || windowEvents(it).some(e => e.disability_focused),
   'Audio described, ASL & sensory-friendly shows': it => windowEvents(it).some(e => e.access && e.access.length && e.start.slice(0, 10) >= TODAY),
   'Blind or low vision': it => (it.p.facts || []).some(f => VISION.has(f.attribute)) || it.p.getting_there?.accessible_signals > 0,
   'Adaptive recreation': it => it.p.layer === 'adaptive_recreation',
@@ -381,7 +382,7 @@ function openCard(i){
   const box = PHONE.matches ? document.getElementById('side-body') : li.closest('.side-body');
   box.scrollTop = li.offsetTop - box.offsetTop - 8; li.querySelector('h3').focus({preventScroll:true});
 }
-[need, known, when].forEach(el => el.onchange = () => { when.hidden = !/Events|shows/.test(need.value); page = 0; render(); });
+[need, known, when].forEach(el => el.onchange = () => { when.hidden = !/[Ee]vents|shows/.test(need.value); page = 0; render(); });
 q.oninput = () => { page = 0; render(); };
 // ---------- paging ----------
 function pageNumbers(n, cur){  // 1 … 4 5 6 … 24 (0-based in, mixed out)

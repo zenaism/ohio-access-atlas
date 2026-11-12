@@ -280,6 +280,7 @@ events_ical_cincinnati:
   regions: [cincinnati]
   urls:
     - https://cincyjewfolk.com/events/category/wheelchair-accessible/list/?ical=1
+    - https://cincyjewfolk.com/events/category/disability-inclusion/?ical=1   # adaptive sports etc.
     - https://globalcincinnati.org/events-calendar/?ical=1
   license: public calendar feed; cite URL
 
@@ -467,3 +468,22 @@ web_venues_3:    # third batch: venues still gray on the map
     - https://www.lanepl.org/locations
     - https://www.lib.miamioh.edu/about/
   license: venue websites; facts with short quotes and links only
+
+web_disability_events:   # calendars of disability organizations without feeds (read by hand, quotes checked)
+  type: web
+  render: true
+  regions: [cincinnati, oxford]
+  author_type: official
+  max_pages: 25
+  assets: false
+  urls:
+    - https://www.butlerdd.org/calendar/
+    - https://activeproject.kellybrushfoundation.org/events/
+    - https://www.cincinnatichildrens.org/patients/child/special-needs/calendar
+    - https://www.hamiltondds.org/events
+    - https://autismcincy.org/events/
+  follow:
+    - https://www.butlerdd.org/event/
+    - https://www.butlerdd.org/events/
+    - https://activeproject.kellybrushfoundation.org/events/
+  license: organization websites; event title, date, place and link only

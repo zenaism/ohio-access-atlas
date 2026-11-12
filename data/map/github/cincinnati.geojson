@@ -14598,7 +14598,7 @@
 "Name": "Manuel D. & Rhoda Mayerson JCC",
 "Type": "Event venue",
 "Accessibility": "Partly accessible",
-"Upcoming events": "26: 2026-11-12 Mindful Meditations; 2026-11-15 JCC Fall Doubles Pickleball Tournament; 2026-11-15 Fitness and Friends (Fall 2026)",
+"Upcoming events": "30: 2026-11-12 Mindful Meditations; 2026-11-15 JCC Fall Doubles Pickleball Tournament; 2026-11-15 Fitness and Friends (Fall 2026)",
 "marker-color": "#E69F00",
 "marker-symbol": "star",
 "marker-size": "medium"
@@ -14846,6 +14846,25 @@
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "1: 2026-11-14 Neighborhood Nature Fest",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.56551197883859,
+39.39941730261344
+]
+},
+"properties": {
+"Name": "Fitton Center For Creative Arts",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "1: 2026-12-09 Sensory Friendly Screening – The Polar Express",
 "marker-color": "#8C8C8C",
 "marker-symbol": "star",
 "marker-size": "medium"

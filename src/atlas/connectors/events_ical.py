@@ -3,6 +3,7 @@
 Raw:        the .ics file, via web.snapshot (data/raw/web/<source>/)
 Normalized: data/processed/<region>/<source>.events.parquet in the event schema of the plan.
 """
+
 from __future__ import annotations
 
 import re
@@ -14,8 +15,11 @@ from icalendar import Calendar
 from ..core import RAW, log, out_dir
 from .web import snapshot
 
-ACCESS_WORDS = re.compile(r"wheelchair|accessib|ada\b|asl\b|sensory|adaptive|disabilit|captio|"
-                          r"mobility|ramp|elevator|inclusive", re.I)
+ACCESS_WORDS = re.compile(
+    r"wheelchair|accessib|ada\b|asl\b|sensory|adaptive|disabilit|captio|"
+    r"mobility|ramp|elevator|inclusive",
+    re.I,
+)
 
 
 def _iso(v) -> str | None:
@@ -47,19 +51,30 @@ def run(name: str, spec: dict, region: str) -> None:
             title = str(ev.get("SUMMARY", ""))
             end = _iso(ev.get("DTEND")) or _iso(ev.get("DTSTART"))
             geo = ev.get("GEO")
-            rows.append({
-                "event_id": f"{name}:{ev.get('UID')}", "title": title, "description": desc,
-                "start": _iso(ev.get("DTSTART")), "end": end,
-                "recurrence": str(ev.get("RRULE").to_ical().decode()) if ev.get("RRULE") else None,
-                "venue": str(ev.get("LOCATION", "")) or None,
-                "lat": geo.latitude if geo else None, "lon": geo.longitude if geo else None,
-                "url": str(ev.get("URL", "")) or url,
-                "categories": _cats(ev.get("CATEGORIES")),
-                "access_mentions": sorted({m.lower() for m in ACCESS_WORDS.findall(title + " " + desc)}),
-                "is_disability_focused": spec.get("disability_focused", False),
-                "source": name, "feed_url": url, "raw_file": rec["file"],
-                "retrieved_at": rec["retrieved_at"], "region": region,
-            })
+            rows.append(
+                {
+                    "event_id": f"{name}:{ev.get('UID')}",
+                    "title": title,
+                    "description": desc,
+                    "start": _iso(ev.get("DTSTART")),
+                    "end": end,
+                    "recurrence": str(ev.get("RRULE").to_ical().decode()) if ev.get("RRULE") else None,
+                    "venue": str(ev.get("LOCATION", "")) or None,
+                    "lat": geo.latitude if geo else None,
+                    "lon": geo.longitude if geo else None,
+                    "url": str(ev.get("URL", "")) or url,
+                    "categories": _cats(ev.get("CATEGORIES")),
+                    "access_mentions": sorted({m.lower() for m in ACCESS_WORDS.findall(title + " " + desc)}),
+                    # feed flagged in sources.yaml, or a disability category of a calendar
+                    "is_disability_focused": spec.get("disability_focused", False)
+                    or bool(re.search(r"disabilit|adaptive|inclusion", url, re.I)),
+                    "source": name,
+                    "feed_url": url,
+                    "raw_file": rec["file"],
+                    "retrieved_at": rec["retrieved_at"],
+                    "region": region,
+                }
+            )
     df = pd.DataFrame(rows)
     if len(df):
         end = pd.to_datetime(df["end"].str[:10], errors="coerce")

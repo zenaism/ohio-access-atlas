@@ -502,7 +502,17 @@ def event_features(region, g, matches, facts_feats, review):
     place_by_eid = {f["properties"]["matched_to"].split(" ")[0]: f for f in facts_feats}
     feats = []
     for eid, v in venues.items():
-        evs = sorted(v["events"], key=lambda e: e["start"])
+        merged: dict[tuple, dict] = {}  # the same event can come from two feeds of one calendar
+        for e in v["events"]:
+            k = (e["title"].lower(), e["start"])
+            if k in merged:
+                m = merged[k]
+                m["accessible_tag"] |= e["accessible_tag"]
+                m["disability_focused"] |= e["disability_focused"]
+                m["access"] = sorted(set(m["access"]) | set(e["access"]))
+            else:
+                merged[k] = dict(e)
+        evs = sorted(merged.values(), key=lambda e: e["start"])
         if eid in place_by_eid:  # the venue is already a place on the map: list its events there
             pp = place_by_eid[eid]["properties"]
             pp["events"], pp["event_count"] = evs[:40], len(evs)

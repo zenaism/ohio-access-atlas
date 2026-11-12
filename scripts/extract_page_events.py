@@ -18,6 +18,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 BRIDGE = "web_programs_cincinnati:aea761ad0028"
 GREAT = "web_programs_cincinnati:9a5f21f8734e"
+BUTLER_DD_MOVIE = "web_disability_events:7a7e8d96c679"
 
 # (title, date_text as printed, start ISO, end ISO or None, location as printed, cost, audience, doc, disability_focused)
 EVENTS = [
@@ -37,6 +38,10 @@ EVENTS = [
      "Winton Woods Farm & Equestrian Center | Hayloft Barn", None, "Preschool", GREAT, False),
     ("Neighborhood Nature Fest", "Saturday, November 14", "2026-11-14T12:00", "2026-11-14T16:00",
      "Nature Center at The Summit", None, "All Ages", GREAT, False),
+    # Butler County Board of DD calendar (2026-11-12)
+    ("Sensory Friendly Screening – The Polar Express", "December 9, 2026", "2026-12-09T09:45", "2026-12-09T12:00",
+     "Fitton Center for Creative Arts", None,
+     "Lights and sound turned down; doors 9:45, movie 10:15", BUTLER_DD_MOVIE, True),
 ]
 
 
