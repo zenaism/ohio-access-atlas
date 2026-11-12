@@ -53,7 +53,7 @@ ICONS = {
 }
 
 TEMPLATE = r"""<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><title>Ohio Access Atlas map</title>
+<html lang="en"><head><meta charset="utf-8"><title>__TITLE__</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -75,8 +75,7 @@ TEMPLATE = r"""<!DOCTYPE html>
  .pop .q{color:#555;font-style:italic} .pop ul{padding-left:16px;margin:4px 0;font-size:12px}
 </style></head><body>
 <div id="map"></div>
-<div class="bar"><button onclick="go('cincinnati')">Cincinnati</button><button onclick="go('oxford')">Oxford</button>
- <span id="count"></span></div>
+<div class="bar"><b>__TITLE__</b> &nbsp;__NAV__ <span id="count"></span></div>
 <script>
 const DATA = __DATA__, RATINGS = __RATINGS__, ICONS = __ICONS__;
 const map = L.map('map', {zoomControl:true});
@@ -115,7 +114,7 @@ for (const region of Object.keys(DATA)){
     layer.bindPopup(popup(p), {maxWidth:380}); groups[p.layer].addLayer(layer);
   }
 }
-document.getElementById('count').textContent = ` ${n} features · generated ${DATA.cincinnati.generated}`;
+document.getElementById('count').textContent = ` · ${n} features · data as of ${Object.values(DATA)[0].generated}`;
 const legend = L.control({position:'bottomright'});
 legend.onAdd = () => {
   const d = L.DomUtil.create('div','legend'); L.DomEvent.disableClickPropagation(d);
@@ -135,14 +134,19 @@ legend.onAdd = () => {
 legend.addTo(map);
 const VIEW = {cincinnati:[[39.10,-84.51],12], oxford:[[39.535,-84.755],13]};
 function go(r){ map.setView(VIEW[r][0], VIEW[r][1]); }
-go('cincinnati');
+go(Object.keys(DATA)[0]);
 </script></body></html>
 """
 
 
-def render(data: dict) -> str:
+def render(data: dict, title: str = "Ohio Access Atlas", nav: str = "") -> str:
+    """data = {region: FeatureCollection}; one region gives a single-city page, several give switch buttons."""
+    if not nav and len(data) > 1:
+        nav = "".join(f"<button onclick=\"go('{r}')\">{r.title()}</button>" for r in data)
     return (
         TEMPLATE.replace("__DATA__", json.dumps(data, ensure_ascii=False))
+        .replace("__TITLE__", title)
+        .replace("__NAV__", nav)
         .replace("__RATINGS__", json.dumps(RATINGS))
         .replace("__ICONS__", json.dumps(ICONS))
     )

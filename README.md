@@ -6,6 +6,8 @@
 
 [**Quick start**](#quick-start) · [**A look at the data**](#a-look-at-the-data) · [**What data do we have?**](#what-data-do-we-have) · [**How the data is organized**](#how-the-data-is-organized) · [**What did we calculate?**](#what-did-we-calculate-and-why) · [**First findings**](#first-findings) · [**Project layout**](#project-layout) · [**Sources**](SOURCES.md)
 
+**Interactive maps:** [Cincinnati](https://zenaism.github.io/ohio-access-atlas/data/map/cincinnati.html) · [Oxford](https://zenaism.github.io/ohio-access-atlas/data/map/oxford.html)
+
 ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-lightgrey)
 
 <img src="docs/figures/slope_walk.gif" width="95%" alt="Animation: a dot climbs Warner Street in Cincinnati while its elevation profile and 10 m grades build up against the ADA walkway and ramp limits"/>

@@ -545,6 +545,15 @@ def write() -> list[Path]:
     pd.DataFrame(review).drop_duplicates().to_csv(MAP / "review.csv", index=False)
     from .map_viewer import render
 
-    html = MAP / "atlas_viewer.html"
-    html.write_text(render(data))
-    return [*written, MAP / "review.csv", html]
+    # one page per city (for GitHub Pages links) + an index page with both
+    other = {"cincinnati": "oxford", "oxford": "cincinnati"}
+    for region in data:
+        page = MAP / f"{region}.html"
+        nav = f'<a href="{other[region]}.html">{other[region].title()} map &rarr;</a>'
+        page.write_text(render({region: data[region]}, f"{region.title()} accessibility map", nav))
+        written.append(page)
+    (MAP / "index.html").write_text(render(data, "Ohio Access Atlas: Cincinnati and Oxford"))
+    old = MAP / "atlas_viewer.html"
+    if old.exists():
+        old.unlink()  # replaced by index.html
+    return [*written, MAP / "review.csv", MAP / "index.html"]
