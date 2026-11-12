@@ -116,9 +116,11 @@
 "Type": "Museum / venue / attraction",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible parking: yes",
-"Fact 2": "Wheelchair seating: yes (most accessible seats have electrical outlets; escorts to seats)",
-"Fact 3": "Drop-off: yes",
-"Fact 4": "Elevator / lift: yes",
+"Fact 2": "Accessible parking: yes (Central Riverfront Garage and East Garage; prices on page)",
+"Fact 3": "Wheelchair seating: yes (most accessible seats have electrical outlets; escorts to seats)",
+"Fact 4": "Drop-off: yes",
+"Fact 5": "Drop-off: yes (Joe Nuxhall Way, west side; second at Broadway & Mehring Way)",
+"Fact 6": "Elevator / lift: yes",
 "Source": "https://www.visitcincy.com/blog/post/accessiblity-in-the-cincinnati-region/",
 "marker-color": "#E69F00",
 "marker-symbol": "museum",
@@ -137,11 +139,14 @@
 "properties": {
 "Name": "Cincinnati Reds Hall of Fame & Museum",
 "Type": "Museum / venue / attraction",
-"Accessibility": "Partly accessible",
-"Fact 1": "Step-free entrance: yes ('fully accessible')",
-"Fact 2": "Wheelchair loan: yes (free)",
-"Source": "https://www.visitcincy.com/blog/post/accessiblity-in-the-cincinnati-region/",
-"marker-color": "#E69F00",
+"Accessibility": "Accessible",
+"Fact 1": "Captioning: yes (all videos open captioned)",
+"Fact 2": "Step-free entrance: yes ('fully accessible')",
+"Fact 3": "Accessible restroom: yes",
+"Fact 4": "Wheelchair loan: yes (free)",
+"Fact 5": "Wheelchair loan: yes (manual wheelchairs free, first come)",
+"Source": "https://www.mlb.com/reds/hall-of-fame/visit/accessibility",
+"marker-color": "#0072B2",
 "marker-symbol": "museum",
 "marker-size": "medium"
 }
@@ -181,8 +186,11 @@
 "Type": "Museum / venue / attraction",
 "Accessibility": "Partly accessible",
 "Fact 1": "Getting around inside: limited (main paths yes; Jungle Trails rough terrain)",
-"Fact 2": "Scooter / ECV: yes (ECV $30, reserve the day before (2016 price))",
-"Fact 3": "Wheelchair loan: yes (wheelchair $10; ECV $30 reserved day before (2016 prices))",
+"Fact 2": "Adult changing table: yes (adult-sized changing tables (Access for All maps 2026))",
+"Fact 3": "Step-free entrance: yes (both pedestrian bridges from the parking lots are ADA accessible)",
+"Fact 4": "Quiet room: yes (Calming Rooms)",
+"Fact 5": "Scooter / ECV: yes (ECV $30, reserve the day before (2016 price))",
+"Fact 6": "Scooter / ECV: yes (electric wheelchairs can be reserved)",
 "Source": "https://www.visitcincy.com/blog/post/accessiblity-in-the-cincinnati-region/",
 "marker-color": "#E69F00",
 "marker-symbol": "museum",
@@ -459,6 +467,165 @@
 "Source": "https://www.yourmetroparks.net/about/accessibility",
 "marker-color": "#E69F00",
 "marker-symbol": "wheelchair",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5112452,
+39.0976306
+]
+},
+"properties": {
+"Name": "National Underground Railroad Freedom Center",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Accessible",
+"Fact 1": "Captioning: yes (permanent gallery videos open captioned)",
+"Fact 2": "Elevator / lift: yes (to every floor)",
+"Fact 3": "Step-free entrance: yes (main entrance first floor, riverfront side; accessible public garage adjacent)",
+"Fact 4": "Accessible restroom: yes (floors 1, 3 and 4; family restroom floor 1)",
+"Fact 5": "Wheelchair loan: yes (free wheelchairs; ECV $25; first come, front desk)",
+"Source": "https://freedomcenter.org/visit/accessibility",
+"marker-color": "#0072B2",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5121375,
+39.1028292
+]
+},
+"properties": {
+"Name": "Contemporary Arts Center",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Accessible",
+"Fact 1": "Accessible parking: yes (21C valet on Walnut, $10 CAC accessible rate)",
+"Fact 2": "ASL: yes (all public programs)",
+"Fact 3": "Step-free entrance: yes (street-level entrance on 6th Street with automatic door)",
+"Fact 4": "Accessible restroom: yes (all floors except the lobby; elevators to all floors)",
+"Source": "https://www.contemporaryartscenter.org/visit/accessibility",
+"marker-color": "#0072B2",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5111941,
+39.1035785
+]
+},
+"properties": {
+"Name": "Aronoff Center for the Arts",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Accessible",
+"Fact 1": "Wheelchair seating: yes (all theaters; call (513) 621-2787 in advance)",
+"Fact 2": "Step-free entrance: yes (automatic accessible doors (Weston Gallery entrance, Seventh & Walnut); ramp to Fifth Third Bank Theater)",
+"Fact 3": "Accessible restroom: yes (all restrooms; companion care restroom on north side of Loge lobby)",
+"Fact 4": "Wheelchair loan: yes (courtesy wheelchair lobby to seat)",
+"Source": "https://cincinnatiarts.org/plan-your-visit/aronoff-center-1/accessibility-information-1",
+"marker-color": "#0072B2",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5192239,
+39.1093901
+]
+},
+"properties": {
+"Name": "Music Hall",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Partly accessible",
+"Fact 1": "Getting around inside: yes (all event spaces accessible)",
+"Fact 2": "Wheelchair seating: yes (contact Box Office in advance)",
+"Fact 3": "Step-free entrance: yes (ADA entrance on Elm Street, southeast side; Access Ambassadors there)",
+"Fact 4": "Family / universal restroom: yes (single unit restrooms at the Elm St entrance, Orchestra north, Balcony south)",
+"Source": "https://www.cincinnatiarts.org/plan-your-visit/visit-music-hall/accessibility-information-2",
+"marker-color": "#E69F00",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4977923,
+39.1115037
+]
+},
+"properties": {
+"Name": "Cincinnati Playhouse in the Park",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible parking: limited (Playhouse garage; limited, reserve and pay in advance)",
+"Fact 2": "Getting around inside: yes (theatres and all public areas)",
+"Fact 3": "Sensory-friendly: yes (sensory-friendly/relaxed performances)",
+"Source": "https://cincyplay.com/visit/accessibility",
+"marker-color": "#E69F00",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51550103739494,
+39.10389161840218
+]
+},
+"properties": {
+"Name": "Cincinnati Shakespeare Company",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Partly accessible",
+"Fact 1": "Wheelchair seating: yes (Lower and Upper Gallery, with companion seats; book online or Box Office)",
+"Fact 2": "Assistive listening: yes (free at all performances)",
+"Fact 3": "Step-free entrance: yes (ramp in the Linnemann Family Lobby; elevator to Upper Gallery)",
+"Source": "https://cincyshakes.com/your-visit/accessibility",
+"marker-color": "#E69F00",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.512836,
+39.1081538
+]
+},
+"properties": {
+"Name": "Children's Theatre of Cincinnati (Emery Theater)",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Partly accessible",
+"Fact 1": "Wheelchair seating: yes (wheelchair and companion seats at all price levels; limited)",
+"Fact 2": "Elevator / lift: yes",
+"Fact 3": "Quiet room: yes (quiet space on right side of Orchestra level)",
+"Source": "https://thechildrenstheatre.com/accessibility/",
+"marker-color": "#E69F00",
+"marker-symbol": "museum",
 "marker-size": "medium"
 }
 },
@@ -6263,6 +6430,2302 @@
 "stroke": "#0072B2",
 "stroke-width": 4,
 "stroke-opacity": 0.9
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51414104954442,
+39.103239450000004
+]
+},
+"properties": {
+"Name": "7W7 Living",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/39869035",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51739872946243,
+39.1324616
+]
+},
+"properties": {
+"Name": "Swift Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Not accessible",
+"Fact 1": "Accessible entrance: no (0 yes, 0 limited, 1 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/42786368",
+"marker-color": "#D55E00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51670728855011,
+39.13287205
+]
+},
+"properties": {
+"Name": "Baldwin Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/42786509",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51623779107376,
+39.13293085
+]
+},
+"properties": {
+"Name": "Rhodes Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/42786511",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51931729650701,
+39.13431215
+]
+},
+"properties": {
+"Name": "Aronoff Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/42786531",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51550221303219,
+39.13450365
+]
+},
+"properties": {
+"Name": "Langsam Library",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/42786678",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51255828134983,
+39.10367425
+]
+},
+"properties": {
+"Name": "The Executive Building",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/46130004",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.52811439258743,
+39.10910705
+]
+},
+"properties": {
+"Name": "West End Branch Library",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/50633356",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.50583911624668,
+39.137286950000004
+]
+},
+"properties": {
+"Name": "UC Biosciences Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/50955246",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.52076699537996,
+39.1342729
+]
+},
+"properties": {
+"Name": "Probasco Auditorium",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/51133844",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5200331351439,
+39.1424239
+]
+},
+"properties": {
+"Name": "Petey's Pet Shop",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/69545868",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.52414548494889,
+39.15590485
+]
+},
+"properties": {
+"Name": "500 Lafayette at Mount Storm Park",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 2 no of 3 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/69546606",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.43810958333333,
+39.1387711
+]
+},
+"properties": {
+"Name": "Saint Mary Church",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 6 no of 7 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/73921960",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.43846357793271,
+39.1386405
+]
+},
+"properties": {
+"Name": "Saint Mary School",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/73921961",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.40086815088411,
+39.167145500000004
+]
+},
+"properties": {
+"Name": "Donovan Arts Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Not accessible",
+"Fact 1": "Accessible entrance: no (0 yes, 0 limited, 1 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/74291433",
+"marker-color": "#D55E00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51492516183205,
+39.14249085
+]
+},
+"properties": {
+"Name": "Clifton Branch Library",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/83588887",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.461316102584,
+39.1324848
+]
+},
+"properties": {
+"Name": "Ché",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/146688810",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51648623281076,
+39.109634799999995
+]
+},
+"properties": {
+"Name": "Emanuel Community House",
+"Type": "Building (campus or public)",
+"Accessibility": "Not accessible",
+"Fact 1": "Accessible entrance: no (0 yes, 0 limited, 1 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/212888629",
+"marker-color": "#D55E00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.52233665232606,
+39.1435903
+]
+},
+"properties": {
+"Name": "CVS Pharmacy",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/315470145",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51354681870897,
+39.107623000000004
+]
+},
+"properties": {
+"Name": "The Hale-Justis Drug Co.",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/361585747",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51603154699556,
+39.13213505
+]
+},
+"properties": {
+"Name": "Campus Recreation Center Classrooms",
+"Type": "Building (campus or public)",
+"Accessibility": "Not accessible",
+"Fact 1": "Accessible entrance: no (0 yes, 0 limited, 1 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/703785824",
+"marker-color": "#D55E00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51880792314961,
+39.1441545
+]
+},
+"properties": {
+"Name": "Clifton Cultural Arts Center (CCAC)",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/1238978793",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.40202455539193,
+39.167060649999996
+]
+},
+"properties": {
+"Name": "Hillsdale Commons",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/1312715467",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51597982256591,
+39.1052397
+]
+},
+"properties": {
+"Name": "Brittany Apartments",
+"Type": "Building (campus or public)",
+"Accessibility": "Not accessible",
+"Fact 1": "Accessible entrance: no (0 yes, 0 limited, 2 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/1315813755",
+"marker-color": "#D55E00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51867859635915,
+39.13411105
+]
+},
+"properties": {
+"Name": "Design, Art, and Architecture Addition",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/1364889263",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51756406996044,
+39.1332563
+]
+},
+"properties": {
+"Name": "Old Chemistry",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (4 yes, 0 limited, 0 no of 4 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/1395342293",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.49465731980084,
+39.10393875
+]
+},
+"properties": {
+"Name": "Montgomery Inn Boathouse",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/1453786089",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.51859282555546,
+39.1329693
+]
+},
+"properties": {
+"Name": "John R. Braunstein Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 1 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/1527997193",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5371593,
+39.1104797
+]
+},
+"properties": {
+"Name": "Museum of Natural History and Science",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/438600047",
+"marker-color": "#0072B2",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4277955,
+39.1471568
+]
+},
+"properties": {
+"Name": "McDonald's",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "toilets:wheelchair: yes",
+"Fact 3": "opening_hours: 06:00-22:00",
+"Fact 4": "phone: +1 513-533-3319",
+"Fact 5": "website: https://www.mcdonalds.com/us/en-us/location/14529.html",
+"Source": "https://www.openstreetmap.org/node/932359248",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5171405,
+39.128048
+]
+},
+"properties": {
+"Name": "Starbucks",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "toilets:wheelchair: yes",
+"Fact 3": "phone: +1 513-281-3100",
+"Fact 4": "website: https://www.starbucks.com/store-locator/store/1005843/university-square-234-calhoun-street-5107-cincinnati-oh-452191595-us",
+"Source": "https://www.openstreetmap.org/node/1744630666",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5125237,
+39.1077229
+]
+},
+"properties": {
+"Name": "Coffee Emporium",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Fr 06:30-20:00; Sa-Su 07:00-20:00",
+"Fact 3": "phone: +1 513-651-5483",
+"Fact 4": "website: https://www.coffee-emporium.com/",
+"Source": "https://www.openstreetmap.org/node/2108153200",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5205018,
+39.1294152
+]
+},
+"properties": {
+"Name": "University of Cincinnati",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/2313808096",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5164113,
+39.1006214
+]
+},
+"properties": {
+"Name": "5th Street & Elm Street",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/2325078231",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5106791,
+39.1027139
+]
+},
+"properties": {
+"Name": "Starbucks",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "phone: +1 513-381-1593",
+"Fact 3": "website: https://www.starbucks.com/store-locator/store/1010266/the-580-building-580-walnut-street-cincinnati-oh-452023127-us",
+"Source": "https://www.openstreetmap.org/node/2385629536",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4978239,
+39.1078593
+]
+},
+"properties": {
+"Name": "Bowtie Cafe",
+"Type": "Food & drink",
+"Accessibility": "Not accessible",
+"Fact 1": "wheelchair: no",
+"Fact 2": "opening_hours: Mo-Fr 07:00-20:00; Sa 08:00-20:00; Su 08:00-18:00",
+"Source": "https://www.openstreetmap.org/node/2390874321",
+"marker-color": "#D55E00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5372969,
+39.1605614
+]
+},
+"properties": {
+"Name": "Ruth's Parkside Cafe",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Th 11:30-22:00; Fr 11:30-23:00; Sa 17:00-23:00",
+"Fact 3": "phone: +1-513-542-7884",
+"Fact 4": "website: https://www.ruthscafe.com/",
+"Source": "https://www.openstreetmap.org/node/2711013331",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5393787,
+39.162071
+]
+},
+"properties": {
+"Name": "Blue Jay Restaurant",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "opening_hours: Mo-Fr 09:00-19:00; Sa 09:00-15:00",
+"Fact 3": "phone: +1-513-541-0847",
+"Fact 4": "website: https://www.facebook.com/pages/Blue-Jay-Restaurant/36689275767",
+"Source": "https://www.openstreetmap.org/node/2711105570",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.426348,
+39.1546537
+]
+},
+"properties": {
+"Name": "Rustic Refinery",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "phone: +1 513 214 9837",
+"Fact 3": "website: http://www.RusticRefinery.com/",
+"Source": "https://www.openstreetmap.org/node/2842085937",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5127648,
+39.109891
+]
+},
+"properties": {
+"Name": "Launch Party",
+"Type": "Shop or service",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "opening_hours: We-Fr 11:00-18:00; Sa 10:00-18:00; Su 11:00-17:00",
+"Fact 3": "phone: +1-513-381-1980",
+"Fact 4": "website: https://shoplaunchparty.com/",
+"Source": "https://www.openstreetmap.org/node/5300747221",
+"marker-color": "#E69F00",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.522045,
+39.143998
+]
+},
+"properties": {
+"Name": "United States Post Office",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Fr 08:30-13:00,14:00-16:00",
+"Fact 3": "phone: +1-513-861-1367",
+"Source": "https://www.openstreetmap.org/node/6250503067",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.512451,
+39.1023531
+]
+},
+"properties": {
+"Name": "Fifth Third Bank",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: 24/7",
+"Source": "https://www.openstreetmap.org/node/6652271073",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5196049,
+39.1150082
+]
+},
+"properties": {
+"Name": "Eli’s BBQ",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "opening_hours: Mo-Su 11:00-21:00",
+"Fact 3": "phone: +1-513-533-1957",
+"Fact 4": "website: https://www.elisbarbeque.com/",
+"Source": "https://www.openstreetmap.org/node/6682399460",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5122832,
+39.106762
+]
+},
+"properties": {
+"Name": "Starbucks",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: 06:00-20:00",
+"Fact 3": "phone: +1 513-263-5900",
+"Fact 4": "website: https://www.starbucks.com/store-locator/store/1026466/kroger-cincinnati-513-100-e-court-street-cincinnati-oh-45202-us",
+"Source": "https://www.openstreetmap.org/node/6821488813",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5124583,
+39.1070428
+]
+},
+"properties": {
+"Name": "On the Rhine Eatery",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/6823722624",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.512358,
+39.1071265
+]
+},
+"properties": {
+"Name": "1883 Café & Bar",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Fr 11:00-19:00",
+"Fact 3": "phone: +1 513-263-5913",
+"Fact 4": "website: https://www.ontherhineeatery.com/vendors/1883-cafe-and-bar",
+"Source": "https://www.openstreetmap.org/node/6823722625",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5134046,
+39.1086519
+]
+},
+"properties": {
+"Name": "Taglio",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Su-Th 11:00-21:00; Fr,Sa 11:00-23:00",
+"Fact 3": "phone: +1-513-854-6113",
+"Fact 4": "website: https://www.eattaglio.com/otr",
+"Source": "https://www.openstreetmap.org/node/8861620661",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5186755,
+39.0991711
+]
+},
+"properties": {
+"Name": "Deeper Roots Coffee",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "opening_hours: Mo-Fr 06:30-16:00",
+"Fact 3": "website: https://www.deeperrootscoffee.com/",
+"Source": "https://www.openstreetmap.org/node/9216445486",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5184686,
+39.0989549
+]
+},
+"properties": {
+"Name": "Better Blend Smoothies",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Source": "https://www.openstreetmap.org/node/9216445488",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5172623,
+39.0991119
+]
+},
+"properties": {
+"Name": "Cafe Barista",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/9216445498",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5163443,
+39.0982217
+]
+},
+"properties": {
+"Name": "Kitty's Sports Bar Grill",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/9216445499",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5113003,
+39.1071078
+]
+},
+"properties": {
+"Name": "Cincinnati Bureau of Motor Vehicles",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/9244081884",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5122117,
+39.1054582
+]
+},
+"properties": {
+"Name": "Learning Grove - YWCA",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Fr 07:30-17:30",
+"Fact 3": "website: https://www.ywcacincinnati.org/our-programs/childcare/",
+"Source": "https://www.openstreetmap.org/node/9273589358",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5136522,
+39.1095682
+]
+},
+"properties": {
+"Name": "Fifty Fifty Gin Club",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "opening_hours: Th-Sa 18:00+",
+"Fact 3": "website: https://www.fiftyfiftyginclub.com/",
+"Source": "https://www.openstreetmap.org/node/10160390375",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5112418,
+39.1056774
+]
+},
+"properties": {
+"Name": "Woods Hardware",
+"Type": "Shop or service",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "opening_hours: Su 10:00-16:00; Mo-Fr 07:30-19:00; Sa 08:00-18:00",
+"Fact 3": "phone: +1 513-241-2759",
+"Fact 4": "website: https://stores.truevalue.com/oh/cincinnati/22457/",
+"Source": "https://www.openstreetmap.org/node/10163919281",
+"marker-color": "#E69F00",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5113472,
+39.1086026
+]
+},
+"properties": {
+"Name": "Insomnia Cookies",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-We 11:00-24:00; Th-Fr 11:00-01:00; Sa 12:00-01:00; Su 12:00-24:00",
+"Fact 3": "phone: +1-513-448-0925",
+"Fact 4": "website: https://insomniacookies.com",
+"Source": "https://www.openstreetmap.org/node/11135047569",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4277564,
+39.1461542
+]
+},
+"properties": {
+"Name": "Walgreens",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: 07:00-22:00",
+"Fact 3": "phone: +1-513-871-4615",
+"Fact 4": "website: https://www.walgreens.com/locator/walgreens-3822+paxton+ave-cincinnati-oh-45209/id=274",
+"Source": "https://www.openstreetmap.org/node/11534773814",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5131478,
+39.1068115
+]
+},
+"properties": {
+"Name": "Onolicious Hawaii",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Th 11:00-21:00; Fr-Sa 11:00-22:00; Su 11:00-20:00",
+"Fact 3": "phone: +1-513-386-7404",
+"Fact 4": "website: https://www.onoliciousgrinds.com",
+"Source": "https://www.openstreetmap.org/node/11574046305",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5125374,
+39.1067651
+]
+},
+"properties": {
+"Name": "Kroger on the Rhine",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: 06:00-22:00",
+"Fact 3": "phone: +1 513-263-5900",
+"Fact 4": "website: https://www.kroger.com/stores/grocery/oh/cincinnati/kroger-on-the-rhine/014/00513",
+"Source": "https://www.openstreetmap.org/node/12119195727",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5136447,
+39.1109692
+]
+},
+"properties": {
+"Name": "Ché",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo 15:00-24:00; Tu-Sa 11:00-02:30, Su 11:00-24:00",
+"Fact 3": "phone: +1-513-978-1706",
+"Fact 4": "website: https://www.checincinnati.com/",
+"Source": "https://www.openstreetmap.org/node/12158699506",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5384625,
+39.1592032
+]
+},
+"properties": {
+"Name": "Northside Transit Center Shelter A",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/12163643999",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5384585,
+39.1593659
+]
+},
+"properties": {
+"Name": "Northside Transit Center Shelter B",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/12163651801",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5384435,
+39.1595397
+]
+},
+"properties": {
+"Name": "Northside Transit Center Shelter C",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/12163651802",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5384254,
+39.159755
+]
+},
+"properties": {
+"Name": "Northside Transit Center Shelter D",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/12163651803",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5382041,
+39.1593573
+]
+},
+"properties": {
+"Name": "Northside Transit Center Shelter H",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/12163651804",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5382276,
+39.1595411
+]
+},
+"properties": {
+"Name": "Northside Transit Center Shelter G",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/12163651805",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5092429,
+39.1179634
+]
+},
+"properties": {
+"Name": "Flatiron Cafe",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "opening_hours: Mo 08:00-16:00; Tu-Sa 07:00-21:00",
+"Fact 3": "phone: +1-513-361-1190",
+"Fact 4": "website: https://www.flatironcincy.com/",
+"Source": "https://www.openstreetmap.org/node/12215256858",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5161878,
+39.1275222
+]
+},
+"properties": {
+"Name": "Mr. Tuxedo",
+"Type": "Shop or service",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "opening_hours: Mo,Th 09:00-19:00; Tu,We,Fr 09:00-17:00; Sa 09:00-15:00; Su off",
+"Fact 3": "phone: +1 513-281-2400",
+"Fact 4": "website: https://www.mrtuxedo.net/",
+"Source": "https://www.openstreetmap.org/node/12872403275",
+"marker-color": "#E69F00",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.512264,
+39.1122978
+]
+},
+"properties": {
+"Name": "Alice",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "phone: +15134808118",
+"Fact 3": "website: https://www.aliceotr.com/",
+"Source": "https://www.openstreetmap.org/node/12873592311",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5073985,
+39.1054694
+]
+},
+"properties": {
+"Name": "GKL Vending",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/node/13502748352",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5377226,
+39.130838
+]
+},
+"properties": {
+"Name": "Say Yes to Jess",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "phone: +15135808833",
+"Fact 3": "website: https://www.sayyestojess.com/",
+"Source": "https://www.openstreetmap.org/node/13928993260",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5408525,
+39.161654
+]
+},
+"properties": {
+"Name": "Downbound Books",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Tu-Fr 11:00-19:00; Sa-Su 11:00-17:00; PH closed",
+"Source": "https://www.openstreetmap.org/node/14003449781",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.436008,
+39.1117046
+]
+},
+"properties": {
+"Name": "Daylily",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "opening_hours: 06:00-19:00",
+"Fact 3": "phone: +1-513-321-1039",
+"Fact 4": "website: https://www.daylilydeli.com/",
+"Source": "https://www.openstreetmap.org/node/14312722087",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5105813,
+39.1015452
+]
+},
+"properties": {
+"Name": "Government Square Transit Center",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/way/42758987",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5213601,
+39.1308667
+]
+},
+"properties": {
+"Name": "Stratford Heights Garage",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: 24/7",
+"Source": "https://www.openstreetmap.org/way/42786965",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4754985,
+39.1478016
+]
+},
+"properties": {
+"Name": "McDonald Memorial Library",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Source": "https://www.openstreetmap.org/way/42790410",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5143408,
+39.1119129
+]
+},
+"properties": {
+"Name": "MECCA",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/way/50724883",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5073386,
+39.1366906
+]
+},
+"properties": {
+"Name": "Graduate by Hilton Cincinnati",
+"Type": "Accessible lodging",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "phone: +1-513-487-3800",
+"Fact 3": "website: https://www.hilton.com/en/hotels/cvggcgu-graduate-cincinnati/",
+"Source": "https://www.openstreetmap.org/way/50806726",
+"marker-color": "#0072B2",
+"marker-symbol": "lodging",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5224343,
+39.117598
+]
+},
+"properties": {
+"Name": "Knox Joseph Distillery",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Tu 11:00-15:00, We-Th 11:00-22:00, Fr-Sa 11:00-24:00, Su 11:00-22:00",
+"Fact 3": "phone: +15137373783",
+"Fact 4": "website: https://www.otrstillhouse.com/",
+"Source": "https://www.openstreetmap.org/way/53339501",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5369096,
+39.1376021
+]
+},
+"properties": {
+"Name": "Wendy's",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: 09:00-22:00",
+"Fact 3": "phone: +1 513-208-9789",
+"Fact 4": "website: https://locations.wendys.com/united-states/oh/cincinnati/1246-hopple-street",
+"Source": "https://www.openstreetmap.org/way/53440949",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5377406,
+39.1373891
+]
+},
+"properties": {
+"Name": "Camp Washington Chili",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Fr 00:00-24:00; Sa 00:00-16:00; Su 08:00-24:00",
+"Source": "https://www.openstreetmap.org/way/53440951",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5092377,
+39.1179638
+]
+},
+"properties": {
+"Name": "The Flatiron Building",
+"Type": "Shop or service",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "website: https://www.flatironcincy.com/",
+"Source": "https://www.openstreetmap.org/way/58742129",
+"marker-color": "#E69F00",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4888653,
+39.1300122
+]
+},
+"properties": {
+"Name": "Equitas Medical Center and Pharmacy",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Fr 08:00-18:30, Sa 09:00-13:00",
+"Fact 3": "phone: +1-513-978-5858",
+"Fact 4": "website: https://equitashealth.com/locations/cincinnati-health-center/",
+"Source": "https://www.openstreetmap.org/way/68313064",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4853119,
+39.1224375
+]
+},
+"properties": {
+"Name": "Ohio Valley Residential Services",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "website: https://ovrs.org",
+"Source": "https://www.openstreetmap.org/way/73812830",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4786127,
+39.1247111
+]
+},
+"properties": {
+"Name": "Paradrome Properties",
+"Type": "Shop or service",
+"Accessibility": "Not accessible",
+"Fact 1": "wheelchair: no",
+"Fact 2": "phone: +1 513 861 1000",
+"Fact 3": "website: https://www.paradromeproperties.com/",
+"Source": "https://www.openstreetmap.org/way/73813643",
+"marker-color": "#D55E00",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4284922,
+39.1820822
+]
+},
+"properties": {
+"Name": "Major Medical Health Insurance Inc.",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "phone: +1-888-446-8993",
+"Fact 3": "website: https://www.majormedicalhealth.com/",
+"Source": "https://www.openstreetmap.org/way/76966536",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5988558,
+39.1172228
+]
+},
+"properties": {
+"Name": "Saint Teresa of Avila Catholic Church",
+"Type": "Building (campus or public)",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/way/81058345",
+"marker-color": "#0072B2",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4770849,
+39.1286649
+]
+},
+"properties": {
+"Name": "Rusk Kitchen + Bar",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Th 11:00-00:30; Sa 09:30-01:00; Fr 11:00-01:00; Su 09:30-00:30",
+"Fact 3": "phone: +1-513-221-7875",
+"Fact 4": "website: https://ruskcincy.com/",
+"Source": "https://www.openstreetmap.org/way/83427920",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4304694,
+39.1524544
+]
+},
+"properties": {
+"Name": "Oakley Branch Library",
+"Type": "Building (campus or public)",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-We 10:00-20:00; Th-Sa 10:00-18:00; PH off",
+"Fact 3": "phone: +1-513-369-6038",
+"Fact 4": "website: https://chpl.org/locations/OA/",
+"Source": "https://www.openstreetmap.org/way/85637373",
+"marker-color": "#0072B2",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4337247,
+39.1069582
+]
+},
+"properties": {
+"Name": "Area History",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/way/107137117",
+"marker-color": "#0072B2",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4331506,
+39.1091318
+]
+},
+"properties": {
+"Name": "Streetside Brewery",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: 12:00-22:00",
+"Fact 3": "phone: +15136155877",
+"Fact 4": "website: https://streetsidebrewery.com",
+"Source": "https://www.openstreetmap.org/way/122101801",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5066049,
+39.1081596
+]
+},
+"properties": {
+"Name": "Hard Rock Casino Cincinnati",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "website: https://www.hardrockcasinocincinnati.com/",
+"Source": "https://www.openstreetmap.org/way/168830714",
+"marker-color": "#0072B2",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.424156,
+39.1416864
+]
+},
+"properties": {
+"Name": "Coffee Emporium",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "opening_hours: Mo-Fr 06:00-16:00; Sa,Su 07:00-16:00",
+"Fact 3": "phone: +1-513-321-5943",
+"Fact 4": "website: https://www.coffee-emporium.com/",
+"Source": "https://www.openstreetmap.org/way/287330860",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4411346,
+39.1391411
+]
+},
+"properties": {
+"Name": "Hyde Park Branch Library",
+"Type": "Building (campus or public)",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo,Tu,Th 12:00-20:00; We,Fr,Sa 10:00-18:00",
+"Fact 3": "phone: +1-513-369-4456",
+"Fact 4": "website: https://www.cincinnatilibrary.org/branches/hydepark.html",
+"Source": "https://www.openstreetmap.org/way/287371798",
+"marker-color": "#0072B2",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4378502,
+39.1386758
+]
+},
+"properties": {
+"Name": "Saint Mary Church and School",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "phone: +1-513-321-0703",
+"Fact 3": "website: https://smshp.com/",
+"Source": "https://www.openstreetmap.org/way/307498295",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5100039,
+39.1459462
+]
+},
+"properties": {
+"Name": "Lemur Lookout",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/way/328683075",
+"marker-color": "#0072B2",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5024906,
+39.1255067
+]
+},
+"properties": {
+"Name": "Anna Louise Inn",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "website: https://hercincinnati.org/pages/anna-louise-inn-1",
+"Source": "https://www.openstreetmap.org/way/339438618",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5143881,
+39.1056982
+]
+},
+"properties": {
+"Name": "Veterans Health Administration Community Outreach",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Fr 09:00-16:30, PH off",
+"Fact 3": "website: https://www.cincinnati.va.gov/services/homeless/",
+"Source": "https://www.openstreetmap.org/way/340772333",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5072047,
+39.1285888
+]
+},
+"properties": {
+"Name": "101 East Corry",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "website: https://www.uptownrents.com/properties/vp4-101-e-corry/",
+"Source": "https://www.openstreetmap.org/way/528266012",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.516298,
+39.1280713
+]
+},
+"properties": {
+"Name": "Target",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "toilets:wheelchair: yes",
+"Fact 3": "opening_hours: Mo-Su 08:00-22:00",
+"Fact 4": "phone: +1 513 698 8161",
+"Fact 5": "website: https://www.target.com/sl/uc-calhoun-st/3254",
+"Source": "https://www.openstreetmap.org/way/616033110",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.3938428,
+39.1522242
+]
+},
+"properties": {
+"Name": "Mom 'n 'Em",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Su 07:00-15:00",
+"Fact 3": "phone: +1-513-302-6197",
+"Fact 4": "website: https://momnemcoffee.com",
+"Source": "https://www.openstreetmap.org/way/665424052",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4035026,
+39.1573671
+]
+},
+"properties": {
+"Name": "Holiday Inn Express & Suites Cincinnati NE - Redbank Road",
+"Type": "Accessible lodging",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "website: https://www.ihg.com/holidayinnexpress/hotels/us/en/cincinnati/cvgrb/hoteldetail",
+"Source": "https://www.openstreetmap.org/way/715987065",
+"marker-color": "#0072B2",
+"marker-symbol": "lodging",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5381529,
+39.1595682
+]
+},
+"properties": {
+"Name": "Northside Transit Center",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/way/905135807",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5022152,
+39.1246714
+]
+},
+"properties": {
+"Name": "Comfort Suites",
+"Type": "Accessible lodging",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "phone: +1 513-743-7508",
+"Fact 3": "website: https://www.choicehotels.com/ohio/sharonville/rodeway-inn-hotels",
+"Source": "https://www.openstreetmap.org/way/1006614035",
+"marker-color": "#E69F00",
+"marker-symbol": "lodging",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5203585,
+39.1113037
+]
+},
+"properties": {
+"Name": "Central Pkwy & 15th St",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/way/1317492829",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4208158,
+39.141548
+]
+},
+"properties": {
+"Name": "Saint Francis Apizza (Hyde Park)",
+"Type": "Food & drink",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Fr 16:00-20:00; Sa-Su 12:00-20:00",
+"Fact 3": "phone: +1 513 532 2571",
+"Fact 4": "website: https://www.saintfrancisapizza.com/",
+"Source": "https://www.openstreetmap.org/way/1450424306",
+"marker-color": "#0072B2",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4615397,
+39.1325939
+]
+},
+"properties": {
+"Name": "The BonBonerie",
+"Type": "Shop or service",
+"Accessibility": "Not accessible",
+"Fact 1": "wheelchair: no",
+"Fact 2": "opening_hours: Mo-Fr 07:30-17:30; Sa 08:00-16:00",
+"Fact 3": "phone: +1-513-321-3399",
+"Fact 4": "website: https://www.bonbonerie.com/",
+"Source": "https://www.openstreetmap.org/way/1458936691",
+"marker-color": "#D55E00",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4985548,
+39.1180251
+]
+},
+"properties": {
+"Name": "SpringHill Suites",
+"Type": "Accessible lodging",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "phone: +1 513-381-8300",
+"Fact 3": "website: https://www.marriott.com/cvgdt",
+"Source": "https://www.openstreetmap.org/relation/6154625",
+"marker-color": "#0072B2",
+"marker-symbol": "lodging",
+"marker-size": "medium"
 }
 },
 {

@@ -27,8 +27,12 @@ web_access_platforms,web,cincinnati,True,,,1.0,0.0,0.0,8857.0,,,,0,0,2026-11-12
 web_access_platforms,web,oxford,True,,,1.0,0.0,0.0,8857.0,,,,0,0,2026-11-12
 events_ical_cincinnati,events_ical,cincinnati,True,30.0,events; 29 upcoming,,,,,,,,0,0,2026-11-12
 web_parks_cincinnati,web,cincinnati,True,,,3.0,1.0,2.0,178192.0,4.0,"adaptive_recreation 3, accessibility_contact 1",1.0,0,0,2026-11-12
-events_ical_oxford,events_ical,oxford,True,816.0,events; 408 upcoming,,,,,,,,0,0,2026-11-12
+events_ical_oxford,events_ical,oxford,True,816.0,events; 393 upcoming,,,,,,,,0,0,2026-11-12
 web_gov_oxford_rendered,web,oxford,True,,,1.0,2.0,0.0,15246.0,,,,0,0,2026-11-12
 web_metroparks,web,oxford,True,,,2.0,4.0,12.0,57547.0,7.0,"all_terrain_chair 4, accessibility_contact 1, mobility_device_policy 1, trail_surface 1",2.0,0,0,2026-11-12
-events_cincy_parks,mura_calendar,cincinnati,True,264.0,events; 264 upcoming,,,,,,,,0,0,2026-11-12
+events_cincy_parks,mura_calendar,cincinnati,True,264.0,events; 261 upcoming,,,,,,,,0,0,2026-11-12
 web_parks_cincinnati_city,web,cincinnati,True,,,9.0,0.0,0.0,47809.0,11.0,"accessible_route_inside 5, adaptive_recreation 2, accessible_seating 1, elevator 1, restroom_accessible 1",8.0,0,0,2026-11-12
+web_venues_cincinnati_2,web,cincinnati,True,,,14.0,16.0,1.0,158674.0,37.0,"entrance_step_free 7, restroom_accessible 4, accessible_seating 4, wheelchair_loan 3, accessible_parking 3",10.0,1,0,2026-11-12
+web_miami_maps,web,oxford,True,,,1.0,1.0,0.0,18783.0,,,,1,0,2026-11-12
+osm_entrances,osm_entrances,cincinnati,True,28.0,building 28,,,,,28.0,entrance_wheelchair_counts 28,,0,0,2026-11-12
+osm_entrances,osm_entrances,oxford,True,97.0,building 97,,,,,97.0,entrance_wheelchair_counts 97,,0,0,2026-11-12

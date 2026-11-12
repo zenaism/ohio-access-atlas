@@ -116,6 +116,2086 @@
 "geometry": {
 "type": "Point",
 "coordinates": [
+-84.73455392064797,
+39.5172372
+]
+},
+"properties": {
+"Name": "Millett Assembly Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (4 yes, 0 limited, 0 no of 4 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/83701067",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73292226047407,
+39.517595299999996
+]
+},
+"properties": {
+"Name": "Walter L. Gross Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/83701117",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73313070611252,
+39.5128861
+]
+},
+"properties": {
+"Name": "McKie Field Building",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/83701375",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73468191772801,
+39.50203865
+]
+},
+"properties": {
+"Name": "Harris Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/96007228",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73382136234481,
+39.50208815
+]
+},
+"properties": {
+"Name": "Stanton Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/96010539",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73552760109447,
+39.5021048
+]
+},
+"properties": {
+"Name": "Anderson Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/97632399",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73557790660377,
+39.5031136
+]
+},
+"properties": {
+"Name": "Porter Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/97866617",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73373063341486,
+39.503108600000004
+]
+},
+"properties": {
+"Name": "Dodds Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/97867434",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73644372078908,
+39.506995950000004
+]
+},
+"properties": {
+"Name": "Bonham House",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453423",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73670283112205,
+39.5065356
+]
+},
+"properties": {
+"Name": "Williams Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453425",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73809191463039,
+39.50699645
+]
+},
+"properties": {
+"Name": "Hanna House",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453429",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7368663196869,
+39.50525854999999
+]
+},
+"properties": {
+"Name": "Phillips Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 0 no of 3 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453432",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73516536466222,
+39.506922349999996
+]
+},
+"properties": {
+"Name": "Warfield Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453440",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7342950252524,
+39.50406580000001
+]
+},
+"properties": {
+"Name": "MacCracken Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 1 no of 4 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453446",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73743014329318,
+39.5068282
+]
+},
+"properties": {
+"Name": "Wells Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453451",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73564075765813,
+39.5056457
+]
+},
+"properties": {
+"Name": "Hamilton Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 0 no of 3 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453461",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73875287124353,
+39.50366665
+]
+},
+"properties": {
+"Name": "Campus Avenue Garage",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453463",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73594624551451,
+39.50697995
+]
+},
+"properties": {
+"Name": "McGuffey House and Museum",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453465",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73871663860561,
+39.50644615
+]
+},
+"properties": {
+"Name": "Nellie Craig Walker Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 0 no of 3 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453473",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73774832314021,
+39.50266005
+]
+},
+"properties": {
+"Name": "Recreational Sports Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453474",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73705481094228,
+39.50386465
+]
+},
+"properties": {
+"Name": "Goggin Ice Arena",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453477",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73365416286157,
+39.505624
+]
+},
+"properties": {
+"Name": "Minnich Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/182453481",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73368619810188,
+39.506828150000004
+]
+},
+"properties": {
+"Name": "MacMillan Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Upcoming events": "1: 2026-11-18 Intention, Identity, and Impact: International Experiences in a New Light Panel and Contest Announcements!",
+"Source": "https://www.openstreetmap.org/way/182453492",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73740275363984,
+39.500882250000004
+]
+},
+"properties": {
+"Name": "Talawanda Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183697188",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73769880844914,
+39.501543
+]
+},
+"properties": {
+"Name": "Logan Lodge",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183697192",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73665725382291,
+39.50091835
+]
+},
+"properties": {
+"Name": "Reid Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183697199",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73911363982594,
+39.50095725
+]
+},
+"properties": {
+"Name": "Blanchard House",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183697200",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73857208933046,
+39.50089945
+]
+},
+"properties": {
+"Name": "Pines Lodge",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183697202",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73821373274029,
+39.5015466
+]
+},
+"properties": {
+"Name": "Fisher Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183697214",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73196623328434,
+39.5017642
+]
+},
+"properties": {
+"Name": "Emerson Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183697661",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73149494208678,
+39.50094245
+]
+},
+"properties": {
+"Name": "Glos Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183697665",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73147209769945,
+39.5025855
+]
+},
+"properties": {
+"Name": "Tappan Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183698661",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73242112055077,
+39.5026241
+]
+},
+"properties": {
+"Name": "Morris Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183698672",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72961576897374,
+39.503797399999996
+]
+},
+"properties": {
+"Name": "Presser Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183700436",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73154513056663,
+39.5066379
+]
+},
+"properties": {
+"Name": "Shriver Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (4 yes, 0 limited, 0 no of 4 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183700437",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73249199348564,
+39.505558300000004
+]
+},
+"properties": {
+"Name": "Hiestand Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183700445",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73131039273918,
+39.5056165
+]
+},
+"properties": {
+"Name": "Art Building",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Upcoming events": "2: 2026-11-12 Artist Talk: Briana Mazzolini-Blanchard: Beyond The Classroom: Reimagining Leadership As Community Advocacy; 2026-11-19 Artist Talk: Mark Dion: Adventures in Art Explorations and The Acorn Club",
+"Source": "https://www.openstreetmap.org/way/183700455",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73188218298841,
+39.50498155
+]
+},
+"properties": {
+"Name": "Center for the Performing Arts",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 0 no of 3 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183700461",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72720323304597,
+39.5052374
+]
+},
+"properties": {
+"Name": "Havighurst Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183701613",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72775694288123,
+39.503194
+]
+},
+"properties": {
+"Name": "Hoyt Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183701616",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72587033931418,
+39.5055845
+]
+},
+"properties": {
+"Name": "Child Development Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183702409",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72640449046533,
+39.504208250000005
+]
+},
+"properties": {
+"Name": "Clawson Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183702411",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73703444472144,
+39.50797715
+]
+},
+"properties": {
+"Name": "Bishop Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 2 no of 4 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183831888",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72637054322246,
+39.50222855
+]
+},
+"properties": {
+"Name": "Kumler Chapel",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Upcoming events": "3: 2026-11-17 OLEA Residency Concert; 2026-12-05 Candlelit Voices; 2026-12-05 Candlelit Voices",
+"Source": "https://www.openstreetmap.org/way/183831889",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73641039893919,
+39.50790925
+]
+},
+"properties": {
+"Name": "Alumni Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183831901",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73797557042731,
+39.5088227
+]
+},
+"properties": {
+"Name": "King Library",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Upcoming events": "1: 2026-11-13 Are We Facing the End of Writing Instruction? Exploring Your Goals for Teaching With Writing",
+"Source": "https://www.openstreetmap.org/way/183831904",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73826911785451,
+39.5078862
+]
+},
+"properties": {
+"Name": "McGuffey Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 2 no of 4 mapped entrances)",
+"Upcoming events": "1: 2026-11-13 From the Diving Board to the World",
+"Source": "https://www.openstreetmap.org/way/183831905",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7262992422477,
+39.503052
+]
+},
+"properties": {
+"Name": "McKee Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183831907",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72922254125336,
+39.50090925
+]
+},
+"properties": {
+"Name": "Richard and Carole Cocks Art Museum",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183831911",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73547892714285,
+39.507909
+]
+},
+"properties": {
+"Name": "Irvin Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 3 no of 4 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183831914",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72538536320707,
+39.5033563
+]
+},
+"properties": {
+"Name": "Boyd Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183831918",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73850892866005,
+39.508925000000005
+]
+},
+"properties": {
+"Name": "Hall Auditorium",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
+"Upcoming events": "9: 2026-11-12 Miami University Percussion Ensemble; 2026-11-19 Miami University Jazz Ensemble Concert; 2026-11-21 Playing Together: Music and Sports at Miami, Symphony Orchestra",
+"Source": "https://www.openstreetmap.org/way/183831928",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72575991349095,
+39.501238799999996
+]
+},
+"properties": {
+"Name": "Peabody Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183831936",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73452080891157,
+39.5079287
+]
+},
+"properties": {
+"Name": "Kreger Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 3 no of 6 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/183832438",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73127378409092,
+39.50770905
+]
+},
+"properties": {
+"Name": "Shideler Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 2 no of 5 mapped entrances)",
+"Upcoming events": "2: 2026-11-12 Joy of Birding Lecture; 2026-11-20 Joy of Birding Lecture",
+"Source": "https://www.openstreetmap.org/way/183833250",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72088104523476,
+39.507266599999994
+]
+},
+"properties": {
+"Name": "Miami University Police Services Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184388051",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72703133870503,
+39.51164885
+]
+},
+"properties": {
+"Name": "Collins Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184389080",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72706009444445,
+39.5107049
+]
+},
+"properties": {
+"Name": "McBride Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184389085",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72586799295732,
+39.511154399999995
+]
+},
+"properties": {
+"Name": "Dennison Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184389101",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72934176075805,
+39.5120751
+]
+},
+"properties": {
+"Name": "Symmes Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184390037",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73031722559799,
+39.5110729
+]
+},
+"properties": {
+"Name": "Farmer School of Business",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (4 yes, 0 limited, 2 no of 6 mapped entrances)",
+"Upcoming events": "1: 2026-11-18 Andrew Stein Guest Speaker Event",
+"Source": "https://www.openstreetmap.org/way/184390046",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72843179745534,
+39.5107417
+]
+},
+"properties": {
+"Name": "Dorsey Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184390054",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72742009685578,
+39.5131084
+]
+},
+"properties": {
+"Name": "The Marcum Hotel & Conference Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184390072",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7337357492689,
+39.5086323
+]
+},
+"properties": {
+"Name": "Upham Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (4 yes, 0 limited, 8 no of 12 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184390509",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73173659014155,
+39.5096882
+]
+},
+"properties": {
+"Name": "Hughes Laboratories",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 2 no of 5 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184390716",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73316237130064,
+39.5096633
+]
+},
+"properties": {
+"Name": "Laws Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 5 no of 7 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184390806",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73525064125548,
+39.50848954999999
+]
+},
+"properties": {
+"Name": "Stoddard Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 2 no of 4 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184391388",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73523449859506,
+39.50903405
+]
+},
+"properties": {
+"Name": "Elliott Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 2 no of 4 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184391390",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73446016914136,
+39.509436550000004
+]
+},
+"properties": {
+"Name": "Roudebush Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 2 no of 3 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184391391",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73578534758477,
+39.5097935
+]
+},
+"properties": {
+"Name": "Ogden Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184391395",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73637597439334,
+39.50900315
+]
+},
+"properties": {
+"Name": "Harrison Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 4 no of 5 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184391396",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73142428993441,
+39.511854299999996
+]
+},
+"properties": {
+"Name": "Psychology Building",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 0 no of 3 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184553436",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73326445780631,
+39.5152887
+]
+},
+"properties": {
+"Name": "Martin Dining Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184557874",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73388625833535,
+39.5147189
+]
+},
+"properties": {
+"Name": "Brandon Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184557882",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73315359091654,
+39.5143705
+]
+},
+"properties": {
+"Name": "Hepburn Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184557900",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73217245162755,
+39.51545325
+]
+},
+"properties": {
+"Name": "Hahne Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184557935",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73292724549907,
+39.5159754
+]
+},
+"properties": {
+"Name": "Flower Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184557938",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7339055977861,
+39.5140499
+]
+},
+"properties": {
+"Name": "McFarland Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/184557943",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73104672146458,
+39.4997331
+]
+},
+"properties": {
+"Name": "Murstein Alumni Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/323662309",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73225078703061,
+39.503324899999996
+]
+},
+"properties": {
+"Name": "Etheridge Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/324580220",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73252149032392,
+39.50424475
+]
+},
+"properties": {
+"Name": "Maplestreet Station",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/325445277",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72786281480262,
+39.506651950000006
+]
+},
+"properties": {
+"Name": "Young Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/329308596",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72713725520543,
+39.506382450000004
+]
+},
+"properties": {
+"Name": "Hillcrest Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/329363461",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72844114942998,
+39.505712450000004
+]
+},
+"properties": {
+"Name": "Hodge Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/329363462",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7281305743355,
+39.504646199999996
+]
+},
+"properties": {
+"Name": "Western Dining Commons",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/329363463",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72634821754698,
+39.50611455
+]
+},
+"properties": {
+"Name": "Geothermal Plant",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/330126862",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73545051900712,
+39.51068585
+]
+},
+"properties": {
+"Name": "Old Manse",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/397312389",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73364451332891,
+39.5107717
+]
+},
+"properties": {
+"Name": "Benton Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 2 no of 5 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/397382395",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.732836561182,
+39.51076905
+]
+},
+"properties": {
+"Name": "Garland Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/397382396",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73018027936547,
+39.51200895
+]
+},
+"properties": {
+"Name": "Garden Commons",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/397382670",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73131932444807,
+39.51113445
+]
+},
+"properties": {
+"Name": "Pearson Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/545759799",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73205503725688,
+39.514429899999996
+]
+},
+"properties": {
+"Name": "Marcum Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/704247753",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73417004455308,
+39.51250025
+]
+},
+"properties": {
+"Name": "Withrow Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 0 no of 3 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/704247777",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73367778844192,
+39.50438195
+]
+},
+"properties": {
+"Name": "Scott Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (4 yes, 0 limited, 0 no of 4 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/705886668",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7330794102304,
+39.5077705
+]
+},
+"properties": {
+"Name": "Armstrong Student Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (6 yes, 0 limited, 0 no of 6 mapped entrances)",
+"Upcoming events": "1: 2026-11-17 Thane Maynard \"A World Worth Saving: Lessons from a Lifetime in Wildlife Conservation\"",
+"Source": "https://www.openstreetmap.org/way/724458869",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73220015938239,
+39.510757049999995
+]
+},
+"properties": {
+"Name": "Engineering Building",
+"Type": "Building (campus or public)",
+"Accessibility": "Not accessible",
+"Fact 1": "Accessible entrance: no (0 yes, 0 limited, 1 no of 1 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/985373576",
+"marker-color": "#D55E00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73416388911983,
+39.51148485
+]
+},
+"properties": {
+"Name": "Richard M. McVey Data Science Building",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Source": "https://www.openstreetmap.org/way/1088928897",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7636343,
+39.5240292
+]
+},
+"properties": {
+"Name": "Ambassador's Pointe Church",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "phone: +1-513-523-6136",
+"Fact 3": "website: https://oxfordap.church/",
+"Source": "https://www.openstreetmap.org/node/1950180889",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7505626,
+39.5058983
+]
+},
+"properties": {
+"Name": "Moon Co-Op",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Sa 09:00-20:00, Su 10:00-18:00",
+"Fact 3": "phone: +1-513-280-5020",
+"Fact 4": "website: https://www.mooncoop.coop/",
+"Source": "https://www.openstreetmap.org/node/3394743129",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7461199,
+39.5099859
+]
+},
+"properties": {
+"Name": "Oxford Community Arts Center",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Source": "https://www.openstreetmap.org/way/183546059",
+"marker-color": "#E69F00",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7481077,
+39.507175
+]
+},
+"properties": {
+"Name": "Spring Street Treats",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "phone: +1-513-839-8021",
+"Fact 3": "website: https://www.springstreettreats.com/",
+"Source": "https://www.openstreetmap.org/way/334880846",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7482198,
+39.5054051
+]
+},
+"properties": {
+"Name": "Oxford Lane Library",
+"Type": "Building (campus or public)",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Fact 2": "opening_hours: Mo-Th 09:00-20:00, Fr-Sa 09:00-18:00, Su 13:00-17:00",
+"Fact 3": "phone: +1-513-523-7531",
+"Fact 4": "website: https://www.lanepl.org/",
+"Upcoming events": "1: 2026-11-21 Art Explorers (Ages 3-6)",
+"Source": "https://www.openstreetmap.org/way/455110751",
+"marker-color": "#0072B2",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7219843,
+39.5086018
+]
+},
+"properties": {
+"Name": "Equestrian Center",
+"Type": "Shop or service",
+"Accessibility": "Accessible",
+"Fact 1": "wheelchair: yes",
+"Source": "https://www.openstreetmap.org/way/706072874",
+"marker-color": "#0072B2",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
 -84.7520982,
 39.5711005
 ]
@@ -358,44 +2438,6 @@
 "geometry": {
 "type": "Point",
 "coordinates": [
--84.7313032,
-39.5077041
-]
-},
-"properties": {
-"Name": "Shideler Hall",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "2: 2026-11-12 Joy of Birding Lecture; 2026-11-20 Joy of Birding Lecture",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7385058,
-39.5089466
-]
-},
-"properties": {
-"Name": "Hall Auditorium",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "9: 2026-11-12 Miami University Percussion Ensemble; 2026-11-19 Miami University Jazz Ensemble Concert; 2026-11-21 Playing Together: Music and Sports at Miami, Symphony Orchestra",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
 -84.732855,
 39.505377
 ]
@@ -424,63 +2466,6 @@
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "9: 2026-11-12 A Political Economy of Attention in Three Registers; 2026-11-19 An Evening with Acclaimed Author Nicole R. Fleetwood '94; 2027-02-11 Reclaiming Attention: An Immersive Audio Experience",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7313092,
-39.5056147
-]
-},
-"properties": {
-"Name": "Art Building",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "2: 2026-11-12 Artist Talk: Briana Mazzolini-Blanchard: Beyond The Classroom: Reimagining Leadership As Community Advocacy; 2026-11-19 Artist Talk: Mark Dion: Adventures in Art Explorations and The Acorn Club",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.73798,
-39.5088038
-]
-},
-"properties": {
-"Name": "King Library",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "1: 2026-11-13 Are We Facing the End of Writing Instruction? Exploring Your Goals for Teaching With Writing",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7382286,
-39.5078849
-]
-},
-"properties": {
-"Name": "McGuffey Hall",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "1: 2026-11-13 From the Diving Board to the World",
 "marker-color": "#8C8C8C",
 "marker-symbol": "star",
 "marker-size": "medium"
@@ -538,101 +2523,6 @@
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "16: 2026-11-16 Carter Burkardt Student Recital; 2026-11-19 Bowman/Flanagan Student Recital; 2026-11-19 The Last Five Years",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7263883,
-39.5022211
-]
-},
-"properties": {
-"Name": "Kumler Chapel",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "3: 2026-11-17 OLEA Residency Concert; 2026-12-05 Candlelit Voices; 2026-12-05 Candlelit Voices",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7328708,
-39.5077701
-]
-},
-"properties": {
-"Name": "Armstrong Student Center",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "1: 2026-11-17 Thane Maynard \"A World Worth Saving: Lessons from a Lifetime in Wildlife Conservation\"",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7297113,
-39.5110698
-]
-},
-"properties": {
-"Name": "Farmer School of Business",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "1: 2026-11-18 Andrew Stein Guest Speaker Event",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7339184,
-39.5068316
-]
-},
-"properties": {
-"Name": "MacMillan Hall",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "1: 2026-11-18 Intention, Identity, and Impact: International Experiences in a New Light Panel and Contest Announcements!",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7482198,
-39.5054051
-]
-},
-"properties": {
-"Name": "Oxford Lane Library",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "1: 2026-11-21 Art Explorers (Ages 3-6)",
 "marker-color": "#8C8C8C",
 "marker-symbol": "star",
 "marker-size": "medium"

@@ -359,3 +359,44 @@ web_parks_cincinnati_city:  # City of Cincinnati Parks + Recreation Commission p
     - https://cincinnati-oh.gov/recreation/programs/therapeutic-recreation/miracle-league-baseball
     - https://cincinnati-oh.gov/recreation/programs/therapeutic-recreation/
   license: public web page; cite URL
+
+web_venues_cincinnati_2:    # second batch: attractions and theaters missing from the first batch
+  type: web
+  render: true
+  regions: [cincinnati]
+  author_type: official
+  max_pages: 40
+  assets: true
+  urls:
+    - https://cincinnatizoo.org/plan-your-adventure/zoo-access-for-all/
+    - https://map.cincinnatizoo.org/places/869-restroom-with-adult-changing-table
+    - https://cincinnatizoo.getanchor.io/wp-content/uploads/2023/09/Access-Welcome-Center.pdf
+    - https://freedomcenter.org/visit/accessibility
+    - https://www.contemporaryartscenter.org/visit/accessibility
+    - https://cincinnatiarts.org/plan-your-visit/aronoff-center-1/accessibility-information-1
+    - https://www.cincinnatiarts.org/plan-your-visit/visit-music-hall/accessibility-information-2
+    - https://www.mlb.com/reds/ballpark/disability-access-guide
+    - https://www.mlb.com/reds/hall-of-fame/visit/accessibility
+    - https://www.newportaquarium.com/plan-your-visit/accessibility
+    - https://www.newportaquarium.com/plan-your-visit/policies/
+    - https://sixflags.com/kingsisland/accessibility
+    - https://cincyplay.com/visit/accessibility
+    - https://cincyshakes.com/your-visit/accessibility
+    - https://thechildrenstheatre.com/accessibility/
+  license: public web page; cite URL
+
+web_miami_maps:             # Miami parking / accessible entrance maps (posters to read)
+  type: web
+  regions: [oxford]
+  author_type: official
+  max_pages: 5
+  urls:
+    - https://miamioh.edu/centers-institutes/campus-services-center/parking-transit/_documents/parking-map-fall-2026.pdf
+    - https://miamioh.edu/centers-institutes/campus-services-center/parking-transit/_documents/miami-university-parking-areas-map-2025_508.pdf
+    - https://miamioh.edu/centers-institutes/campus-services-center/parking-transit/parking-areas.html
+  license: public document; cite URL
+
+osm_entrances:              # entrances with wheelchair tags, grouped by building (Miami campus is well mapped)
+  type: osm_entrances
+  regions: [cincinnati, oxford]
+  license: ODbL-1.0 (c) OpenStreetMap contributors

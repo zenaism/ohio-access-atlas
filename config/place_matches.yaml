@@ -30,6 +30,14 @@ Hueston Woods Lodge: {name: "Hueston Woods Lodge & Conference Center", category:
 MetroParks of Butler County: {name: Voice of America MetroPark, category: park, layer: adaptive_recreation,
                               label: "GRIT all-terrain chair pickup (MetroParks of Butler County)"}
 
+National Underground Railroad Freedom Center: {name: National Underground Railroad Freedom Center, category: museum, layer: culture}
+Contemporary Arts Center: {name: Contemporary Arts Center, category: gallery, layer: culture}
+Aronoff Center for the Arts: {name: Aronoff Center for the Arts, category: theatre, layer: culture}
+Music Hall: {name: Music Hall, category: theatre, layer: culture}
+Cincinnati Playhouse in the Park: {name: Cincinnati Playhouse in the Park, category: theatre, layer: culture}
+Cincinnati Shakespeare Company: {name: Cincinnati Shakespeare Company, category: theatre_venue, layer: culture}
+"Children's Theatre of Cincinnati (Emery Theater)": {name: Emery Theatre, category: theatre, layer: culture}
+
 # not single points: kept in the data, listed in data/map/review.csv
 Cincinnati Metro buses: {skip: transit system}
 Cincinnati Connector streetcar: {skip: transit line}

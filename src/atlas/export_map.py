@@ -549,7 +549,15 @@ def write() -> list[Path]:
     shared = places + trail_features(matches, review)
     for region in ("cincinnati", "oxford"):
         feats = [f for f in shared if region_of(f["geometry"]) == region]
-        feats += restroom_features(region) + event_features(region, g, matches, places, review)
+        taken = {f["properties"]["matched_to"].split(" ")[0] for f in feats}
+        extra = [
+            f for f in building_features(region) if f["properties"]["matched_to"].split(" ")[0] not in taken
+        ]
+        taken |= {f["properties"]["matched_to"].split(" ")[0] for f in extra}
+        extra += tagged_poi_features(region, taken)
+        feats += extra + restroom_features(region)
+        hosts = [f for f in feats if f["properties"]["layer"] != "restroom"]  # events attach to these
+        feats += event_features(region, g, matches, hosts, review)
         enrich(feats, g)
         seen: dict[str, int] = {}
         for f in feats:  # same name at the same spot (OSM node + way): keep links unique
@@ -587,6 +595,9 @@ def write() -> list[Path]:
 # copies show a colour per rating and an icon per layer right in the repository, no hosting needed.
 GH_COLOUR = {"accessible": "#0072B2", "partial": "#E69F00", "not_accessible": "#D55E00", "unknown": "#8C8C8C"}
 GH_SYMBOL = {
+    "building": "building",
+    "food_drink": "restaurant",
+    "service": "shop",
     "culture": "museum",
     "park": "park",
     "restroom": "toilet",
@@ -601,6 +612,9 @@ GH_RATING = {
     "unknown": "No information yet",
 }
 GH_LAYER = {
+    "building": "Building (campus or public)",
+    "food_drink": "Food & drink",
+    "service": "Shop or service",
     "culture": "Museum / venue / attraction",
     "park": "Park or garden",
     "restroom": "Public restroom",
@@ -688,6 +702,8 @@ def _phrase(attr: str, value: str, detail: str) -> str | None:
 
 
 def summarise(p: dict) -> str:
+    if p.get("summary_text"):
+        return p["summary_text"]
     facts = p.get("facts", [])
     if p["layer"] == "event":
         nxt = p["events"][0] if p.get("events") else None
@@ -807,3 +823,134 @@ def enrich(feats: list, g: gpd.GeoDataFrame) -> None:
         slug = re.sub(r"[^a-z0-9]+", "-", p["name"].lower()).strip("-")[:48]
         p["link_id"] = f"{slug}-{hashlib.md5(f'{c.y:.4f},{c.x:.4f}'.encode()).hexdigest()[:5]}"
         p["contacts"] = contacts(p)
+
+
+# ------------------------------------------- OSM buildings and tagged places ----
+FOOD = {"restaurant", "cafe", "fast_food", "bar", "pub", "ice_cream", "food_court", "biergarten"}
+
+
+def building_features(region: str) -> list:
+    """Named buildings whose entrances say whether a wheelchair can use them (OSM)."""
+    f = PROCESSED / region / "osm_entrances.entities.parquet"
+    if not f.exists():
+        return []
+    b = gpd.read_parquet(f)
+    out = []
+    for r in b.itertuples():
+        total = r.entrances_yes + r.entrances_limited + r.entrances_no
+        if not total:
+            continue
+        if r.entrances_yes:
+            rating, text = (
+                "partial",
+                (
+                    f"{r.entrances_yes} of {total} mapped entrance{'s' if total > 1 else ''} "
+                    "wheelchair accessible (OpenStreetMap); restrooms and inside not recorded."
+                ),
+            )
+        elif r.entrances_limited:
+            rating, text = (
+                "partial",
+                f"{r.entrances_limited} of {total} mapped entrances partly wheelchair accessible "
+                "(OpenStreetMap).",
+            )
+        else:
+            rating, text = (
+                "not_accessible",
+                (
+                    f"None of the {total} mapped entrances is wheelchair accessible "
+                    "(OpenStreetMap); other entrances may not be mapped."
+                ),
+            )
+        out.append(
+            {
+                "geometry": r.geometry.representative_point(),
+                "properties": {
+                    "name": r.name,
+                    "layer": "building",
+                    "access_rating": rating,
+                    "summary_text": text,
+                    "facts": [
+                        {
+                            "attribute": "Accessible entrance",
+                            "value": "yes" if r.entrances_yes else "no",
+                            "detail": f"{r.entrances_yes} yes, {r.entrances_limited} limited, "
+                            f"{r.entrances_no} no of {total} mapped entrances",
+                            "quote": "",
+                            "source": f"https://www.openstreetmap.org/{r.entity_id[4:]}",
+                            "date": TODAY[:7],
+                        }
+                    ],
+                    "matched_to": f"{r.entity_id} ({r.name})",
+                    "region": region,
+                },
+            }
+        )
+    return out
+
+
+def tagged_poi_features(region: str, taken: set) -> list:
+    """Restaurants, cafes, shops, libraries, hotels... that carry an OSM wheelchair tag."""
+    e = gpd.read_parquet(PROCESSED / region / "osm.entities.parquet")
+    e = e[e.entity_type == "poi"]
+    out = []
+    for r in e.itertuples():
+        t = json.loads(r.tags)
+        w = t.get("wheelchair")
+        if not w or not r.name or r.entity_id in taken or t.get("amenity") == "toilets":
+            continue
+        a, tour = t.get("amenity"), t.get("tourism")
+        layer = (
+            "food_drink"
+            if a in FOOD
+            else "lodging"
+            if tour in ("hotel", "motel", "guest_house")
+            else "culture"
+            if tour in ("museum", "attraction", "gallery") or a in ("theatre", "arts_centre")
+            else "building"
+            if a in ("library", "townhall", "community_centre", "place_of_worship")
+            or t.get("building") in ("university", "college", "civic")
+            else "service"
+        )
+        rating = osm_rating(t)
+        words = {
+            "accessible": "wheelchair accessible",
+            "partial": "partly wheelchair accessible",
+            "not_accessible": "not wheelchair accessible",
+        }.get(rating, "accessibility unknown")
+        extra = "; accessible toilet" if t.get("toilets:wheelchair") == "yes" else ""
+        out.append(
+            {
+                "geometry": point(r.geometry),
+                "properties": {
+                    "name": r.name,
+                    "layer": layer,
+                    "access_rating": rating,
+                    "summary_text": f"Tagged {words} on OpenStreetMap{extra}."
+                    + (f" Hours {t['opening_hours']}." if t.get("opening_hours") else ""),
+                    "facts": [
+                        {
+                            "attribute": k,
+                            "value": t[k],
+                            "detail": "",
+                            "quote": "",
+                            "source": f"https://www.openstreetmap.org/{r.entity_id[4:]}",
+                            "date": "",
+                        }
+                        for k in (
+                            "wheelchair",
+                            "wheelchair:description",
+                            "toilets:wheelchair",
+                            "entrance:wheelchair",
+                            "opening_hours",
+                            "phone",
+                            "website",
+                        )
+                        if k in t
+                    ],
+                    "matched_to": f"{r.entity_id} ({r.name})",
+                    "region": region,
+                },
+            }
+        )
+    return out

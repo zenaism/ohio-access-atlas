@@ -32,6 +32,9 @@ ICONS = {
     "adaptive_recreation": ("Adaptive recreation", '<circle cx="11" cy="4" r="1.8" fill="currentColor"/><path d="M10.5 6.5v5h4l2 4" stroke="currentColor" stroke-width="1.7" fill="none"/><circle cx="8.5" cy="13" r="4" stroke="currentColor" stroke-width="1.7" fill="none"/>'),
     "lodging": ("Lodging", '<path d="M3 15V6M3 12h14v3M17 15v-3" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="6.5" cy="9.5" r="1.6" fill="currentColor"/><path d="M9 11V8.5h6.5a1.5 1.5 0 0 1 1.5 1.5v1" fill="currentColor"/>'),
     "event": ("Event venue", '<rect x="3.5" y="5" width="13" height="11" rx="1.5" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M3.5 8.5h13M7 3v3.5M13 3v3.5" stroke="currentColor" stroke-width="1.7"/>'),
+    "building": ("Building (campus or public)", '<path d="M4 17V5l6-2 6 2v12" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M8.5 17v-4h3v4M7 7.5h2M11 7.5h2M7 10.5h2M11 10.5h2" stroke="currentColor" stroke-width="1.5"/>'),
+    "food_drink": ("Food and drink", '<path d="M6 3v6a2 2 0 0 0 2 2v6M8 3v5M4 3v5a2 2 0 0 0 2 2" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M14 17V3c-2 1.5-2.5 4-2.5 7H14" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>'),
+    "service": ("Shop or service", '<path d="M4 7h12l-1 10H5z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/><path d="M7.5 7V5.5a2.5 2.5 0 0 1 5 0V7" stroke="currentColor" stroke-width="1.6" fill="none"/>'),
     "trail": ("Trail", '<path d="M3 16c3-2 3-6 7-7s4-4 7-6" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/>'),
 }
 
@@ -250,6 +253,9 @@ const NEEDS = {
   'Accessible restrooms': it => it.p.layer === 'restroom' && ['accessible','partial'].includes(it.p.access_rating),
   'Any restroom': it => it.p.layer === 'restroom',
   'Museums & attractions': it => it.p.layer === 'culture',
+  'Buildings & campus': it => it.p.layer === 'building',
+  'Food & drink': it => it.p.layer === 'food_drink',
+  'Shops & services': it => it.p.layer === 'service',
   'Parks & gardens': it => it.p.layer === 'park',
   'Trails': it => it.p.layer === 'trail',
   'Events': it => it.p.layer === 'event' || !!(it.p.events && it.p.events.length),
@@ -259,7 +265,7 @@ const NEEDS = {
 const need = document.getElementById('need'), known = document.getElementById('known'), q = document.getElementById('q'), when = document.getElementById('when');
 Object.keys(NEEDS).forEach(k => need.add(new Option(k, k)));
 const RANK = {accessible:0, partial:1, not_accessible:2, unknown:3};
-const LAYER_RANK = {culture:0, park:1, adaptive_recreation:2, lodging:3, trail:4, event:5, restroom:6};
+const LAYER_RANK = {culture:0, park:1, adaptive_recreation:2, lodging:3, building:4, food_drink:5, service:6, trail:7, event:8, restroom:9};
 const TODAY = new Date().toISOString().slice(0, 10);
 const addDays = n => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
 function windowEvents(it){
