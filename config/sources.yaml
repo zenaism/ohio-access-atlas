@@ -701,3 +701,8 @@ web_mobility_services:   # wheelchair repair, rental, accessible vans, medical e
     - http://www.metroscooter.com/
     - http://www.myfountainsquare.com
   license: business websites; services and contact only
+
+osm_walk_network:   # every walkable street and path inside the city limits, for wheelchair routing
+  type: osm_walk_network
+  regions: [cincinnati, oxford]
+  license: ODbL-1.0 (c) OpenStreetMap contributors; elevation USGS 3DEP (public domain)

@@ -129,11 +129,21 @@ def _getting_there(g: dict) -> str:
             f"<li>{g['reports_12m']} sidewalk or curb problem report{'s' if g['reports_12m'] > 1 else ''} "
             f"to 311 in the past year ({g['reports_open']} still open).</li>"
         )
-    return (
+    out = (
         "<h2>Getting there</h2><ul>" + "".join(li) + "</ul>"
-        '<p class="note">Computed from map data, not checked on site. Directions and distances are '
+        '<p class="note">Computed from map data, not checked on site. Distances in this list are '
         "straight-line; slopes are estimated from elevation data.</p>"
     )
+    r = g.get("route")
+    if r:
+        out += (
+            f"<h2>Step-free route from {escape(r['from'])}</h2>"
+            f"<p>About {r['length_feet']:,} feet. {escape(r['compared_with_shortest'])}</p>"
+            "<ol>" + "".join(f"<li>{escape(d)}</li>" for d in r["directions"]) + "</ol>"
+            '<p class="note">Suggested from OpenStreetMap paths and USGS elevation; avoids mapped stairs and '
+            "steep sections. Not checked on site: sidewalks and curb ramps may be missing from the map.</p>"
+        )
+    return out
 
 
 def _facts(p: dict) -> str:

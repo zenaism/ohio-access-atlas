@@ -16,6 +16,7 @@ reddit = ["praw", "python-dotenv"]
 # destinations: Overture places (duckdb), web snapshots, event feeds, JS rendering
 web = ["duckdb", "beautifulsoup4", "lxml", "pypdf", "icalendar", "playwright", "pillow"]
 analysis = ["lifelines", "statsmodels", "matplotlib", "rasterio", "libpysal", "esda"]
+routing = ["networkx", "scipy"]
 dev = ["pytest", "ruff"]
 
 [project.scripts]

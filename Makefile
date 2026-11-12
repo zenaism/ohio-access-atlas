@@ -1,7 +1,7 @@
 PY := .venv/bin/python
 
 setup:            ## create venv and install
-	python3 -m venv .venv && .venv/bin/pip install -q -e ".[dev,reddit,analysis,web]" && .venv/bin/python -m playwright install chromium
+	python3 -m venv .venv && .venv/bin/pip install -q -e ".[dev,reddit,analysis,web,routing]" && .venv/bin/python -m playwright install chromium
 
 data:             ## fetch all no-credential sources for all regions
 	$(PY) -m atlas.cli fetch all --region all

@@ -179,6 +179,7 @@ TEMPLATE = r"""<!DOCTYPE html>
    .leaflet-bottom .leaflet-control-attribution{margin-bottom:64px;font-size:9.5px}
  }
  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+ .route{margin:.2rem 0 .6rem;padding-left:1.3rem} .route li{margin:.15rem 0}
  .note{font-size:.8rem;color:#555;margin:.2rem 0 .6rem} .side-body h4{margin:.8rem 0 .3rem;font-size:.95rem}
 </style></head><body>
 <a class="skip" href="#list-h">Skip to the list of places</a>
@@ -367,7 +368,14 @@ function details(it){
     if (g.accessible_signals) li.push(`${g.accessible_signals} crossing${g.accessible_signals > 1 ? 's' : ''} with accessible signals (sound or vibration) within 500 feet`);
     if (g.tactile_paving) li.push(`${g.tactile_paving} mapped spot${g.tactile_paving > 1 ? 's' : ''} with tactile paving within 500 feet`);
     if (g.reports_12m) li.push(`${g.reports_12m} sidewalk or curb problem report${g.reports_12m > 1 ? 's' : ''} to 311 in the past year (${g.reports_open} still open)`);
-    h += '<h4>Getting there</h4><ul>' + li.map(x => `<li>${x}</li>`).join('') + '</ul><p class="note">Computed from map data, not checked on site. Directions and distances are straight-line; slopes are estimated from elevation data.</p>';
+    h += '<h4>Getting there</h4><ul>' + li.map(x => `<li>${x}</li>`).join('') + '</ul><p class="note">Computed from map data, not checked on site. Distances in this list are straight-line; slopes are estimated from elevation data.</p>';
+    const r = g.route;
+    if (r){
+      h += `<h4>Step-free route from ${esc(r.from)}</h4><p>About ${r.length_feet.toLocaleString()} feet. ${esc(r.compared_with_shortest)}</p>`
+        + '<ol class="route">' + r.directions.map(d => `<li>${esc(d)}</li>`).join('') + '</ol>'
+        + `<button type="button" class="ghost" data-a="route">Show route on map<span class="vh"> to ${esc(p.name)}</span></button>`
+        + '<p class="note">Suggested from OpenStreetMap paths and USGS elevation; avoids mapped stairs and steep sections. Not checked on site: sidewalks and curb ramps may be missing from the map.</p>';
+    }
   }
   const c = p.contacts || {emails:[], phones:[]};
   if (c.emails.length || c.phones.length)
@@ -409,10 +417,22 @@ function card(it){
   li.querySelector('[data-a=det]').onclick = e => toggle(it, e.currentTarget);
   return li;
 }
+let routeLayer = null;
+function showRoute(it){
+  const r = it.p.getting_there.route;
+  if (routeLayer) map.removeLayer(routeLayer);
+  routeLayer = L.polyline(r.line.map(c => [c[1], c[0]]), {color:'#1d4ed8', weight:6, opacity:.85, dashArray:'1 9', lineCap:'round'}).addTo(map);
+  if (PHONE.matches) setSheet(false);
+  map.fitBounds(routeLayer.getBounds(), {padding:[40, 40], maxZoom:18});
+  document.getElementById('status').textContent = `Route to ${it.p.name} shown on the map: about ${r.length_feet.toLocaleString()} feet.`;
+}
 function toggle(it, btn, force){
   const box = document.getElementById('det-' + it.i), open = force ?? btn.getAttribute('aria-expanded') !== 'true';
   btn.setAttribute('aria-expanded', open); box.hidden = !open;
-  if (open && !box.innerHTML){ box.innerHTML = details(it); box.querySelector('[data-a=copy]').onclick = () => copyLink(it); }
+  if (open && !box.innerHTML){
+    box.innerHTML = details(it); box.querySelector('[data-a=copy]').onclick = () => copyLink(it);
+    const rb = box.querySelector('[data-a=route]'); if (rb) rb.onclick = () => showRoute(it);
+  }
 }
 // the map shows the same places as the list (filters and search apply to both)
 let mapKey = '';

@@ -14,7 +14,7 @@ A Miami University research project.
 
 ## What it is
 
-- **A map and a list** of about 650 places (museums, theatres, parks, trails, campus buildings, restrooms, restaurants, events) saying what is known about step-free entrances, restrooms, elevators, seating, braille, audio description and more, with **how to get there** from the nearest bus stop.
+- **A map and a list** of about 650 places (museums, theatres, parks, trails, campus buildings, restrooms, restaurants, events) saying what is known about step-free entrances, restrooms, elevators, seating, braille, audio description and more, with **how to get there**: a step-free route in words from the nearest bus stop, avoiding mapped stairs and steep sections.
 - **Every fact has a source.** Facts read from venue websites keep a word-for-word quote and a link; anything computed (slopes, distances) is labelled as computed. Places with no information say so: unknown does not mean inaccessible.
 - **A data layer for a planned assistant** that answers questions from wheelchair users and blind users with evidence, and says "I don't know" when the data is missing.
 

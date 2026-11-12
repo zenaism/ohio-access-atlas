@@ -1332,9 +1332,54 @@ def add_arrival(feats: list, region: str) -> None:
                 f"the {'accessible entrance' if door_pt is not None else 'place'} is {_feet(dist.min())} "
                 f"to the {_towards(st.geometry, target)}, in a straight line."
             )
+            rt = _route(region, st.geometry, target)
+            if rt:
+                rt["from"] = f"the {_stop(st.stop_name)} bus stop"
+                rt["to"] = "the accessible entrance" if door_pt is not None else p["name"]
+                if door_pt is None:  # the route ends at the building's map point, not at a known door
+                    rt["directions"].append(
+                        "The route ends at the building's mapped location; no accessible door is mapped"
+                        + (", so use the entrance the venue describes above." if said else ".")
+                    )
+                p.setdefault("getting_there", {})["route"] = rt
+                n = rt["steep_sections"]
+                steep = f" with {n} short steep section{'s' if n > 1 else ''}" if n else ""
+                parts.append(
+                    f"A step-free route from that stop is about {rt['length_feet']:,} feet{steep} "
+                    "(directions in Details)."
+                )
+            elif _route_available(region):
+                parts.append("No step-free route from that stop was found in the map data; call ahead.")
         if not parts:
             continue
         p.setdefault("getting_there", {})["arrival"] = " ".join(parts)
+
+
+def _route_available(region: str) -> bool:
+    return (PROCESSED / region / "walk_edges.parquet").exists()
+
+
+def _route(region: str, start, end) -> dict | None:
+    """Step-free route between two metric points (None when routing data is missing or no route)."""
+    if not _route_available(region):
+        return None
+    from .routing import route
+
+    a, b = gpd.GeoSeries([start, end], crs=METRIC).to_crs(WGS84)
+    r = route(region, a.y, a.x, b.y, b.x)
+    if not r:
+        return None
+    keep = (
+        "length_feet",
+        "steps",
+        "steep_sections",
+        "raised_kerbs",
+        "road_without_sidewalk_feet",
+        "directions",
+        "compared_with_shortest",
+        "line",
+    )
+    return {k: r[k] for k in keep}
 
 
 # ------------------------------------------- posters that mark accessible entrances ----
