@@ -1,3 +1,4 @@
+# ruff: noqa: E501  (long regex and source text)
 """TrailLink 'wheelchair accessible trails' city pages -> one record per trail.
 
 Reads the rendered pages saved by the web connector and writes data/extracted/traillink_trails.jsonl.

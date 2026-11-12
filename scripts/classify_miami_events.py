@@ -1,3 +1,4 @@
+# ruff: noqa: E501  (long regex and source text)
 """Sort upcoming Miami University calendar events by how useful they are to the atlas.
 
 Rules were written by Claude (Claude Code session, 2026-11-11) after reading all 176 distinct titles of
