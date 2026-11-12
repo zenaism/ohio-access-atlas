@@ -96,12 +96,8 @@ const DATA = __DATA__, RATINGS = __RATINGS__, ICONS = __ICONS__;
 const map = L.map('map', {zoomControl:true});
 const CREDIT = ' | Data: OpenStreetMap (ODbL), Overture Maps, venue and agency websites, TrailLink, Census geocoder. Ohio Access Atlas.';
 const usgs = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',
-  {maxZoom:16, maxNativeZoom:16, attribution:'Basemap: USGS The National Map' + CREDIT});
-const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {maxZoom:19, attribution:'Map tiles &copy; OpenStreetMap contributors' + CREDIT});
+  {maxZoom:18, maxNativeZoom:16, attribution:'Basemap: map services and data available from U.S. Geological Survey, National Geospatial Program' + CREDIT});
 usgs.addTo(map);
-L.control.layers({'USGS topographic (works offline-opened)': usgs, 'OpenStreetMap (web page only)': osm}, null,
-  {position:'topright', collapsed:true}).addTo(map);
 const groups = {};
 Object.keys(ICONS).forEach(k => groups[k] = (k === 'trail' ? L.layerGroup()
   : L.markerClusterGroup({showCoverageOnHover:false, maxClusterRadius:45, disableClusteringAtZoom:15})).addTo(map));
