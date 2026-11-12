@@ -272,6 +272,26 @@
 "geometry": {
 "type": "Point",
 "coordinates": [
+-84.7538166,
+39.5070964
+]
+},
+"properties": {
+"Name": "TRI Community Center Complex",
+"Type": "Building (campus or public)",
+"Accessibility": "No information yet",
+"Fact 1": "Notice: yes (named by a Dec 2025 Miami student audit as a key area for accessibility improvement (details not public yet))",
+"Source": "https://www.oacbdd.org/aws/OACB/pt/sd/news_article/628351/_PARENT/layout_details/false",
+"marker-color": "#8C8C8C",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
 -84.75902306,
 39.58164919
 ]

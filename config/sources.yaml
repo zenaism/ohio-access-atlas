@@ -636,4 +636,5 @@ web_oxford_retry:   # retries of pages that timed out on 2026-11-12
     - https://www.wcpo.com/news/local-news/butler-county/oxford/miami-university-students-audit-helps-shape-new-accessibility-plan-in-oxford
     - https://butlercountyrta.com/routes/oxford-routes
     - https://www.butlercountyrta.com/ada-paratransit
+    - https://www.oacbdd.org/aws/OACB/pt/sd/news_article/628351/_PARENT/layout_details/false   # copy of the WCPO story (2026-06-12)
   license: official websites and news; facts with short quotes and links only

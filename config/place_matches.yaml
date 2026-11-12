@@ -60,6 +60,9 @@ Peffer Park: {name: Peffer Park, category: park, layer: park}
 Leonard Howell Park: {name: Leonard Howell Park, category: park, layer: park}
 DeWitt Log Homestead: {name: DeWitt Log Homestead, category: historic_site, layer: culture}
 
+TRI Community Center Complex: {name: TRI Community Center Complex, category: park, layer: building}
+Oxford Municipal Court: {skip: "location not stated in the source; assistant-only record"}
+
 # not single points: kept in the data, listed in data/map/review.csv
 Cincinnati Metro buses: {skip: transit system}
 Cincinnati Connector streetcar: {skip: transit line}

@@ -53,6 +53,7 @@ MU_ART, OAT_TRAILS, EO_OUT = ("web_venues_oxford:65ce5ac3160a", "web_trails_oxfo
 MPBC_ACCESS = "web_metroparks:0ec74aff1793"
 CNC_TRAILS, GP_PLAY = "web_trails_cincinnati:102b3d6cec37", "web_parks_cincinnati:2021aec48344"
 MS_2019, PAS_VENUES = "web_oxford_press:8bf506acaad3", "web_oxford_more_2:63d2066cb40d"
+OACB_AUDIT = "web_oxford_retry:5d4cbbd9e8f4"  # WCPO story reprinted by OACB, 2026-06-12
 BRIDGE, UCAA = "web_programs_cincinnati:aea761ad0028", "web_programs_cincinnati:75b4e5074c3e"
 
 PLACES = {  # place -> (region, address, kind); addresses from the same documents where given
@@ -115,6 +116,8 @@ PLACES = {  # place -> (region, address, kind); addresses from the same document
     "Peffer Park": ("oxford", "4346 Millville Oxford Road", "park"),
     "Leonard Howell Park": ("oxford", "5200 Bonham Road", "park"),
     "DeWitt Log Homestead": ("oxford", None, "historic_site"),
+    "Oxford Municipal Court": ("oxford", None, "government"),
+    "TRI Community Center Complex": ("oxford", None, "community_center"),
 }
 OUT_OF_AREA = {"Five Rivers MetroParks paved trail network (Dayton)"}
 
@@ -626,11 +629,18 @@ FACTS = [
      "Leonard G. Howell Park paved trail travels to the Black Covered Bridge Connector and to DeWitt Homestead/S.R. 73.", OAT_TRAILS),
     ("DeWitt Log Homestead", "trail_surface", "yes", "paved path to Leonard G. Howell Park and to Peffer Park",
      "The DeWitt Homestead paved path travels to Leonard G. Howell Park and to the Miami Connector to Peffer Park.", OAT_TRAILS),
+    # ---- batch 10 (2026-11-12): Miami DST 272 student audit, reported June 2026 ----
+    ("Oxford Municipal Court", "entrance_step_free", "limited", "wheelchair ramp only at the rear entrance, and only on request (2025 student audit; 2026 draft ADA plan)",
+     "their assessment of the Oxford Municipal Court building found that a wheelchair-accessible ramp is located only at the rear entrance.", OACB_AUDIT),
+    ("Oxford Municipal Court", "notice", "yes", "the rear ramp is available only on request; call ahead",
+     "Greene said the ramp is also available only upon request", OACB_AUDIT),
+    ("TRI Community Center Complex", "notice", "yes", "named by a Dec 2025 Miami student audit as a key area for accessibility improvement (details not public yet)",
+     "the TRI Community Center, which serves as the city's recreation center", OACB_AUDIT),
 ]
 
 DATES = {VC: "2016-01-29", NPS: "2024-09-10", CMC_CHM: "2023-05-26", CMC_MNHS: "2023-05-26", CMC_TCM: "2023-05-26",
          CMC_OTHER: "2023-05-26", CMC_RR: "2023-05-26",
-         CP_TOP10: "2020-07-26", MS_2019: "2019-11-06"}  # Top 10 article: written on the ADA's 30th anniversary
+         CP_TOP10: "2020-07-26", MS_2019: "2019-11-06", OACB_AUDIT: "2026-06-12"}  # Top 10 article: written on the ADA's 30th anniversary
 
 
 def norm(s: str) -> str:
