@@ -54,6 +54,12 @@ Winton Woods: {name: Winton Woods, category: park, layer: park}
 Sharon Woods: {name: Sharon Woods, category: park, layer: park}
 Francis RecreAcres: {name: Francis RecreAcres, category: park, layer: park}
 
+Thomson Hall: {name: Thomson Hall, category: campus_building, layer: building}
+Boyd Hall: {name: Boyd Hall, category: university, layer: building}
+Peffer Park: {name: Peffer Park, category: park, layer: park}
+Leonard Howell Park: {name: Leonard Howell Park, category: park, layer: park}
+DeWitt Log Homestead: {name: DeWitt Log Homestead, category: historic_site, layer: culture}
+
 # not single points: kept in the data, listed in data/map/review.csv
 Cincinnati Metro buses: {skip: transit system}
 Cincinnati Connector streetcar: {skip: transit line}

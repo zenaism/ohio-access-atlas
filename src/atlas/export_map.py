@@ -55,6 +55,7 @@ LABELS = {  # plain-language attribute names for popups
     "assistive_listening": "Assistive listening",
     "service_animals": "Service animals",
     "notice": "Notice",
+    "listed_accessible": "Listed wheelchair accessible",
     "braille": "Braille",
     "large_print": "Large print",
     "audio_description": "Audio description",
@@ -610,6 +611,8 @@ def write() -> list[Path]:
                 extra.append(b)
         taken |= {f["properties"]["matched_to"].split(" ")[0] for f in extra}
         extra += tagged_poi_features(region, taken)
+        extra += poster_entrance_features(region, g, feats + extra, review)
+        extra += listing_features(region, feats + extra, review)
         feats += extra + restroom_features(region)
         hosts = [f for f in feats if f["properties"]["layer"] != "restroom"]  # events attach to these
         feats += event_features(region, g, matches, hosts, review)
@@ -769,6 +772,7 @@ KEY_FACTS = [
     ("accessible_parking", "Parking"),
     ("accessible_seating", "Wheelchair seating"),
     ("wheelchair_loan", "Wheelchair loan"),
+    ("listed", "Listed wheelchair accessible"),
     ("braille", "Braille"),
     ("audio_description", "Audio description"),
     ("large_print", "Large print"),
@@ -796,6 +800,7 @@ KEY_SOURCES = {  # fact attribute (label or OSM tag) -> key
     "Large print": "large_print",
     "Touch / tactile": "tactile",
     "Service animals": "service_animals",
+    "Listed wheelchair accessible": "listed",
 }
 WORD = {"yes": "yes", "designated": "yes", "limited": "partly", "no": "no"}
 
@@ -1327,3 +1332,123 @@ def add_arrival(feats: list, region: str) -> None:
         if not parts:
             continue
         p.setdefault("getting_there", {})["arrival"] = " ".join(parts)
+
+
+# ------------------------------------------- posters that mark accessible entrances ----
+def poster_entrance_features(region: str, g, feats: list, review: list) -> list:
+    """Buildings a poster/map marks with an accessible-entrance symbol (e.g. Miami's 2023 parking map).
+    Adds the poster as a second source on buildings already shown; adds the others as new points."""
+    by_name = {}
+    for f in feats:
+        if f["properties"]["layer"] not in ("restroom", "event"):
+            by_name.setdefault(f["properties"]["name"], f)
+    new = []
+    for path in sorted((ROOT / "data/manual/posters").glob("*/extraction.json")):
+        poster = json.loads(path.read_text())
+        if poster.get("region") != region or not poster.get("accessible_entrance_buildings"):
+            continue
+        label = poster.get("short_name") or poster["poster"]
+        when = re.search(r"(20\d\d)-(\d\d)", poster.get("revision", ""))
+        fact = {
+            "attribute": "Accessible entrance",
+            "value": "yes",
+            "detail": f"marked as an ADA accessible entrance on the {label}",
+            "quote": "",
+            "source": poster["pdf_url"],
+            "date": f"{when.group(1)}-{when.group(2)}" if when else "",
+        }
+        for b in poster["accessible_entrance_buildings"]:
+            if b["name"] in by_name:
+                by_name[b["name"]]["properties"]["facts"].append(dict(fact))
+                continue
+            hit = lookup(g, b["name"])
+            if hit is None or not area(region).contains(point(hit.geometry)):
+                review.append(
+                    {"region": region, "item": b["name"], "kind": "poster entrance", "reason": "not found"}
+                )
+                continue
+            new.append(
+                {
+                    "geometry": point(hit.geometry),
+                    "properties": {
+                        "name": b["name"],
+                        "layer": "building",
+                        "access_rating": "partial",
+                        "summary_text": f"An accessible entrance is marked on the {label}; "
+                        "restrooms and inside not recorded.",
+                        "facts": [dict(fact)],
+                        "matched_to": f"{hit.entity_id} ({hit.name})",
+                        "region": region,
+                    },
+                }
+            )
+            by_name[b["name"]] = new[-1]
+    return new
+
+
+# ------------------------------------------------------ directory listings ----
+LISTED_TEXT = "Listed as wheelchair accessible by Enjoy Oxford (self-reported; no detail)."
+
+
+def listing_features(region: str, feats: list, review: list) -> list:
+    """Restaurants a visitor-bureau directory tags 'Wheelchair Accessible' (self-reported, no detail).
+    Placed by street address; joined to a food place already on the map when one is within 60 m."""
+    f = ROOT / "data/extracted/oxford_restaurants.jsonl"
+    if region != "oxford" or not f.exists():
+        return []
+    food = [x for x in feats if x["properties"]["layer"] == "food_drink"]
+    food_pts = gpd.GeoSeries([point(x["geometry"]) for x in food], crs=WGS84).to_crs(METRIC) if food else None
+    out = []
+    for line in f.read_text().splitlines():
+        r = json.loads(line)
+        if not r["wheelchair_tag"] or not r.get("address"):
+            continue
+        addr = re.sub(r"[\u200b\ufeff]", "", r["address"]).strip()
+        xy = census_geocode(f"{addr}, Oxford, OH 45056")
+        if not xy:
+            review.append(
+                {
+                    "region": region,
+                    "item": r["name"],
+                    "kind": "listing",
+                    "reason": f"address not found: {addr}",
+                }
+            )
+            continue
+        from shapely.geometry import Point
+
+        here = gpd.GeoSeries([Point(*xy)], crs=WGS84).to_crs(METRIC).iloc[0]
+        fact = {
+            "attribute": "Listed wheelchair accessible",
+            "value": "yes",
+            "detail": "Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom",
+            "quote": r["quote"],
+            "source": r["url"],
+            "date": (r.get("listing_date") or "")[:7],
+        }
+        key = re.sub(r"[^a-z0-9]", "", r["name"].lower())[:6]
+        near = None
+        if food_pts is not None:
+            d = food_pts.distance(here)
+            for i in d[d < 60].sort_values().index:
+                if key and key in re.sub(r"[^a-z0-9]", "", food[i]["properties"]["name"].lower()):
+                    near = food[i]
+                    break
+        if near is not None:
+            near["properties"]["facts"].append(fact)
+            continue
+        out.append(
+            {
+                "geometry": Point(*xy),
+                "properties": {
+                    "name": r["name"],
+                    "layer": "food_drink",
+                    "access_rating": "partial",
+                    "summary_text": f"{LISTED_TEXT} {addr}.",
+                    "facts": [fact],
+                    "matched_to": f"listing:{r['url']} ({r['name']})",
+                    "region": region,
+                },
+            }
+        )
+    return out

@@ -50,6 +50,7 @@ MU_ART, OAT_TRAILS, EO_OUT = ("web_venues_oxford:65ce5ac3160a", "web_trails_oxfo
                              "web_venues_oxford:3bbf73e1187a")
 MPBC_ACCESS = "web_metroparks:0ec74aff1793"
 CNC_TRAILS, GP_PLAY = "web_trails_cincinnati:102b3d6cec37", "web_parks_cincinnati:2021aec48344"
+MS_2019, PAS_VENUES = "web_oxford_press:8bf506acaad3", "web_oxford_more_2:63d2066cb40d"
 BRIDGE, UCAA = "web_programs_cincinnati:aea761ad0028", "web_programs_cincinnati:75b4e5074c3e"
 
 PLACES = {  # place -> (region, address, kind); addresses from the same documents where given
@@ -107,6 +108,11 @@ PLACES = {  # place -> (region, address, kind); addresses from the same document
     "Winton Woods": ("cincinnati", None, "park"),
     "Sharon Woods": ("cincinnati", None, "park"),
     "Francis RecreAcres": ("cincinnati", None, "park"),
+    "Thomson Hall": ("oxford", None, "residence_hall"),
+    "Boyd Hall": ("oxford", None, "building"),
+    "Peffer Park": ("oxford", "4346 Millville Oxford Road", "park"),
+    "Leonard Howell Park": ("oxford", "5200 Bonham Road", "park"),
+    "DeWitt Log Homestead": ("oxford", None, "historic_site"),
 }
 OUT_OF_AREA = {"Five Rivers MetroParks paved trail network (Dayton)"}
 
@@ -597,11 +603,32 @@ FACTS = [
      "Each launch is a floating dock equipped with a “Universally Accessible Transfer System” that allows an unassisted individual with a physical disability to access a canoe or kayak.", GP),
     ("Francis RecreAcres", "adaptive_recreation", "yes", "universally accessible playground",
      "Universally Accessible Playgrounds are available at Harper Meadows in Winton Woods, Francis RecreAcres and Sharon Center.", GP_PLAY),
+    # ---- batch 9 (2026-11-12): Oxford deep dive (student press 2019, Performing Arts venues, trail pages) ----
+    ("Thomson Hall", "entrance_step_free", "no", "Miami Student, Nov 2019: entrances only have steps; elevator for maintenance only (may have changed since)",
+     "Thomson Hall, for example, located on Western Campus, has no handicap accessibility. The building entrances only feature steps, and the elevator is used solely for maintenance.", MS_2019),
+    ("Boyd Hall", "entrance_step_free", "limited", "Miami Student, Nov 2019: accessible entrances are at the back, behind dumpsters",
+     "It has handicap accessible entrances, but these entrances are located in the back of the building, behind dumpsters or in difficult to access areas.", MS_2019),
+    ("Hall Auditorium", "notice", "yes", "Miami Student, Nov 2019: stage stairs unmarked, railing on one side only (low vision)",
+     "she found that she had to navigate unmarked wooden stairs that only had a hand railing on one side.", MS_2019),
+    ("Hall Auditorium", "entrance_step_free", "yes", "for wheelchair users: rear service doors from the south lot; an usher takes you to the elevator",
+     "You may enter the building through the service doors at the rear of the building. A Performing Arts Series usher will take your ticket and direct you to the elevator to the lobby.", PAS_VENUES),
+    ("Millett Assembly Hall", "entrance_step_free", "yes", "use the northwest entrance (closest to the elevator); wheelchair seating cannot be reached from the main concourse",
+     "This is the recommended entrance for patrons in wheelchairs, as it is closest to the elevator and wheelchair seating is not accessible from the main concourse.", PAS_VENUES),
+    ("Millett Assembly Hall", "accessible_seating", "yes", "accessible and companion seats chosen when buying assigned-seat tickets",
+     "Upon confirmation, the seating map will allow selection from seats reserved for accessible and companion seating.", PAS_VENUES),
+    ("Hall Auditorium", "accessible_seating", "yes", "accessible and companion seats chosen when buying assigned-seat tickets",
+     "Upon confirmation, the seating map will allow selection from seats reserved for accessible and companion seating.", PAS_VENUES),
+    ("Peffer Park", "trail_surface", "yes", "paved path to the Miami Connector (DeWitt Trailhead) and to Talawanda High School",
+     "Peffer Park paved path connects both to the Miami Connector that travels to DeWitt Trailhead and to Talawanda High School.", OAT_TRAILS),
+    ("Leonard Howell Park", "trail_surface", "yes", "paved trail to the Black Covered Bridge Connector and to DeWitt Homestead / SR 73",
+     "Leonard G. Howell Park paved trail travels to the Black Covered Bridge Connector and to DeWitt Homestead/S.R. 73.", OAT_TRAILS),
+    ("DeWitt Log Homestead", "trail_surface", "yes", "paved path to Leonard G. Howell Park and to Peffer Park",
+     "The DeWitt Homestead paved path travels to Leonard G. Howell Park and to the Miami Connector to Peffer Park.", OAT_TRAILS),
 ]
 
 DATES = {VC: "2016-01-29", NPS: "2024-09-10", CMC_CHM: "2023-05-26", CMC_MNHS: "2023-05-26", CMC_TCM: "2023-05-26",
          CMC_OTHER: "2023-05-26", CMC_RR: "2023-05-26",
-         CP_TOP10: "2020-07-26"}  # Top 10 article: written on the ADA's 30th anniversary
+         CP_TOP10: "2020-07-26", MS_2019: "2019-11-06"}  # Top 10 article: written on the ADA's 30th anniversary
 
 
 def norm(s: str) -> str:

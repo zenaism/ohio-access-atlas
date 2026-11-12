@@ -39,7 +39,11 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible parking: yes (one-way drive south of Hall Auditorium off Campus Ave; lots behind Hall and McGuffey)",
-"Fact 2": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
+"Fact 2": "Wheelchair seating: yes (accessible and companion seats chosen when buying assigned-seat tickets)",
+"Fact 3": "Step-free entrance: yes (for wheelchair users: rear service doors from the south lot; an usher takes you to the elevator)",
+"Fact 4": "Notice: yes (Miami Student, Nov 2019: stage stairs unmarked, railing on one side only (low vision))",
+"Fact 5": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
+"Fact 6": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Upcoming events": "9: 2026-11-12 Miami University Percussion Ensemble; 2026-11-19 Miami University Jazz Ensemble Concert; 2026-11-21 Playing Together: Music and Sports at Miami, Symphony Orchestra",
 "Source": "https://www.miamioh.edu/cca/performing-arts-series/visit-us/index.html",
 "marker-color": "#E69F00",
@@ -61,7 +65,10 @@
 "Type": "Museum / venue / attraction",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible parking: yes (off Weeb Ewbank Way, northwest corner behind Millett)",
-"Fact 2": "Accessible entrance: yes (4 yes, 0 limited, 0 no of 4 mapped entrances)",
+"Fact 2": "Wheelchair seating: yes (accessible and companion seats chosen when buying assigned-seat tickets)",
+"Fact 3": "Step-free entrance: yes (use the northwest entrance (closest to the elevator); wheelchair seating cannot be reached from the main concourse)",
+"Fact 4": "Accessible entrance: yes (4 yes, 0 limited, 0 no of 4 mapped entrances)",
+"Fact 5": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.miamioh.edu/cca/performing-arts-series/visit-us/index.html",
 "marker-color": "#E69F00",
 "marker-symbol": "museum",
@@ -84,6 +91,7 @@
 "Fact 1": "Getting around inside: yes (venues meet ADA; no adjacent parking (metered behind Shriver Center))",
 "Fact 2": "ASL: yes (interpreters or captioning for university events on request)",
 "Fact 3": "Accessible entrance: yes (6 yes, 0 limited, 0 no of 6 mapped entrances)",
+"Fact 4": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Upcoming events": "1: 2026-11-17 Thane Maynard \"A World Worth Saving: Lessons from a Lifetime in Wildlife Conservation\"",
 "Source": "https://miamioh.edu/student-life/armstrong-student-center/about/offices/index.html",
 "marker-color": "#E69F00",
@@ -109,6 +117,7 @@
 "Fact 3": "Notice: yes (closed for renovation until fall 2027; the sculpture park stays open)",
 "Fact 4": "Wheelchair loan: yes (on request)",
 "Fact 5": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 6": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://miamioh.edu/cca/art-museum/visit/index.html",
 "marker-color": "#E69F00",
 "marker-symbol": "museum",
@@ -153,6 +162,108 @@
 "Source": "https://www.yourmetroparks.net/about/accessibility",
 "marker-color": "#8C8C8C",
 "marker-symbol": "park",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.72542960765306,
+39.504556583471754
+]
+},
+"properties": {
+"Name": "Thomson Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Not accessible",
+"Fact 1": "Step-free entrance: no (Miami Student, Nov 2019: entrances only have steps; elevator for maintenance only (may have changed since))",
+"Source": "https://www.miamistudent.net/article/2019/11/students-with-disabilities-have-trouble-navigating-campus",
+"marker-color": "#D55E00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7253696,
+39.5033394
+]
+},
+"properties": {
+"Name": "Boyd Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Step-free entrance: limited (Miami Student, Nov 2019: accessible entrances are at the back, behind dumpsters)",
+"Fact 2": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 3": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
+"Source": "https://www.miamistudent.net/article/2019/11/students-with-disabilities-have-trouble-navigating-campus",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7308723,
+39.4988477
+]
+},
+"properties": {
+"Name": "Peffer Park",
+"Type": "Park or garden",
+"Accessibility": "Partly accessible",
+"Fact 1": "Path surface: yes (paved path to the Miami Connector (DeWitt Trailhead) and to Talawanda High School)",
+"Source": "https://www.oxfordareatrails.org/visit-the-trails",
+"marker-color": "#E69F00",
+"marker-symbol": "park",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7292449,
+39.5209727
+]
+},
+"properties": {
+"Name": "Leonard Howell Park",
+"Type": "Park or garden",
+"Accessibility": "Partly accessible",
+"Fact 1": "Path surface: yes (paved trail to the Black Covered Bridge Connector and to DeWitt Homestead / SR 73)",
+"Source": "https://www.oxfordareatrails.org/visit-the-trails",
+"marker-color": "#E69F00",
+"marker-symbol": "park",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.71602269888822,
+39.5082201533693
+]
+},
+"properties": {
+"Name": "DeWitt Log Homestead",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Partly accessible",
+"Fact 1": "Path surface: yes (paved path to Leonard G. Howell Park and to Peffer Park)",
+"Source": "https://www.oxfordareatrails.org/visit-the-trails",
+"marker-color": "#E69F00",
+"marker-symbol": "museum",
 "marker-size": "medium"
 }
 },
@@ -296,6 +407,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/96007228",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -396,6 +508,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/182453423",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -416,6 +529,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/182453425",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -436,6 +550,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/182453429",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -456,6 +571,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 0 no of 3 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/182453432",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -536,6 +652,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 0 no of 3 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/182453461",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -556,6 +673,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/182453463",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -596,6 +714,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 0 no of 3 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/182453473",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -616,6 +735,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/182453474",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -636,6 +756,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/182453477",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -676,6 +797,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Upcoming events": "1: 2026-11-18 Intention, Identity, and Impact: International Experiences in a New Light Panel and Contest Announcements!",
 "Source": "https://www.openstreetmap.org/way/182453492",
 "marker-color": "#E69F00",
@@ -837,6 +959,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183697665",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -897,6 +1020,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183700436",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -917,6 +1041,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (4 yes, 0 limited, 0 no of 4 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183700437",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -937,6 +1062,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183700445",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -957,6 +1083,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Upcoming events": "2: 2026-11-12 Artist Talk: Briana Mazzolini-Blanchard: Beyond The Classroom: Reimagining Leadership As Community Advocacy; 2026-11-19 Artist Talk: Mark Dion: Adventures in Art Explorations and The Acorn Club",
 "Source": "https://www.openstreetmap.org/way/183700455",
 "marker-color": "#E69F00",
@@ -978,6 +1105,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 0 no of 3 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183700461",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -998,6 +1126,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183701613",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1018,6 +1147,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183701616",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1058,6 +1188,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183702411",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1078,6 +1209,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 2 no of 4 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183831888",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1098,6 +1230,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Upcoming events": "3: 2026-11-17 OLEA Residency Concert; 2026-12-05 Candlelit Voices; 2026-12-05 Candlelit Voices",
 "Source": "https://www.openstreetmap.org/way/183831889",
 "marker-color": "#E69F00",
@@ -1119,6 +1252,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183831901",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1139,6 +1273,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Upcoming events": "1: 2026-11-13 Are We Facing the End of Writing Instruction? Exploring Your Goals for Teaching With Writing",
 "Source": "https://www.openstreetmap.org/way/183831904",
 "marker-color": "#E69F00",
@@ -1160,6 +1295,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 2 no of 4 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Upcoming events": "1: 2026-11-13 From the Diving Board to the World",
 "Source": "https://www.openstreetmap.org/way/183831905",
 "marker-color": "#E69F00",
@@ -1201,27 +1337,8 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 3 no of 4 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183831914",
-"marker-color": "#E69F00",
-"marker-symbol": "building",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.72538536320707,
-39.5033563
-]
-},
-"properties": {
-"Name": "Boyd Hall",
-"Type": "Building (campus or public)",
-"Accessibility": "Partly accessible",
-"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
-"Source": "https://www.openstreetmap.org/way/183831918",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
 "marker-size": "medium"
@@ -1241,6 +1358,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183831936",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1261,6 +1379,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 3 no of 6 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/183832438",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1281,6 +1400,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 2 no of 5 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Upcoming events": "2: 2026-11-12 Joy of Birding Lecture; 2026-11-20 Joy of Birding Lecture",
 "Source": "https://www.openstreetmap.org/way/183833250",
 "marker-color": "#E69F00",
@@ -1322,6 +1442,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184389080",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1342,6 +1463,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184389085",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1362,6 +1484,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184389101",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1382,6 +1505,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184390037",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1402,6 +1526,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (4 yes, 0 limited, 2 no of 6 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Upcoming events": "1: 2026-11-18 Andrew Stein Guest Speaker Event",
 "Source": "https://www.openstreetmap.org/way/184390046",
 "marker-color": "#E69F00",
@@ -1423,6 +1548,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184390054",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1443,6 +1569,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184390072",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1483,6 +1610,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 2 no of 5 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184390716",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1503,6 +1631,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 5 no of 7 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184390806",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1523,6 +1652,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 2 no of 4 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184391388",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1543,6 +1673,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 2 no of 4 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184391390",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1603,6 +1734,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 4 no of 5 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184391396",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1643,6 +1775,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184557874",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1663,6 +1796,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184557882",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1683,6 +1817,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184557900",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1703,6 +1838,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184557935",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1723,6 +1859,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184557938",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1743,6 +1880,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/184557943",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1763,6 +1901,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/323662309",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1783,6 +1922,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/324580220",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1803,6 +1943,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/325445277",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1823,6 +1964,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/329308596",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1843,6 +1985,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/329363461",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1883,6 +2026,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/329363463",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1923,6 +2067,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/397312389",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1943,6 +2088,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (3 yes, 0 limited, 2 no of 5 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/397382395",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1963,6 +2109,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/397382396",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -1983,6 +2130,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (2 yes, 0 limited, 0 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/397382670",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -2003,6 +2151,7 @@
 "Type": "Building (campus or public)",
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
+"Fact 2": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
 "Source": "https://www.openstreetmap.org/way/545759799",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
@@ -2190,6 +2339,7 @@
 "Fact 1": "wheelchair: limited",
 "Fact 2": "phone: +1-513-839-8021",
 "Fact 3": "website: https://www.springstreettreats.com/",
+"Fact 4": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
 "Source": "https://www.openstreetmap.org/way/334880846",
 "marker-color": "#E69F00",
 "marker-symbol": "restaurant",
@@ -2237,6 +2387,947 @@
 "Source": "https://www.openstreetmap.org/way/706072874",
 "marker-color": "#0072B2",
 "marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73103109928556,
+39.513372787929924
+]
+},
+"properties": {
+"Name": "The Miami Inn",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
+"Source": "https://miamioh.edu/life-at-miami/campus-services/_images/miami-parking-map.pdf",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73302551,
+39.51951617
+]
+},
+"properties": {
+"Name": "Yager Stadium",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
+"Source": "https://miamioh.edu/life-at-miami/campus-services/_images/miami-parking-map.pdf",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7295822,
+39.5070547
+]
+},
+"properties": {
+"Name": "Bachelor Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
+"Upcoming events": "9: 2026-11-12 A Political Economy of Attention in Three Registers; 2026-11-19 An Evening with Acclaimed Author Nicole R. Fleetwood '94; 2027-02-11 Reclaiming Attention: An Immersive Audio Experience",
+"Source": "https://miamioh.edu/life-at-miami/campus-services/_images/miami-parking-map.pdf",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.728348,
+39.505716
+]
+},
+"properties": {
+"Name": "Stonebridge Hall",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
+"Source": "https://miamioh.edu/life-at-miami/campus-services/_images/miami-parking-map.pdf",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7269378,
+39.5083575
+]
+},
+"properties": {
+"Name": "Cole Service Building",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible entrance: yes (marked as an ADA accessible entrance on the Miami University parking map, June 2023)",
+"Source": "https://miamioh.edu/life-at-miami/campus-services/_images/miami-parking-map.pdf",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743329122722,
+39.510451665909
+]
+},
+"properties": {
+"Name": "Bello Wood Fired Pizza",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/bello-wood-fired-pizza/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.742822824069,
+39.510445396937
+]
+},
+"properties": {
+"Name": "Bodega",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/bodega/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.745126538395,
+39.510476605326
+]
+},
+"properties": {
+"Name": "Calendula and The Lounge",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/calendula-the-lounge/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.74309265838,
+39.51044925252
+]
+},
+"properties": {
+"Name": "Chop Bento",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/chop-bento-restaurant/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.741831333862,
+39.511054026106
+]
+},
+"properties": {
+"Name": "Cocina Latina",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/cocina-latina/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743484080298,
+39.510568089999
+]
+},
+"properties": {
+"Name": "Doughby's",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/doughbys/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743937515329,
+39.510318713359
+]
+},
+"properties": {
+"Name": "Drop in Tea",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/drop-in-tea/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.749326407837,
+39.510019602247
+]
+},
+"properties": {
+"Name": "El Burrito Loco",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/el-burrito-loco/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.756193421847,
+39.517511772237
+]
+},
+"properties": {
+"Name": "El Potrero",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/el-potrero/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.74327570094,
+39.510451210607
+]
+},
+"properties": {
+"Name": "Fiesta Charra",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/fiesta-charra/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.745580309646,
+39.507114780156
+]
+},
+"properties": {
+"Name": "Gaslight Brewhouse",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/gaslight-brewhouse/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743311315462,
+39.510451514142
+]
+},
+"properties": {
+"Name": "Graeter's Ice Cream",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/graeters-ice-cream/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743922454582,
+39.511105200021
+]
+},
+"properties": {
+"Name": "Halal Food Inc.",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/habibi-fusion-grill/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743455145141,
+39.510567747301
+]
+},
+"properties": {
+"Name": "Happy Kitchen",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/happy-kitchen/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.741462392713,
+39.510417711242
+]
+},
+"properties": {
+"Name": "Insomnia Cookies",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/insomnia-cookies/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743498547876,
+39.510568261349
+]
+},
+"properties": {
+"Name": "Kofenya",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/kofenya/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743426209985,
+39.510567404602
+]
+},
+"properties": {
+"Name": "Krishna",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/krishna/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.750768527835,
+39.51028020384
+]
+},
+"properties": {
+"Name": "LaRosa's",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/larosas/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743227795599,
+39.510922914374
+]
+},
+"properties": {
+"Name": "Left Field Tavern",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/left-field-tavern/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.749339982808,
+39.505836212718
+]
+},
+"properties": {
+"Name": "Little India",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/little-india/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.744198545726,
+39.509532431367
+]
+},
+"properties": {
+"Name": "MImian",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/mimian-restaurant/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.749498455105,
+39.505486029054
+]
+},
+"properties": {
+"Name": "MOON Co-Op",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/moon-co-op/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.749348145702,
+39.509378943459
+]
+},
+"properties": {
+"Name": "Oxford Doughnut Shoppe",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/oxford-doughnut-shoppe/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.741428578121,
+39.510417284605
+]
+},
+"properties": {
+"Name": "Oxford Sushi King",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/oxford-sushi-king/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.741993749804,
+39.511050224266
+]
+},
+"properties": {
+"Name": "OxVegas Chicken",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/oxvegas-chicken/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.739367229981,
+39.507158931433
+]
+},
+"properties": {
+"Name": "Paesano's Pasta House",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/paesanos-pasta-house/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.744164484864,
+39.507325831211
+]
+},
+"properties": {
+"Name": "Patterson's Cafe",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/pattersons-cafe/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.744107291577,
+39.510575882974
+]
+},
+"properties": {
+"Name": "Phan Shin",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/phan-shin/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.742351076376,
+39.509690638272
+]
+},
+"properties": {
+"Name": "Pickle & Pig",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/pickle-pig/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743258467135,
+39.511496633034
+]
+},
+"properties": {
+"Name": "Ramen Hachi",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/ramen-hachi/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.745660923145,
+39.511156909632
+]
+},
+"properties": {
+"Name": "RedLife Coffee",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/redlife-coffee/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743946107139,
+39.509923677768
+]
+},
+"properties": {
+"Name": "Saigon O'i Vietnamese Restaurant",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/saigon-oi-vietnamese-restaurant/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.742160234784,
+39.500521327834
+]
+},
+"properties": {
+"Name": "SDS Pizza",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/sds-pizza/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.740462562614,
+39.510403806327
+]
+},
+"properties": {
+"Name": "Skipper's Pub & Top Deck",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/skippers-pub-top-deck/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.742340414933,
+39.510443987445
+]
+},
+"properties": {
+"Name": "Skyline",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/skyline/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.741826374134,
+39.510424471724
+]
+},
+"properties": {
+"Name": "SoHi Grilled Sandwiches",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/sohi-grilled-sandwiches/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.743411742406,
+39.510567233253
+]
+},
+"properties": {
+"Name": "Sorriso Osteria + Bar",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/sorriso-osteria-bar/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.741544750418,
+39.510418457826
+]
+},
+"properties": {
+"Name": "Tavo Mediterranean Grill",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/tavo-mediterranean-grill/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.741424036046,
+39.510531833991
+]
+},
+"properties": {
+"Name": "The Berry Bar",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/the-berry-bar/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.74261932734,
+39.510445420437
+]
+},
+"properties": {
+"Name": "Tous les Jours Cafe",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/tous-les-jours-oxford-ohio/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.74408374343,
+39.510460894638
+]
+},
+"properties": {
+"Name": "United Dairy Farmers",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/united-dairy-farmers/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.749336302955,
+39.505960348514
+]
+},
+"properties": {
+"Name": "Yum Cha",
+"Type": "Food & drink",
+"Accessibility": "Partly accessible",
+"Fact 1": "Listed wheelchair accessible: yes (Enjoy Oxford directory tag (self-reported); no detail on entrance or restroom)",
+"Source": "https://enjoyoxford.org/restaurant/yum-cha/",
+"marker-color": "#E69F00",
+"marker-symbol": "restaurant",
 "marker-size": "medium"
 }
 },
@@ -2496,25 +3587,6 @@
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "6: 2026-11-12 Self In Digital Age; 2026-11-13 Self In Digital Age; 2026-11-16 Self In Digital Age",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7295822,
-39.5070547
-]
-},
-"properties": {
-"Name": "Bachelor Hall",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "9: 2026-11-12 A Political Economy of Attention in Three Registers; 2026-11-19 An Evening with Acclaimed Author Nicole R. Fleetwood '94; 2027-02-11 Reclaiming Attention: An Immersive Audio Experience",
 "marker-color": "#8C8C8C",
 "marker-symbol": "star",
 "marker-size": "medium"

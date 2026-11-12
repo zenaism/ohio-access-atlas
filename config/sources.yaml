@@ -487,3 +487,155 @@ web_disability_events:   # calendars of disability organizations without feeds (
     - https://www.butlerdd.org/events/
     - https://activeproject.kellybrushfoundation.org/events/
   license: organization websites; event title, date, place and link only
+
+web_oxford_more:   # Oxford deep dive (2026-11-12): city ADA plan, campus entrance maps, restaurant tags, transit
+  type: web
+  render: true
+  regions: [oxford]
+  author_type: official
+  max_pages: 90
+  assets: true
+  urls:
+    - https://cms9files.revize.com/oxfordoh/2021%20ADA%20Transition%20Plan.pdf
+    - https://www.wcpo.com/news/local-news/butler-county/oxford/miami-university-students-audit-helps-shape-new-accessibility-plan-in-oxford
+    - https://jobs.miamioh.edu/centers-institutes/campus-services-center/parking-transit/_documents/parking-map-2024-rgb.pdf
+    - https://miamioh.edu/_files/documents/parking/2018-19-parking-map.pdf
+    - https://miamioh.edu/life-at-miami/campus-services/_images/miami-parking-map.pdf
+    - https://miamioh.edu/centers-institutes/campus-services-center/parking-transit/_documents/miami-university-parking-areas-map-2025_508.pdf
+    - https://www.butlercountyrta.com/wp-content/uploads/2026/03/BCRTA_General-Rider-Guide_2026_January_FNL-DIGITAL-1.pdf
+    - https://butlercountyrta.com/routes/oxford-routes
+    - https://miamioh.edu/news/2026/06/gobus-expansion-connects-oxford-to-cincinnati-and-north-to-dayton-toledo.html
+    - https://miamioh.edu/news/2025/08/bcrtas-new-chestnut-street-station-brings-new-faster-bus-routes-and-more-service-to-miami-university-and-oxford.html
+    - https://enjoyoxford.org/restaurants/
+    - https://enjoyoxford.org/dinner/
+    - https://enjoyoxford.org/lunch/
+    - https://enjoyoxford.org/nightlife/
+    - https://enjoyoxford.org/category/eat/
+  follow:
+    - https://enjoyoxford.org/restaurants/page/
+    - https://enjoyoxford.org/dinner/page/
+    - https://enjoyoxford.org/lunch/page/
+    - https://enjoyoxford.org/nightlife/page/
+    - https://enjoyoxford.org/category/eat/page/
+  license: official and visitor-bureau websites; facts with short quotes and links only
+
+web_oxford_more_2:   # Oxford deep dive, part 2: natural areas trail map, rec center, arts center
+  type: web
+  render: true
+  regions: [oxford]
+  author_type: official
+  max_pages: 25
+  assets: true
+  urls:
+    - https://miamioh.edu/life-at-miami/natural-areas/_documents/muna-trail-map-2026-508.pdf
+    - https://miamioh.edu/life-at-miami/natural-areas/things-to-do/index.html
+    - https://miamioh.edu/student-life/natural-areas/activities/index.html
+    - https://sites.miamioh.edu/student-life/2022/10/3-trails-to-visit-during-fall-break/
+    - https://www.miamistudent.net/article/2024/09/paving-the-way-oxford-area-trails-connect-the-community
+    - https://www.miamioh.edu/campus-services/miami-recreation/facilities/recreational-sports-center
+    - https://oxarts.org/about-us/
+    - https://oxarts.org/
+    - https://www.miamioh.edu/campus-services/home/box-office/venue-information
+    - https://miamioh.edu/cca/performing-arts-series/visit-us/venues
+  follow:
+    - https://oxarts.org/visit
+    - https://oxarts.org/rent
+  license: official websites and student press; facts with short quotes and links only
+
+web_oxford_press:   # student press and university news naming specific barriers or upgrades (dated; old items flagged)
+  type: web
+  render: true
+  regions: [oxford]
+  author_type: news
+  max_pages: 10
+  assets: false
+  urls:
+    - https://www.miamistudent.net/article/2019/11/students-with-disabilities-have-trouble-navigating-campus
+    - https://miamistudent.net/students-work-to-improve-disabled-access-in-oxford
+    - https://www.miamistudent.net/article/2025/11/accessible-housing-at-miami-students-with-disabilities
+    - https://miamioh.edu/news/2025/12/popular-influencers-tiktok-video-spotlights-miamis-accessible-foot-button-elevators.html
+    - https://www.miamioh.edu/student-life/news/2020/01/armstrong-accessibility-upgrades.html
+    - https://miamistudent.net/access-granted/
+  license: news articles; facts with short quotes, dates and links only
+
+web_oxford_restaurants:   # Enjoy Oxford listings; each says 'Features: Wheelchair Accessible' when the business reports it
+  type: web
+  render: false
+  regions: [oxford]
+  author_type: visitor_bureau
+  max_pages: 130
+  assets: false
+  urls:
+    - https://enjoyoxford.org/category/eat/page/4/
+    - https://enjoyoxford.org/category/eat/page/5/
+    - https://enjoyoxford.org/coffee-tea/
+    - https://enjoyoxford.org/breakfast/
+    - https://enjoyoxford.org/desserts/
+    - https://enjoyoxford.org/asian-cuisine/
+    - https://enjoyoxford.org/latin-american-cuisine/
+    - https://enjoyoxford.org/european-cuisine/
+    - https://enjoyoxford.org/restaurant/bagel-deli/
+    - https://enjoyoxford.org/restaurant/bello-wood-fired-pizza/
+    - https://enjoyoxford.org/restaurant/bodega/
+    - https://enjoyoxford.org/restaurant/brunos-pizza/
+    - https://enjoyoxford.org/restaurant/calendula-the-lounge/
+    - https://enjoyoxford.org/restaurant/chop-bento-restaurant/
+    - https://enjoyoxford.org/restaurant/cocina-latina/
+    - https://enjoyoxford.org/restaurant/corner-grill-drinkery/
+    - https://enjoyoxford.org/restaurant/doughbys/
+    - https://enjoyoxford.org/restaurant/el-burrito-loco/
+    - https://enjoyoxford.org/restaurant/el-potrero/
+    - https://enjoyoxford.org/restaurant/fiesta-charra/
+    - https://enjoyoxford.org/restaurant/fridge-pantry/
+    - https://enjoyoxford.org/restaurant/gaslight-brewhouse/
+    - https://enjoyoxford.org/restaurant/graeters-ice-cream/
+    - https://enjoyoxford.org/restaurant/habibi-fusion-grill/
+    - https://enjoyoxford.org/restaurant/happy-kitchen/
+    - https://enjoyoxford.org/restaurant/hitching-post-saloon/
+    - https://enjoyoxford.org/restaurant/insomnia-cookies/
+    - https://enjoyoxford.org/restaurant/krishna/
+    - https://enjoyoxford.org/restaurant/larosas/
+    - https://enjoyoxford.org/restaurant/left-field-tavern/
+    - https://enjoyoxford.org/restaurant/lil-rudys-church-st/
+    - https://enjoyoxford.org/restaurant/little-india/
+    - https://enjoyoxford.org/restaurant/mac-joes/
+    - https://enjoyoxford.org/restaurant/moon-co-op/
+    - https://enjoyoxford.org/restaurant/opub/
+    - https://enjoyoxford.org/restaurant/oxford-sushi-king/
+    - https://enjoyoxford.org/restaurant/oxvegas-chicken/
+    - https://enjoyoxford.org/restaurant/paesanos-pasta-house/
+    - https://enjoyoxford.org/restaurant/pattersons-cafe/
+    - https://enjoyoxford.org/restaurant/phan-shin/
+    - https://enjoyoxford.org/restaurant/pickle-pig/
+    - https://enjoyoxford.org/restaurant/ramen-hachi/
+    - https://enjoyoxford.org/restaurant/redlife-coffee/
+    - https://enjoyoxford.org/restaurant/reily-pizza/
+    - https://enjoyoxford.org/restaurant/saigon-oi-vietnamese-restaurant/
+    - https://enjoyoxford.org/restaurant/sds-pizza/
+    - https://enjoyoxford.org/restaurant/skippers-pub-top-deck/
+    - https://enjoyoxford.org/restaurant/skyline/
+    - https://enjoyoxford.org/restaurant/sohi-grilled-sandwiches/
+    - https://enjoyoxford.org/restaurant/sorriso-osteria-bar/
+    - https://enjoyoxford.org/restaurant/spring-street-treats/
+    - https://enjoyoxford.org/restaurant/steinkeller/
+    - https://enjoyoxford.org/restaurant/tavo-mediterranean-grill/
+    - https://enjoyoxford.org/restaurant/the-berry-bar/
+    - https://enjoyoxford.org/restaurant/tous-les-jours-oxford-ohio/
+    - https://enjoyoxford.org/restaurant/yum-cha/
+  follow:
+    - https://enjoyoxford.org/restaurant/
+  license: visitor-bureau listings (self-reported by businesses); feature tags and links only
+
+web_oxford_retry:   # retries of pages that timed out on 2026-11-12
+  type: web
+  render: true
+  regions: [oxford]
+  author_type: official
+  max_pages: 6
+  assets: false
+  urls:
+    - https://miamioh.edu/centers-institutes/campus-services-center/parking-transit/_documents/parking-map-2024-rgb.pdf
+    - https://www.wcpo.com/news/local-news/butler-county/oxford/miami-university-students-audit-helps-shape-new-accessibility-plan-in-oxford
+    - https://butlercountyrta.com/routes/oxford-routes
+    - https://www.butlercountyrta.com/ada-paratransit
+  license: official websites and news; facts with short quotes and links only

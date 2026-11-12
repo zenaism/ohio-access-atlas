@@ -1,0 +1,514 @@
+{
+ "poster": "Miami University Parking Map (Oxford campus)",
+ "publisher": "Miami University Parking Services",
+ "revision": "PDF title parking-map-2023-06-16 (created June 16, 2023)",
+ "pdf_url": "https://miamioh.edu/life-at-miami/campus-services/_images/miami-parking-map.pdf",
+ "local_file": "data/manual/posters/miami_parking_map_2023/miami_parking_map_2023-06-16.pdf",
+ "in_area": true,
+ "region": "oxford",
+ "extraction_method": "poster_vision; PDF rendered at 220 dpi and read in 7 overlapping tiles (crops/tile_*.png)",
+ "extracted_by": "Claude (Claude Code session), 2026-11-12",
+ "verified_by_human": false,
+ "legend": "blue arrowhead = ADA Accessible Entrance; 'Accessible parking spaces are available in each parking area; any valid Miami University parking permit and ADA placard required.'",
+ "accessible_entrance_buildings": [
+  {
+   "as_printed": "Recreational Sports Center",
+   "name": "Recreational Sports Center",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Goggin Ice Center",
+   "name": "Goggin Ice Arena",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Campus Avenue Garage",
+   "name": "Campus Avenue Garage",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Harris",
+   "name": "Harris Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Etheridge",
+   "name": "Etheridge Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Maplestreet Station",
+   "name": "Maplestreet Station",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Glos",
+   "name": "Glos Center",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Murstein",
+   "name": "Murstein Alumni Center",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Nellie Craig Walker Hall",
+   "name": "Nellie Craig Walker Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Hanna House",
+   "name": "Hanna House",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Phillips",
+   "name": "Phillips Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Williams Hall",
+   "name": "Williams Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Bonham House",
+   "name": "Bonham House",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "McGuffey Hall",
+   "name": "McGuffey Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Hall Auditorium",
+   "name": "Hall Auditorium",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "King Library",
+   "name": "King Library",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Bishop",
+   "name": "Bishop Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Alumni Hall",
+   "name": "Alumni Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Harrison",
+   "name": "Harrison Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Irvin",
+   "name": "Irvin Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Kreger",
+   "name": "Kreger Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Hamilton",
+   "name": "Hamilton Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "MacMillan",
+   "name": "MacMillan Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Armstrong Student Center",
+   "name": "Armstrong Student Center",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Laws Hall",
+   "name": "Laws Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Hughes",
+   "name": "Hughes Laboratories",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Shideler",
+   "name": "Shideler Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Shriver Center",
+   "name": "Shriver Center",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Heistand",
+   "name": "Hiestand Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "CPA",
+   "name": "Center for the Performing Arts",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Art",
+   "name": "Art Building",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Stoddard",
+   "name": "Stoddard Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Elliott",
+   "name": "Elliott Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Old Manse",
+   "name": "Old Manse",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Benton Hall",
+   "name": "Benton Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Garland Hall",
+   "name": "Garland Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Billings",
+   "name": "Billings Hall",
+   "in_osm_with_accessible_entrance": false,
+   "in_gazetteer": false
+  },
+  {
+   "as_printed": "McFarland",
+   "name": "McFarland Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Brandon",
+   "name": "Brandon Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Hepburn",
+   "name": "Hepburn Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Martin",
+   "name": "Martin Dining Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Hahne",
+   "name": "Hahne Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Pearson Hall",
+   "name": "Pearson Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "The Miami Inn",
+   "name": "The Miami Inn",
+   "in_osm_with_accessible_entrance": false,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Millett Hall",
+   "name": "Millett Assembly Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Yager Stadium",
+   "name": "Yager Stadium",
+   "in_osm_with_accessible_entrance": false,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Flower",
+   "name": "Flower Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Art Museum",
+   "name": "Richard and Carole Cocks Art Museum",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Hoyt Hall",
+   "name": "Hoyt Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Presser Hall",
+   "name": "Presser Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Kumler Chapel",
+   "name": "Kumler Chapel",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Peabody Hall",
+   "name": "Peabody Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Boyd Hall",
+   "name": "Boyd Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Bachelor Hall",
+   "name": "Bachelor Hall",
+   "in_osm_with_accessible_entrance": false,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Young",
+   "name": "Young Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Stonebridge",
+   "name": "Stonebridge Hall",
+   "in_osm_with_accessible_entrance": false,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Western Dining",
+   "name": "Western Dining Commons",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Havighurst",
+   "name": "Havighurst Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Hillcrest",
+   "name": "Hillcrest Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Clawson",
+   "name": "Clawson Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Cole Service Building",
+   "name": "Cole Service Building",
+   "in_osm_with_accessible_entrance": false,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Garden Commons",
+   "name": "Garden Commons",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Farmer School of Business",
+   "name": "Farmer School of Business",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Symmes",
+   "name": "Symmes Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Dorsey",
+   "name": "Dorsey Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "McBride",
+   "name": "McBride Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Collins",
+   "name": "Collins Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Dennison Hall",
+   "name": "Dennison Hall",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  },
+  {
+   "as_printed": "Marcum Center",
+   "name": "The Marcum Hotel & Conference Center",
+   "in_osm_with_accessible_entrance": true,
+   "in_gazetteer": true
+  }
+ ],
+ "uncertain": [
+  {
+   "as_printed": "Upham Hall",
+   "why": "arrow between Upham and Laws; may belong to either"
+  },
+  {
+   "as_printed": "Roudebush Hall",
+   "why": "arrow near the short-term lot, direction unclear"
+  },
+  {
+   "as_printed": "Mini U",
+   "why": "arrow by Havighurst East lot may point to Mini U or Havighurst"
+  },
+  {
+   "as_printed": "McGuffey Museum",
+   "why": "arrow from Warfield lot points at a small building beside the label"
+  }
+ ],
+ "no_arrow_on_map": [
+  "Thompson (Thomson Hall)",
+  "Withrow",
+  "McVey Data Science",
+  "Psychology",
+  "Engineering Building",
+  "Ogden",
+  "Scott",
+  "Richard",
+  "MacCraken",
+  "Minnich",
+  "Anderson",
+  "Porter",
+  "Stanton",
+  "Dodds",
+  "Morris",
+  "Emerson",
+  "Tappan",
+  "Clinical Health Sciences Building",
+  "Athletic Performance Center",
+  "Dauch Indoor Sports Center"
+ ],
+ "no_arrow_note": "No arrow does not mean no accessible entrance: the 2023 map may be incomplete, and buildings renovated since may have one. OSM tags an accessible entrance on many of these (e.g. Anderson, Dodds, Scott, Stanton, Minnich, Morris, Withrow, Upham).",
+ "comparison_with_osm": {
+  "marked_on_map": 69,
+  "also_tagged_in_osm": 63,
+  "osm_tagged_but_no_arrow": [
+   "Anderson Hall",
+   "Blanchard House",
+   "Child Development Center",
+   "Dodds Hall",
+   "Emerson Hall",
+   "Fisher Hall",
+   "Geothermal Plant",
+   "Hodge Hall",
+   "Logan Lodge",
+   "MacCracken Hall",
+   "Marcum Hall",
+   "McGuffey House and Museum",
+   "McKee Hall",
+   "McKie Field Building",
+   "Miami University Police Services Center",
+   "Minnich Hall",
+   "Morris Hall",
+   "Ogden Hall",
+   "Pines Lodge",
+   "Porter Hall",
+   "Psychology Building",
+   "Reid Hall",
+   "Richard M. McVey Data Science Building",
+   "Roudebush Hall",
+   "Scott Hall",
+   "Stanton Hall",
+   "Talawanda Hall",
+   "Tappan Hall",
+   "Upham Hall",
+   "Walter L. Gross Center",
+   "Warfield Hall",
+   "Wells Hall",
+   "Withrow Hall"
+  ]
+ },
+ "related": {
+  "current_map_fall_2026": "no longer marks accessible entrances (web_miami_maps)",
+  "press_2019": "Miami Student, Nov 6 2019: Thomson Hall entrances only steps, elevator maintenance-only"
+ },
+ "short_name": "Miami University parking map, June 2023"
+}

@@ -15,7 +15,7 @@ dem:              ## download USGS 1 m DEM tiles (~3.4 GB) and compute slopes lo
 extract:          ## rebuild data/extracted/* from saved pages (quotes are re-checked every run)
 	$(PY) scripts/venue_facts_2026_11.py && $(PY) scripts/extract_traillink.py && \
 	$(PY) scripts/extract_page_events.py && $(PY) scripts/classify_miami_events.py && \
-	$(PY) scripts/extract_access_performances.py
+	$(PY) scripts/extract_access_performances.py && $(PY) scripts/extract_enjoyoxford_restaurants.py
 
 map:              ## GeoJSON per region, the two maps, text page per place, review.csv
 	$(PY) -m atlas.cli map
