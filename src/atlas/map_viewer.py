@@ -89,6 +89,7 @@ TEMPLATE = r"""<!DOCTYPE html>
  .det table{border-collapse:collapse;width:100%} .det th,.det td{text-align:left;vertical-align:top;padding:6px 4px;border-bottom:1px solid #e5e7eb}
  .det tr:last-child th,.det tr:last-child td{border-bottom:0} .det th{width:36%;font-weight:600} .q{color:var(--muted);font-style:italic}
  .det ul{margin:4px 0;padding-left:18px}
+ .old{color:#92400e} .det .links{display:flex;gap:2px;flex-wrap:wrap;margin:8px 0 0 -8px}
  #more{width:100%;justify-content:center;margin-top:12px}
  /* map */
  .mapwrap{position:relative;min-height:0} #map{position:absolute;inset:0;background:#eef0f2}
@@ -153,6 +154,8 @@ TEMPLATE = r"""<!DOCTYPE html>
    <h2 id="list-h" tabindex="-1" class="vh">Places</h2>
    <div class="filters">
     <label for="need" class="vh">Show</label><select id="need"></select>
+    <label for="when" class="vh">When</label><select id="when" hidden>
+     <option value="0">Any date</option><option value="1">Today</option><option value="7">Next 7 days</option><option value="30">Next 30 days</option></select>
     <label class="cb"><input type="checkbox" id="known"> Only places with accessibility information</label>
    </div>
    <p id="status" role="status" aria-live="polite"></p>
@@ -249,13 +252,23 @@ const NEEDS = {
   'Museums & attractions': it => it.p.layer === 'culture',
   'Parks & gardens': it => it.p.layer === 'park',
   'Trails': it => it.p.layer === 'trail',
-  'Events': it => it.p.layer === 'event',
+  'Events': it => it.p.layer === 'event' || !!(it.p.events && it.p.events.length),
   'Adaptive recreation': it => it.p.layer === 'adaptive_recreation',
   'Lodging': it => it.p.layer === 'lodging',
 };
-const need = document.getElementById('need'), known = document.getElementById('known'), q = document.getElementById('q');
+const need = document.getElementById('need'), known = document.getElementById('known'), q = document.getElementById('q'), when = document.getElementById('when');
 Object.keys(NEEDS).forEach(k => need.add(new Option(k, k)));
 const RANK = {accessible:0, partial:1, not_accessible:2, unknown:3};
+const LAYER_RANK = {culture:0, park:1, adaptive_recreation:2, lodging:3, trail:4, event:5, restroom:6};
+const TODAY = new Date().toISOString().slice(0, 10);
+const addDays = n => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
+function windowEvents(it){
+  const ev = it.p.events || [], d = +when.value;
+  if (!d) return ev;
+  const end = d === 1 ? TODAY : addDays(d);
+  return ev.filter(e => e.start.slice(0, 10) >= TODAY && e.start.slice(0, 10) <= end);
+}
+const OLD = String(new Date().getFullYear() - 3);   // sources older than 3 years get a warning
 let here = null, shown = PAGE, hereMarker = null;
 
 function metres(a, b){ const R=6371000, r=Math.PI/180, dLa=(b[0]-a[0])*r, dLo=(b[1]-a[1])*r;
@@ -268,9 +281,10 @@ const fmt = m => m < 300 ? `${Math.round(m*3.28084/50)*50} feet` : `${(m/1609.34
 function current(){
   const t = q.value.trim().toLowerCase();
   let list = ITEMS.filter(NEEDS[need.value]).filter(it => !known.checked || it.p.access_rating !== 'unknown')
-                  .filter(it => !t || it.text.includes(t));
+                  .filter(it => !t || it.text.includes(t))
+                  .filter(it => need.value !== 'Events' || windowEvents(it).length);
   if (here) list.sort((a, b) => a.dist - b.dist);
-  else list.sort((a, b) => RANK[a.p.access_rating] - RANK[b.p.access_rating] || a.p.name.localeCompare(b.p.name));
+  else list.sort((a, b) => RANK[a.p.access_rating] - RANK[b.p.access_rating] || LAYER_RANK[a.p.layer] - LAYER_RANK[b.p.layer] || a.p.name.localeCompare(b.p.name));
   return list;
 }
 function directions(it){ const [la, lo] = here ? it.near : it.pts[0];
@@ -284,20 +298,28 @@ function details(it){
       + (f.source ? `<div><a href="${esc(f.source)}" target="_blank" rel="noopener">Source<span class="vh"> for ${esc(f.attribute)} (opens in a new tab)</span></a>${f.date ? ' · ' + esc(f.date) : ''}</div>` : '')
       + '</td></tr>').join('') + '</tbody></table>';
   }
-  if (p.events && p.events.length){
-    h += `<p><strong>${p.event_count} upcoming event${p.event_count > 1 ? 's' : ''}</strong></p><ul>`
-      + p.events.slice(0, 10).map(e => `<li>${esc(e.start.replace('T', ' '))}: <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>${e.accessible_tag ? ' (listed as accessible)' : ''}</li>`).join('') + '</ul>';
+  const evs = windowEvents(it);
+  if (evs.length){
+    h += `<p><strong>${evs.length} upcoming event${evs.length > 1 ? 's' : ''}</strong></p><ul>`
+      + evs.slice(0, 10).map(e => `<li>${esc(e.start.replace('T', ' '))}: <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>${e.accessible_tag ? ' (listed as accessible)' : ''}</li>`).join('') + '</ul>';
   }
   const c = p.contacts || {emails:[], phones:[]};
   if (c.emails.length || c.phones.length)
     h += '<p><strong>Ask before you go:</strong> ' + [...c.emails.map(e => `<a href="mailto:${esc(e)}">${esc(e)}</a>`), ...c.phones.map(t => `<a href="tel:${esc(t.replace(/\D/g,''))}">${esc(t)}</a>`)].join(' · ') + '</p>';
+  const issue = 'https://github.com/zenaism/ohio-access-atlas/issues/new?title=' + encodeURIComponent('Report: ' + p.name)
+    + '&body=' + encodeURIComponent(`Place: ${p.name}\nLink: ${placeUrl(it)}\n\nWhat is wrong or missing? (for example: ramp broken, restroom not accessible, new information)\n\n`);
+  h += `<div class="links"><button type="button" class="ghost" data-a="copy">Copy link<span class="vh"> to ${esc(p.name)}</span></button>`
+    + `<a class="btn ghost" href="${issue}" target="_blank" rel="noopener">Report a problem<span class="vh"> with ${esc(p.name)} (opens GitHub in a new tab)</span></a></div>`;
   return h || '<p>No further details yet.</p>';
 }
 function card(it){
   const p = it.p, li = document.createElement('li'); li.className = 'card'; li.id = 'card-' + it.i;
   const where = it.dist != null ? `<span>${fmt(it.dist)} ${it.dir}</span>` : '';
+  const evs = windowEvents(it);
+  const evline = p.events && p.layer !== 'event' && evs.length ? `<span>${evs.length} upcoming event${evs.length > 1 ? 's' : ''}</span>` : '';
+  const old = p.newest_source && p.newest_source < OLD ? `<span class="old">Source from ${p.newest_source.slice(0, 4)}, may be out of date</span>` : '';
   li.innerHTML = `<h3 tabindex="-1">${esc(p.name)}</h3>
-    <p class="meta">${badge(p.access_rating)}<span>${ICONS[p.layer][0]}</span>${where}</p>
+    <p class="meta">${badge(p.access_rating)}<span>${ICONS[p.layer][0]}</span>${where}${evline}${old}</p>
     <p class="sum">${esc(p.summary)}</p>
     <div class="actions">
       <button type="button" class="ghost" data-a="map">Show on map<span class="vh">: ${esc(p.name)}</span></button>
@@ -311,7 +333,8 @@ function card(it){
 }
 function toggle(it, btn, force){
   const box = document.getElementById('det-' + it.i), open = force ?? btn.getAttribute('aria-expanded') !== 'true';
-  btn.setAttribute('aria-expanded', open); box.hidden = !open; if (open && !box.innerHTML) box.innerHTML = details(it);
+  btn.setAttribute('aria-expanded', open); box.hidden = !open;
+  if (open && !box.innerHTML){ box.innerHTML = details(it); box.querySelector('[data-a=copy]').onclick = () => copyLink(it); }
 }
 function render(announce){
   const list = current(), ol = document.getElementById('list'); ol.innerHTML = '';
@@ -340,12 +363,26 @@ function openCard(i){
   if (PHONE.matches) setSheet(true); else setList(true);
   li.scrollIntoView({block:'start'}); li.querySelector('h3').focus();
 }
-[need, known].forEach(el => el.onchange = () => { shown = PAGE; render(); });
+[need, known, when].forEach(el => el.onchange = () => { when.hidden = need.value !== 'Events'; shown = PAGE; render(); });
 q.oninput = () => { shown = PAGE; render(); };
 document.getElementById('more').onclick = () => {
   const first = shown; shown += PAGE; render(false);
   const cards = document.querySelectorAll('#list .card'); if (cards[first]) cards[first].querySelector('h3').focus();
 };
+// ---------- share links ----------
+function placeUrl(it){ return location.href.split('#')[0] + '#place=' + encodeURIComponent(it.p.link_id); }
+function copyLink(it){
+  const url = placeUrl(it), st = document.getElementById('status');
+  (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject())
+    .then(() => { st.textContent = `Link to ${it.p.name} copied.`; })
+    .catch(() => { st.textContent = `Copy this link: ${url}`; });
+}
+function openFromHash(){
+  const m = location.hash.match(/^#place=(.+)$/); if (!m) return;
+  const it = ITEMS.find(x => x.p.link_id === decodeURIComponent(m[1])); if (!it) return;
+  openCard(it.i); showOnMap(it);
+}
+window.addEventListener('hashchange', openFromHash);
 // ---------- near me ----------
 function setHere(latlng, note){
   here = latlng;
@@ -374,6 +411,7 @@ document.getElementById('legend-body').innerHTML = '<ul>'
   + Object.entries(ICONS).map(([k, [label]]) => `<li>${svg(k, '#374151', 18)}<span>${label}${k === 'trail' ? ' (coloured line)' : ''}</span></li>`).join('')
   + '<li><span class="mc" style="width:22px;height:22px;font-size:11px;box-shadow:none">5</span><span>Group of nearby places: zoom in</span></li></ul>';
 render();
+openFromHash();
 </script></body></html>
 """
 

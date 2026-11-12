@@ -70,6 +70,7 @@
 "Fact 4": "Elevator / lift: yes (visitor guide map legend)",
 "Fact 5": "Quiet room: yes",
 "Fact 6": "Accessible restroom: yes (listed among mobility provisions)",
+"Upcoming events": "1: 2026-12-03 The Taft Family & Portraits of American Diplomacy: Civic Leadership & Foreign Service",
 "Source": "https://taftmuseum.org/visit",
 "marker-color": "#E69F00",
 "marker-symbol": "museum",
@@ -245,6 +246,7 @@
 "Type": "Museum / venue / attraction",
 "Accessibility": "Partly accessible",
 "Fact 1": "Getting around inside: yes (long sloped interior walkway to Palm House and waterfall)",
+"Upcoming events": "160: 2026-11-12 A Spider's Gift; 2026-11-13 A Spider's Gift; 2026-11-13 Krohn Early Closures 11/13",
 "Source": "https://www.cincinnati-oh.gov/cincyparks/news/top-10-ada-accessible-features-in-cincy-parks/",
 "marker-color": "#E69F00",
 "marker-symbol": "museum",
@@ -408,6 +410,7 @@
 "Type": "Park or garden",
 "Accessibility": "Partly accessible",
 "Fact 1": "Adaptive recreation: yes (accessible fishing station at the lake)",
+"Upcoming events": "4: 2026-11-21 Burnet Woods Advisory Council Habitat Restoration; 2026-12-05 Burnet Woods Advisory Council Habitat Restoration; 2026-12-12 Burnet Woods Advisory Council Habitat Restoration",
 "Source": "https://www.cincinnati-oh.gov/cincyparks/news/top-10-ada-accessible-features-in-cincy-parks/",
 "marker-color": "#E69F00",
 "marker-symbol": "park",
@@ -6334,7 +6337,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Reading Rock, Inc.",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6370,7 +6373,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Alms Park",
+"Name": "Restroom near Lower Picnic Area",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6426,7 +6429,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Crescent Springs Park",
+"Name": "Restroom near City Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6444,7 +6447,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Kenton County Public Library",
+"Name": "Restroom near Erlanger Branch Library",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6462,7 +6465,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Kellogg Park",
+"Name": "Restroom near Kellogg Park & Dog Field",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6498,7 +6501,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Founders Park",
+"Name": "Restroom near William Harbin Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6570,7 +6573,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Rentschler Forest Preserve Ranger Sta",
+"Name": "Restroom near Rentschler Forest MetroPark",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6588,7 +6591,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Fairfield City-Marsh Park",
+"Name": "Restroom near Thomas O. Marsh Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6624,7 +6627,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near RJ Wags Park",
+"Name": "Restroom near Horizon Community Church",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6642,7 +6645,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near East Fork State Park Beach",
+"Name": "Restroom near Beach Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6660,7 +6663,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near East Fork State Park Beach",
+"Name": "Restroom near Beach Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6678,7 +6681,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Steve Newman Trail-Off Road",
+"Name": "Restroom near Bethel Methodist Church",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "fee: no",
@@ -6717,7 +6720,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Ohio PARK",
+"Name": "Restroom near Ransohoff Overlook",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6735,7 +6738,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Mount Storm Park",
+"Name": "Restroom near Mount Storm Shelter",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -6774,7 +6777,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Salway Park",
+"Name": "Restroom near Field 3",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6792,7 +6795,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Mt. Echo Park Pavilion",
+"Name": "Restroom near Mt. Echo Pavilion",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -6945,7 +6948,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Buckeye Falls At Sharon Woods Park",
+"Name": "Restroom near Adventure Station",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -6967,7 +6970,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Miami Whitewater Forest County Park",
+"Name": "Restroom near Tallgrass Prarie Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7003,7 +7006,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Parky's Ark Wet Playground",
+"Name": "Restroom near Winton Woods",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "changing_table: yes",
@@ -7024,7 +7027,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Parky's Ark Wet Playground",
+"Name": "Restroom near Winton Woods",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "changing_table: yes",
@@ -7045,7 +7048,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Francis RecreAcres",
+"Name": "Restroom near 1st Avenue Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7063,7 +7066,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Winton Woods Harbour Point",
+"Name": "Restroom near Parky’s Ark Wet Playground",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "fee: no",
@@ -7083,7 +7086,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Winton Woods Harper Meadows Owl Overlook",
+"Name": "Restroom near Winton Woods Horse Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7177,7 +7180,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Lake Isabella",
+"Name": "Restroom near Congregation Beth Adam",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7195,7 +7198,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Withrow Nature Preserve",
+"Name": "Restroom near Fivemile Chapel",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7213,7 +7216,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Trillium Trails Wildflower Preserve",
+"Name": "Restroom near Glenwood Gardens",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7267,7 +7270,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Heekin Family/PNC Grow Up Great Adventure Playground",
+"Name": "Restroom near John G. and Phyllis W. Smale Riverfront Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "fee: no",
@@ -7288,7 +7291,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Glendale Gardens Park",
+"Name": "Restroom near Cotswold Overlook",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7306,7 +7309,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Jack O'Lantern Glow",
+"Name": "Restroom near Cheetah",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7324,7 +7327,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Forest Road Park",
+"Name": "Restroom near Lucky Lanier All-Children’s Playground",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "unisex: yes",
@@ -7346,7 +7349,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Horse Trail 'B'",
+"Name": "Restroom near Dry Fork Meadow",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7364,7 +7367,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Horse Trail 'B'",
+"Name": "Restroom near Dry Fork Meadow",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7424,7 +7427,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Mount Airy Arboretum",
+"Name": "Restroom near Rail Fence Open Shelter",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7460,7 +7463,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Bracken Woods",
+"Name": "Restroom near To Council Area",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7478,7 +7481,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Mt. Airy Forest",
+"Name": "Restroom near Meyer Lake Gazebo",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7514,7 +7517,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Alms Park",
+"Name": "Restroom near Lower Picnic Area",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7532,7 +7535,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Splash Landing",
+"Name": "Restroom near Coconut Cove",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7550,7 +7553,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Splash Landing",
+"Name": "Restroom near Coconut Cove",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7568,7 +7571,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Hopewell Park",
+"Name": "Restroom near Title Boxing Club Loveland",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: customers",
@@ -7588,7 +7591,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Hopewell Park",
+"Name": "Restroom near Title Boxing Club Loveland",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: customers",
@@ -7630,7 +7633,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Richard E. Lindner Center",
+"Name": "Restroom near Trabert-Talbert Tennis Center",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -7652,7 +7655,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Nippert Stadium",
+"Name": "Restroom near Trabert-Talbert Tennis Center",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -7673,7 +7676,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Miami Meadows Playground",
+"Name": "Restroom near Bark Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7709,7 +7712,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Epic Entertainment",
+"Name": "Restroom near Planet Fitness",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7727,7 +7730,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near hhgregg",
+"Name": "Restroom near Planet Fitness",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7817,7 +7820,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Riverside Park",
+"Name": "Restroom near Memorial Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: yes",
@@ -7837,7 +7840,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Colerain Park",
+"Name": "Restroom near Megaland",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7875,7 +7878,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near College Of Mt. Saint Joe Stadium",
+"Name": "Restroom near Mount Saint Joseph University Sports Complex",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7929,7 +7932,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Rowe Woods",
+"Name": "Restroom near Marge & Charles Schott Nature PlayScape",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -7947,7 +7950,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Cincinnati Zoo & Botanical Garden",
+"Name": "Restroom near Elephant Reserve",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -7970,7 +7973,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Discovery Forest",
+"Name": "Restroom near Giraffe Ridge",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8026,7 +8029,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Wings of Wonder Theater",
+"Name": "Restroom near Indian Rhino",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "changing_table: yes",
@@ -8048,7 +8051,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near L.J. Smith - North End Park",
+"Name": "Restroom near Friendship United Baptist Church",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8066,7 +8069,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near L.J. Smith - North End Park",
+"Name": "Restroom near Friendship United Baptist Church",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8084,7 +8087,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near The Home Depot",
+"Name": "Restroom near Crunch Fitness",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "changing_table: yes",
@@ -8106,7 +8109,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Thomasville Of Florence",
+"Name": "Restroom near Crunch Fitness",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -8129,7 +8132,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near At Home",
+"Name": "Restroom near Esporta Fitness",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: permissive",
@@ -8167,7 +8170,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Skt Ceramics",
+"Name": "Restroom near Findlay Market",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: yes",
@@ -8187,7 +8190,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Loveland Youth Football Field",
+"Name": "Restroom near Stephen C. Boike III Youth Athletic Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8205,7 +8208,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Down Town Cincinnati River Park",
+"Name": "Restroom near Rain Fountain",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: yes",
@@ -8243,7 +8246,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Clopay Corporation",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: customers",
@@ -8263,7 +8266,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Chapel",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8299,7 +8302,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Rentschler Forest MetroPark",
+"Name": "Restroom near Chapel",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8317,7 +8320,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Walmart Garden Center",
+"Name": "Restroom near Planet Fitness",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8335,7 +8338,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Walmart Garden Center",
+"Name": "Restroom near Planet Fitness",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8371,7 +8374,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near The Conservatory at Miami Hamilton",
+"Name": "Restroom near Rentschler Library",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -8411,7 +8414,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near The Conservatory at Miami Hamilton",
+"Name": "Restroom near Parrish Auditorium",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -8431,7 +8434,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Florence Mattress & Bedding Store",
+"Name": "Restroom near Crossroads Church",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -8470,7 +8473,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near A J Jolly County Park",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8488,7 +8491,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Bramble Mower Serv",
+"Name": "Restroom near Lake Barber Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "unisex: yes",
@@ -8509,7 +8512,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Timberhill shelter",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -8532,7 +8535,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Hilda-Ross Memorial Park",
+"Name": "Restroom near Springdale Community Center",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8550,7 +8553,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Hilda-Ross Memorial Park",
+"Name": "Restroom near Springdale Community Center",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8591,7 +8594,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Dawson Park at mcdonald commons",
+"Name": "Restroom near Multi-Purpose Field",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -8630,7 +8633,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Bishop Brossart Mustang Athletic Complex",
+"Name": "Restroom near Alexandria United Methodist Church",
 "Type": "Public restroom",
 "Accessibility": "Not accessible",
 "Fact 1": "wheelchair: no",
@@ -8712,7 +8715,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near HomeSmiles Cincinnati",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: private",
@@ -8732,7 +8735,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Otto Armleder Memorial Aquatic Fountain",
+"Name": "Restroom near Heritage Bank Center",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8750,7 +8753,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Gilmore Ponds MetroPark",
+"Name": "Restroom near Miami 2 Miami",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "changing_table: no",
@@ -8810,7 +8813,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near H. Hafner and Sons",
+"Name": "Restroom near Dimension Fitness",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: private",
@@ -8851,7 +8854,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Model Native Garden",
+"Name": "Restroom near Armory Gymnasium",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8869,7 +8872,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Mount Storm Park",
+"Name": "Restroom near Mount Storm Shelter",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -8890,7 +8893,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Little Miami Bike Trail",
+"Name": "Restroom near Church of God",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "unisex: yes",
@@ -8932,7 +8935,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Leaf & Limb On The Levee",
+"Name": "Restroom near Newport on the Levee",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -8990,7 +8993,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Camp Ernst Lake Park",
+"Name": "Restroom near Camp Ernst Lake",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "unisex: yes",
@@ -9010,7 +9013,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Soyum Candle Company",
+"Name": "Restroom near Newport on the Levee",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9067,7 +9070,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Miami Whitewater Forest",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "unisex: yes",
@@ -9088,7 +9091,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Boo Blasters on Boo Hill",
+"Name": "Restroom near Kings Island Theater",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9106,7 +9109,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Boo Blasters on Boo Hill",
+"Name": "Restroom near Festhaus Theater",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9142,7 +9145,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near TurfwayPark Partyonthepaddock",
+"Name": "Restroom near Turfway Park",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -9222,7 +9225,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Paxton Ramsey Park",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9258,7 +9261,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Symmes Township Park",
+"Name": "Restroom near Leming Farm Playground",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9276,7 +9279,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Symmes Park",
+"Name": "Restroom near Symmes Township Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9348,7 +9351,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near The Rug Gallery",
+"Name": "Restroom near Blue Ash YMCA",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "unisex: yes",
@@ -9369,7 +9372,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Cincinnati City Park Water",
+"Name": "Restroom near Lucius Quinctius Cincinnatus",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "fee: no",
@@ -9390,7 +9393,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Devou Park",
+"Name": "Restroom near Devou Memorial Overlook",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9408,7 +9411,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Mt. Echo Park Pavilion",
+"Name": "Restroom near Mt. Echo Pavilion",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9426,7 +9429,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Nagel Road Park",
+"Name": "Restroom near Juilfs Park",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -9486,7 +9489,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Eden Park Mt. Adams/ Cincinnati, Ohio",
+"Name": "Restroom near Capitoline Wolf Replica",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9504,7 +9507,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Wave Pool Kings Island",
+"Name": "Restroom near Pipeline Paradise",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "unisex: yes",
@@ -9524,7 +9527,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Windseeker",
+"Name": "Restroom near Action Theater",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "changing_table: yes",
@@ -9546,7 +9549,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Benson Cleaning Service, Inc.",
+"Name": "Restroom near Tyler Davidson Fountain",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "fee: no",
@@ -9568,7 +9571,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Otto Armleder Dog Park",
+"Name": "Restroom near Armleder Dog Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9586,7 +9589,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Little Miami River Park and Recreation Area",
+"Name": "Restroom near Otto Armleder Memorial Park & Recreation Complex",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9604,7 +9607,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Little Miami River Park and Recreation Area",
+"Name": "Restroom near Otto Armleder Memorial Park & Recreation Complex",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9640,7 +9643,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Austin’s Tile & Flooring ",
+"Name": "Restroom near Thomas Wiethorn Memorial Beach Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "unisex: yes",
@@ -9660,7 +9663,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Full Monty",
+"Name": "Restroom near Behringer-Crawford Museum at Devou",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9735,7 +9738,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Center Court",
+"Name": "Restroom near Court 10",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "changing_table: yes",
@@ -9756,7 +9759,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Picnic Grove Kings Island",
+"Name": "Restroom near Picnic Grove",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9814,7 +9817,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Winton Woods Harper Meadows Owl Overlook",
+"Name": "Restroom near Parky’s Ark Wet Playground",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9832,7 +9835,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Winton Woods Harper Meadows Owl Overlook",
+"Name": "Restroom near Helwig Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9868,7 +9871,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Mitchell Memorial Forest",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9886,7 +9889,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Stanbery Park",
+"Name": "Restroom near HossFit",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -9924,7 +9927,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Parky's Pirate Cove",
+"Name": "Restroom near Timberlakes Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9978,7 +9981,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Miami Meadows Lake",
+"Name": "Restroom near Miami Meadows Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -9996,7 +9999,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Central Park",
+"Name": "Restroom near Boone County Arboretum & Central Park",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -10016,7 +10019,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Pine Hills Park",
+"Name": "Restroom near Corwin M. Nixon Pine Hill Lakes Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10034,7 +10037,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Mt. Airy Forest",
+"Name": "Restroom near Area 13, Oval",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10052,7 +10055,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Covington Catholic High School Gymnasium",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: private",
@@ -10072,7 +10075,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Avoca Trailhead",
+"Name": "Restroom near Sumit Church",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10108,7 +10111,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Devue Park",
+"Name": "Restroom near Behringer-Crawford Museum at Devou",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10126,7 +10129,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Heekin Overlook",
+"Name": "Restroom near Heekin Playground",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: yes",
@@ -10187,7 +10190,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Fosters Landing Park",
+"Name": "Restroom near Little Miami Scenic Trail",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -10207,7 +10210,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Ft. Thomas Military And Community Museum",
+"Name": "Restroom near Model Native Garden",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -10229,7 +10232,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near McFarlin Park",
+"Name": "Restroom near Area 30, McFarlan Woods",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: yes",
@@ -10249,7 +10252,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Miami Whitewater Park- Timberlakes Trail",
+"Name": "Restroom near Oakleaf Trail",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -10289,7 +10292,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Horse Trail A",
+"Name": "Restroom near Dry Fork Meadow",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10307,7 +10310,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Miami Whitewater Forest County Park",
+"Name": "Restroom near Horse Trail A",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10325,7 +10328,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Sharon Woods",
+"Name": "Restroom near Sharonville Presbyterian Church",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10343,7 +10346,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Sharon Woods Park",
+"Name": "Restroom near Heritage Village Museum",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10361,7 +10364,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Heritage Village Museum",
+"Name": "Restroom near Adventure Station",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10379,7 +10382,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Summit Park",
+"Name": "Restroom near Summit Ice Rink",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "changing_table: no",
@@ -10399,7 +10402,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Liberty Park",
+"Name": "Restroom near Lakota Family YMCA",
 "Type": "Public restroom",
 "Accessibility": "Partly accessible",
 "Fact 1": "wheelchair: limited",
@@ -10419,7 +10422,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Liberty Park",
+"Name": "Restroom near Lakota Family YMCA",
 "Type": "Public restroom",
 "Accessibility": "Partly accessible",
 "Fact 1": "wheelchair: limited",
@@ -10493,7 +10496,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Winton Woods - Orchard Area Shelter",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10529,7 +10532,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Banshee",
+"Name": "Restroom near Timberwolf Amphitheatre",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "changing_table: yes",
@@ -10551,7 +10554,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Sharon Woods Lake Trail",
+"Name": "Restroom near Kemper Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10569,7 +10572,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Cinti Nature Center",
+"Name": "Restroom near Barred Owl Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10605,7 +10608,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Schappacher Park",
+"Name": "Restroom near Village Adventist Church in Mason",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10623,7 +10626,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Schappacher Park",
+"Name": "Restroom near Village Adventist Church in Mason",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10641,7 +10644,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Avon Woods Nature Center",
+"Name": "Restroom near Avon Field",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10659,7 +10662,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Avon Woods Nature Center",
+"Name": "Restroom near Avon Field",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10677,7 +10680,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Mt. Airy Bike Skills Course",
+"Name": "Restroom near Area 22, Furnas Hill",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10713,7 +10716,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Little Miami Scenic Trail",
+"Name": "Restroom near Congregation Beth Adam",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10731,7 +10734,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Ziegler Park",
+"Name": "Restroom near Bicentennial Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10749,7 +10752,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Lytle Park Historic District",
+"Name": "Restroom near Abraham Lincoln",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10767,7 +10770,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Mt. Airy Forest",
+"Name": "Restroom near Area 3, Pine Ridge",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10785,7 +10788,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Madame Fatale's Cavern of Terror",
+"Name": "Restroom near Clock",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: designated",
@@ -10808,7 +10811,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Linus Launcher",
+"Name": "Restroom near International Showplace",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -10851,7 +10854,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Cawood Flooring Systems",
+"Name": "Restroom near Pisgah Youth Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10869,7 +10872,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Splash Landing",
+"Name": "Restroom near Coconut Cove",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10887,7 +10890,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Soak City",
+"Name": "Restroom near Kiwi Court",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10923,7 +10926,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Bechtold Park",
+"Name": "Restroom near Bechtold Pavillion",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10941,7 +10944,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Devue Park",
+"Name": "Restroom near Behringer-Crawford Museum at Devou",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10959,7 +10962,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Devue Park",
+"Name": "Restroom near Behringer-Crawford Museum at Devou",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10977,7 +10980,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Banklick Woods Park",
+"Name": "Restroom near Lincoln Ridge Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -10995,7 +10998,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Short Park",
+"Name": "Restroom near Robert W. Short Park",
 "Type": "Public restroom",
 "Accessibility": "Partly accessible",
 "Fact 1": "wheelchair: limited",
@@ -11016,7 +11019,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Pyramid Hill Sculpture Park",
+"Name": "Restroom near Pyramid Hill Sculpture Museum",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11034,7 +11037,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Site Supply Inc",
+"Name": "Restroom near Mercy Health — West Clermont HealthPlex",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11052,7 +11055,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Site Supply Inc",
+"Name": "Restroom near Mercy Health — West Clermont HealthPlex",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11070,7 +11073,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Timberman Ridge MetroPark",
+"Name": "Restroom near Forest Run MetroPark Timberman Ridge Area",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11106,7 +11109,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Ashley Store",
+"Name": "Restroom near Crunch Fitness",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: customers",
@@ -11144,7 +11147,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Schneider Home Equipment Co.",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11162,7 +11165,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Highland Park",
+"Name": "Restroom near Highland Hills Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11234,7 +11237,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Mattress by Appointment Mason",
+"Name": "Public restroom",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11252,7 +11255,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Dragons Exhibit",
+"Name": "Restroom near Orchid Shelter",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11270,7 +11273,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Chapel",
 "Type": "Public restroom",
 "Accessibility": "Partly accessible",
 "Fact 1": "wheelchair: limited",
@@ -11329,7 +11332,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Pierce Township Park",
+"Name": "Restroom near Off-Leash Dog Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11422,7 +11425,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Monroe Township 222 Park",
+"Name": "Restroom near Monroe Community Park",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11440,7 +11443,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Ross-Gowdy House",
+"Name": "Restroom near River Promenade Park",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -11479,7 +11482,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Clough Pike Flooring",
+"Name": "Restroom near The Church of Jesus Christ of Latter-day Saints",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11497,7 +11500,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Pinecone Home",
+"Name": "Restroom near Old Mount Moriah United Methodist Church",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11573,7 +11576,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Backpack Trail",
+"Name": "Restroom near Bethel Methodist Church",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: yes",
@@ -11651,7 +11654,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near McDonald Commons",
+"Name": "Restroom near Batting Cage",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: yes",
@@ -11707,7 +11710,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near David J. Stricker Dog Park",
+"Name": "Restroom near Brian Wilson Field",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: yes",
@@ -11747,7 +11750,7 @@
 ]
 },
 "properties": {
-"Name": "Public restroom",
+"Name": "Restroom near Rooks Archery Range",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "Fact 1": "access: yes",
@@ -11767,7 +11770,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Riverside Recreational",
+"Name": "Restroom near Dan J. Gilday Recreation Complex",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11785,7 +11788,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Stanbery Park",
+"Name": "Restroom near HossFit",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11824,7 +11827,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near Dragons Exhibit",
+"Name": "Restroom near Lemur Lookout",
 "Type": "Public restroom",
 "Accessibility": "Accessible",
 "Fact 1": "wheelchair: yes",
@@ -11955,7 +11958,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near East Fork State Park",
+"Name": "Restroom near Williamsburg–Batavia Hike Bike Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -11991,7 +11994,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near East Fork State Park",
+"Name": "Restroom near Williamsburg–Batavia Hike Bike Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -12009,7 +12012,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near East Fork State Park",
+"Name": "Restroom near Perimeter Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -12027,7 +12030,7 @@
 ]
 },
 "properties": {
-"Name": "Restroom near East Fork State Park",
+"Name": "Restroom near Fern Hill Trail",
 "Type": "Public restroom",
 "Accessibility": "No information yet",
 "marker-color": "#8C8C8C",
@@ -12078,25 +12081,6 @@
 "geometry": {
 "type": "Point",
 "coordinates": [
--84.5025296,
-39.102261
-]
-},
-"properties": {
-"Name": "Taft Museum of Art",
-"Type": "Event venue",
-"Accessibility": "Partly accessible",
-"Upcoming events": "1: 2026-12-03 The Taft Family & Portraits of American Diplomacy: Civic Leadership & Foreign Service",
-"marker-color": "#E69F00",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
 -84.593079,
 39.000006
 ]
@@ -12135,25 +12119,6 @@
 "geometry": {
 "type": "Point",
 "coordinates": [
--84.490116,
-39.1152203
-]
-},
-"properties": {
-"Name": "Krohn Conservatory",
-"Type": "Event venue",
-"Accessibility": "Partly accessible",
-"Upcoming events": "160: 2026-11-12 A Spider's Gift; 2026-11-13 A Spider's Gift; 2026-11-13 Krohn Early Closures 11/13",
-"marker-color": "#E69F00",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
 -84.5782865,
 39.1690481
 ]
@@ -12183,25 +12148,6 @@
 "Accessibility": "No information yet",
 "Upcoming events": "1: 2026-11-14 Ault Park Invasive Removal",
 "marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.516761,
-39.1392796
-]
-},
-"properties": {
-"Name": "Burnet Woods",
-"Type": "Event venue",
-"Accessibility": "Partly accessible",
-"Upcoming events": "4: 2026-11-21 Burnet Woods Advisory Council Habitat Restoration; 2026-12-05 Burnet Woods Advisory Council Habitat Restoration; 2026-12-12 Burnet Woods Advisory Council Habitat Restoration",
-"marker-color": "#E69F00",
 "marker-symbol": "star",
 "marker-size": "medium"
 }
@@ -12292,7 +12238,7 @@
 ]
 },
 "properties": {
-"Name": "1641 Blue Rock St, Cincinnati, OH 45223",
+"Name": "Event venue, 1641 Blue Rock St",
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "1: 2026-11-14 Power Soccer Fall Practices",

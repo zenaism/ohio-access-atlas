@@ -11,6 +11,7 @@ geocoder). Whatever fails goes to review.csv.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from datetime import date
@@ -445,7 +446,13 @@ def event_features(region, g, matches, facts_feats, review):
             if xy:
                 from shapely.geometry import Point
 
-                hit = pd.Series({"entity_id": f"census:{r.venue}", "name": r.venue, "geometry": Point(*xy)})
+                hit = pd.Series(
+                    {
+                        "entity_id": f"census:{r.venue}",
+                        "name": f"Event venue, {str(r.venue).split(',')[0].strip()}",
+                        "geometry": Point(*xy),
+                    }
+                )
                 how = "street address (Census geocoder)"
         if hit is None:
             review.append(
@@ -473,9 +480,15 @@ def event_features(region, g, matches, facts_feats, review):
                 "disability_focused": getattr(r, "is_disability_focused", None) is True,
             }
         )
+    place_by_eid = {f["properties"]["matched_to"].split(" ")[0]: f for f in facts_feats}
     feats = []
     for eid, v in venues.items():
         evs = sorted(v["events"], key=lambda e: e["start"])
+        if eid in place_by_eid:  # the venue is already a place on the map: list its events there
+            pp = place_by_eid[eid]["properties"]
+            pp["events"], pp["event_count"] = evs[:40], len(evs)
+            pp["disability_focused"] = any(e["disability_focused"] for e in evs)
+            continue
         tag = any(e["accessible_tag"] for e in evs)
         rating = rated.get(eid, "partial" if tag else "unknown")
         feats.append(
@@ -538,6 +551,12 @@ def write() -> list[Path]:
         feats = [f for f in shared if region_of(f["geometry"]) == region]
         feats += restroom_features(region) + event_features(region, g, matches, places, review)
         enrich(feats, g)
+        seen: dict[str, int] = {}
+        for f in feats:  # same name at the same spot (OSM node + way): keep links unique
+            k = f["properties"]["link_id"]
+            seen[k] = seen.get(k, 0) + 1
+            if seen[k] > 1:
+                f["properties"]["link_id"] = f"{k}-{seen[k]}"
         fc = collection(region, feats)
         p = MAP / f"{region}_atlas.geojson"
         p.write_text(json.dumps(fc, ensure_ascii=False))
@@ -735,20 +754,18 @@ def contacts(p: dict) -> dict:
 
 
 def enrich(feats: list, g: gpd.GeoDataFrame) -> None:
-    named = g[g.category.str.contains("park|museum|garden|attraction|library|theatre|stadium|zoo|nature")]
-    named = named[
-        (named.name.str.len() > 3)
-        & ~named.category.str.contains("parking", case=False)
-        & ~named.name.str.contains(r"\bparking\b|\blot\b", case=False)
+    landmark = (
+        r"^(leisure|tourism|historic|natural|boundary)=|^amenity=(library|community_centre|theatre|"
+        r"arts_centre|townhall|place_of_worship|school|university|college|marketplace|fountain|shelter)"
+    )
+    named = g[
+        (g.src == "osm")
+        & g.category.str.contains(landmark)
+        & (g.name.str.len() > 3)
+        & ~g.category.str.contains("parking")
+        & ~g.name.str.contains(r"\bparking\b|\blot\b", case=False)
     ]
     pts = gpd.GeoDataFrame(named[["name"]], geometry=named.geometry.map(point), crs=WGS84).to_crs(METRIC)
-    anyp = g[  # OSM names only: Overture fallbacks were businesses ("Benson Cleaning Service, Inc.")
-        (g.src == "osm")
-        & (g.name.str.len() > 3)
-        & ~g.category.str.contains("parking", case=False)
-        & ~g.name.str.contains(r"^parking|\bparking\b|\blot\b", case=False)
-    ]
-    allpts = gpd.GeoDataFrame(anyp[["name"]], geometry=anyp.geometry.map(point), crs=WGS84).to_crs(METRIC)
 
     street_parts = []
     for region in (
@@ -778,12 +795,15 @@ def enrich(feats: list, g: gpd.GeoDataFrame) -> None:
         ]  # "Miami University; Souers Recital Hall" -> "Souers Recital Hall"
         if p["layer"] == "restroom" and p["name"].lower() in ("public restroom", "toilets", "restroom", ""):
             here = gpd.GeoSeries([point(f["geometry"])], crs=WGS84).to_crs(METRIC).iloc[0]
-            best = (
-                nearest_name(here, pts, 400)
-                or nearest_name(here, allpts, 250)
-                or nearest_name(here, streets, 150)
-            )
+            best = nearest_name(here, pts, 500) or nearest_name(here, streets, 150)
             if best:
                 p["name"] = f"Restroom near {best}"
         p["summary"] = summarise(p)
+        dates = sorted(
+            str(x.get("date")) for x in p.get("facts", []) if re.match(r"\d{4}", str(x.get("date") or ""))
+        )
+        p["newest_source"] = dates[-1][:7] if dates else None
+        c = point(f["geometry"])
+        slug = re.sub(r"[^a-z0-9]+", "-", p["name"].lower()).strip("-")[:48]
+        p["link_id"] = f"{slug}-{hashlib.md5(f'{c.y:.4f},{c.x:.4f}'.encode()).hexdigest()[:5]}"
         p["contacts"] = contacts(p)
