@@ -126,3 +126,236 @@ reddit:
   keywords: [wheelchair, accessible, accessibility, ADA, ramp, curb cut, elevator, stairs,
              sidewalk, mobility scooter, paratransit, handicap parking]
   license: Reddit Data API terms; store ids + hashed authors only, do not redistribute text
+
+# ---- Destinations (places, venues, trails, events) -----------------------------
+overture_places:
+  type: overture
+  regions: [cincinnati, oxford]
+  release: 2026-10-21.0
+  license: CDLA-Permissive-2.0 / Apache-2.0 / ODbL by upstream dataset (see `datasets` column)
+
+osm_destinations:
+  type: osm_destinations
+  regions: [cincinnati, oxford]
+  license: ODbL-1.0 (c) OpenStreetMap contributors
+
+# ---- Websites (raw snapshot + cleaned text; LLM extraction reads the .docs files) ----
+web_venues_cincinnati:      # museum and venue accessibility pages
+  type: web
+  regions: [cincinnati]
+  author_type: official
+  max_pages: 40
+  assets: true              # access guides are often PDFs
+  urls:
+    - https://www.cincymuseum.org/accessibility
+    - https://www.cincymuseum.org/wp-content/uploads/2023/06/2023_CMC_CHM_Accessibility.pdf
+    - https://cincinnatiartmuseum.org/access
+    - https://cincinnatiartmuseum.org/media/qzypjozc/accessibility-guide-web.pdf
+    - https://taftmuseum.org/visit
+    - https://www.nps.gov/wiho/planyourvisit/accessibility.htm
+    - https://www.visitcincy.com/blog/post/accessiblity-in-the-cincinnati-region/
+    - https://www.blinkcincinnati.com/resources/accessibility
+    - https://www.blinkcincinnati.com/resources/files/assets/accessiblemaps100526.pdf
+    - https://www.blinkcincinnati.com/resources/files/assets/blink2026accessibilityfaq1-updated.pdf
+    - https://www.blinkcincinnati.com/resources/files/assets/accessiblemapsfindlaymarketzone.pdf
+    - https://www.blinkcincinnati.com/resources/files/assets/accessiblemapsbankszone.pdf
+    - https://www.blinkcincinnati.com/resources/files/assets/accessiblemapsotrzone.pdf
+    - https://www.blinkcincinnati.com/resources/files/assets/accessiblemapscovingtonzone.pdf
+    - https://www.blinkcincinnati.com/resources/files/assets/accessiblemapsfountainzone.pdf
+    - https://www.blinkcincinnati.com/resources/files/assets/accessiblemapsreadysetblink.pdf
+  follow: [https://www.cincymuseum.org/accessibility, https://cincinnatiartmuseum.org/access,
+           https://www.blinkcincinnati.com/resources]
+  license: public web page; cite URL
+
+web_venues_oxford:
+  type: web
+  regions: [oxford]
+  author_type: official
+  max_pages: 40
+  max_pages: 150
+  assets: true
+  urls:
+    - https://miamioh.edu/museums-miami
+    - https://miamioh.edu/cca/mcguffey-museum/index.html
+    - https://miamioh.edu/cca/mcguffey-museum/plan-your-visit.html
+    - https://miamioh.edu/cca/art-museum/index.html
+    - https://miamioh.edu/cas/centers-institutes/hefner-museum-natural-history/index.html
+    - https://miamioh.edu/cas/centers-institutes/limper-geology-museum/index.html
+    - https://miamioh.edu/student-life/sds/accommodations-and-services/campus-accessibility/index.html
+    - https://miamioh.edu/student-life/sds/accommodations-and-services/parking-and-transportation/index.html
+    - https://miamioh.edu/visit-miami/oxford-campus/maps-parking-and-transit.html
+    - https://www.huestonwoodslodge.com/accessibility
+    - https://www.huestonwoodslodge.com/cabins/accessible-cabins
+    - https://www.huestonwoodslodge.com/rooms/accessible-rooms
+    - https://dam.assets.ohio.gov/image/upload/ohiodnr.gov/documents/parks/parkmaps/huestonwoodsparkmap.pdf
+    - https://cityofoxford.org/departments/parks_recreation/facilities/index.php
+    - https://cityofoxford.org/departments/parks_recreation/facilities/oxford_community_park.php
+    - https://cityofoxford.org/explore/visitor_resources/things_to_do.php
+    - https://cityofoxford.org/explore/comprehensive_plan_metrics/ada_transition_plan/index.php
+    - https://cityofoxford.org/departments/parks_recreation/facilities/oxford_aquatic_center.php
+    - https://enjoyoxford.org/attractions/
+    - https://enjoyoxford.org/outdoors
+    - https://enjoyoxford.org/wp-content/uploads/2025/05/2025-Enjoy-Oxford-Welcome-Guide-website.pdf
+    - https://enjoyoxford.org/events/
+    - https://www.travelbutlercounty.com/explore/oxford/sports-recreation
+    - https://www.travelbutlercounty.com/explore/oxford/sports-recreation?page=1
+    - https://www.travelbutlercounty.com/explore/oxford/sports-recreation?page=2
+    - https://www.travelbutlercounty.com/explore/oxford/sports-recreation?page=3
+    - https://www.travelbutlercounty.com/explore/oxford/sports-recreation/parks
+    - https://www.travelbutlercounty.com/explore/oxford/sports-recreation/trails
+    - https://www.travelbutlercounty.com/explore/oxford/history
+  follow: [https://miamioh.edu/cca/mcguffey-museum/visit, https://miamioh.edu/cca/art-museum/visit,
+           https://miamioh.edu/student-life/sds/accommodations-and-services/campus-accessibility/,
+           https://www.travelbutlercounty.com/listing/, https://cityofoxford.org/departments/parks_recreation/facilities/,
+           https://cityofoxford.org/explore/comprehensive_plan_metrics/ada_transition_plan/]
+  license: public web page; cite URL
+
+web_trails_oxford:          # trail lists, maps and posters
+  type: web
+  regions: [oxford]
+  author_type: official
+  max_pages: 80
+  assets: true
+  urls:
+    - https://www.oxfordareatrails.org/
+    - https://www.oxfordareatrails.org/visit-the-trails
+    - https://www.oxfordareatrails.org/maps
+    - https://www.oxfordareatrails.org/trail-rules
+    - https://www.traillink.com/cityactivity/oxford-oh-wheelchair-accessible-trails/
+    - https://www.midwesterntraveler.com/oxfords-hiking-trails/
+  render: true              # Wix builds the page in the browser
+  follow: [https://www.oxfordareatrails.org/]
+  asset_hosts: [static.wixstatic.com]
+  license: public web page; cite URL
+
+web_trails_cincinnati:
+  type: web
+  render: true
+  regions: [cincinnati]
+  author_type: official
+  max_pages: 80
+  assets: true
+  urls:
+    - https://www.cincinnatiparksfoundation.org/cprw-hiking
+    - https://www.cincymuseum.org/trails/
+    - https://cincynature.org/visit-us/our-trails
+    - https://www.traillink.com/cityactivity/forest-park-oh-wheelchair-accessible-trails/
+    - https://www.traillink.com/cityactivity/fairfield-oh-wheelchair-accessible-trails/
+    - https://www.traillink.com/cityactivity/fort-thomas-ky-wheelchair-accessible-trails/
+    - https://www.cincinnati-oh.gov/manager/aging-and-accessibility/accesscincy/accesscincy-parks-and-recreation
+  follow: [https://www.cincinnatiparksfoundation.org/cprw-hiking, https://www.cincymuseum.org/trails/,
+           https://cincynature.org/visit-us/]
+  license: public web page; cite URL
+
+web_programs_cincinnati:    # adaptive sports, disability services, event calendars without feeds
+  type: web
+  regions: [cincinnati]
+  author_type: official
+  max_pages: 40
+  urls:
+    - https://cincinnati-oh.gov/recreation/programs/therapeutic-recreation/adult-wheelchair-basketball
+    - https://cincinnati-oh.gov/recreation/programs/therapeutic-recreation/miracle-league-baseball
+    - https://www.uc.edu/campus-life/accessibility-resources/uc-adaptive-athletics.html
+    - https://activeproject.kellybrushfoundation.org/programs/the-bridge-adaptive-sports/
+    - https://www.cincinnatichildrens.org/ongoing-support-resources/rest-recreation/vacations-travel
+    - https://www.cincinnati-oh.gov/cincyparks/visit-a-park/parks-events-calendar/
+    - https://www.greatparks.org/calendar
+    - https://ood.ohio.gov/
+  follow: [https://cincinnati-oh.gov/recreation/programs/therapeutic-recreation/]
+  license: public web page; cite URL
+
+web_access_platforms:       # disability-focused platforms (public pages only)
+  type: web
+  render: true
+  regions: [cincinnati, oxford]
+  author_type: guide
+  max_pages: 10
+  urls:
+    - https://wheeltheworld.com/
+  license: public web page; cite URL; ask before bulk use
+
+# ---- Event feeds ------------------------------------------------------------------
+events_ical_cincinnati:
+  type: events_ical
+  regions: [cincinnati]
+  urls:
+    - https://cincyjewfolk.com/events/category/wheelchair-accessible/list/?ical=1
+    - https://globalcincinnati.org/events-calendar/?ical=1
+  license: public calendar feed; cite URL
+
+web_parks_cincinnati:       # park systems' own accessibility and trail pages
+  type: web
+  regions: [cincinnati]
+  author_type: official
+  max_pages: 60
+  assets: true
+  urls:
+    - https://www.greatparks.org/accessibility
+    - https://greatparks.org/recreation/trails
+    - https://www.greatparks.org/Recreation/Playgrounds
+    # excluded: visithamiltoncounty.com accessible-parks blog is about Hamilton County, INDIANA (White River)
+  follow: [https://greatparks.org/recreation/trails/, https://www.greatparks.org/recreation/trails/]
+  license: public web page; cite URL
+
+events_ical_oxford:
+  type: events_ical
+  regions: [oxford]
+  urls:
+    - https://events.miamioh.edu/calendar.ics
+  license: public calendar feed; cite URL
+
+web_gov_oxford_rendered:    # City of Oxford pages built by JavaScript (Revize CMS)
+  type: web
+  render: true
+  regions: [oxford]
+  author_type: official
+  max_pages: 15
+  assets: true
+  urls:
+    - https://cityofoxford.org/explore/comprehensive_plan_metrics/ada_transition_plan/index.php
+  follow: [https://cityofoxford.org/Documents/]
+  license: public web page; cite URL
+
+web_metroparks:             # county park systems; Five Rivers (Dayton) is outside both areas: day trips
+  type: web
+  render: true
+  regions: [oxford]
+  author_type: official
+  max_pages: 40
+  assets: true
+  urls:
+    - https://www.yourmetroparks.net/about/accessibility
+    - https://www.metroparks.org/places-to-go/paved-trails/
+  follow: [https://www.yourmetroparks.net/about/accessibility, https://www.metroparks.org/places-to-go/paved-trails/]
+  license: public web page; cite URL
+  note: metroparks.org = Five Rivers MetroParks (Dayton, ~55 km from Oxford) -> mark in_area=false
+
+events_cincy_parks:         # City of Cincinnati Parks calendar (JSON feed behind the calendar page)
+  type: mura_calendar
+  regions: [cincinnati]
+  api: https://www.cincinnati-oh.gov/index.cfm/_api/json/v1/cincyparks/findCalendarItems
+  site: https://www.cincinnati-oh.gov/cincyparks/
+  calendar_id: 659F57A2-D359-40A5-901487AB34FEFE24
+  start: "2026-11-11"
+  end: "2027-05-31"
+  categories: {Accessible: BE7841EA-B0D9-405C-B5D3527569DFA80E}
+  license: public calendar; cite URL
+
+web_parks_cincinnati_city:  # City of Cincinnati Parks + Recreation Commission pages (JavaScript-built)
+  type: web
+  render: true
+  regions: [cincinnati]
+  author_type: official
+  max_pages: 30
+  assets: true
+  urls:
+    - https://www.cincinnati-oh.gov/cincyparks/customer-service/accessibility1/
+    - https://www.cincinnati-oh.gov/cincyparks/news/top-10-ada-accessible-features-in-cincy-parks/
+    - https://www.cincinnati-oh.gov/cincyparks/news/everybodys-treehouse-in-mt-airy-forest-reopens/
+    - https://www.cincinnati-oh.gov/cincyparks/news/love-the-change-changing-tables-at-mens-restrooms-in-parks/
+    - https://www.cincinnati-oh.gov/cincyparks/news/6-best-cincinnati-parks-trails-to-visit-year-round/
+    - https://www.cincinnati-oh.gov/cincyparks/news/bathrooms-open-for-2023-season/
+    - https://cincinnati-oh.gov/recreation/programs/therapeutic-recreation/adult-wheelchair-basketball
+    - https://cincinnati-oh.gov/recreation/programs/therapeutic-recreation/miracle-league-baseball
+    - https://cincinnati-oh.gov/recreation/programs/therapeutic-recreation/
+  license: public web page; cite URL

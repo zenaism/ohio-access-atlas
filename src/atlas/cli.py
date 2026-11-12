@@ -17,7 +17,7 @@ def _run(source: str, region: str) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(prog="atlas")
-    ap.add_argument("command", choices=["fetch", "report", "sources", "dem", "equity"])
+    ap.add_argument("command", choices=["fetch", "report", "sources", "dem", "equity", "inventory"])
     ap.add_argument("source", nargs="?", default="all")
     ap.add_argument("--region", default="all")
     a = ap.parse_args()
@@ -28,6 +28,10 @@ def main() -> None:
     if a.command == "sources":
         for k, s in sources.items():
             print(f"{k:24} {s['type']:9} {','.join(s['regions'])}")
+        return
+    if a.command == "inventory":
+        from .inventory import write
+        print(write())
         return
     if a.command == "equity":
         from .analysis.equity import run

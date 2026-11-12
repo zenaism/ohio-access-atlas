@@ -1,0 +1,168 @@
+{
+  "poster_set": "Edge of Appalachia Preserve trail maps (Cincinnati Museum Center / The Nature Conservancy)",
+  "found_on": "https://www.cincymuseum.org/trails/",
+  "location_note": "Adams County, Ohio, about 100 km east of Cincinnati: OUTSIDE the 25 km Cincinnati area. Keep as a day-trip record, flagged in_area=false.",
+  "extraction_method": "poster_vision (high-resolution crops checked for legend text)",
+  "extracted_by": "Claude (Claude Code session), 2026-11-11",
+  "verified_by_human": false,
+  "page_vs_poster_note": "The trails web page and the posters give different lengths for two trails; both are kept.",
+  "trails": [
+    {
+      "name": "Helen C. Black Trail at Cedar Falls",
+      "pdf_url": "https://www.cincymuseum.org/wp-content/uploads/2020/09/CedarFalls-Map.pdf",
+      "raw_file": "data/raw/web/web_trails_cincinnati/f8579f5baa24.pdf",
+      "length_mi": {
+        "poster": "3 miles, round trip",
+        "web_page": 3.0
+      },
+      "width_in": 24,
+      "running_slope": "less than 2%",
+      "maximum_slope": "10-13%",
+      "cross_slope": "less than 5%",
+      "poster_coordinates": [
+        38.8242,
+        -83.3929
+      ],
+      "features": [
+        "parking area at trailhead ('You are here')",
+        "observation area above Cedar Falls",
+        "mill ruins and former iron furnace location near trailhead",
+        "Cedar Mills Road, State Route 348"
+      ],
+      "poster_text_quotes": [
+        "This hike is strenuous in some areas, and the 70-foot cliffs are impressive but very hazardous without caution.",
+        "you will ... cross several rocky tributary streams and pass through the boulder field"
+      ],
+      "wheelchair_assessment": {
+        "rating": "not_accessible",
+        "reasons": [
+          "24 in width is below the 36 in minimum for an accessible route (ADA 403.5.1 / outdoor trail guideline 1017.3)",
+          "maximum slope 10-13% exceeds 8.33%",
+          "poster text: strenuous, rocky stream crossings, boulder field"
+        ],
+        "rule": "derived from poster measurements, not stated by the publisher"
+      },
+      "confidence": "high",
+      "local_file": "data/manual/posters/edge_of_appalachia/cedar_falls_helen_c_black_trail.pdf",
+      "crops_checked": [
+        "data/manual/posters/edge_of_appalachia/crops/cedar_falls_legend_100dpi.png"
+      ]
+    },
+    {
+      "name": "Joan Jones Portman Trail",
+      "pdf_url": "https://www.cincymuseum.org/sites/default/files/2014-Portman-Trail.pdf",
+      "raw_file": "data/raw/web/web_trails_cincinnati/aa8d2938b24c.pdf",
+      "length_mi": {
+        "poster": 1.6,
+        "web_page": 1.6
+      },
+      "features": [
+        "parking",
+        "information",
+        "picnic area",
+        "restroom",
+        "preserve buildings",
+        "trail sign",
+        "bridge over stream",
+        "viewing area at the trail's far end",
+        "Office Hillside Barren"
+      ],
+      "accessibility_symbols": {
+        "handicapped_trail_icon": "present next to the preserve buildings, restroom and picnic area by the parking lot",
+        "note": "The legend lists 'Handicapped trail', but no separate line is drawn for it. Its route and length are unknown. The Portman Trail itself climbs from the valley to Flood's Point (web page) and crosses contour lines repeatedly."
+      },
+      "restroom_at_trailhead": true,
+      "wheelchair_assessment": {
+        "rating": "unknown",
+        "reasons": [
+          "an accessible trail is marked near the buildings but not mapped",
+          "main trail climbs a hillside; surface, width and grade not given"
+        ]
+      },
+      "confidence": "high for listed features; low for the accessible-trail location",
+      "local_file": "data/manual/posters/edge_of_appalachia/portman_trail.pdf",
+      "crops_checked": [
+        "data/manual/posters/edge_of_appalachia/crops/portman_trailhead_300dpi.png"
+      ]
+    },
+    {
+      "name": "E. Lucy Braun Lynx Prairie Trail",
+      "pdf_url": "https://www.cincymuseum.org/sites/default/files/2014-Lynx-Trail.pdf",
+      "raw_file": "data/raw/web/web_trails_cincinnati/8c39638e3318.pdf",
+      "length_mi": {
+        "poster": 1.3,
+        "web_page": 1.4
+      },
+      "loops": [
+        "Red Loop",
+        "White Loop",
+        "Green Loop"
+      ],
+      "features": [
+        "parking and information on Cline Road",
+        "3 bridges",
+        "named prairie openings (North, Elizabeth's, Dock, Long, Occidentalis, Narrow, Coneflower, Liatris, Warbler, Annette's)",
+        "Annette's Rock"
+      ],
+      "wheelchair_assessment": {
+        "rating": "unknown",
+        "reasons": [
+          "no surface, width or grade on poster"
+        ]
+      },
+      "confidence": "high",
+      "local_file": "data/manual/posters/edge_of_appalachia/lynx_prairie_trail.pdf"
+    },
+    {
+      "name": "Charles A. Eulett Wilderness Trail",
+      "pdf_url": "https://www.cincymuseum.org/sites/default/files/2014-Wilderness-Trail.pdf",
+      "raw_file": "data/raw/web/web_trails_cincinnati/b73dfe45b044.pdf",
+      "length_mi": {
+        "poster": 2.4,
+        "web_page": 2.6
+      },
+      "features": [
+        "parking and information on Shivener Road",
+        "4 bridges over Bread Pan Run",
+        "Shivener Prairie"
+      ],
+      "wheelchair_assessment": {
+        "rating": "unknown",
+        "reasons": [
+          "no surface, width or grade on poster; loop crosses dense contours"
+        ]
+      },
+      "confidence": "high",
+      "local_file": "data/manual/posters/edge_of_appalachia/wilderness_trail.pdf"
+    },
+    {
+      "name": "Buzzardroost Rock Trail",
+      "pdf_url": "https://www.cincymuseum.org/wp-content/uploads/2020/06/Buzzardroost-Trail.pdf",
+      "raw_file": "data/raw/web/web_trails_cincinnati/541c315e4348.pdf",
+      "length_mi": {
+        "poster": 4.4,
+        "web_page": 4.4
+      },
+      "features": [
+        "parking and information off a drive near State Route 125",
+        "8 bridges",
+        "loop through Steward Grassland (added 2014-2015 per web page)",
+        "viewing area at Buzzardroost Rock (west end)"
+      ],
+      "wheelchair_assessment": {
+        "rating": "unknown",
+        "reasons": [
+          "no surface, width or grade on poster"
+        ]
+      },
+      "confidence": "high",
+      "local_file": "data/manual/posters/edge_of_appalachia/buzzardroost_rock_trail.pdf"
+    }
+  ],
+  "skipped": [
+    {
+      "url": "https://www.cincymuseum.org/wp-content/uploads/2020/06/Trails.jpg",
+      "reason": "photo of a prairie, not a map"
+    }
+  ]
+}

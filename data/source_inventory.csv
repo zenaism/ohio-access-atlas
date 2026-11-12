@@ -1,0 +1,34 @@
+source,type,region,collected,records,categories,pages,pdfs,images,text_chars,facts,attributes,places,failed_fetches,robots_skipped,last_retrieved
+osm,overpass,cincinnati,True,41959.0,"path_segment 24,399, crossing 7,557, poi 6,235, barrier 1,566, entrance 1,379, kerb 823",,,,,27796.0,"crossing 11,893, surface 5,908, barrier 2,381, tactile_paving 1,871, crossing:signals 1,368",,0,0,2026-11-07
+osm,overpass,oxford,True,6315.0,"path_segment 4,436, crossing 804, poi 464, entrance 378, barrier 159, kerb 74",,,,,3894.0,"crossing 1,528, surface 769, incline 537, wheelchair 275, barrier 227",,0,0,2026-11-07
+cagis_curb_ramps,arcgis,cincinnati,True,14970.0,,,,,,14970.0,"curb_ramp 14,970",,0,0,2026-11-07
+cagis_public_steps,arcgis,cincinnati,True,160.0,,,,,,160.0,highway 160,,0,0,2026-11-07
+cagis_sidewalks,arcgis,cincinnati,True,220792.0,,,,,,220792.0,"sidewalk 220,792",,0,0,2026-11-07
+cagis_traffic_signals,arcgis,cincinnati,True,5324.0,,,,,,5324.0,"traffic_signal 5,324",,0,0,2026-11-07
+cincy_311,socrata,cincinnati,True,24639.0,,,,,,24639.0,"reported_issue 24,639",,0,0,2026-11-07
+gtfs_metro,gtfs,cincinnati,True,2320.0,,,,,,2320.0,"wheelchair_boarding 2,320",,0,0,2026-11-07
+gtfs_bcrta,gtfs,oxford,True,61.0,,,,,,61.0,wheelchair_boarding 61,,0,0,2026-11-07
+slope_3dep,slope,oxford,True,3872.0,,,,,,7744.0,"incline_max_dem 3,872, incline_avg_dem 3,872",,0,0,2026-11-07
+slope_3dep_local,slope,cincinnati,True,20062.0,,,,,,40124.0,"incline_max_dem 20,062, incline_avg_dem 20,062",,0,0,2026-11-07
+slope_3dep_local,slope,oxford,True,3872.0,,,,,,7744.0,"incline_max_dem 3,872, incline_avg_dem 3,872",,0,0,2026-11-07
+slope_cagis,slope,cincinnati,False,,,,,,,,,,0,0,
+reddit,reddit,cincinnati,False,,,,,,,,,,0,0,
+reddit,reddit,oxford,False,,,,,,,,,,0,0,
+overture_places,overture,cincinnati,True,92859.0,"home_service 5,959, financial_service 5,105, restaurant 4,355, real_estate_service 3,693, personal_or_beauty_service 3,609, unknown 2,814",,,,,,,,0,0,2026-11-12
+overture_places,overture,oxford,True,2758.0,"restaurant 149, home_service 136, christian_place_of_worship 125, financial_service 104, automotive_service 82, personal_or_beauty_service 81",,,,,,,,0,0,2026-11-12
+osm_destinations,osm_destinations,cincinnati,True,5054.0,"culture 1,780, trail 1,525, park 856, recreation 583, restroom 310",,,,,2170.0,"surface 941, access 306, lit 142, trail_visibility 122, opening_hours 120",,0,0,2026-11-12
+osm_destinations,osm_destinations,oxford,True,285.0,"trail 109, culture 86, park 56, recreation 20, restroom 14",,,,,71.0,"surface 27, wheelchair 9, incline 8, crossing 5, access 5",,0,0,2026-11-12
+web_venues_cincinnati,web,cincinnati,True,,,7.0,17.0,1.0,126152.0,98.0,"accessible_route_inside 13, restroom_accessible 9, elevator 9, wheelchair_loan 8, accessible_parking 6",20.0,20,0,2026-11-12
+web_venues_oxford,web,oxford,True,,,55.0,12.0,12.0,438248.0,10.0,"accessible_lodging 3, entrance_step_free 2, trail_surface 1, adaptive_recreation 1, accessibility_map 1",3.0,114,0,2026-11-12
+web_trails_oxford,web,oxford,True,,,9.0,0.0,20.0,44281.0,,,,1,45,2026-11-12
+web_trails_cincinnati,web,cincinnati,True,,,7.0,6.0,1.0,122500.0,,,,1,20,2026-11-12
+web_programs_cincinnati,web,cincinnati,True,,,7.0,0.0,0.0,41665.0,3.0,adaptive_recreation 3,2.0,1,0,2026-11-12
+web_access_platforms,web,cincinnati,True,,,1.0,0.0,0.0,8857.0,,,,0,0,2026-11-12
+web_access_platforms,web,oxford,True,,,1.0,0.0,0.0,8857.0,,,,0,0,2026-11-12
+events_ical_cincinnati,events_ical,cincinnati,True,30.0,events; 29 upcoming,,,,,,,,0,0,2026-11-12
+web_parks_cincinnati,web,cincinnati,True,,,3.0,1.0,2.0,178192.0,4.0,"adaptive_recreation 3, accessibility_contact 1",1.0,0,0,2026-11-12
+events_ical_oxford,events_ical,oxford,True,816.0,events; 408 upcoming,,,,,,,,0,0,2026-11-12
+web_gov_oxford_rendered,web,oxford,True,,,1.0,2.0,0.0,15246.0,,,,0,0,2026-11-12
+web_metroparks,web,oxford,True,,,2.0,4.0,12.0,57547.0,7.0,"all_terrain_chair 4, accessibility_contact 1, mobility_device_policy 1, trail_surface 1",2.0,0,0,2026-11-12
+events_cincy_parks,mura_calendar,cincinnati,True,264.0,events; 264 upcoming,,,,,,,,0,0,2026-11-12
+web_parks_cincinnati_city,web,cincinnati,True,,,9.0,0.0,0.0,47809.0,11.0,"accessible_route_inside 5, adaptive_recreation 2, accessible_seating 1, elevator 1, restroom_accessible 1",8.0,0,0,2026-11-12

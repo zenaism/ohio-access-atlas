@@ -1,0 +1,404 @@
+# ruff: noqa: E501  (verbatim source quotes are long by nature)
+"""Venue accessibility facts read from the saved venue documents (first batch, 2026-11-11).
+
+Read by Claude in a Claude Code session; every fact quotes its source verbatim. Run this file to
+validate the quotes against data/processed/*/web_venues_*.docs.parquet and write
+data/extracted/venue_facts.jsonl. A fact whose quote is not found is reported and dropped.
+
+Row: (place, attribute, value, detail, quote, doc_id[, confidence])
+"""
+from __future__ import annotations
+
+import glob
+import json
+import re
+from pathlib import Path
+
+import pandas as pd
+import yaml
+
+ROOT = Path(__file__).resolve().parents[1]
+CMC, CMC_CHM, CMC_MNHS, CMC_TCM = ("web_venues_cincinnati:8df6c58df630", "web_venues_cincinnati:96c0f1d95ca1",
+                                   "web_venues_cincinnati:7e540075700a", "web_venues_cincinnati:17a4839e1c98")
+CMC_OTHER, CMC_RR = "web_venues_cincinnati:2c69bf79203a", "web_venues_cincinnati:ea20303d8077"
+CAM, CAM_GUIDE, CAM_NARR = ("web_venues_cincinnati:e47a91d55b40", "web_venues_cincinnati:078964d39074",
+                            "web_venues_cincinnati:fb7f2a37f676")
+TAFT, TAFT_GUIDE = "web_venues_cincinnati:973c7f535d4d", "web_venues_cincinnati:6a78891cf9be"
+NPS, VC, BLINK = ("web_venues_cincinnati:a1e7e6d69ed7", "web_venues_cincinnati:51e60d3e8e87",
+                  "web_venues_cincinnati:4a0ce8b15afa")
+TBC = "web_venues_oxford:925cf0f9327c"
+MPBC, GRIT, OPDMD = "web_metroparks:0ec74aff1793", "web_metroparks:9922fc9dba79", "web_metroparks:fafeef489f92"
+HWL, HWL_ROOMS, HWL_CABINS = ("web_venues_oxford:7cde7488113a", "web_venues_oxford:771524328e8c",
+                              "web_venues_oxford:2a39cfe88f71")
+GP, GP_PLAY = "web_parks_cincinnati:7a567ae634cb", "web_parks_cincinnati:2021aec48344"
+SDS, SDS_PARK = "web_venues_oxford:1151301aec3a", "web_venues_oxford:f9eec670ef1c"
+FRMP = "web_metroparks:0acc2a7ede06"
+CP_TOP10, CP_TREE, CP_ACC = ("web_parks_cincinnati_city:135aba2c04d1", "web_parks_cincinnati_city:17461d1e2d1f",
+                             "web_parks_cincinnati_city:264ecdcdadf9")
+BRIDGE, UCAA = "web_programs_cincinnati:aea761ad0028", "web_programs_cincinnati:75b4e5074c3e"
+
+PLACES = {  # place -> (region, address, kind); addresses from the same documents where given
+    "Cincinnati Museum Center": ("cincinnati", "1301 Western Ave, Cincinnati, OH 45203", "museum"),
+    "Cincinnati Art Museum": ("cincinnati", "953 Eden Park Drive, Cincinnati, OH 45202", "museum"),
+    "Taft Museum of Art": ("cincinnati", "316 Pike St, Cincinnati, OH 45202", "museum"),
+    "William Howard Taft National Historic Site": ("cincinnati", "2038 Auburn Avenue, Cincinnati, OH 45219", "historic_site"),
+    "Great American Ball Park": ("cincinnati", None, "stadium"),
+    "Cincinnati Reds Hall of Fame & Museum": ("cincinnati", None, "museum"),
+    "Kings Island": ("cincinnati", None, "theme_park"),
+    "Cincinnati Zoo & Botanical Garden": ("cincinnati", None, "zoo"),
+    "Newport Aquarium": ("cincinnati", None, "aquarium"),
+    "BB Riverboats": ("cincinnati", None, "attraction"),
+    "Smale Riverfront Park": ("cincinnati", None, "park"),
+    "Carol Ann's Carousel": ("cincinnati", None, "attraction"),
+    "Ohio River paved path (Smale Riverfront Park - Sawyer Point - Friendship Park)": ("cincinnati", None, "trail"),
+    "Everybody's Treehouse, Mt. Airy Forest": ("cincinnati", None, "park"),
+    "Fountain Square": ("cincinnati", None, "public_space"),
+    "Washington Park": ("cincinnati", None, "park"),
+    "Cincinnati Metro buses": ("cincinnati", None, "transit"),
+    "Cincinnati Connector streetcar": ("cincinnati", None, "transit"),
+    "TANK buses (Northern Kentucky)": ("cincinnati", None, "transit"),
+    "BLINK 2026 festival": ("cincinnati", None, "event"),
+    "Oxford Area Trail System": ("oxford", None, "trail"),
+    "MetroParks of Butler County": ("oxford", "2051 Timberman Road, Hamilton, OH 45013", "park_system"),
+    "Hueston Woods Lodge": ("oxford", None, "lodging"),
+    "Great Parks of Hamilton County": ("cincinnati", None, "park_system"),
+    "Miami University Oxford campus": ("oxford", None, "campus"),
+    "Five Rivers MetroParks paved trail network (Dayton)": ("oxford", None, "trail"),
+    "Cincinnati Parks (city park system)": ("cincinnati", None, "park_system"),
+    "Bettman Sensory Garden and Pathway": ("cincinnati", None, "park"),
+    "Krohn Conservatory": ("cincinnati", None, "garden"),
+    "Seasongood Pavilion, Eden Park": ("cincinnati", None, "venue"),
+    "Hyde Park Square": ("cincinnati", None, "park"),
+    "Burnet Woods": ("cincinnati", None, "park"),
+    "The Bridge Adaptive Sports & Recreation": ("cincinnati", None, "organization"),
+    "UC Adaptive Athletics": ("cincinnati", None, "organization"),
+}
+OUT_OF_AREA = {"Five Rivers MetroParks paved trail network (Dayton)"}
+
+FACTS = [
+    # ---- Cincinnati Museum Center (current pages and 2023-2024 amenity PDFs) ----
+    ("Cincinnati Museum Center", "restroom_accessible", "yes", "throughout Union Terminal",
+     "Accessible restrooms are located throughout Union Terminal.", CMC),
+    ("Cincinnati Museum Center", "restroom_family", "yes", "universal single-stall: Concourse, Mezzanine, Lower Level",
+     "Universal, single-stall restrooms are located in the Concourse, on the Mezzanine and on the Lower Level near the Museum of Natural History & Science.", CMC),
+    ("Cincinnati Museum Center", "adult_changing_table", "yes", "3 tables, up to 400 lb, in the universal restrooms",
+     "Adult changing tables (holding up to 400 lb.) are located in universal restrooms in the Concourse, on the Mezzanine and on the Lower Level near the Museum of Natural History & Science.", CMC),
+    ("Cincinnati Museum Center", "elevator", "yes", "Express and East elevators Concourse to Lower Level",
+     "There are now TWO elevators from the Concourse Level to the Lower Level:", CMC_OTHER),
+    ("Cincinnati Museum Center", "accessible_route_inside", "limited", "some galleries only via the East Elevator",
+     "Due to the stairs and escalators, Ruthven, Mallory and Fountain Galleries and the Classrooms can only be accessed by wheelchair and stroller users via the East Elevator.", CMC_OTHER),
+    ("Cincinnati Museum Center", "ramp_steep", "yes", "Cincinnati in Motion gallery, History Museum",
+     "Due to the historic nature of Union Terminal, ramp inclines are steeper than ADA recommendations.", CMC_CHM),
+    ("Cincinnati Museum Center", "accessible_route_inside", "limited", "Shaping Our City gallery: side ramp only",
+     "Wheelchair users need to use the side ramp to access this gallery.", CMC_CHM),
+    ("Cincinnati Museum Center", "accessible_route_inside", "limited", "historic streetcar exhibit",
+     "The streetcar is hard to access for those with mobility concerns.", CMC_CHM),
+    ("Cincinnati Museum Center", "accessible_route_inside", "limited", "Public Landing gallery floor surfaces",
+     "The flooring changes up to four times in this gallery.", CMC_CHM),
+    ("Cincinnati Museum Center", "accessible_route_inside", "yes", "The Cave: Upper Trail for manual wheelchairs",
+     "Upper Trail is wide enough for manual wheelchair users to access and shorter than the Lower Trail", CMC_MNHS),
+    ("Cincinnati Museum Center", "elevator", "yes", "wheelchair lift, Get Into Nature gallery",
+     "There is a wheelchair lift at the end of the ramp to help guests transition from galleries as needed.", CMC_MNHS),
+    ("Cincinnati Museum Center", "accessible_route_inside", "limited", "Ice Age gallery",
+     "Uneven flooring, lots of seating to rest", CMC_MNHS),
+    ("Cincinnati Museum Center", "elevator", "yes", "wheelchair lift to upper level of The Woods, Children's Museum",
+     "There is a wheelchair lift that can be used to help guests access the upper level.", CMC_TCM),
+    ("Cincinnati Museum Center", "accessible_route_inside", "limited", "Construction Zone, Children's Museum",
+     "Note the top of the Turner excavator is only accessible via stairs.", CMC_TCM),
+    ("Cincinnati Museum Center", "automatic_door", "yes", "push-button museum doors",
+     "Push button controls on Museum doors", CMC),
+    ("Cincinnati Museum Center", "wheelchair_loan", "yes", "rental at box office: wheelchair $7, ECV $29, 18+, ID held, cashless",
+     "Wheelchairs and Electronic Convenience Vehicles (ECVs) are available for rental on a first-come, first-served basis from the box office. Wheelchairs are $7. ECVs are $29.", CMC),
+    ("Cincinnati Museum Center", "scooter_or_ecv", "yes", "ECV rental $29",
+     "Wheelchairs and Electronic Convenience Vehicles (ECVs) are available for rental on a first-come, first-served basis from the box office. Wheelchairs are $7. ECVs are $29.", CMC),
+    ("Cincinnati Museum Center", "seating_rest", "yes", "",
+     "Additional seating throughout the museums", CMC),
+    ("Cincinnati Museum Center", "accessible_seating", "yes", "OMNIMAX: wheelchair seating at top of dome, staff help with elevator",
+     "Accessible, wheelchair seating is offered at the top of the OMNIMAX", CMC),
+    ("Cincinnati Museum Center", "companion_admission", "yes", "free caregiver Museum Admission ticket at box office (not OMNIMAX/featured)",
+     "Caregivers, who are visiting the museum for the purpose of providing care to an Individual with Disabilities, will be able to receive a free, complementary Museum Admission ticket.", CMC),
+    ("Cincinnati Museum Center", "captioning", "yes", "OMNIMAX films (most, not all)",
+     "films offer descriptive audio, closed captioning and assisting listening.", CMC),
+    ("Cincinnati Museum Center", "assistive_listening", "yes", "OMNIMAX films (most, not all)",
+     "films offer descriptive audio, closed captioning and assisting listening.", CMC),
+    ("Cincinnati Museum Center", "asl_interpretation", "limited", "Deaf Days with ASL-interpreted tours, at least once per featured exhibit",
+     "Join us for ASL interpreted tours!", CMC),
+    ("Cincinnati Museum Center", "quiet_room", "yes", "4 Quiet Zones",
+     "Quiet zones are located throughout the building", CMC),
+    ("Cincinnati Museum Center", "sensory_friendly", "yes", "quietest time weekday afternoons 3-5 pm",
+     "If you are looking for the quietest time to explore, join us weekday afternoons from 3 to 5 p.m.", CMC),
+    ("Cincinnati Museum Center", "accessibility_map", "yes", "sensory and accessibility maps per museum",
+     "Sensory maps of each Museum and the Featured Exhibit are available", CMC),
+    ("Cincinnati Museum Center", "accessibility_contact", "yes", "accessibility@cincymuseum.org",
+     "Do you have questions or comments about accessibility at CMC? Please contact us at", CMC),
+    ("Cincinnati Museum Center", "service_animals", "yes", "service dogs and miniature horses",
+     "In compliance with the ADA, we only allow Service Dogs and Miniature Horses.", CMC),
+    ("Cincinnati Museum Center", "accessible_parking", "yes", "20 spaces (2016 guide)",
+     "There are 20 parking spots designated just for individuals with officially registered disability decals, and the front entrance is fully accessible at the top of the sloped driveway.", VC),
+    ("Cincinnati Museum Center", "entrance_step_free", "yes", "front entrance at top of sloped driveway (2016 guide)",
+     "There are 20 parking spots designated just for individuals with officially registered disability decals, and the front entrance is fully accessible at the top of the sloped driveway.", VC),
+    ("Cincinnati Museum Center", "wheelchair_loan", "yes", "2016 price, superseded by the museum's current $7",
+     "Wheelchairs can be rented for $10 and $5 will be refunded to you upon return.", VC),
+
+    # ---- Cincinnati Art Museum ----
+    ("Cincinnati Art Museum", "accessible_parking", "yes", "Main Entrance, Dewitt Entrance (ground floor, back lot), near Art Climb; parking free",
+     "Accessible Parking spots are located outside the Main Entrance, the Dewitt Entrance (the ground-floor entrance off the back parking lot), and near Art Climb.", CAM),
+    ("Cincinnati Art Museum", "drop_off", "yes", "roundabout in front of Main Entrance",
+     "Those visitors who cannot walk long distances can be dropped off at the roundabout in front of the Main Entrance.", CAM),
+    ("Cincinnati Art Museum", "restroom_accessible", "yes", "First Floor, northwest corner of Great Hall; Ground Floor has the most",
+     "First Floor Accessible Restroom is located in the northwest corner of the Great Hall. This restroom has a changing table and is accessible for mobility devices.", CAM),
+    ("Cincinnati Art Museum", "adult_changing_table", "yes", "adjustable universal changing station, Ground Floor (adult size implied, not stated)",
+     "There is an adjustable universal changing station and a manual toilet and sink.", CAM, "medium"),
+    ("Cincinnati Art Museum", "restroom_family", "yes", "individual gender-neutral restrooms, Ground Floor; family restroom in Great Hall",
+     "Individual gender-neutral restrooms are also nearby.", CAM),
+    ("Cincinnati Art Museum", "elevator", "yes", "Elevators A-D; A links floors G-2 near Cincinnati Wing",
+     "Elevator A provides visitor access from the first floor near the Cincinnati Wing to the second floor near Gallery 214.", CAM),
+    ("Cincinnati Art Museum", "wheelchair_loan", "yes", "free, no reservation, coat rooms",
+     "Wheelchairs and Strollers are available to borrow for free without reservations in the coat rooms near the Main and Dewitt Entrances.", CAM),
+    ("Cincinnati Art Museum", "seating_rest", "yes", "",
+     "Benches are located throughout the museum.", CAM),
+    ("Cincinnati Art Museum", "quiet_room", "yes", "Ground Floor across from coat room; Gallery 116 semi-private",
+     "There is a designated private quiet space on the Ground Floor across from the coat room.", CAM),
+    ("Cincinnati Art Museum", "asl_interpretation", "yes", "all public programs, on request",
+     "American Sign Language (ASL) interpretation is available for all public programs.", CAM),
+    ("Cincinnati Art Museum", "captioning", "limited", "CART for select programs, 2 weeks notice",
+     "Communication Access Realtime Translation (CART) captioning is available for select programming.", CAM),
+    ("Cincinnati Art Museum", "assistive_listening", "yes", "Fath Auditorium programs",
+     "Assisted Listening Devices are available for visitors upon request at the check-in table for programs held in the Fath Auditorium.", CAM),
+    ("Cincinnati Art Museum", "accessibility_map", "yes", "Large Print Accessibility Guide",
+     "The Accessibility Guide is a large print map which identifies visual rules, loud and quiet areas, seating, low light, and natural light spaces.", CAM),
+    ("Cincinnati Art Museum", "accessibility_contact", "yes", "access@cincyart.org",
+     "Contact access@cincyart.org with feedback or questions about accessibility at the Cincinnati Art Museum.", CAM_GUIDE),
+    ("Cincinnati Art Museum", "accessible_route_inside", "limited", "outdoors: Art Climb, sensory garden, sculptures",
+     "Not all spaces are accessible by mobility devices.", CAM_NARR),
+    ("Cincinnati Art Museum", "accessible_route_inside", "yes", "Art Climb has three accessible platforms via pedestrian pathway",
+     "Art Climb includes three accessible platforms reached via pedestrian pathway and identified on the Area Map.", CAM),
+    ("Cincinnati Art Museum", "service_animals", "yes", "",
+     "Service Dogs as defined by the Americans with Disabilities Act (ADA), are welcome in the museum.", CAM),
+
+    # ---- Taft Museum of Art ----
+    ("Taft Museum of Art", "wheelchair_loan", "yes", "ask Visitor Experience team at admissions",
+     "The museum is accessible to visitors with limited mobility, by providing wheelchairs, elevators and lifts, restrooms, parking, and ramps.", TAFT),
+    ("Taft Museum of Art", "elevator", "yes", "elevators and lifts; lift needs staff assistance",
+     "If you need a wheelchair or assistance with a lift, ask the Visitor Experience team at admissions.", TAFT),
+    ("Taft Museum of Art", "elevator", "yes", "visitor guide map legend",
+     "Wheelchair Accessible Lift (please ask for assistance)", TAFT_GUIDE),
+    ("Taft Museum of Art", "restroom_accessible", "yes", "listed among mobility provisions",
+     "The museum is accessible to visitors with limited mobility, by providing wheelchairs, elevators and lifts, restrooms, parking, and ramps.", TAFT),
+    ("Taft Museum of Art", "accessible_parking", "limited", "limited free on-site garage during museum hours; accessible spaces not detailed",
+     "The Taft offers limited, free on-site parking for guests visiting the museum, the Museum Shop, and the", TAFT, "medium"),
+    ("Taft Museum of Art", "quiet_room", "yes", "",
+     "The Taft also offers sensory accommodations including a quiet room, noise-reducing headphones, and braille and large-print materials", TAFT),
+    ("Taft Museum of Art", "sensory_friendly", "yes", "KultureCity Sensory Inclusive certified",
+     "The Taft Museum of Art is Cincinnati’s first Sensory Inclusive™ certified museum.", TAFT),
+    ("Taft Museum of Art", "accessibility_contact", "yes", "accessibility@taftmuseum.org",
+     "Contact accessibility@taftmuseum.org", TAFT),
+
+    # ---- William Howard Taft National Historic Site (NPS, updated 2024-09-10) ----
+    ("William Howard Taft National Historic Site", "accessible_parking", "yes", "2 front + 2 rear spaces listed on the accessibility page",
+     "Parking: Two spaces available in front parking lot, 2 parking spaces available in rear lot.", NPS, "medium"),
+    ("William Howard Taft National Historic Site", "automatic_door", "no", "Education Center front doors manual, open outward",
+     "Entrance: Front doors to education center open outwards, manually operated.", NPS),
+    ("William Howard Taft National Historic Site", "entrance_step_free", "yes", "curb ramp to Education Center on Auburn Ave",
+     "Curb ramp accessibility to the Education Center, up front on Auburn Ave.", NPS),
+    ("William Howard Taft National Historic Site", "entrance_step_free", "yes", "Taft House: basement door, north side",
+     "Accessibility entrance: basement door on north side of house.", NPS),
+    ("William Howard Taft National Historic Site", "trail_surface", "limited", "site paths paved and pebble-covered, gradual incline",
+     "Trails: Paved and pebble-covered from parking lot areas leading to education center and house, gradual incline towards buildings.", NPS),
+    ("William Howard Taft National Historic Site", "restroom_accessible", "yes", "Education Center men's and women's",
+     "Restrooms: Men's and Women's both wheelchair accessible with wall-mounted baby changing stations in both.", NPS),
+    ("William Howard Taft National Historic Site", "restroom_accessible", "yes", "Taft House basement",
+     "Restrooms: basement restroom is wheelchair accessible.", NPS),
+    ("William Howard Taft National Historic Site", "elevator", "yes", "Taft House, basement, north side",
+     "Elevator: on basement floor in house (north side of house).", NPS),
+    ("William Howard Taft National Historic Site", "accessible_route_inside", "yes", "exhibits viewable from a wheelchair",
+     "Exhibits: Artifacts on display in glass cases, visually and physically available from a wheelchair.", NPS),
+    ("William Howard Taft National Historic Site", "assistive_listening", "yes", "",
+     "Assistive listening devices available.", NPS),
+    ("William Howard Taft National Historic Site", "seating_rest", "yes", "outside the Education Center",
+     "Benches : Provided around the outside of education center building.", NPS),
+
+    # ---- Visit Cincy accessibility guide (published 2016-01-29; dated, confirm before relying) ----
+    ("Great American Ball Park", "accessible_parking", "yes", "",
+     "With accessible parking, an accessible pickup and drop-off zone, elevators, and wheelchair accessible seats, watching the game is a breeze.", VC),
+    ("Great American Ball Park", "drop_off", "yes", "",
+     "With accessible parking, an accessible pickup and drop-off zone, elevators, and wheelchair accessible seats, watching the game is a breeze.", VC),
+    ("Great American Ball Park", "elevator", "yes", "",
+     "With accessible parking, an accessible pickup and drop-off zone, elevators, and wheelchair accessible seats, watching the game is a breeze.", VC),
+    ("Great American Ball Park", "accessible_seating", "yes", "most accessible seats have electrical outlets; escorts to seats",
+     "With accessible parking, an accessible pickup and drop-off zone, elevators, and wheelchair accessible seats, watching the game is a breeze.", VC),
+    ("Cincinnati Reds Hall of Fame & Museum", "entrance_step_free", "yes", "'fully accessible'",
+     "The building is fully accessible and offers free wheelchair rental.", VC),
+    ("Cincinnati Reds Hall of Fame & Museum", "wheelchair_loan", "yes", "free",
+     "The building is fully accessible and offers free wheelchair rental.", VC),
+    ("Kings Island", "wheelchair_loan", "yes", "Guest Services; Rider Safety Guide; Boarding Pass Program",
+     "They have many resources including wheelchair and electric convenience vehicle rentals plus a Rider Safety Guide", VC),
+    ("Kings Island", "scooter_or_ecv", "yes", "Guest Services",
+     "They have many resources including wheelchair and electric convenience vehicle rentals plus a Rider Safety Guide", VC),
+    ("Cincinnati Zoo & Botanical Garden", "accessible_route_inside", "limited", "main paths yes; Jungle Trails rough terrain",
+     "All of the main paths at the zoo are wheelchair accessible, though you may want to steer clear of the Jungle Trails as they have a bit of rough terrain.", VC),
+    ("Cincinnati Zoo & Botanical Garden", "wheelchair_loan", "yes", "wheelchair $10; ECV $30 reserved day before (2016 prices)",
+     "Wheelchairs can be rented for $10 the day of your visit or reserve an electric convenience vehicle for $30 the day prior to your visit.", VC),
+    ("Cincinnati Zoo & Botanical Garden", "scooter_or_ecv", "yes", "ECV $30, reserve the day before (2016 price)",
+     "Wheelchairs can be rented for $10 the day of your visit or reserve an electric convenience vehicle for $30 the day prior to your visit.", VC),
+    ("Newport Aquarium", "wheelchair_loan", "yes", "free",
+     "The aquarium also offers full accessibility and free wheelchair rental.", VC),
+    ("Newport Aquarium", "entrance_step_free", "yes", "'full accessibility'",
+     "The aquarium also offers full accessibility and free wheelchair rental.", VC),
+    ("BB Riverboats", "entrance_step_free", "yes", "ramps onto first deck of both boats",
+     "There are ramps that lead onto the first deck of both boats in the fleet.", VC),
+    ("BB Riverboats", "elevator", "limited", "Belle of Cincinnati only, to decks 2 and 3",
+     "The larger of the two, the Belle of Cincinnati, even has an elevator to the second and third decks", VC),
+    ("BB Riverboats", "restroom_accessible", "yes", "Belle of Cincinnati and River Queen",
+     "Both the Belle of Cincinnati and the River Queen are equipped with accessible restrooms.", VC),
+    ("Smale Riverfront Park", "accessible_route_inside", "yes", "labyrinth wide enough for wheelchairs",
+     "it’s wide enough for wheelchairs.", VC),
+    ("Carol Ann's Carousel", "accessible_seating", "yes", "two wheelchair chariots",
+     "thanks to its two chariots that can accommodate wheelchairs", VC),
+    ("Ohio River paved path (Smale Riverfront Park - Sawyer Point - Friendship Park)", "trail_surface", "yes", "paved, nearly 2 miles",
+     "enjoy the river views along the nearly two miles of paved pathway connecting Smale Riverfront Park,", VC),
+    ("Everybody's Treehouse, Mt. Airy Forest", "accessible_route_inside", "yes", "described as Ohio's only wheelchair accessible treehouse",
+     "This urban forest is home to Everybody’s Treehouse, Ohio’s only wheelchair accessible treehouse.", VC),
+    ("Fountain Square", "restroom_accessible", "yes", "also underground parking",
+     "Both have easily accessible restrooms, underground parking, and host free events nearly every night of the week late spring through early fall.", VC),
+    ("Washington Park", "restroom_accessible", "yes", "also underground parking",
+     "Both have easily accessible restrooms, underground parking, and host free events nearly every night of the week late spring through early fall.", VC),
+    ("Cincinnati Metro buses", "transit_access", "yes", "low-floor, ramps or lifts, two securement areas",
+     "The buses in Cincinnati's Metro fleet are low-floor models that provide easy wheelchair access via ramps or wheelchair lifts plus two securement areas for wheelchairs.", VC),
+    ("Cincinnati Connector streetcar", "transit_access", "yes", "wheelchair areas; ramp at each station",
+     "The Cincinnati Bell Connector streetcar has areas designated for wheelchairs and each station has a ramp.", VC),
+    ("TANK buses (Northern Kentucky)", "transit_access", "yes", "incl. Southbank Shuttle",
+     "TANK buses are all wheelchair accessible", VC),
+
+    # ---- BLINK 2026 (festival, October 2026; facts describe that edition) ----
+    ("BLINK 2026 festival", "drop_off", "yes", "Findlay & Race, Findlay & Central Pkwy, E 8th & Walnut, Elm & E Freedom Way; placard required",
+     "There are several Accessible Drop-Off and Pick-Up locations throughout the entire festival.", BLINK),
+    ("BLINK 2026 festival", "restroom_accessible", "yes", "portable accessible restrooms on routes + Oasis Stations (CAC, Music Hall, Main Library, Children's Theatre, Aronoff)",
+     "There will be accessible restrooms that are located at the Oasis Stations as well, they are:", BLINK),
+    ("BLINK 2026 festival", "accessible_parking", "limited", "placard-only street parking areas 4 pm-midnight; no dedicated lots",
+     "There is no dedicated standard or accessible parking for Blink as it happens across many neighborhoods and street blocks.", BLINK),
+    ("BLINK 2026 festival", "accessibility_contact", "yes", "text B26 to 844-556-6998 during the festival; Holly@allinevents.co before",
+     "If you have questions during Blink, please use our Accessibility Text Support Line: Text “B26” to 844-556-6998.", BLINK),
+    ("BLINK 2026 festival", "accessibility_map", "yes", "zone maps with accessible routes and viewing areas",
+     "Access Program Maps to help you plan your Blink,", BLINK),
+    ("BLINK 2026 festival", "asl_interpretation", "yes", "Ready, Set, Blink! and on request",
+     "ASL Interpreting for Ready, Set, Blink!,", BLINK),
+
+    # ---- Oxford ----
+    ("Oxford Area Trail System", "trail_surface", "yes", "over 7 miles paved (Travel Butler County)",
+     "the Oxford Area Trail System offers over 7 miles of paved trails and scenic routes.", TBC),
+
+    # ---- batch 2 (2026-11-11): park systems, lodge, campus ----
+    ("MetroParks of Butler County", "all_terrain_chair", "yes", "1 adult + 1 child GRIT chair; pick up at Voice of America MetroPark Welcome Center (7850 VOA Park Dr, West Chester Twp), weekdays 8:30-4:30",
+     "MetroParks of Butler County is proud to announce that two new GRIT wheelchairs are now available for public use.", MPBC),
+    ("MetroParks of Butler County", "all_terrain_chair", "yes", "may be used at any park, not only MetroParks",
+     "Users are welcome to take the GRIT chairs to any park; they do not need to stay at Voice of America MetroPark or in the MetroParks system.", MPBC),
+    ("MetroParks of Butler County", "all_terrain_chair", "yes", "reservation free; refundable $75 deposit",
+     "A refundable $75 deposit is required at the time of reservation.", MPBC),
+    ("MetroParks of Butler County", "all_terrain_chair", "yes", "GRIT Spartan: pavement, grass, dirt, primitive trails; seat 20 in, 300 lb limit; user brings helmet",
+     "-This non-motorized chair is designed to be used on pavement, grass, dirt, and primitive hiking trails", GRIT),
+    ("MetroParks of Butler County", "accessibility_contact", "yes", "Accessibility Coordinator, swingate@yourmetroparks.net",
+     "by phone at (513) 867-5835, or by postal mail at MetroParks of Butler County, 2051 Timberman Road, Hamilton, Ohio, 45013.", MPBC),
+    ("MetroParks of Butler County", "mobility_device_policy", "yes", "wheelchairs allowed anywhere open to pedestrians; OPDMD rules by area",
+     "shall be permitted in any areas open to pedestrian use.", OPDMD),
+    ("Hueston Woods Lodge", "entrance_step_free", "yes", "all public areas accessible; curb cuts, ramps, entrances",
+     "All public areas of the hotel are accessible.", HWL),
+    ("Hueston Woods Lodge", "accessible_lodging", "yes", "accessible rooms: doors with 32 in clear width",
+     "Accessible guest rooms with mobility features with entry or passage doors that provide 32” of clear width", HWL),
+    ("Hueston Woods Lodge", "accessible_lodging", "yes", "includes roll-in shower room type",
+     "Choose from ADA Two Queen Rooms, ADA Two Queens with Roll-In Shower, or ADA King Rooms", HWL_ROOMS),
+    ("Hueston Woods Lodge", "accessible_lodging", "yes", "4 accessible 2-bedroom cabins, wheelchair-friendly entrance",
+     "We offer four accessible two-bedroom family cabins for those needing ADA accommodations.", HWL_CABINS),
+    ("Hueston Woods Lodge", "adaptive_recreation", "yes", "accessible swimming pool",
+     "Accessible swimming pool", HWL),
+    ("Great Parks of Hamilton County", "adaptive_recreation", "yes", "accessible canoe/kayak launches with transfer system: Miami Whitewater Forest, Sharon Woods, Winton Woods harbors",
+     "Each launch is a floating dock equipped with a “Universally Accessible Transfer System” that allows an unassisted individual with a physical disability to access a canoe or kayak.", GP),
+    ("Great Parks of Hamilton County", "adaptive_recreation", "yes", "universally accessible playgrounds: Francis RecreAcres, Sharon Woods, Winton Woods - Harper Meadows",
+     "Universally accessible playgrounds are located at:", GP),
+    ("Great Parks of Hamilton County", "adaptive_recreation", "yes", "8 Solo Rider golf carts at 5 courses; reserve by calling the course",
+     "Great Parks has eight Solo Rider golf carts available at the following golf courses:", GP),
+    ("Great Parks of Hamilton County", "accessibility_contact", "yes", "Guest Relations 513-521-7275 (Voice/TDD), 2 weeks notice for program accommodations",
+     "People with disabilities needing special accommodations for the accessibility of programs should contact Guest Relations at 513-521-7275, Voice/TDD.", GP),
+    ("Miami University Oxford campus", "entrance_step_free", "yes", "university statement; accessible-entrance map on Parking & Transportation site",
+     "All of Miami University's academic and administrative buildings and programs are accessible.", SDS, "medium"),
+    ("Miami University Oxford campus", "accessibility_map", "yes", "map of accessible entrances and curb cuts (Parking & Transportation)",
+     "for a map which shows accessible entrances and curb cuts to help navigate campus.", SDS),
+    ("Miami University Oxford campus", "accessible_parking", "yes", "placard + university permit; meters and garage fees still apply",
+     "Students and visitors who require accessible parking are welcome to park on campus with their state issued disability placard.", SDS_PARK),
+    ("Miami University Oxford campus", "transit_access", "yes", "BCRTA accessible buses; BCRTA ADA paratransit",
+     "Miami University partners with Butler County Regional Transit Authority (BCRTA) to provide accessible bus service to all Miami campuses and the surrounding Butler County, Ohio area.", SDS_PARK),
+    ("Five Rivers MetroParks paved trail network (Dayton)", "trail_surface", "yes", "340+ miles paved; outside both areas (day trip)",
+     "They connect trail users with diverse natural experiences on bicycle, foot, skates, wheelchair or strollers", FRMP),
+
+    # ---- batch 3: Cincinnati Parks articles (Top 10 dated July 2020) and adaptive-sport programs ----
+    ("Everybody's Treehouse, Mt. Airy Forest", "accessible_route_inside", "yes", "1,500 sq ft, 14 ft up, 6 side ramps (2020 article)",
+     "The treehouse is 1,500 square feet and 14 feet off the ground with 6 side ramps connected to 12 trees.", CP_TOP10),
+    ("Everybody's Treehouse, Mt. Airy Forest", "accessible_route_inside", "yes", "reopened after renovation (closed January 2024)",
+     "is once again welcoming visitors to explore, play, and connect with nature in a truly one-of-a-kind setting.", CP_TREE),
+    ("Bettman Sensory Garden and Pathway", "accessible_route_inside", "yes", "accessible walkways, overlook, accessible picnic table, raised beds; O'Bryonville",
+     "this historical outdoor space provides a series of accessible walkways, easy access to an overlook, an accessible picnic table and raised planting beds.", CP_TOP10),
+    ("Cincinnati Parks (city park system)", "adaptive_recreation", "yes", "accessible playgrounds: Smale, Westwood Town Hall, Ziegler, Washington, Belleview, Alms (2020)",
+     "New accessible playgrounds were recently constructed at Smale Riverfront Park, Westwood Town Hall Park, Ziegler Park, Washington Park, Belleview Park and Alms Park.", CP_TOP10),
+    ("Krohn Conservatory", "accessible_route_inside", "yes", "long sloped interior walkway to Palm House and waterfall",
+     "features a long sloped interior walkway, which provides universal access to the Palm House and the waterfall.", CP_TOP10),
+    ("Seasongood Pavilion, Eden Park", "accessible_seating", "yes", "ramps to amphitheater seating",
+     "Eden Park’s outdoor amphitheater is accessible with ramps providing access to seating areas that were previously inaccessible on this steeply sloping site.", CP_TOP10),
+    ("Smale Riverfront Park", "elevator", "yes", "several elevators and accessible routes to the river",
+     "The park is served by several elevators and accessible routes to and along the river.", CP_TOP10),
+    ("Hyde Park Square", "accessible_route_inside", "yes", "widened sidewalks and ramps into the raised square (2020)",
+     "This year, sidewalks in the park were widened to make them accessible, connecting to ramps that were formerly added to this raised park in the center of Hyde Park to make the Square accessible.", CP_TOP10),
+    ("Burnet Woods", "adaptive_recreation", "yes", "accessible fishing station at the lake",
+     "An accessible fishing station was created at the lake.", CP_TOP10),
+    ("Cincinnati Parks (city park system)", "restroom_accessible", "limited", "dozens of renovated comfort stations; which ones not listed",
+     "Dozens of Park’s historic “comfort stations” have been renovated to meet accessibility standards.", CP_TOP10),
+    ("Cincinnati Parks (city park system)", "accessibility_contact", "yes", "reasonable accommodation request form; cincy.parks@cincinnati-oh.gov",
+     "Cincinnati Parks is committed to providing a quality experience at all our parks and facilities by providing reasonable accommodations for individuals with disabilities upon request.", CP_ACC),
+    ("The Bridge Adaptive Sports & Recreation", "adaptive_recreation", "yes", "loans used adaptive sports equipment to try before buying",
+     "Lastly, we have a large bank of used adaptive sports equipment that is ready to be loaned out if you would like to try something out.", BRIDGE),
+    ("The Bridge Adaptive Sports & Recreation", "adaptive_recreation", "yes", "free Try-It days (skiing, climbing, indoor sky diving, ...)",
+     "We offer Try-It days throughout the year, which are cost-free opportunities to give a sport or activity.", BRIDGE),
+    ("UC Adaptive Athletics", "adaptive_recreation", "yes", "wheelchair tennis, para track and field; for UC students; AdaptiveAthletics@uc.edu",
+     "The UC Adaptive Athletics Program supports students with physical disabilities by providing competitive sports opportunities that foster personal growth, community, and athletic achievement.", UCAA),
+]
+
+DATES = {VC: "2016-01-29", NPS: "2024-09-10", CMC_CHM: "2023-05-26", CMC_MNHS: "2023-05-26", CMC_TCM: "2023-05-26",
+         CMC_OTHER: "2023-05-26", CMC_RR: "2023-05-26",
+         CP_TOP10: "2020-07-26"}  # Top 10 article: written on the ADA's 30th anniversary
+
+
+def norm(s: str) -> str:
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def main() -> None:
+    docs = pd.concat([pd.read_parquet(f) for f in glob.glob(str(ROOT / "data/processed/*/web_*.docs.parquet"))])
+    text = {r.doc_id: norm(r.text) for r in docs.itertuples()}
+    url = dict(zip(docs.doc_id, docs.url, strict=False))
+    vocab = set(yaml.safe_load((ROOT / "config/attributes.yaml").read_text()))
+    out, bad = [], []
+    for row in FACTS:
+        place, attr, value, detail, quote, doc = row[:6]
+        conf = row[6] if len(row) > 6 else "high"
+        if attr not in vocab or value not in {"yes", "limited", "no", "unknown"} or place not in PLACES:
+            bad.append((place, attr, "bad attribute/value/place"))
+            continue
+        if norm(quote) not in text.get(doc, ""):
+            bad.append((place, attr, f"quote not found in {doc}"))
+            continue
+        region, address, kind = PLACES[place]
+        out.append({"place": place, "place_kind": kind, "address": address, "region": region,
+                    "in_area": place not in OUT_OF_AREA,
+                    "attribute": attr, "value": value, "detail": detail, "evidence_quote": quote,
+                    "doc_id": doc, "url": url[doc], "observed_at": DATES.get(doc),
+                    "confidence": conf, "extracted_by": "claude (Claude Code session)",
+                    "extracted_at": "2026-11-11", "verified_by_human": False})
+    dest = ROOT / "data/extracted/venue_facts.jsonl"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in out))
+    print(f"{len(out)} facts written to {dest.relative_to(ROOT)}; {len(bad)} rejected")
+    for b in bad:
+        print("  REJECTED", b)
+
+
+if __name__ == "__main__":
+    main()

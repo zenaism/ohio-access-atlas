@@ -1,0 +1,33 @@
+{
+  "poster": "Hueston Woods State Park map",
+  "publisher": "Ohio Department of Natural Resources",
+  "revision": "Rev. 11/19 (printed on map)",
+  "pdf_url": "https://dam.assets.ohio.gov/image/upload/ohiodnr.gov/documents/parks/parkmaps/huestonwoodsparkmap.pdf",
+  "local_file": "data/manual/posters/hueston_woods_state_park/hueston_woods_park_map_rev_2019-11.pdf",
+  "address": "6301 Park Office Road, College Corner, Ohio 45003",
+  "phones": {"park_office": "(513) 523-6347", "lodge_and_cabin_reservations": "(513) 664-3500"},
+  "in_area": true,
+  "extraction_method": "poster_vision; PDF rendered at 200 dpi and checked in six full-resolution tiles",
+  "extracted_by": "Claude (Claude Code session), 2026-11-11",
+  "verified_by_human": false,
+  "wheelchair_accessible_symbols": [
+    {"place": "Fishing Pier", "near": "Sugar House, south shore of Acton Lake",
+     "crop": "data/manual/posters/hueston_woods_state_park/crops/fishing_pier_wheelchair_symbol.png"},
+    {"place": "Marina (boat dock)", "near": "west end of Acton Lake",
+     "crop": "data/manual/posters/hueston_woods_state_park/crops/marina_wheelchair_symbol.png"}
+  ],
+  "symbols_count_note": "Only these two wheelchair symbols appear on the map. Latrines are shown at several picnic areas, the swimming beach, Sugar House and Pioneer Farm Museum, but none is marked accessible: treat their accessibility as unknown, not as 'no'.",
+  "trails": ["1 Cedar Falls", "2 Sycamore", "3 Pine Loop/Cabin", "4 Mud Lick", "5 West Shore", "6 Sugar Bush",
+             "7 Blue Heron", "8 Big Woods", "9 Hedge Apple", "10 Indian Mound", "11 Gallion Run", "12 Equisetum Loop"],
+  "trails_note": "All 12 are drawn as hiking trails (dashed); the map gives no surface, width or grade, so wheelchair suitability is unknown. Bridle trails and the American Discovery Trail are also shown.",
+  "picnic_areas": ["A Sycamore Grove", "B Hedgerow", "C Maple Grove", "D Acton Lake", "E Quarry", "F Launch Ramp", "G Four Mile Creek"],
+  "other_features": ["Lodge", "Family and standard cabin areas", "Class A and Class B campgrounds", "Group camp",
+                     "Horseman's camp/day-use area", "Nature Center", "Pioneer Farm Museum", "Swimming beach",
+                     "Dog park", "Disc golf", "Golf course and pro shop", "Mountain bike trailhead", "Bird viewing blind",
+                     "Covered bridge", "Fossil collection areas", "Archery range"],
+  "related_sources": {
+    "lodge_accessibility": "https://www.huestonwoodslodge.com/accessibility",
+    "accessible_cabins": "https://www.huestonwoodslodge.com/cabins/accessible-cabins",
+    "accessible_rooms": "https://www.huestonwoodslodge.com/rooms/accessible-rooms"
+  }
+}

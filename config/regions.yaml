@@ -1,8 +1,12 @@
 # Regions are pinned to OSM boundary relations, never matched by name
 # ("Manhattan" matched Manhattan, KS in the predecessor project).
+# buffer_km: destinations (parks, trails, museums, events) are collected this far outside the
+# city limits; street-level layers stay clipped to the city itself.
 cincinnati:
   name: Cincinnati, Ohio
   osm_relation: 183453   # admin_level=8, wikidata Q43196
+  buffer_km: 25
 oxford:
   name: Oxford, Ohio
   osm_relation: 182574   # admin_level=8, wikidata Q990940 (includes Miami University main campus)
+  buffer_km: 15

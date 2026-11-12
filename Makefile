@@ -1,7 +1,7 @@
 PY := .venv/bin/python
 
 setup:            ## create venv and install
-	python3 -m venv .venv && .venv/bin/pip install -q -e ".[dev,reddit,analysis]"
+	python3 -m venv .venv && .venv/bin/pip install -q -e ".[dev,reddit,analysis,web]" && .venv/bin/python -m playwright install chromium
 
 data:             ## fetch all no-credential sources for all regions
 	$(PY) -m atlas.cli fetch all --region all
@@ -11,6 +11,13 @@ report:           ## coverage + cross-source tables -> data/processed/<region>/r
 
 dem:              ## download USGS 1 m DEM tiles (~3.4 GB) and compute slopes locally
 	$(PY) -m atlas.cli dem --region all && $(PY) -m atlas.cli fetch slope_3dep_local --region all
+
+extract:          ## rebuild data/extracted/* from saved pages (quotes are re-checked every run)
+	$(PY) scripts/venue_facts_2026_11.py && $(PY) scripts/extract_traillink.py && \
+	$(PY) scripts/extract_page_events.py && $(PY) scripts/classify_miami_events.py
+
+inventory:        ## per-source summary -> docs/source_inventory.md + data/source_inventory.csv
+	$(PY) -m atlas.cli inventory
 
 equity:           ## RQ1 analysis -> data/processed/cincinnati/equity_report.md
 	$(PY) -m atlas.cli equity
@@ -24,4 +31,4 @@ test:
 lint:
 	.venv/bin/ruff check src tests
 
-.PHONY: setup data report dem equity figure test lint
+.PHONY: setup data report dem equity extract inventory figure test lint

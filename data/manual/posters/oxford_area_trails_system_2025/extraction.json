@@ -1,0 +1,120 @@
+{
+  "poster": "Future Oxford Area Trails System",
+  "publisher": "Oxford Area Trails (City of Oxford)",
+  "date_produced": "2025-01-21",
+  "image_url": "https://static.wixstatic.com/media/021083_35bff4542f5b4a10af9d886241ce6743~mv2.jpg",
+  "found_on": "https://www.oxfordareatrails.org/visit-the-trails",
+  "raw_file": "data/raw/web/web_trails_oxford/ecb52b45f6aa.jpg",
+  "extraction_method": "poster_vision",
+  "extracted_by": "Claude (Claude Code session), 2026-11-11",
+  "verified_by_human": false,
+  "notes": "Only what the poster shows. It gives no surface, width or grade, so those stay unknown. Segment endpoints are read from labels next to the lines; geometry must come from OSM matching, not from this image.",
+  "segments": [
+    {
+      "phase": 1,
+      "legend_status": "Completed 2017",
+      "color": "purple",
+      "labelled_endpoints": [
+        "Black Covered Bridge",
+        "Leonard Howell Park"
+      ],
+      "confidence": "high"
+    },
+    {
+      "phase": 2,
+      "legend_status": "Completed 2020",
+      "color": "green",
+      "labelled_endpoints": [
+        "Peffer Park",
+        "east end of Spring St / SR 73"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "phase": 3,
+      "legend_status": "Completed 2024",
+      "color": "orange",
+      "labelled_endpoints": [
+        "Leonard Howell Park",
+        "DeWitt Log Homestead"
+      ],
+      "confidence": "high",
+      "note": "phase 3 appears twice on the map; this is the northern piece"
+    },
+    {
+      "phase": 3,
+      "legend_status": "Completed 2024",
+      "color": "orange",
+      "labelled_endpoints": [
+        "Peffer Park",
+        "Talawanda HS"
+      ],
+      "confidence": "high",
+      "note": "southern piece of phase 3"
+    },
+    {
+      "phase": 4,
+      "legend_status": "Completed 2024",
+      "color": "blue",
+      "labelled_endpoints": [
+        "Community Park",
+        "Talawanda MS"
+      ],
+      "confidence": "high",
+      "note": "runs east along Brookville Rd, then south along Oxford Reily Rd (SR 732)"
+    },
+    {
+      "phase": 5,
+      "legend_status": "Estimated Completion 2025-2026",
+      "color": "yellow-orange",
+      "labelled_endpoints": [
+        "Oxford Reily Rd near Talawanda MS",
+        "South Locust Park",
+        "near Talawanda HS"
+      ],
+      "confidence": "medium",
+      "note": "planned on the 2025 poster; current status must be checked"
+    },
+    {
+      "phase": 6,
+      "legend_status": "Estimated Completion TBD",
+      "color": "magenta",
+      "labelled_endpoints": [
+        "Community Park",
+        "Morning Sun Rd / SR 732 (via Hester Rd)"
+      ],
+      "confidence": "medium",
+      "note": "planned, not built as of the poster"
+    }
+  ],
+  "other_layers": {
+    "paved_trails": "gray double lines, e.g. the loop network inside Community Park",
+    "on_street_bike_lanes": "yellow lines on Spring St, McGuffey Ave, Locust St, Chestnut St and Campus Ave area",
+    "sharrows": "black double lines (shown on Fairfield Ave and High St area)"
+  },
+  "places_named": [
+    "Black Covered Bridge",
+    "Leonard Howell Park",
+    "DeWitt Log Homestead",
+    "Peffer Park",
+    "Community Park",
+    "South Locust Park",
+    "Talawanda HS",
+    "Talawanda MS"
+  ],
+  "scale_bar": "1/2 mile",
+  "local_file": "data/manual/posters/oxford_area_trails_system_2025/future_oats_system_map_2025-01-21.jpg",
+  "photo_evidence": [
+    {
+      "url": "https://enjoyoxford.org/wp-content/uploads/2024/10/Oxford-Area-Trails-Phase-3-open.png",
+      "local_file": "data/manual/posters/oxford_area_trails_system_2025/photos/phase3_opening_enjoyoxford_2024-10.png",
+      "segment": "phase 3 (which of its two pieces is not stated)",
+      "observation": "smooth asphalt path, about two bicycles wide, wooden rail fence on one side, gentle grade visible",
+      "supports": {
+        "trail_surface": "paved (asphalt)"
+      },
+      "confidence": "medium",
+      "note": "photo shows one spot only; width and grade not measurable"
+    }
+  ]
+}
