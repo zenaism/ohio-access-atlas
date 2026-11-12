@@ -140,6 +140,7 @@ TEMPLATE = r"""<!DOCTYPE html>
    .leaflet-bottom .leaflet-control-attribution{margin-bottom:64px;font-size:9.5px}
  }
  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+ .note{font-size:.8rem;color:#555;margin:.2rem 0 .6rem} .side-body h4{margin:.8rem 0 .3rem;font-size:.95rem}
 </style></head><body>
 <a class="skip" href="#list-h">Skip to the list of places</a>
 <header>
@@ -309,6 +310,16 @@ function details(it){
   if (evs.length){
     h += `<p><strong>${evs.length} upcoming event${evs.length > 1 ? 's' : ''}</strong></p><ul>`
       + evs.slice(0, 10).map(e => `<li>${esc(e.start.replace('T', ' '))}: <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>${e.accessible_tag ? ' (listed as accessible)' : ''}</li>`).join('') + '</ul>';
+  }
+  if (p.getting_there){
+    const g = p.getting_there, li = [];
+    if (g.bus_stop) li.push(`Nearest bus stop: ${esc(g.bus_stop.name)}, about ${Math.round(g.bus_stop.metres*3.28084/50)*50} feet${g.bus_stop.boarding === '1' ? ' (marked wheelchair boarding)' : ''}`);
+    else li.push('No bus stop within half a mile');
+    li.push(g.steep_sections ? `${g.steep_sections} path section${g.steep_sections > 1 ? 's' : ''} steeper than a ramp (8.33%) within 500 feet; steepest about ${g.steepest_pct}%` : 'No path steeper than a ramp (8.33%) within 500 feet');
+    if (g.stairs) li.push(`${g.stairs} mapped stairway${g.stairs > 1 ? 's' : ''} within 500 feet`);
+    if (g.curb_ramps !== undefined) li.push(`${g.curb_ramps} city-mapped curb ramp${g.curb_ramps !== 1 ? 's' : ''} within 500 feet`);
+    if (g.reports_12m) li.push(`${g.reports_12m} sidewalk or curb problem report${g.reports_12m > 1 ? 's' : ''} to 311 in the past year (${g.reports_open} still open)`);
+    h += '<h4>Getting there</h4><ul>' + li.map(x => `<li>${x}</li>`).join('') + '</ul><p class="note">Slopes are estimated from elevation data, not measured on site.</p>';
   }
   const c = p.contacts || {emails:[], phones:[]};
   if (c.emails.length || c.phones.length)

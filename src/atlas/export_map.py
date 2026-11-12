@@ -559,6 +559,7 @@ def write() -> list[Path]:
         hosts = [f for f in feats if f["properties"]["layer"] != "restroom"]  # events attach to these
         feats += event_features(region, g, matches, hosts, review)
         enrich(feats, g)
+        add_getting_there(feats, region)
         seen: dict[str, int] = {}
         for f in feats:  # same name at the same spot (OSM node + way): keep links unique
             k = f["properties"]["link_id"]
@@ -954,3 +955,109 @@ def tagged_poi_features(region: str, taken: set) -> list:
             }
         )
     return out
+
+
+# ------------------------------------------------------------ getting there ----
+# Nearby conditions around each place, from data already collected. These are counts within a
+# radius, not a route: they tell a wheelchair user what to expect near the door.
+NEAR_M = 150  # about 500 feet
+STEEP = 8.33  # ADA maximum ramp running slope, percent
+
+
+def _metric(gdf):
+    return gdf.to_crs(METRIC) if gdf.crs else gdf.set_crs(WGS84).to_crs(METRIC)
+
+
+def getting_there_layers(region: str) -> dict:
+    d, L = PROCESSED / region, {}
+    gt = "gtfs_metro" if region == "cincinnati" else "gtfs_bcrta"
+    s = gpd.read_parquet(d / f"{gt}.entities.parquet")
+    if "geometry" not in s or s.geometry.isna().all():
+        s = gpd.GeoDataFrame(
+            s, geometry=gpd.points_from_xy(s.stop_lon.astype(float), s.stop_lat.astype(float)), crs=WGS84
+        )
+    L["stops"] = _metric(s[["stop_name", "wheelchair_boarding", "geometry"]].copy())
+    L["feed"] = gt
+    sl = gpd.read_parquet(d / "slope_3dep_local.entities.parquet")
+    L["steep"] = _metric(sl[sl.max_grade > STEEP][["max_grade", "geometry"]])
+    net = gpd.read_parquet(d / "osm.entities.parquet")
+    net = net[net.entity_type == "path_segment"]
+    steps = [net[net.tags.str.contains('"highway": "steps"')][["geometry"]]]
+    if (d / "cagis_public_steps.entities.parquet").exists():
+        steps.append(gpd.read_parquet(d / "cagis_public_steps.entities.parquet")[["geometry"]])
+    L["stairs"] = _metric(gpd.GeoDataFrame(pd.concat(steps, ignore_index=True), crs=WGS84))
+    if (d / "cagis_curb_ramps.entities.parquet").exists():
+        r = gpd.read_parquet(d / "cagis_curb_ramps.entities.parquet")
+        L["ramps"] = _metric(gpd.GeoDataFrame(geometry=r.geometry.representative_point(), crs=r.crs))
+    if (d / "cincy_311.entities.parquet").exists():
+        i = gpd.read_parquet(d / "cincy_311.entities.parquet")
+        since = (pd.Timestamp(TODAY) - pd.Timedelta(days=365)).strftime("%Y-%m-%d")
+        i = i[i.date_created.astype(str) >= since]
+        L["reports"] = _metric(i[["sr_type_desc", "sr_status_flag", "geometry"]])
+    return L
+
+
+def add_getting_there(feats: list, region: str) -> None:
+    L = getting_there_layers(region)
+    for f in feats:
+        p = f["properties"]
+        if p["layer"] == "trail":
+            continue
+        here = gpd.GeoSeries([point(f["geometry"])], crs=WGS84).to_crs(METRIC).iloc[0]
+        zone = here.buffer(NEAR_M)
+        g = {}
+        st = L["stops"]
+        idx = list(st.sindex.query(here.buffer(800)))
+        if idx:
+            c = st.iloc[idx]
+            dist = c.distance(here)
+            best = c.iloc[dist.argmin()]
+            g["bus_stop"] = {
+                "name": best.stop_name,
+                "metres": round(float(dist.min())),
+                "boarding": str(best.wheelchair_boarding),
+            }
+        steep = L["steep"].iloc[list(L["steep"].sindex.query(zone, predicate="intersects"))]
+        g["steep_sections"] = len(steep)
+        g["steepest_pct"] = round(float(steep.max_grade.max()), 1) if len(steep) else None
+        g["stairs"] = len(list(L["stairs"].sindex.query(zone, predicate="intersects")))
+        if "ramps" in L:
+            g["curb_ramps"] = len(list(L["ramps"].sindex.query(zone, predicate="intersects")))
+        if "reports" in L:
+            rep = L["reports"].iloc[list(L["reports"].sindex.query(zone, predicate="intersects"))]
+            g["reports_12m"] = len(rep)
+            g["reports_open"] = int((rep.sr_status_flag == "OPEN").sum())
+        parts = []
+        if "bus_stop" in g:
+            b = g["bus_stop"]
+            ft = round(b["metres"] * 3.28084 / 50) * 50
+            note = (
+                " (feed marks wheelchair boarding)"
+                if b["boarding"] == "1"
+                else " (2019 schedule data, no accessibility field)"
+                if L["feed"] == "gtfs_bcrta"
+                else ""
+            )
+            parts.append(f"nearest bus stop {b['name']}, about {ft} ft{note}")
+        else:
+            parts.append("no bus stop within half a mile")
+        if g["steep_sections"]:
+            parts.append(
+                f"{g['steep_sections']} path section{'s' if g['steep_sections'] > 1 else ''} steeper than "
+                f"8.33% within 500 ft (steepest {g['steepest_pct']}%, estimated from elevation data)"
+            )
+        else:
+            parts.append("no path section steeper than 8.33% within 500 ft (estimated from elevation data)")
+        if g["stairs"]:
+            parts.append(f"{g['stairs']} mapped stairway{'s' if g['stairs'] > 1 else ''} within 500 ft")
+        if "curb_ramps" in g:
+            parts.append(
+                f"{g['curb_ramps']} city-mapped curb ramp{'s' if g['curb_ramps'] != 1 else ''} within 500 ft"
+            )
+        if g.get("reports_12m"):
+            parts.append(
+                f"{g['reports_12m']} sidewalk or curb problem report{'s' if g['reports_12m'] > 1 else ''} "
+                f"to 311 nearby in the past year ({g['reports_open']} still open)"
+            )
+        g["text"] = "Getting there: " + "; ".join(parts) + "."
+        p["getting_there"] = g
