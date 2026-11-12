@@ -14,7 +14,7 @@ A Miami University research project.
 
 ## What it is
 
-- **A map and a list** of about 600 places (museums, theatres, parks, trails, campus buildings, restrooms, restaurants, events) saying what is known about step-free entrances, restrooms, elevators, seating, braille, audio description and more, with **how to get there** from the nearest bus stop.
+- **A map and a list** of about 650 places (museums, theatres, parks, trails, campus buildings, restrooms, restaurants, events) saying what is known about step-free entrances, restrooms, elevators, seating, braille, audio description and more, with **how to get there** from the nearest bus stop.
 - **Every fact has a source.** Facts read from venue websites keep a word-for-word quote and a link; anything computed (slopes, distances) is labelled as computed. Places with no information say so: unknown does not mean inaccessible.
 - **A data layer for a planned assistant** that answers questions from wheelchair users and blind users with evidence, and says "I don't know" when the data is missing.
 
@@ -24,9 +24,10 @@ A Miami University research project.
 |---|---|--:|
 | Places, paths, crossings, kerbs, entrances, accessibility tags | [OpenStreetMap](https://www.openstreetmap.org/) | 48,000 features |
 | Business and place names | [Overture Maps](https://overturemaps.org/) | 95,600 places |
-| Venue accessibility (entrances, restrooms, elevators, braille, audio description…) | Venue and agency websites, PDFs and guides | 192 quoted facts, 41 venues |
-| Trails | TrailLink, park sites, trail posters read by hand | 47 trails, 3 posters |
-| Events, incl. accessible and disability-focused | Cincinnati Parks, Miami University and other calendars | ~700 upcoming |
+| Oxford restaurants listed wheelchair accessible (self-reported) | [Enjoy Oxford](https://enjoyoxford.org/) directory | 43 restaurants |
+| Venue accessibility (entrances, restrooms, elevators, braille, audio description…) | Venue and agency websites, PDFs and guides | 242 quoted facts, 59 venues |
+| Trails, campus entrance and park maps | TrailLink, park sites, posters and maps read by hand | 47 trails, 5 posters/maps |
+| Events, incl. accessible and disability-focused | Cincinnati Parks, Miami University, theatres and other calendars | ~700 upcoming, 31 audio-described / ASL / sensory-friendly shows |
 | Path steepness | [USGS 3DEP elevation](https://www.usgs.gov/3d-elevation-program) | 23,900 path sections |
 | Curb ramps, sidewalks, public stairs, signals (Cincinnati) | [CAGIS](https://cagisonline.hamilton-co.org/) | 241,000 records |
 | Sidewalk, curb and signal problem reports (Cincinnati) | [Cincinnati 311](https://data.cincinnati-oh.gov/) | 24,600 reports |
