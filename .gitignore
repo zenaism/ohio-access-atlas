@@ -18,3 +18,4 @@ data/dem/*.part
 # Personal editor / notes app settings
 .obsidian/
 .vscode/
+data/kb/

@@ -20,6 +20,12 @@ extract:          ## rebuild data/extracted/* from saved pages (quotes are re-ch
 refresh:          ## weekly: re-fetch calendars + theatre schedules, rebuild, commit map/data, push (NO_PUSH=1 to test)
 	scripts/refresh.sh
 
+kb:               ## assistant knowledge base (DuckDB) from the map data -> data/kb/atlas.duckdb
+	$(PY) -m atlas.assistant.kb
+
+eval:             ## tools-only run of the question bank -> eval/results/tools_baseline.md
+	$(PY) scripts/eval_tools.py
+
 map:              ## GeoJSON per region, the two maps, text page per place, review.csv
 	$(PY) -m atlas.cli map
 
@@ -38,4 +44,4 @@ test:
 lint:
 	.venv/bin/ruff check src tests
 
-.PHONY: setup data report dem equity extract map inventory figure test lint
+.PHONY: setup data report dem equity extract map inventory figure test lint refresh kb eval

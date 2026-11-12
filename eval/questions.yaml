@@ -1,0 +1,264 @@
+# Question bank (from the plan doc), in the words a wheelchair user, blind user or companion might use.
+#
+# call:         the tool call a good assistant would make first (scripts/eval_tools.py runs it)
+# expect_any:   at least one of these names must appear in the top 5 results (a "hit")
+# expect_unknown: the data does not hold the answer yet; the assistant must say "not known"
+#                 and `gap` says what data is missing
+# Locations used for "near me": Fountain Square 39.1016,-84.5126; Uptown Oxford 39.5103,-84.7425.
+
+- id: restroom-near-me
+  category: restrooms
+  question: Where's the closest wheelchair accessible bathroom to me right now? (at Fountain Square)
+  call: {tool: nearest, args: {lat: 39.1016, lon: -84.5126, need: accessible_restroom, max_miles: 1}}
+  expect_any: [Aronoff Center for the Arts, Contemporary Arts Center, Taft Museum of Art, Restroom near Lytle Park]
+- id: changing-table-downtown
+  category: restrooms
+  question: Is there a bathroom with an adult changing table anywhere downtown?
+  call: {tool: nearest, args: {lat: 39.1016, lon: -84.5126, need: adult_changing_table, max_miles: 2}}
+  expect_any: [Cincinnati Museum Center]
+- id: findlay-restroom
+  category: restrooms
+  question: Does Findlay Market have an accessible restroom?
+  call: {tool: search_places, args: {query: Findlay Market, region: cincinnati}}
+  expect_unknown: true
+  gap: Findlay Market's own accessibility page is not collected; OSM restroom near it has no wheelchair tag
+- id: smale-restroom
+  category: restrooms
+  question: I'm at Smale Park. Where can I use the bathroom?
+  call: {tool: get_place, args: {name_or_id: Smale Riverfront Park}}
+  expect_any: [Smale Riverfront Park]
+  note: the park record has restroom-related facts only indirectly; nearby restrooms come from nearest()
+- id: oxford-restroom-late
+  category: restrooms
+  question: Are there accessible restrooms in Uptown Oxford open after 9 pm?
+  call: {tool: nearest, args: {lat: 39.5103, lon: -84.7425, need: accessible_restroom, max_miles: 1}}
+  expect_unknown: true
+  gap: no Uptown public restroom with wheelchair and opening-hours data; restaurant listings do not say
+
+- id: otr-coffee
+  category: food
+  question: Find me a coffee shop in OTR with no steps at the door.
+  call: {tool: nearest, args: {lat: 39.1140, lon: -84.5150, need: listed_wheelchair_accessible, place_type: food_drink, max_miles: 0.7}}
+  expect_any: [Ché, Taglio, MECCA, Alice, Fifty Fifty Gin Club]
+  note: OSM wheelchair=yes is the only signal; it is not specific to coffee or to the door
+- id: oxford-restaurant-bathroom
+  category: food
+  question: Which restaurants in Oxford have an accessible bathroom too?
+  call: {tool: search_places, args: {region: oxford, place_type: food_drink, need: accessible_restroom}}
+  expect_unknown: true
+  gap: Enjoy Oxford tags say "wheelchair accessible" with no restroom detail
+- id: northside-brewery
+  category: food
+  question: Is there a brewery with a ramp and outdoor seating near Northside?
+  call: {tool: search_places, args: {query: brewery, region: cincinnati}}
+  expect_unknown: true
+  gap: no ramp or patio data for breweries
+- id: skyline-ludlow
+  category: food
+  question: Can I get my power chair into Skyline on Ludlow?
+  call: {tool: search_places, args: {query: Skyline Ludlow, region: cincinnati}}
+  expect_unknown: true
+  gap: that Skyline is not in the data (the only Skyline is in Oxford); needs addresses or Google Places
+- id: otr-birthday
+  category: food
+  question: Somewhere for a birthday dinner for 8, one person uses a wheelchair, Over-the-Rhine.
+  call: {tool: nearest, args: {lat: 39.1140, lon: -84.5150, need: listed_wheelchair_accessible, place_type: food_drink, max_miles: 0.7}}
+  expect_any: [Taglio, MECCA, Alice, Ché]
+  note: party size and table type are not in the data
+
+- id: union-terminal-sidewalk
+  category: getting there
+  question: Is the sidewalk from Union Terminal to the bus stop OK for a wheelchair?
+  call: {tool: get_place, args: {name_or_id: Cincinnati Museum Center}}
+  expect_any: [Cincinnati Museum Center]
+  note: answer from getting_there (nearest stop, steep sections, stairs, curb ramps), not a route
+- id: mt-adams-steep
+  category: getting there
+  question: Is Mt. Adams too steep to roll around?
+  call: {tool: search_places, args: {query: Mount Adams, region: cincinnati}}
+  expect_unknown: true
+  gap: slope data exists per path, but there is no neighborhood-level tool yet
+- id: bus-to-zoo
+  category: getting there
+  question: Which bus goes from downtown to the zoo and can I get on it with my chair?
+  call: {tool: get_place, args: {name_or_id: Cincinnati Zoo & Botanical Garden}}
+  expect_any: [Cincinnati Zoo & Botanical Garden]
+  note: gives nearest stop only; route numbers need a transit tool (GTFS routes are not in the kb)
+- id: gabp-parking
+  category: getting there
+  question: Where's accessible parking near Great American Ball Park?
+  call: {tool: get_place, args: {name_or_id: Great American Ball Park}}
+  expect_any: [Great American Ball Park]
+- id: high-street-ramps
+  category: getting there
+  question: Are there curb ramps on High Street in Oxford?
+  call: {tool: search_places, args: {query: High Street, region: oxford}}
+  expect_unknown: true
+  gap: no curb-ramp inventory for Oxford (CAGIS covers Hamilton County only); 2025 city claim of "every curb" is not place-level
+- id: fountain-square-closures
+  category: getting there
+  question: Any sidewalk closures or construction near Fountain Square this week?
+  call: {tool: nearest, args: {lat: 39.1016, lon: -84.5126, max_miles: 0.2}}
+  expect_unknown: true
+  gap: no closure feed; 311 reports are counted per place but not listed
+- id: metro-access
+  category: getting there
+  question: How do I sign up for Metro Access paratransit?
+  call: {tool: search_places, args: {query: paratransit}}
+  expect_unknown: true
+  gap: Metro Access (Cincinnati) program page not collected; only BCRTA paratransit (Oxford) via the Miami campus record
+
+- id: paved-trails-cincinnati
+  category: trails
+  question: What are some paved trails near Cincinnati I can do in a wheelchair?
+  call: {tool: search_places, args: {region: cincinnati, place_type: trail}}
+  expect_any: [Little Miami Scenic Trail, Mill Creek Greenway Trail, Armleder Park Trail, Murray Path, Creekside Trail]
+- id: oxford-flat-trail
+  category: trails
+  question: Is any trail in Oxford flat enough for a manual chair?
+  call: {tool: search_places, args: {region: oxford, need: accessible_path}}
+  expect_any: [Oxford Area Trails (OATS), Miami University portion, Peffer Park, Helen S. Ruder Preserve]
+  note: paved is known; grade along the trail is not summarised yet
+- id: sharon-woods-loop
+  category: trails
+  question: How long is the paved loop at Sharon Woods and is there a bathroom at the start?
+  call: {tool: search_places, args: {query: Sharon Woods}}
+  expect_any: [Sharon Woods Loop Trail, Sharon Woods]
+- id: waterfall
+  category: trails
+  question: Where can I see a waterfall without stairs?
+  call: {tool: search_places, args: {query: waterfall}}
+  expect_unknown: true
+  gap: no waterfall viewpoints with access data
+- id: treehouse
+  category: trails
+  question: Is Everybody's Treehouse really wheelchair accessible?
+  call: {tool: get_place, args: {name_or_id: Everybody's Treehouse}}
+  expect_any: [Everybody's Treehouse, Mt. Airy Forest]
+- id: hueston-woods
+  category: trails
+  question: Is Hueston Woods good for someone in a wheelchair? Which parts?
+  call: {tool: search_places, args: {query: Hueston Woods, region: oxford}}
+  expect_any: [Hueston Woods Lodge, Hueston Woods Marina]
+- id: all-terrain-chair
+  category: trails
+  question: Can I borrow an all-terrain wheelchair at any park around here?
+  call: {tool: search_places, args: {need: all_terrain_chair}}
+  expect_any: [GRIT all-terrain chair pickup (MetroParks of Butler County), MetroParks of Butler County]
+
+- id: museums-accessible
+  category: museums
+  question: Which museums in Cincinnati are fully wheelchair accessible?
+  call: {tool: search_places, args: {region: cincinnati, place_type: culture}}
+  expect_any: [Cincinnati Museum Center, National Underground Railroad Freedom Center, Contemporary Arts Center, Cincinnati Reds Hall of Fame & Museum]
+- id: art-museum-wheelchairs
+  category: museums
+  question: Does the Art Museum lend wheelchairs?
+  call: {tool: get_place, args: {name_or_id: Cincinnati Art Museum}}
+  expect_any: [Cincinnati Art Museum]
+- id: mcguffey
+  category: museums
+  question: Is the McGuffey Museum accessible or is it all stairs?
+  call: {tool: get_place, args: {name_or_id: McGuffey House and Museum}}
+  expect_any: [McGuffey House and Museum]
+  note: only OSM entrance tags and the 2023 parking-map arrow (uncertain); no museum statement
+- id: sensory-hours
+  category: museums
+  question: Are there sensory-friendly hours at any museum this month?
+  call: {tool: find_events, args: {access: [sensory_friendly]}}
+  expect_any: [Cincinnati Playhouse in the Park, Cincinnati Shakespeare Company]
+  note: finds sensory-friendly performances; museum sensory hours are facts, not dated events
+- id: aronoff-seats
+  category: museums
+  question: Can I get wheelchair seats for a show at the Aronoff, and how much is a companion ticket?
+  call: {tool: get_place, args: {name_or_id: Aronoff Center for the Arts}}
+  expect_any: [Aronoff Center for the Arts]
+  note: seating yes; companion ticket price not in the data
+
+- id: accessibility-events-month
+  category: events
+  question: What accessibility events are happening in Cincinnati this month?
+  call: {tool: find_events, args: {region: cincinnati, access: [audio_description, asl, sensory_friendly]}}
+  expect_any: [Cincinnati Shakespeare Company, Cincinnati Playhouse in the Park, Children's Theatre of Cincinnati (Emery Theater)]
+- id: oxford-weekend
+  category: events
+  question: Anything fun to do this weekend in Oxford that's wheelchair friendly?
+  call: {tool: find_events, args: {region: oxford, start: "2026-11-14", end: "2026-11-15"}}
+  expect_any: [Goggin Ice Center, Souers Recital Hall, Hall Auditorium, Center for the Performing Arts]
+  note: events at places with known access; the event itself rarely states access
+- id: disability-pride
+  category: events
+  question: When is Disability Pride Cincinnati this year?
+  call: {tool: find_events, args: {query: disability pride, start: "2026-01-01", end: "2027-12-31"}}
+  expect_unknown: true
+  gap: Disability Pride Cincinnati site did not respond; no dated record
+- id: blink
+  category: events
+  question: Is Blink accessible? Where are the viewing areas for wheelchairs?
+  call: {tool: get_place, args: {name_or_id: BLINK 2026 festival}}
+  expect_any: [BLINK 2026 festival]
+- id: adaptive-sports
+  category: events
+  question: Are there adaptive sports leagues I can join, like wheelchair basketball?
+  call: {tool: find_events, args: {query: basketball, disability_focused: true, end: "2026-12-31"}}
+  expect_any: [Manuel D. & Rhoda Mayerson JCC]
+- id: support-groups
+  category: events
+  question: Any support groups for new wheelchair users in Cincinnati?
+  call: {tool: find_events, args: {query: support group, region: cincinnati}}
+  expect_unknown: true
+  gap: CILO and similar organizations' calendars not readable
+
+- id: wheelchair-repair
+  category: services
+  question: Where can I get my wheelchair fixed in Cincinnati?
+  call: {tool: search_places, args: {query: wheelchair repair, region: cincinnati}}
+  expect_unknown: true
+  gap: medical-equipment shops not collected (Overture has categories; not mapped yet)
+- id: report-ramp
+  category: services
+  question: Who do I call to report a broken curb ramp?
+  call: {tool: search_places, args: {query: 311}}
+  expect_unknown: true
+  gap: the 311 instructions (AccessCincy page) are saved but not a kb record yet
+- id: oxford-roll-in
+  category: services
+  question: Which hotels in Oxford have roll-in showers?
+  call: {tool: search_places, args: {query: roll-in shower, region: oxford}}
+  expect_any: [Hueston Woods Lodge]
+- id: miami-entrances
+  category: services
+  question: I'm visiting Miami University. Which buildings have accessible entrances and where?
+  call: {tool: search_places, args: {region: oxford, place_type: building, need: step_free_entrance}}
+  expect_any: [Armstrong Student Center, King Library, Shriver Center, Hall Auditorium]
+- id: van-rental
+  category: services
+  question: Where can I rent a wheelchair-accessible van?
+  call: {tool: search_places, args: {query: van rental}}
+  expect_unknown: true
+  gap: not collected
+
+- id: up-to-date
+  category: trust
+  question: Is this info up to date? (about Cincinnati Museum Center)
+  call: {tool: get_place, args: {name_or_id: Cincinnati Museum Center}}
+  expect_any: [Cincinnati Museum Center]
+  note: answer must give the newest source date and the per-fact dates
+- id: facebook-ramp
+  category: trust
+  question: People on Facebook said the ramp at the Taft Theatre is broken. Is that true?
+  call: {tool: get_place, args: {name_or_id: Taft Theatre}}
+  expect_any: [Taft Theatre]
+  note: must say our sources do not cover current repairs; suggest calling; never confirm a rumor
+- id: google-disagrees
+  category: trust
+  question: Why does Google say Thomson Hall is accessible but you say it isn't?
+  call: {tool: get_place, args: {name_or_id: Thomson Hall}}
+  expect_any: [Thomson Hall]
+  note: must explain our source is a 2019 student-newspaper report and may be out of date
+- id: ada-compliant
+  category: trust
+  question: Is Music Hall ADA compliant?
+  call: {tool: get_place, args: {name_or_id: Music Hall}}
+  expect_any: [Music Hall]
+  note: must not certify compliance; report what the venue says and that compliance is a legal finding
