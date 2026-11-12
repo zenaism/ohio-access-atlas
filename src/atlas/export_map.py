@@ -556,4 +556,74 @@ def write() -> list[Path]:
     old = MAP / "atlas_viewer.html"
     if old.exists():
         old.unlink()  # replaced by index.html
+    written += write_github(data)
     return [*written, MAP / "review.csv", MAP / "index.html"]
+
+
+# ------------------------------------------------- GitHub preview copies -------
+# GitHub draws .geojson files as maps and understands the "simplestyle" properties below, so these
+# copies show a colour per rating and an icon per layer right in the repository, no hosting needed.
+GH_COLOUR = {"accessible": "#0072B2", "partial": "#E69F00", "not_accessible": "#D55E00", "unknown": "#8C8C8C"}
+GH_SYMBOL = {
+    "culture": "museum",
+    "park": "park",
+    "restroom": "toilet",
+    "adaptive_recreation": "wheelchair",
+    "lodging": "lodging",
+    "event": "star",
+}
+GH_RATING = {
+    "accessible": "Accessible",
+    "partial": "Partly accessible",
+    "not_accessible": "Not accessible",
+    "unknown": "No information yet",
+}
+GH_LAYER = {
+    "culture": "Museum / venue / attraction",
+    "park": "Park or garden",
+    "restroom": "Public restroom",
+    "adaptive_recreation": "Adaptive recreation",
+    "lodging": "Accessible lodging",
+    "event": "Event venue",
+    "trail": "Trail",
+}
+
+
+def github_copy(fc: dict) -> dict:
+    feats = []
+    for f in fc["features"]:
+        p = f["properties"]
+        q = {"Name": p["name"], "Type": GH_LAYER[p["layer"]], "Accessibility": GH_RATING[p["access_rating"]]}
+        for i, fact in enumerate(p.get("facts", [])[:6], 1):
+            detail = f" ({fact['detail']})" if fact.get("detail") else ""
+            q[f"Fact {i}"] = f"{fact['attribute']}: {fact['value']}{detail}"[:200]
+        if p.get("events"):
+            q["Upcoming events"] = f"{p['event_count']}: " + "; ".join(
+                f"{e['start'][:10]} {e['title']}" for e in p["events"][:3]
+            )
+        srcs = [x["source"] for x in p.get("facts", []) if str(x.get("source", "")).startswith("http")]
+        if srcs:
+            q["Source"] = srcs[0]
+        if p["layer"] == "trail":
+            q.update({"stroke": GH_COLOUR[p["access_rating"]], "stroke-width": 4, "stroke-opacity": 0.9})
+        else:
+            q.update(
+                {
+                    "marker-color": GH_COLOUR[p["access_rating"]],
+                    "marker-symbol": GH_SYMBOL[p["layer"]],
+                    "marker-size": "small" if p["layer"] == "restroom" else "medium",
+                }
+            )
+        feats.append({"type": "Feature", "geometry": f["geometry"], "properties": q})
+    return {"type": "FeatureCollection", "features": feats}
+
+
+def write_github(data: dict) -> list[Path]:
+    out = MAP / "github"
+    out.mkdir(exist_ok=True)
+    paths = []
+    for region, fc in data.items():
+        p = out / f"{region}.geojson"
+        p.write_text(json.dumps(github_copy(fc), ensure_ascii=False, indent=0))
+        paths.append(p)
+    return paths

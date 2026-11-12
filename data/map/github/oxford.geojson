@@ -1,0 +1,642 @@
+{
+"type": "FeatureCollection",
+"features": [
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.74224833,
+39.57192409
+]
+},
+"properties": {
+"Name": "Hueston Woods Lodge",
+"Type": "Accessible lodging",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible rooms: yes (accessible rooms: doors with 32 in clear width)",
+"Fact 2": "Accessible rooms: yes (includes roll-in shower room type)",
+"Fact 3": "Accessible rooms: yes (4 accessible 2-bedroom cabins, wheelchair-friendly entrance)",
+"Fact 4": "Adaptive recreation: yes (accessible swimming pool)",
+"Fact 5": "Step-free entrance: yes (all public areas accessible; curb cuts, ramps, entrances)",
+"Source": "https://www.huestonwoodslodge.com/accessibility",
+"marker-color": "#E69F00",
+"marker-symbol": "lodging",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.75902306,
+39.58164919
+]
+},
+"properties": {
+"Name": "Hueston Woods Marina (wheelchair symbol on park map)",
+"Type": "Adaptive recreation",
+"Accessibility": "Accessible",
+"Fact 1": "Wheelchair symbol: yes (Marked wheelchair accessible on the Ohio DNR park map (rev. 11/2019))",
+"marker-color": "#0072B2",
+"marker-symbol": "wheelchair",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "LineString",
+"coordinates": [
+[
+-84.7257546,
+39.5148288
+],
+[
+-84.7253384,
+39.5142217
+],
+[
+-84.7248409,
+39.513723999999996
+],
+[
+-84.7238456,
+39.51288029999999
+],
+[
+-84.723169,
+39.51242400000001
+],
+[
+-84.7216991,
+39.510752800000006
+],
+[
+-84.7214437,
+39.51054310000001
+],
+[
+-84.7212483,
+39.510547800000005
+],
+[
+-84.721015,
+39.51065930000001
+],
+[
+-84.7207941,
+39.5109216
+],
+[
+-84.7208051,
+39.511508199999994
+],
+[
+-84.7206929,
+39.511910099999994
+]
+]
+},
+"properties": {
+"Name": "Oxford Area Trails (OATS), Miami University portion",
+"Type": "Trail",
+"Accessibility": "Accessible",
+"Fact 1": "Path surface: yes (Oxford Area Trail System: over 7 miles paved (Travel Butler County))",
+"Fact 2": "Trail map: yes (Future Oxford Area Trails System poster, 2025-01-21 (phases 1-4 completed))",
+"Source": "https://www.travelbutlercounty.com/explore/oxford/sports-recreation",
+"stroke": "#0072B2",
+"stroke-width": 4,
+"stroke-opacity": 0.9
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7520982,
+39.5711005
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "No information yet",
+"marker-color": "#8C8C8C",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7679303,
+39.5903904
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "No information yet",
+"marker-color": "#8C8C8C",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5994795,
+39.428114
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "No information yet",
+"marker-color": "#8C8C8C",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.599728,
+39.428871
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "No information yet",
+"marker-color": "#8C8C8C",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7330338,
+39.5078469
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "No information yet",
+"marker-color": "#8C8C8C",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7350227,
+39.5562224
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "unisex: yes",
+"Fact 3": "access: yes",
+"Source": "https://www.openstreetmap.org/node/12619265326",
+"marker-color": "#E69F00",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7148133,
+39.3743205
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "No information yet",
+"marker-color": "#8C8C8C",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.774243,
+39.5064404
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "No information yet",
+"marker-color": "#8C8C8C",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7560008,
+39.5748098
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "No information yet",
+"marker-color": "#8C8C8C",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7355436,
+39.5079935
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "No information yet",
+"marker-color": "#8C8C8C",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7355472,
+39.5078695
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "No information yet",
+"marker-color": "#8C8C8C",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.6462425,
+39.436501
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "No information yet",
+"marker-color": "#8C8C8C",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7410701,
+39.5573378
+]
+},
+"properties": {
+"Name": "Public restroom",
+"Type": "Public restroom",
+"Accessibility": "Partly accessible",
+"Fact 1": "wheelchair: limited",
+"Fact 2": "changing_table: no",
+"Fact 3": "access: yes",
+"Source": "https://www.openstreetmap.org/way/1359112937",
+"marker-color": "#E69F00",
+"marker-symbol": "toilet",
+"marker-size": "small"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73214282117432,
+39.504991020990126
+]
+},
+"properties": {
+"Name": "Miami University; Souers Recital Hall",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "10: 2026-11-11 An Evening of American Latin Music for Oboe and Piano: Ridilla/Tan; 2026-11-14 Katherine Feduccia Graduate Recital; 2026-11-14 Lucas Spencer Graduate Recital",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.732855,
+39.505377
+]
+},
+"properties": {
+"Name": "Hiestand Galleries",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "7: 2026-11-11 Self In Digital Age; 2026-11-12 Self In Digital Age; 2026-11-13 Self In Digital Age",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7295822,
+39.5070547
+]
+},
+"properties": {
+"Name": "Bachelor Hall",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "10: 2026-11-11 Diplomacy During the Russo-Ukrainian War: A Conversation; 2026-11-12 A Political Economy of Attention in Three Registers; 2026-11-19 An Evening with Acclaimed Author Nicole R. Fleetwood '94",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7313032,
+39.5077041
+]
+},
+"properties": {
+"Name": "Shideler Hall",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "2: 2026-11-12 Joy of Birding Lecture; 2026-11-20 Joy of Birding Lecture",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7385058,
+39.5089466
+]
+},
+"properties": {
+"Name": "Hall Auditorium",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "9: 2026-11-12 Miami University Percussion Ensemble; 2026-11-19 Miami University Jazz Ensemble Concert; 2026-11-21 Playing Together: Music and Sports at Miami, Symphony Orchestra",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7313092,
+39.5056147
+]
+},
+"properties": {
+"Name": "Art Building",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "2: 2026-11-12 Artist Talk: Briana Mazzolini-Blanchard: Beyond The Classroom: Reimagining Leadership As Community Advocacy; 2026-11-19 Artist Talk: Mark Dion: Adventures in Art Explorations and The Acorn Club",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73798,
+39.5088038
+]
+},
+"properties": {
+"Name": "King Library",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "1: 2026-11-13 Are We Facing the End of Writing Instruction? Exploring Your Goals for Teaching With Writing",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7382286,
+39.5078849
+]
+},
+"properties": {
+"Name": "McGuffey Hall",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "1: 2026-11-13 From the Diving Board to the World",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73691121,
+39.50387202
+]
+},
+"properties": {
+"Name": "Goggin Ice Center",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "74: 2026-11-14 Friday Public Skate; 2026-11-14 Saturday Public Skate; 2026-11-15 Pitch Perfect Skate-In Movie",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.73179893119848,
+39.50470085165381
+]
+},
+"properties": {
+"Name": "Center for Performing Arts",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "16: 2026-11-16 Carter Burkardt Student Recital; 2026-11-19 Bowman/Flanagan Student Recital; 2026-11-19 The Last Five Years",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7263883,
+39.5022211
+]
+},
+"properties": {
+"Name": "Kumler Chapel",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "3: 2026-11-17 OLEA Residency Concert; 2026-12-05 Candlelit Voices; 2026-12-05 Candlelit Voices",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7328708,
+39.5077701
+]
+},
+"properties": {
+"Name": "Armstrong Student Center",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "1: 2026-11-17 Thane Maynard \"A World Worth Saving: Lessons from a Lifetime in Wildlife Conservation\"",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7297113,
+39.5110698
+]
+},
+"properties": {
+"Name": "Farmer School of Business",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "1: 2026-11-18 Andrew Stein Guest Speaker Event",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7339184,
+39.5068316
+]
+},
+"properties": {
+"Name": "MacMillan Hall",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "1: 2026-11-18 Intention, Identity, and Impact: International Experiences in a New Light Panel and Contest Announcements!",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7482198,
+39.5054051
+]
+},
+"properties": {
+"Name": "Oxford Lane Library",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "1: 2026-11-21 Art Explorers (Ages 3-6)",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+}
+]
+}
