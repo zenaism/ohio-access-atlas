@@ -49,6 +49,11 @@ Richard and Carole Cocks Art Museum: {name: Richard and Carole Cocks Art Museum,
 Helen S. Ruder Preserve: {name: Helen S. Ruder Preserve, category: nature_reserve, layer: park}
 Governor Bebb MetroPark: {name: Governor Bebb MetroPark, category: nature_reserve, layer: park}
 
+"Cincinnati Nature Center (Rowe Woods)": {name: Rowe Woods, category: nature_reserve, layer: park}
+Winton Woods: {name: Winton Woods, category: park, layer: park}
+Sharon Woods: {name: Sharon Woods, category: park, layer: park}
+Francis RecreAcres: {name: Francis RecreAcres, category: park, layer: park}
+
 # not single points: kept in the data, listed in data/map/review.csv
 Cincinnati Metro buses: {skip: transit system}
 Cincinnati Connector streetcar: {skip: transit line}
@@ -77,7 +82,6 @@ _venue_aliases:
   lane library - oxford ohio: Oxford Lane Library
   millett hall: Millett Assembly Hall
   mayerson jcc 8485 ridge ave: "Manuel D. & Rhoda Mayerson JCC"
-  winton woods farm & equestrian center: Winton Woods Farm and Equestrian Center
 
 # TrailLink names -> the name the same trail has in OpenStreetMap
 _trail_aliases:

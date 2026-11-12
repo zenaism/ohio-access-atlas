@@ -716,6 +716,90 @@
 {
 "type": "Feature",
 "geometry": {
+"type": "Point",
+"coordinates": [
+-84.2503095,
+39.1231085
+]
+},
+"properties": {
+"Name": "Cincinnati Nature Center (Rowe Woods)",
+"Type": "Park or garden",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible parking: yes (ADA spaces at Rowe Visitor Center, Krippendorf Lodge and Nature PlayScape lots)",
+"Fact 2": "Notice: yes (farther trails have rocky creek crossings, steep stairs or inclines)",
+"Fact 3": "Path surface: yes (0.72-mile all-accessible Mashburn Family Discovery Trail from Rowe Visitor Center)",
+"Source": "https://cincynature.org/visit-us/our-trails",
+"marker-color": "#E69F00",
+"marker-symbol": "park",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.5183661,
+39.2581549
+]
+},
+"properties": {
+"Name": "Winton Woods",
+"Type": "Park or garden",
+"Accessibility": "Partly accessible",
+"Fact 1": "Adaptive recreation: yes (universally accessible playground at Harper Meadows)",
+"Fact 2": "Adaptive recreation: yes (accessible canoe/kayak launch with transfer system at the harbor)",
+"Source": "https://www.greatparks.org/Recreation/Playgrounds",
+"marker-color": "#E69F00",
+"marker-symbol": "park",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.4025148,
+39.2773495
+]
+},
+"properties": {
+"Name": "Sharon Woods",
+"Type": "Park or garden",
+"Accessibility": "Partly accessible",
+"Fact 1": "Adaptive recreation: yes (universally accessible playground at Sharon Centre)",
+"Fact 2": "Adaptive recreation: yes (accessible canoe/kayak launch with transfer system at the harbor)",
+"Source": "https://www.greatparks.org/Recreation/Playgrounds",
+"marker-color": "#E69F00",
+"marker-symbol": "park",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.35971465,
+39.28720609
+]
+},
+"properties": {
+"Name": "Francis RecreAcres",
+"Type": "Park or garden",
+"Accessibility": "Partly accessible",
+"Fact 1": "Adaptive recreation: yes (universally accessible playground)",
+"Source": "https://www.greatparks.org/Recreation/Playgrounds",
+"marker-color": "#E69F00",
+"marker-symbol": "park",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
 "type": "LineString",
 "coordinates": [
 [
@@ -14827,6 +14911,25 @@
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "1: 2026-11-13 Camp Root Ball",
+"marker-color": "#8C8C8C",
+"marker-symbol": "star",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.53209799,
+39.25171211
+]
+},
+"properties": {
+"Name": "Winton Woods Farm & Equestrian Center",
+"Type": "Event venue",
+"Accessibility": "No information yet",
+"Upcoming events": "1: 2026-11-13 Storytime on the Farm",
 "marker-color": "#8C8C8C",
 "marker-symbol": "star",
 "marker-size": "medium"

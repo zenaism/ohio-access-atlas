@@ -49,6 +49,7 @@ MU_PAS, MU_ASC = "web_venues_3:27919ecd1e5a", "web_venues_3:4e4c77a4c847"
 MU_ART, OAT_TRAILS, EO_OUT = ("web_venues_oxford:65ce5ac3160a", "web_trails_oxford:06b907b42002",
                              "web_venues_oxford:3bbf73e1187a")
 MPBC_ACCESS = "web_metroparks:0ec74aff1793"
+CNC_TRAILS, GP_PLAY = "web_trails_cincinnati:102b3d6cec37", "web_parks_cincinnati:2021aec48344"
 BRIDGE, UCAA = "web_programs_cincinnati:aea761ad0028", "web_programs_cincinnati:75b4e5074c3e"
 
 PLACES = {  # place -> (region, address, kind); addresses from the same documents where given
@@ -102,6 +103,10 @@ PLACES = {  # place -> (region, address, kind); addresses from the same document
     "Richard and Carole Cocks Art Museum": ("oxford", None, "museum"),
     "Helen S. Ruder Preserve": ("oxford", "Bonham Rd and Shadowy Hills Dr", "nature_reserve"),
     "Governor Bebb MetroPark": ("oxford", None, "park"),
+    "Cincinnati Nature Center (Rowe Woods)": ("cincinnati", None, "nature_reserve"),
+    "Winton Woods": ("cincinnati", None, "park"),
+    "Sharon Woods": ("cincinnati", None, "park"),
+    "Francis RecreAcres": ("cincinnati", None, "park"),
 }
 OUT_OF_AREA = {"Five Rivers MetroParks paved trail network (Dayton)"}
 
@@ -575,6 +580,23 @@ FACTS = [
      "The trail is non-ADA accessible until gravel replacement work can be completed.", MPBC_ACCESS),
     ("MetroParks of Butler County", "service_animals", "yes", "welcome at all facilities and outdoor spaces",
      "Service animals trained to perform a specific task or tasks for a person with disabilities are welcome at all MetroParks facilities and outdoor spaces.", MPBC_ACCESS),
+    # ---- batch 8 (2026-11-12): Cincinnati pages already saved; park-system facts placed on the parks they name ----
+    ("Cincinnati Nature Center (Rowe Woods)", "trail_surface", "yes", "0.72-mile all-accessible Mashburn Family Discovery Trail from Rowe Visitor Center",
+     "along our 0.72-mile, all-accessible Mashburn Family Discovery Trail", CNC_TRAILS),
+    ("Cincinnati Nature Center (Rowe Woods)", "accessible_parking", "yes", "ADA spaces at Rowe Visitor Center, Krippendorf Lodge and Nature PlayScape lots",
+     "Both the Rowe Visitor Center, Krippendorf Lodge, and Nature PlayScape parking lots have designated ADA parking spaces.", CNC_TRAILS),
+    ("Cincinnati Nature Center (Rowe Woods)", "notice", "yes", "farther trails have rocky creek crossings, steep stairs or inclines",
+     "On trails farther out from the parking areas, you'll find rocky creek crossings and a handful of areas with steep stairs or inclines.", CNC_TRAILS),
+    ("Winton Woods", "adaptive_recreation", "yes", "universally accessible playground at Harper Meadows",
+     "Universally Accessible Playgrounds are available at Harper Meadows in Winton Woods, Francis RecreAcres and Sharon Center.", GP_PLAY),
+    ("Winton Woods", "adaptive_recreation", "yes", "accessible canoe/kayak launch with transfer system at the harbor",
+     "Each launch is a floating dock equipped with a “Universally Accessible Transfer System” that allows an unassisted individual with a physical disability to access a canoe or kayak.", GP),
+    ("Sharon Woods", "adaptive_recreation", "yes", "universally accessible playground at Sharon Centre",
+     "Universally Accessible Playgrounds are available at Harper Meadows in Winton Woods, Francis RecreAcres and Sharon Center.", GP_PLAY),
+    ("Sharon Woods", "adaptive_recreation", "yes", "accessible canoe/kayak launch with transfer system at the harbor",
+     "Each launch is a floating dock equipped with a “Universally Accessible Transfer System” that allows an unassisted individual with a physical disability to access a canoe or kayak.", GP),
+    ("Francis RecreAcres", "adaptive_recreation", "yes", "universally accessible playground",
+     "Universally Accessible Playgrounds are available at Harper Meadows in Winton Woods, Francis RecreAcres and Sharon Center.", GP_PLAY),
 ]
 
 DATES = {VC: "2016-01-29", NPS: "2024-09-10", CMC_CHM: "2023-05-26", CMC_MNHS: "2023-05-26", CMC_TCM: "2023-05-26",

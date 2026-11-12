@@ -805,7 +805,9 @@ PHONE = re.compile(r"\(?\b\d{3}\)?[-. ]\d{3}[-. ]\d{4}\b")
 
 def _phrase(attr: str, value: str, detail: str) -> str | None:
     label = LABELS.get(attr, attr).lower()
-    d = f" ({detail})" if detail and len(detail) <= 70 else ""
+    d = f" ({detail})" if detail and len(detail) <= 100 else ""
+    if attr == "trail_surface" and value == "yes":
+        return f"accessible path{d}"
     if attr == "ramp_steep":
         return f"caution: a ramp steeper than ADA guidance{d}" if value == "yes" else None
     if value == "yes":
