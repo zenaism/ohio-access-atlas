@@ -46,6 +46,9 @@ TAFT_ADA, TAFT_FAQ = "web_venues_3:894a8766515a", "web_venues_3:69ecdec73212"
 ETC, ETC_NARR = "web_venues_3:4d161a21ef76", "web_venues_3:397dc75e17db"
 CSO, CHPL_BLIND = "web_access_performances:60d45724fedb", "web_venues_3:919d770270f9"
 MU_PAS, MU_ASC = "web_venues_3:27919ecd1e5a", "web_venues_3:4e4c77a4c847"
+MU_ART, OAT_TRAILS, EO_OUT = ("web_venues_oxford:65ce5ac3160a", "web_trails_oxford:06b907b42002",
+                             "web_venues_oxford:3bbf73e1187a")
+MPBC_ACCESS = "web_metroparks:0ec74aff1793"
 BRIDGE, UCAA = "web_programs_cincinnati:aea761ad0028", "web_programs_cincinnati:75b4e5074c3e"
 
 PLACES = {  # place -> (region, address, kind); addresses from the same documents where given
@@ -96,6 +99,9 @@ PLACES = {  # place -> (region, address, kind); addresses from the same document
     "Hall Auditorium": ("oxford", None, "theatre"),
     "Millett Assembly Hall": ("oxford", None, "arena"),
     "Armstrong Student Center": ("oxford", None, "building"),
+    "Richard and Carole Cocks Art Museum": ("oxford", None, "museum"),
+    "Helen S. Ruder Preserve": ("oxford", "Bonham Rd and Shadowy Hills Dr", "nature_reserve"),
+    "Governor Bebb MetroPark": ("oxford", None, "park"),
 }
 OUT_OF_AREA = {"Five Rivers MetroParks paved trail network (Dayton)"}
 
@@ -552,6 +558,23 @@ FACTS = [
      "Venues within the Armstrong Student Center meet federal ADA requirements for accessibility.", MU_ASC),
     ("Armstrong Student Center", "asl_interpretation", "yes", "interpreters or captioning for university events on request",
      "Additional accommodations for access to events, such as sign language interpreters or captioning services for university-sponsored programs, can be requested through the", MU_ASC),
+    # ---- batch 7 (2026-11-12): Oxford pages already saved but not yet read for facts ----
+    ("Richard and Carole Cocks Art Museum", "notice", "yes", "closed for renovation until fall 2027; the sculpture park stays open",
+     "The Art Museum is closed for renovation. We look forward to reopening in the Fall of 2027.", MU_ART),
+    ("Richard and Carole Cocks Art Museum", "entrance_step_free", "yes", "all entries at street level",
+     "All museum entries are at street level.", MU_ART),
+    ("Richard and Carole Cocks Art Museum", "wheelchair_loan", "yes", "on request",
+     "A wheelchair is available on request.", MU_ART),
+    ("Richard and Carole Cocks Art Museum", "accessibility_contact", "yes", "Miami Student Disability Services 513-529-1541, 24 hours ahead",
+     "please contact Miami University Student Disability Services at 513-529-1541.", MU_ART),
+    ("Helen S. Ruder Preserve", "trail_surface", "yes", "two ADA-accessible boardwalks, north and south of Four Mile Creek",
+     "Note: there are two boardwalks, one on the North side of the Four Mile Creek and one on the South side. Both are ADA accessible.", OAT_TRAILS),
+    ("Helen S. Ruder Preserve", "seating_rest", "yes", "boardwalk has two resting platforms with benches",
+     "Three Valley Conservation Trust restored and built an ADA-compliant boardwalk with two resting platforms and benches.", EO_OUT),
+    ("Governor Bebb MetroPark", "notice", "yes", "Sycamore Grove Trail is not ADA accessible until gravel replacement is finished",
+     "The trail is non-ADA accessible until gravel replacement work can be completed.", MPBC_ACCESS),
+    ("MetroParks of Butler County", "service_animals", "yes", "welcome at all facilities and outdoor spaces",
+     "Service animals trained to perform a specific task or tasks for a person with disabilities are welcome at all MetroParks facilities and outdoor spaces.", MPBC_ACCESS),
 ]
 
 DATES = {VC: "2016-01-29", NPS: "2024-09-10", CMC_CHM: "2023-05-26", CMC_MNHS: "2023-05-26", CMC_TCM: "2023-05-26",

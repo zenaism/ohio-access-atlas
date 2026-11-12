@@ -188,6 +188,8 @@ def place_html(f: dict, region: str, generated: str) -> str:
     body = f"<h1>{escape(p['name'])}</h1>"
     body += _rating(p["access_rating"])
     body += f'<p class="type">{escape(ICONS[p["layer"]][0])}, {city}. {escape(RATING_HELP[p["access_rating"]].capitalize())}.</p>'
+    if p.get("notice"):
+        body += f'<p class="old"><strong>Notice:</strong> {escape(p["notice"])}</p>'
     if p.get("newest_source") and p["newest_source"] < "2023":
         body += f'<p class="old">Newest source is from {p["newest_source"][:4]}; it may be out of date.</p>'
     if keys:

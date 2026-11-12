@@ -45,6 +45,10 @@ Hall Auditorium: {name: Hall Auditorium, category: university, layer: building}
 Millett Assembly Hall: {name: Millett Assembly Hall, category: sports_centre, layer: culture}
 Armstrong Student Center: {name: Armstrong Student Center, category: university, layer: building}
 
+Richard and Carole Cocks Art Museum: {name: Richard and Carole Cocks Art Museum, category: museum, layer: culture}
+Helen S. Ruder Preserve: {name: Helen S. Ruder Preserve, category: nature_reserve, layer: park}
+Governor Bebb MetroPark: {name: Governor Bebb MetroPark, category: nature_reserve, layer: park}
+
 # not single points: kept in the data, listed in data/map/review.csv
 Cincinnati Metro buses: {skip: transit system}
 Cincinnati Connector streetcar: {skip: transit line}

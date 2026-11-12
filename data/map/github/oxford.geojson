@@ -96,6 +96,71 @@
 "geometry": {
 "type": "Point",
 "coordinates": [
+-84.729128,
+39.5009174
+]
+},
+"properties": {
+"Name": "Richard and Carole Cocks Art Museum",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessibility contact: yes (Miami Student Disability Services 513-529-1541, 24 hours ahead)",
+"Fact 2": "Step-free entrance: yes (all entries at street level)",
+"Fact 3": "Notice: yes (closed for renovation until fall 2027; the sculpture park stays open)",
+"Fact 4": "Wheelchair loan: yes (on request)",
+"Fact 5": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
+"Source": "https://miamioh.edu/cca/art-museum/visit/index.html",
+"marker-color": "#E69F00",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7295165,
+39.5178762
+]
+},
+"properties": {
+"Name": "Helen S. Ruder Preserve",
+"Type": "Park or garden",
+"Accessibility": "Partly accessible",
+"Fact 1": "Places to rest: yes (boardwalk has two resting platforms with benches)",
+"Fact 2": "Path surface: yes (two ADA-accessible boardwalks, north and south of Four Mile Creek)",
+"Source": "https://enjoyoxford.org/outdoors",
+"marker-color": "#E69F00",
+"marker-symbol": "park",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.8031618,
+39.3719882
+]
+},
+"properties": {
+"Name": "Governor Bebb MetroPark",
+"Type": "Park or garden",
+"Accessibility": "No information yet",
+"Fact 1": "Notice: yes (Sycamore Grove Trail is not ADA accessible until gravel replacement is finished)",
+"Source": "https://www.yourmetroparks.net/about/accessibility",
+"marker-color": "#8C8C8C",
+"marker-symbol": "park",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
 -84.75902306,
 39.58164919
 ]
@@ -1117,26 +1182,6 @@
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
 "Source": "https://www.openstreetmap.org/way/183831907",
-"marker-color": "#E69F00",
-"marker-symbol": "building",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.72922254125336,
-39.50090925
-]
-},
-"properties": {
-"Name": "Richard and Carole Cocks Art Museum",
-"Type": "Building (campus or public)",
-"Accessibility": "Partly accessible",
-"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 0 no of 1 mapped entrances)",
-"Source": "https://www.openstreetmap.org/way/183831911",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
 "marker-size": "medium"

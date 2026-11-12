@@ -362,9 +362,10 @@ function card(it){
   const evline = p.events && p.layer !== 'event' && evs.length ? `<span>${evs.length} upcoming event${evs.length > 1 ? 's' : ''}</span>` : '';
   const keys = keyLine(p);
   const longSum = keys && p.summary.length > 160;   // long text moves into Details; the key line says it first
+  const notice = p.notice ? `<span class="old">Notice: ${esc(p.notice)}</span>` : '';
   const old = p.newest_source && p.newest_source < OLD ? `<span class="old">Source from ${p.newest_source.slice(0, 4)}, may be out of date</span>` : '';
   li.innerHTML = `<h3 tabindex="-1">${esc(p.name)}</h3>
-    <p class="meta">${badge(p.access_rating)}<span>${ICONS[p.layer][0]}</span>${where}${evline}${old}</p>
+    <p class="meta">${badge(p.access_rating)}<span>${ICONS[p.layer][0]}</span>${where}${evline}${notice}${old}</p>
     ${keys}
     ${longSum ? '' : `<p class="sum">${esc(p.summary)}</p>`}
     <div class="actions">

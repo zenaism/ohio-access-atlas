@@ -54,6 +54,7 @@ LABELS = {  # plain-language attribute names for popups
     "captioning": "Captioning",
     "assistive_listening": "Assistive listening",
     "service_animals": "Service animals",
+    "notice": "Notice",
     "braille": "Braille",
     "large_print": "Large print",
     "audio_description": "Audio description",
@@ -137,6 +138,7 @@ def census_geocode(address: str):
 def rate(facts: pd.DataFrame) -> str:
     """accessible = step-free entry AND accessible restroom stated; partial = some positive access facts;
     not_accessible = entry explicitly 'no'; unknown = nothing stated."""
+    facts = facts[facts.attribute != "notice"]  # a warning is not evidence of access
     if facts.empty:
         return "unknown"
     v = {a: set(facts[facts.attribute == a].value) for a in facts.attribute.unique()}
@@ -741,6 +743,7 @@ KEY_FACTS = [
     ("automatic_door", "Automatic door"),
     ("restroom", "Restroom"),
     ("inside", "Inside"),
+    ("path", "Accessible path"),
     ("elevator", "Elevator"),
     ("adult_changing_table", "Adult changing table"),
     ("accessible_rooms", "Accessible rooms"),
@@ -763,6 +766,7 @@ KEY_SOURCES = {  # fact attribute (label or OSM tag) -> key
     "Elevator / lift": "elevator",
     "Automatic door": "automatic_door",
     "Getting around inside": "inside",
+    "Path surface": "path",
     "Adult changing table": "adult_changing_table",
     "Accessible rooms": "accessible_rooms",
     "Accessible parking": "accessible_parking",
@@ -814,6 +818,13 @@ def _phrase(attr: str, value: str, detail: str) -> str | None:
 
 
 def summarise(p: dict) -> str:
+    notes = [f["detail"] for f in p.get("facts", []) if f["attribute"] == "Notice" and f.get("detail")]
+    if notes:  # a closure or warning comes before everything else
+        return "Notice: " + "; ".join(notes) + ". " + _summarise(p)
+    return _summarise(p)
+
+
+def _summarise(p: dict) -> str:
     if p.get("summary_text"):
         return p["summary_text"]
     facts = p.get("facts", [])
@@ -861,10 +872,15 @@ def summarise(p: dict) -> str:
         for x in [_phrase(a, by_attr[a]["value"], by_attr[a].get("detail", ""))]
         if x
     ]
-    if not parts and facts:  # facts outside the main list (e.g. a map symbol): say them as they are
-        parts = [f"{f['attribute'].lower()}: {f.get('detail') or f['value']}" for f in facts[:3]]
+    other = [f for f in facts if f["attribute"] != "Notice"]  # the notice is already said first
+    if not parts and other:  # facts outside the main list (e.g. a map symbol): say them as they are
+        parts = [f"{f['attribute'].lower()}: {f.get('detail') or f['value']}" for f in other[:3]]
     if not parts:
-        return "No accessibility information yet."
+        return (
+            "No other accessibility information yet."
+            if len(other) < len(facts)
+            else ("No accessibility information yet.")
+        )
     dates = sorted(str(f.get("date")) for f in facts if re.match(r"\d{4}", str(f.get("date") or "")))
     sentence = "; ".join(parts[:5])
     return (
@@ -928,6 +944,7 @@ def enrich(feats: list, g: gpd.GeoDataFrame) -> None:
                 p["name"] = f"Restroom near {best}"
         p["summary"] = summarise(p)
         p["keys"] = key_facts(p)
+        p["notice"] = "; ".join(f["detail"] for f in p.get("facts", []) if f["attribute"] == "Notice") or None
         dates = sorted(
             str(x.get("date")) for x in p.get("facts", []) if re.match(r"\d{4}", str(x.get("date") or ""))
         )
