@@ -1,6 +1,6 @@
 # Question bank: tools-only baseline
 
-Run 2026-11-12 with `scripts/eval_tools.py` (no language model). **Hit rate at 5: 33/33 = 100%** of answerable questions; 11 questions need data we do not have (listed below).
+Run 2026-11-12 with `scripts/eval_tools.py` (no language model). **Hit rate at 5: 35/35 = 100%** of answerable questions; 9 questions need data we do not have (listed below).
 
 Caveat: the expected places were written after looking at our data, so this is a regression baseline (it catches breakage when data or tools change), not an independent quality score. A real score needs expected answers written by people who know these places.
 
@@ -17,11 +17,11 @@ Caveat: the expected places were written after looking at our data, so this is a
 | skyline-ludlow | food | unknown (gap) | (none) |
 | otr-birthday | food | hit | MECCA; Alice; Ché; Eli’s BBQ; Fifty Fifty Gin Club |
 | union-terminal-sidewalk | getting there | hit | Cincinnati Museum Center |
-| mt-adams-steep | getting there | unknown (gap) | Restroom near Mount Storm Shelter; 500 Lafayette at Mount Storm Park; Mount Airy Forest; Restroom near Mount Saint Joseph University Sports Complex |
+| mt-adams-steep | getting there | hit | share_steeper_than_ramp=0.42 |
 | bus-to-zoo | getting there | hit | Cincinnati Zoo & Botanical Garden |
 | gabp-parking | getting there | hit | Great American Ball Park |
 | high-street-ramps | getting there | unknown (gap) | Spring Street Treats; Maplestreet Station; Bodega; Calendula and The Lounge; Chop Bento |
-| fountain-square-closures | getting there | unknown (gap) | Restroom near Tyler Davidson Fountain; Fountain Square; Fifth Third Bank; Contemporary Arts Center; Government Square Transit Center |
+| fountain-square-closures | getting there | hit | open_311_reports=8 |
 | metro-access | getting there | hit | Metro Access (Cincinnati Metro paratransit); Greater Cincinnati buses (Metro, TANK, BCRTA) |
 | paved-trails-cincinnati | trails | hit | Armleder Park Trail; Armleder-Lunken Connector Trail; Creekside Trail; Five Mile Trail; Lebanon Countryside YMCA Trail |
 | oxford-flat-trail | trails | hit | Oxford Area Trails (OATS), Miami University portion; DeWitt Log Homestead; Helen S. Ruder Preserve; Leonard Howell Park; Peffer Park |
@@ -58,9 +58,7 @@ Caveat: the expected places were written after looking at our data, so this is a
 - **Which restaurants in Oxford have an accessible bathroom too?** Enjoy Oxford tags say "wheelchair accessible" with no restroom detail
 - **Is there a brewery with a ramp and outdoor seating near Northside?** no ramp or patio data for breweries
 - **Can I get my power chair into Skyline on Ludlow?** that Skyline is not in the data (the only Skyline is in Oxford); needs addresses or Google Places
-- **Is Mt. Adams too steep to roll around?** slope data exists per path, but there is no neighborhood-level tool yet
 - **Are there curb ramps on High Street in Oxford?** no curb-ramp inventory for Oxford (CAGIS covers Hamilton County only); 2025 city claim of "every curb" is not place-level
-- **Any sidewalk closures or construction near Fountain Square this week?** no closure feed; 311 reports are counted per place but not listed
 - **Where can I see a waterfall without stairs?** no waterfall viewpoints with access data
 - **When is Disability Pride Cincinnati this year?** Disability Pride Cincinnati site did not respond; no dated record
 - **Any support groups for new wheelchair users in Cincinnati?** CILO and similar organizations' calendars not readable

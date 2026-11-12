@@ -34,7 +34,22 @@ def main() -> None:
     rows, hits, answerable = [], 0, 0
     for q in qs:
         call = q["call"]
-        got = names(TOOLS[call["tool"]](**call["args"]))
+        result = TOOLS[call["tool"]](**call["args"])
+        if q.get("expect_fields"):  # area tools: check numbers instead of names
+            answerable += 1
+            ok = all(
+                (len(result.get(k) or []) if isinstance(result.get(k), list) else (result.get(k) or 0))
+                >= need
+                for k, need in q["expect_fields"].items()
+            )
+            hits += ok
+            top = [
+                f"{k}={result.get(k) if not isinstance(result.get(k), list) else len(result[k])}"
+                for k in q["expect_fields"]
+            ]
+            rows.append((q, "hit" if ok else "MISS", top))
+            continue
+        got = names(result)
         top = list(dict.fromkeys(got))[:5]
         if q.get("expect_unknown"):
             verdict = "unknown (gap)"

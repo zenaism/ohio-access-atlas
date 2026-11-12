@@ -46,3 +46,11 @@ def test_events_by_access_kind():
 
 def test_query_may_be_a_number():
     assert isinstance(tools.search_places(311), list)
+
+
+def test_area_conditions_hills_and_reports():
+    hill = tools.area_conditions(39.1095, -84.4985)  # Mt. Adams
+    flat = tools.area_conditions(39.1016, -84.5126)  # Fountain Square
+    assert hill["share_steeper_than_ramp"] > flat["share_steeper_than_ramp"]
+    assert isinstance(flat["open_311_reports"], list)
+    assert tools.area_conditions(39.5103, -84.7425)["city_curb_ramps"] is None  # no Oxford inventory

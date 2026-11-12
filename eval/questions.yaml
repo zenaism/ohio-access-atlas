@@ -75,9 +75,9 @@
 - id: mt-adams-steep
   category: getting there
   question: Is Mt. Adams too steep to roll around?
-  call: {tool: search_places, args: {query: Mount Adams, region: cincinnati}}
-  expect_unknown: true
-  gap: slope data exists per path, but there is no neighborhood-level tool yet
+  call: {tool: area_conditions, args: {lat: 39.1095, lon: -84.4985}}
+  expect_fields: {share_steeper_than_ramp: 0.3}
+  note: answer from the share of path sections steeper than a ramp, stairways and curb ramps; estimates from elevation data
 - id: bus-to-zoo
   category: getting there
   question: Which bus goes from downtown to the zoo and can I get on it with my chair?
@@ -98,9 +98,9 @@
 - id: fountain-square-closures
   category: getting there
   question: Any sidewalk closures or construction near Fountain Square this week?
-  call: {tool: nearest, args: {lat: 39.1016, lon: -84.5126, max_miles: 0.2}}
-  expect_unknown: true
-  gap: no closure feed; 311 reports are counted per place but not listed
+  call: {tool: area_conditions, args: {lat: 39.1016, lon: -84.5126}}
+  expect_fields: {open_311_reports: 1}
+  note: open 311 sidewalk/curb reports only; planned construction closures are not in the data
 - id: metro-access
   category: getting there
   question: How do I sign up for Metro Access paratransit?

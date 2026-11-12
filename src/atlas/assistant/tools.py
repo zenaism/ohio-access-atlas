@@ -344,3 +344,95 @@ TOOLS = {
     "get_place": get_place,
     "find_events": find_events,
 }
+
+
+# ------------------------------------------------------- conditions around a point ----
+_LAYERS: dict = {}
+
+
+def _layers(region: str) -> dict:
+    """Path slopes, stairs, curb ramps and 311 reports for a region (read once, metric CRS)."""
+    if region in _LAYERS:
+        return _LAYERS[region]
+    import geopandas as gpd
+
+    from ..core import METRIC, PROCESSED
+
+    d, out = PROCESSED / region, {}
+    sl = gpd.read_parquet(d / "slope_3dep_local.entities.parquet")
+    out["paths"] = sl[["max_grade", "geometry"]].to_crs(METRIC)
+    st = gpd.read_parquet(d / "osm.entities.parquet")
+    st = st[(st.entity_type == "path_segment") & st.tags.str.contains('"highway": "steps"')]
+    out["stairs"] = st[["geometry"]].to_crs(METRIC)
+    if (d / "cagis_curb_ramps.entities.parquet").exists():
+        r = gpd.read_parquet(d / "cagis_curb_ramps.entities.parquet")
+        out["ramps"] = gpd.GeoDataFrame(geometry=r.geometry.representative_point(), crs=r.crs).to_crs(METRIC)
+    if (d / "cincy_311.entities.parquet").exists():
+        out["reports"] = gpd.read_parquet(d / "cincy_311.entities.parquet").to_crs(METRIC)
+    _LAYERS[region] = out
+    return out
+
+
+def area_conditions(lat: float, lon: float, radius_feet: float = 1300, region: str | None = None) -> dict:
+    """What the ground is like around a point: share of mapped path sections steeper than a ramp
+    (8.33%), the steepest, mapped stairways, city curb ramps, and open sidewalk/curb 311 reports.
+    Estimates from elevation and city data, not a route and not checked on site."""
+    import geopandas as gpd
+    from shapely.geometry import Point
+
+    from ..core import METRIC, WGS84
+
+    region = region or ("oxford" if lat > 39.35 else "cincinnati")
+    L = _layers(region)
+    here = gpd.GeoSeries([Point(lon, lat)], crs=WGS84).to_crs(METRIC).iloc[0]
+    zone = here.buffer(radius_feet * 0.3048)
+    paths = L["paths"].iloc[list(L["paths"].sindex.query(zone, predicate="intersects"))]
+    steep = paths[paths.max_grade > 8.33]
+    out = {
+        "region": region,
+        "radius_feet": radius_feet,
+        "path_sections": len(paths),
+        "steeper_than_ramp": len(steep),
+        "share_steeper_than_ramp": round(len(steep) / len(paths), 2) if len(paths) else None,
+        # 90th percentile, not the maximum: elevation data jumps at bridges and overpasses
+        "nine_in_ten_sections_at_or_below_percent": round(float(paths.max_grade.quantile(0.9)), 1)
+        if len(paths)
+        else None,
+        "stairways": len(list(L["stairs"].sindex.query(zone, predicate="intersects"))),
+        "note": "Slopes are estimated from USGS elevation data along mapped paths, not measured on site.",
+    }
+    if "ramps" in L:
+        out["city_curb_ramps"] = len(list(L["ramps"].sindex.query(zone, predicate="intersects")))
+    else:
+        out["city_curb_ramps"] = None
+        out["note"] += " No curb-ramp inventory exists for this area."
+    if "reports" in L:
+        rep = L["reports"].iloc[list(L["reports"].sindex.query(zone, predicate="intersects"))]
+        open_ = rep[rep.sr_status_flag == "OPEN"].sort_values("date_created", ascending=False)
+        out["open_311_reports"] = [
+            {"type": r.sr_type_desc.title(), "opened": str(r.date_created)[:10], "priority": r.priority}
+            for r in open_.head(10).itertuples()
+        ]
+        out["311_data_through"] = str(L["reports"].date_created.max())[:10]
+    return out
+
+
+TOOL_SPECS.append(
+    {
+        "name": "area_conditions",
+        "description": "How hilly and passable an area is near a point: share of path sections steeper than "
+        "a ramp (8.33%), steepest grade, stairways, city curb ramps, and open sidewalk/curb 311 reports "
+        "(Cincinnati). Use for 'is X too steep' or 'any sidewalk problems near X'.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "lat": {"type": "number"},
+                "lon": {"type": "number"},
+                "radius_feet": {"type": "number"},
+                "region": {"type": "string", "enum": ["cincinnati", "oxford"]},
+            },
+            "required": ["lat", "lon"],
+        },
+    }
+)
+TOOLS["area_conditions"] = area_conditions
