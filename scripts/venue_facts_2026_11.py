@@ -42,6 +42,10 @@ ARON, MH, GABP, RHOF = ("web_venues_cincinnati_2:e8b0e56b14b5", "web_venues_cinc
 PLAY, SHAKES, TCT, ZOO_ADV = ("web_venues_cincinnati_2:f864bb12b5a4", "web_venues_cincinnati_2:36e61867191c",
                               "web_venues_cincinnati_2:dc8ed9044b60", "web_venues_cincinnati_2:49f97a3719b7")
 KI_ACCESS = "web_venues_cincinnati_2:099f8c975001"
+TAFT_ADA, TAFT_FAQ = "web_venues_3:894a8766515a", "web_venues_3:69ecdec73212"
+ETC, ETC_NARR = "web_venues_3:4d161a21ef76", "web_venues_3:397dc75e17db"
+CSO, CHPL_BLIND = "web_access_performances:60d45724fedb", "web_venues_3:919d770270f9"
+MU_PAS, MU_ASC = "web_venues_3:27919ecd1e5a", "web_venues_3:4e4c77a4c847"
 BRIDGE, UCAA = "web_programs_cincinnati:aea761ad0028", "web_programs_cincinnati:75b4e5074c3e"
 
 PLACES = {  # place -> (region, address, kind); addresses from the same documents where given
@@ -86,6 +90,12 @@ PLACES = {  # place -> (region, address, kind); addresses from the same document
     "Cincinnati Playhouse in the Park": ("cincinnati", None, "theatre"),
     "Cincinnati Shakespeare Company": ("cincinnati", None, "theatre"),
     "Children's Theatre of Cincinnati (Emery Theater)": ("cincinnati", None, "theatre"),
+    "Taft Theatre": ("cincinnati", None, "theatre"),
+    "Ensemble Theatre Cincinnati": ("cincinnati", "1127 Vine Street, Cincinnati, OH", "theatre"),
+    "Downtown Main Library": ("cincinnati", None, "library"),
+    "Hall Auditorium": ("oxford", None, "theatre"),
+    "Millett Assembly Hall": ("oxford", None, "arena"),
+    "Armstrong Student Center": ("oxford", None, "building"),
 }
 OUT_OF_AREA = {"Five Rivers MetroParks paved trail network (Dayton)"}
 
@@ -493,6 +503,55 @@ FACTS = [
      "Service animals are welcome at the National Underground Railroad Freedom Center.", FC),
     ("Music Hall", "service_animals", "yes", "notify ticketing at purchase",
      "Service animals are always welcome and should remain on a leash or in a harness at all times.", MH),
+    # ---- batch 6 (2026-11-12): Taft Theatre, Ensemble Theatre, Music Hall (CSO page), Main Library, Miami venues ----
+    ("Taft Theatre", "entrance_step_free", "yes", "ADA-accessible entrances",
+     "The Taft Theatre is fully equipped with ADA-accessible entrances and seating.", TAFT_ADA),
+    ("Taft Theatre", "accessible_seating", "yes", "accessible space + companion seat pairs; buy at purchase, best available",
+     "ADA seating is arranged in consecutive odd-numbered, with each odd-numbered seat designated as either an accessible space or a companion seat.", TAFT_ADA),
+    ("Taft Theatre", "elevator", "no", "no elevator; balcony is stairs only",
+     "No, there is not an elevator. All balcony seats require climbing stairs.", TAFT_FAQ),
+    ("Taft Theatre", "asl_interpretation", "yes", "on request, 3 weeks ahead: info@tafttheatre.org",
+     "Taft Theatre offers sign language interpretation upon request.", TAFT_ADA),
+    ("Ensemble Theatre Cincinnati", "automatic_door", "yes", "street to main entrance, 1127 Vine St",
+     "Automatic doors from street into the theatre’s main entrance", ETC),
+    ("Ensemble Theatre Cincinnati", "elevator", "yes", "between floors; wheelchair lift past 4 stairs at third-floor theatre entrance",
+     "a wheelchair lift provides access to this height difference for patrons using mobility devices.", ETC),
+    ("Ensemble Theatre Cincinnati", "restroom_accessible", "yes", "first-floor lobby, second-floor corridor, third-floor lobby",
+     "Accessible restrooms are located in the first-floor lobby, as well as the second-floor corridor and third-floor lobby.", ETC),
+    ("Ensemble Theatre Cincinnati", "accessible_seating", "yes", "wheelchair locations with adjacent companion seats",
+     "We guarantee one companion seat per wheelchair location that is immediately adjacent and in the same row", ETC),
+    ("Ensemble Theatre Cincinnati", "accessible_parking", "limited", "few spaces in front of 1127 Vine St, first come; also 12th & Vine lot, Gateway Garage",
+     "Limited first-come, first-served accessible parking is located in front of the theatre’s main entrance at 1127 Vine Street.", ETC),
+    ("Ensemble Theatre Cincinnati", "braille", "yes", "braille programs at the Box Office, every production",
+     "We provide large-print and braille programs for every production along with audio-described performances on select dates throughout the season.", ETC),
+    ("Ensemble Theatre Cincinnati", "large_print", "yes", "large-print programs, also PDF on show pages",
+     "We provide large-print and braille programs for every production along with audio-described performances on select dates throughout the season.", ETC),
+    ("Ensemble Theatre Cincinnati", "audio_description", "yes", "one audio-described performance per regular-season production",
+     "One audio-described performance is offered for each regular-season production", ETC),
+    ("Ensemble Theatre Cincinnati", "assistive_listening", "yes", "free headphones, earbuds, neck loops",
+     "Headphones, earbuds, and induction neck loops (for patrons who use hearing aids and cochlear implants with a T-switch) are offered free of charge", ETC),
+    ("Music Hall", "restroom_accessible", "yes", "every level of Springer Auditorium; companion care restrooms",
+     "Accessible restrooms are available on every level of the Springer Auditorium", CSO),
+    ("Music Hall", "elevator", "yes", "two elevators from the Elm St lobby to every level; North Concourse elevator",
+     "two elevators that provide easy access to every level of Music Hall, including the Ballroom.", CSO),
+    ("Music Hall", "accessible_parking", "yes", "Washington Park Garage; Music Hall lot and Town Center Garage as available",
+     "Handicapped parking spaces are located in the Washington Park Garage", CSO),
+    ("Music Hall", "audio_description", "yes", "for CSO concerts on request, one month ahead: hello@cincinnatisymphony.org",
+     "For audience members who are blind or partially sighted and would like an audio description of the performance, please email", CSO),
+    ("Downtown Main Library", "braille", "yes", "braille and recorded books; refreshable braille display, 2nd floor South Building",
+     "A browsing collection of recorded and Braille books and described videos is available at the Main Library.", CHPL_BLIND),
+    ("Downtown Main Library", "audio_description", "yes", "described videos / DVDs with audio description",
+     "A number of DVDs in the Library’s collection provide an audio description option.", CHPL_BLIND),
+    ("Downtown Main Library", "large_print", "yes", "ZoomText screen magnifier in all branches",
+     "ZoomText: Designed for the low vision user, magnifies the contents of a computers screen. Available in all branches.", CHPL_BLIND),
+    ("Hall Auditorium", "accessible_parking", "yes", "one-way drive south of Hall Auditorium off Campus Ave; lots behind Hall and McGuffey",
+     "Handicapped parking is accessed by entering the one-way drive directly South of Hall Auditorium off Campus Avenue.", MU_PAS),
+    ("Millett Assembly Hall", "accessible_parking", "yes", "off Weeb Ewbank Way, northwest corner behind Millett",
+     "Handicapped parking can be accessed off Weeb Ewbank Way in the lot to the right behind Millett Hall on the Northwest corner of Millett Hall (between the Softball Field and Millett Hall).", MU_PAS),
+    ("Armstrong Student Center", "accessible_route_inside", "yes", "venues meet ADA; no adjacent parking (metered behind Shriver Center)",
+     "Venues within the Armstrong Student Center meet federal ADA requirements for accessibility.", MU_ASC),
+    ("Armstrong Student Center", "asl_interpretation", "yes", "interpreters or captioning for university events on request",
+     "Additional accommodations for access to events, such as sign language interpreters or captioning services for university-sponsored programs, can be requested through the", MU_ASC),
 ]
 
 DATES = {VC: "2016-01-29", NPS: "2024-09-10", CMC_CHM: "2023-05-26", CMC_MNHS: "2023-05-26", CMC_TCM: "2023-05-26",

@@ -38,6 +38,13 @@ Cincinnati Playhouse in the Park: {name: Cincinnati Playhouse in the Park, categ
 Cincinnati Shakespeare Company: {name: Cincinnati Shakespeare Company, category: theatre_venue, layer: culture}
 "Children's Theatre of Cincinnati (Emery Theater)": {name: Emery Theatre, category: theatre, layer: culture}
 
+Taft Theatre: {name: Taft Theatre, category: theatre, layer: culture}
+Ensemble Theatre Cincinnati: {name: Ensemble Theatre Cincinnati, category: theatre, layer: culture}
+Downtown Main Library: {name: Downtown Main Library, category: library, layer: building}
+Hall Auditorium: {name: Hall Auditorium, category: university, layer: building}
+Millett Assembly Hall: {name: Millett Assembly Hall, category: sports_centre, layer: culture}
+Armstrong Student Center: {name: Armstrong Student Center, category: university, layer: building}
+
 # not single points: kept in the data, listed in data/map/review.csv
 Cincinnati Metro buses: {skip: transit system}
 Cincinnati Connector streetcar: {skip: transit line}

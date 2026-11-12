@@ -569,9 +569,14 @@ def write() -> list[Path]:
     for region in ("cincinnati", "oxford"):
         feats = [f for f in shared if region_of(f["geometry"]) == region]
         taken = {f["properties"]["matched_to"].split(" ")[0] for f in feats}
-        extra = [
-            f for f in building_features(region) if f["properties"]["matched_to"].split(" ")[0] not in taken
-        ]
+        by_eid = {f["properties"]["matched_to"].split(" ")[0]: f for f in feats}
+        extra = []
+        for b in building_features(region):
+            eid = b["properties"]["matched_to"].split(" ")[0]
+            if eid in by_eid:  # a venue pinned to the same building: keep its entrance counts as a fact
+                by_eid[eid]["properties"]["facts"] += b["properties"]["facts"]
+            else:
+                extra.append(b)
         taken |= {f["properties"]["matched_to"].split(" ")[0] for f in extra}
         extra += tagged_poi_features(region, taken)
         feats += extra + restroom_features(region)
@@ -723,6 +728,7 @@ LABEL_TO_ATTR = {v: k for k, v in LABELS.items()}
 # shown (as "not known" when missing) because they are what a wheelchair user asks first.
 KEY_FACTS = [
     ("entrance", "Entrance"),
+    ("automatic_door", "Automatic door"),
     ("restroom", "Restroom"),
     ("inside", "Inside"),
     ("elevator", "Elevator"),
@@ -745,6 +751,7 @@ KEY_SOURCES = {  # fact attribute (label or OSM tag) -> key
     "Accessible restroom": "restroom",
     "toilets:wheelchair": "restroom",
     "Elevator / lift": "elevator",
+    "Automatic door": "automatic_door",
     "Getting around inside": "inside",
     "Adult changing table": "adult_changing_table",
     "Accessible rooms": "accessible_rooms",

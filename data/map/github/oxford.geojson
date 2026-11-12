@@ -30,6 +30,72 @@
 "geometry": {
 "type": "Point",
 "coordinates": [
+-84.7385058,
+39.5089466
+]
+},
+"properties": {
+"Name": "Hall Auditorium",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible parking: yes (one-way drive south of Hall Auditorium off Campus Ave; lots behind Hall and McGuffey)",
+"Fact 2": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
+"Upcoming events": "9: 2026-11-12 Miami University Percussion Ensemble; 2026-11-19 Miami University Jazz Ensemble Concert; 2026-11-21 Playing Together: Music and Sports at Miami, Symphony Orchestra",
+"Source": "https://www.miamioh.edu/cca/performing-arts-series/visit-us/index.html",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.734554,
+39.5172015
+]
+},
+"properties": {
+"Name": "Millett Assembly Hall",
+"Type": "Museum / venue / attraction",
+"Accessibility": "Partly accessible",
+"Fact 1": "Accessible parking: yes (off Weeb Ewbank Way, northwest corner behind Millett)",
+"Fact 2": "Accessible entrance: yes (4 yes, 0 limited, 0 no of 4 mapped entrances)",
+"Source": "https://www.miamioh.edu/cca/performing-arts-series/visit-us/index.html",
+"marker-color": "#E69F00",
+"marker-symbol": "museum",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.7328708,
+39.5077701
+]
+},
+"properties": {
+"Name": "Armstrong Student Center",
+"Type": "Building (campus or public)",
+"Accessibility": "Partly accessible",
+"Fact 1": "Getting around inside: yes (venues meet ADA; no adjacent parking (metered behind Shriver Center))",
+"Fact 2": "ASL: yes (interpreters or captioning for university events on request)",
+"Fact 3": "Accessible entrance: yes (6 yes, 0 limited, 0 no of 6 mapped entrances)",
+"Upcoming events": "1: 2026-11-17 Thane Maynard \"A World Worth Saving: Lessons from a Lifetime in Wildlife Conservation\"",
+"Source": "https://miamioh.edu/student-life/armstrong-student-center/about/offices/index.html",
+"marker-color": "#E69F00",
+"marker-symbol": "building",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
 -84.75902306,
 39.58164919
 ]
@@ -109,26 +175,6 @@
 "stroke": "#0072B2",
 "stroke-width": 4,
 "stroke-opacity": 0.9
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.73455392064797,
-39.5172372
-]
-},
-"properties": {
-"Name": "Millett Assembly Hall",
-"Type": "Building (campus or public)",
-"Accessibility": "Partly accessible",
-"Fact 1": "Accessible entrance: yes (4 yes, 0 limited, 0 no of 4 mapped entrances)",
-"Source": "https://www.openstreetmap.org/way/83701067",
-"marker-color": "#E69F00",
-"marker-symbol": "building",
-"marker-size": "medium"
 }
 },
 {
@@ -1141,27 +1187,6 @@
 "geometry": {
 "type": "Point",
 "coordinates": [
--84.73850892866005,
-39.508925000000005
-]
-},
-"properties": {
-"Name": "Hall Auditorium",
-"Type": "Building (campus or public)",
-"Accessibility": "Partly accessible",
-"Fact 1": "Accessible entrance: yes (1 yes, 0 limited, 1 no of 2 mapped entrances)",
-"Upcoming events": "9: 2026-11-12 Miami University Percussion Ensemble; 2026-11-19 Miami University Jazz Ensemble Concert; 2026-11-21 Playing Together: Music and Sports at Miami, Symphony Orchestra",
-"Source": "https://www.openstreetmap.org/way/183831928",
-"marker-color": "#E69F00",
-"marker-symbol": "building",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
 -84.72575991349095,
 39.501238799999996
 ]
@@ -1994,27 +2019,6 @@
 "Accessibility": "Partly accessible",
 "Fact 1": "Accessible entrance: yes (4 yes, 0 limited, 0 no of 4 mapped entrances)",
 "Source": "https://www.openstreetmap.org/way/705886668",
-"marker-color": "#E69F00",
-"marker-symbol": "building",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7330794102304,
-39.5077705
-]
-},
-"properties": {
-"Name": "Armstrong Student Center",
-"Type": "Building (campus or public)",
-"Accessibility": "Partly accessible",
-"Fact 1": "Accessible entrance: yes (6 yes, 0 limited, 0 no of 6 mapped entrances)",
-"Upcoming events": "1: 2026-11-17 Thane Maynard \"A World Worth Saving: Lessons from a Lifetime in Wildlife Conservation\"",
-"Source": "https://www.openstreetmap.org/way/724458869",
 "marker-color": "#E69F00",
 "marker-symbol": "building",
 "marker-size": "medium"
