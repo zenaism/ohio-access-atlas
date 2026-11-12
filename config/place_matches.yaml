@@ -75,6 +75,15 @@ _extra:
      fact: "Marked wheelchair accessible on the Ohio DNR park map (rev. 11/2019)",
      source: data/manual/posters/hueston_woods_state_park/extraction.json}
 
+# facts read from posters/maps, added to a place that is already on the map (place = venue_facts name)
+_poster_facts:
+  - {place: "Cincinnati Zoo & Botanical Garden", attribute: wheelchair_loan, value: "yes",
+     detail: "wheelchair / stroller rental (Welcome Center map legend, 2026)",
+     source: data/manual/posters/cincinnati_zoo_welcome_center_map/extraction.json}
+  - {place: "Cincinnati Zoo & Botanical Garden", attribute: restroom_family, value: "yes",
+     detail: "family restrooms and sensory-friendly restrooms (Welcome Center map legend, 2026)",
+     source: data/manual/posters/cincinnati_zoo_welcome_center_map/extraction.json}
+
 # event venue names as written in calendars -> gazetteer names
 _venue_aliases:
   center for performing arts: Center for Performing Arts

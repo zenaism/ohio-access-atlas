@@ -247,6 +247,25 @@ def place_features(g, facts, matches, review):
                 },
             }
         )
+    by_name = {f["properties"]["name"]: f for f in feats}
+    for spec in matches.get("_poster_facts", []):  # facts read from a map/poster, added to an existing place
+        f = by_name.get(spec["place"])
+        if f is None:
+            review.append(
+                {"region": "", "item": spec["place"], "kind": "poster fact", "reason": "place not on map"}
+            )
+            continue
+        poster = json.loads((ROOT / spec["source"]).read_text())
+        f["properties"]["facts"].append(
+            {
+                "attribute": LABELS.get(spec["attribute"], spec["attribute"]),
+                "value": spec["value"],
+                "detail": spec["detail"],
+                "quote": "",
+                "source": poster.get("image_url") or poster.get("pdf_url") or spec["source"],
+                "date": TODAY[:7],
+            }
+        )
     return feats
 
 

@@ -1,0 +1,39 @@
+{
+ "poster": "Cincinnati Zoo & Botanical Garden Welcome Center map (attractions)",
+ "publisher": "Cincinnati Zoo & Botanical Garden",
+ "revision": "file name dated 8-7-26",
+ "image_url": "https://cincinnatizoo.org/wp-content/uploads/2026/08/Welcome_Center_Map_Attractions_8-7-26.webp",
+ "local_file": "data/manual/posters/cincinnati_zoo_welcome_center_map/welcome_center_map_attractions_2026-08-07.webp",
+ "in_area": true,
+ "extraction_method": "poster_vision; legend read at full resolution (1918x1083) from the saved image",
+ "extracted_by": "Claude (Claude Code session), 2026-11-12",
+ "verified_by_human": false,
+ "legend_access_symbols": [
+  {
+   "symbol": "wheelchair",
+   "label": "Wheelchair/ Stroller Rental"
+  },
+  {
+   "symbol": "family",
+   "label": "Family Restroom"
+  },
+  {
+   "symbol": "family (blue)",
+   "label": "Sensory-Friendly Restroom"
+  },
+  {
+   "symbol": "elephant (blue)",
+   "label": "Sensory-Friendly Restroom with Adult Changing Table"
+  },
+  {
+   "symbol": "nursing",
+   "label": "Nursing Area"
+  },
+  {
+   "symbol": "first aid / AED",
+   "label": "First Aid"
+  }
+ ],
+ "legend_crop": "data/manual/posters/cincinnati_zoo_welcome_center_map/crops/legend_access_symbols.png",
+ "note": "The legend shows these services exist; how many and where needs the map body, whose symbols are too small to count reliably at this resolution. Use the Zoo's interactive map (map.cincinnatizoo.org) for locations."
+}
