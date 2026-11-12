@@ -7,6 +7,7 @@ Accuracy caveat: 1 m DEM vertical noise of about 0.1 m over 10 m gives about 1% 
 error. Validate against field measurements before trusting values near the 5% / 8.33%
 thresholds.
 """
+
 from __future__ import annotations
 
 import contextlib
@@ -47,11 +48,21 @@ def _sample_points(seg: gpd.GeoDataFrame, step: float) -> pd.DataFrame:
 def _elevations(url: str, pts: pd.DataFrame, to_m: float) -> np.ndarray:
     z = np.full(len(pts), np.nan)
     for i in range(0, len(pts), BATCH):
-        b = pts.iloc[i:i + BATCH]
+        b = pts.iloc[i : i + BATCH]
         geom = {"points": b[["lon", "lat"]].values.tolist(), "spatialReference": {"wkid": 4326}}
-        d = json.loads(fetch(f"{url}/getSamples", method="POST", min_interval=0.2, data={
-            "geometry": json.dumps(geom, separators=(",", ":")), "geometryType": "esriGeometryMultipoint",
-            "returnFirstValueOnly": "true", "f": "json"}))
+        d = json.loads(
+            fetch(
+                f"{url}/getSamples",
+                method="POST",
+                min_interval=0.2,
+                data={
+                    "geometry": json.dumps(geom, separators=(",", ":")),
+                    "geometryType": "esriGeometryMultipoint",
+                    "returnFirstValueOnly": "true",
+                    "f": "json",
+                },
+            )
+        )
         for s in d.get("samples", []):
             with contextlib.suppress(ValueError, TypeError):  # "NoData" outside coverage
                 z[i + s["locationId"]] = float(s["value"]) * to_m
@@ -63,10 +74,11 @@ def run(name: str, spec: dict, region: str) -> pd.DataFrame:
     seg = _segments(region)
     seg = seg[seg.length >= spec.get("min_length_m", 5)]
     pts = _sample_points(seg, step)
-    if spec.get("dem") == "3dep_local":   # downloaded tiles (see atlas.dem)
+    if spec.get("dem") == "3dep_local":  # downloaded tiles (see atlas.dem)
         from ..dem import sample
+
         pts["z"] = sample(region, pts.lon.values, pts.lat.values)
-    else:                                  # remote ImageServer
+    else:  # remote ImageServer
         pts["z"] = _elevations(spec["url"], pts, spec.get("to_metres", 1.0))
 
     def grades(g):
@@ -74,20 +86,37 @@ def run(name: str, spec: dict, region: str) -> pd.DataFrame:
         if len(g) < 2:
             return pd.Series({"max_grade": np.nan, "avg_grade": np.nan})
         dz, dd = np.diff(g.z.values), np.diff(g.dist.values)
-        return pd.Series({"max_grade": np.max(np.abs(dz / dd)) * 100,
-                          "avg_grade": abs(g.z.values[-1] - g.z.values[0]) / g.dist.values[-1] * 100})
+        return pd.Series(
+            {
+                "max_grade": np.max(np.abs(dz / dd)) * 100,
+                "avg_grade": abs(g.z.values[-1] - g.z.values[0]) / g.dist.values[-1] * 100,
+            }
+        )
 
     gr = pts.groupby("entity_id")[["dist", "z"]].apply(grades)
     seg = seg.set_index("entity_id").join(gr).dropna(subset=["max_grade"]).reset_index().to_crs(WGS84)
-    long = pd.concat([
-        seg.assign(attribute="incline_max_dem", value=seg.max_grade.round(1).astype(str) + "%"),
-        seg.assign(attribute="incline_avg_dem", value=seg.avg_grade.round(1).astype(str) + "%"),
-    ], ignore_index=True)
+    long = pd.concat(
+        [
+            seg.assign(attribute="incline_max_dem", value=seg.max_grade.round(1).astype(str) + "%"),
+            seg.assign(attribute="incline_avg_dem", value=seg.avg_grade.round(1).astype(str) + "%"),
+        ],
+        ignore_index=True,
+    )
     long = gpd.GeoDataFrame(long, geometry="geometry", crs=WGS84)
     obs = observations(
-        long, entity_id=long.entity_id, entity_type="path_segment", name=long["name"],
-        category=long.category, attribute=long.attribute, value=long.value,
-        signal=[incline(v) for v in long.value], source=name, source_ref=spec["url"],
-        retrieved_at=retrieved, license=spec["license"], region=region)
+        long,
+        entity_id=long.entity_id,
+        entity_type="path_segment",
+        name=long["name"],
+        category=long.category,
+        attribute=long.attribute,
+        value=long.value,
+        signal=[incline(v) for v in long.value],
+        source=name,
+        source_ref=spec["url"],
+        retrieved_at=retrieved,
+        license=spec["license"],
+        region=region,
+    )
     save(region, name, seg[["entity_id", "category", "max_grade", "avg_grade", "geometry"]], obs)
     return obs

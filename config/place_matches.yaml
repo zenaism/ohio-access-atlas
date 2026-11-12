@@ -63,6 +63,14 @@ DeWitt Log Homestead: {name: DeWitt Log Homestead, category: historic_site, laye
 TRI Community Center Complex: {name: TRI Community Center Complex, category: park, layer: building}
 Oxford Municipal Court: {skip: "location not stated in the source; assistant-only record"}
 
+"MobilityWorks of Sharonville-Cincinnati, OH": {name: "MobilityWorks of Sharonville-Cincinnati, OH", category: auto_dealer, layer: service}
+Mobility Plus Cincinnati East: {name: Mobility Plus Cincinnati East, category: b2b_service, layer: service}
+"Superior Van & Mobility": {name: "Superior Van & Mobility", category: family_service, layer: service}
+"Metro Access (Cincinnati Metro paratransit)": {skip: "service, no single location; assistant-only"}
+"Greater Cincinnati buses (Metro, TANK, BCRTA)": {skip: "region-wide statement; assistant-only"}
+"City of Cincinnati 311 (accessibility reports)": {skip: "service; assistant-only"}
+"Cincinnati Recreation Commission (CRC)": {skip: "system-wide; assistant-only"}
+
 # not single points: kept in the data, listed in data/map/review.csv
 Cincinnati Metro buses: {skip: transit system}
 Cincinnati Connector streetcar: {skip: transit line}

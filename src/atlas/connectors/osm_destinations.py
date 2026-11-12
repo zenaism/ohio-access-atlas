@@ -1,6 +1,7 @@
 """OpenStreetMap destinations in the buffered region: trails, parks, restrooms, culture and
 recreation. The `osm` source covers the street network inside city limits; this one reaches the
 parks and trails people travel to."""
+
 from __future__ import annotations
 
 import json
@@ -12,28 +13,48 @@ from ..core import WGS84, area, fetch, now, observations, save
 from ..signals import signal
 from .overpass import OBS_TAGS, URL
 
-OBS = OBS_TAGS | {"changing_table", "changing_table:adult", "unisex", "fee", "opening_hours",
-                  "access", "trail_visibility", "sac_scale", "mtb:scale", "length", "distance"}
+OBS = OBS_TAGS | {
+    "changing_table",
+    "changing_table:adult",
+    "unisex",
+    "fee",
+    "opening_hours",
+    "access",
+    "trail_visibility",
+    "sac_scale",
+    "mtb:scale",
+    "length",
+    "distance",
+}
 
 # (layer, overpass statements); {b} = bbox
 LAYERS = {
-    "trail": ('way["highway"~"^(path|footway|cycleway|track|bridleway)$"]["name"]({b});'
-              'relation["route"~"^(hiking|foot|bicycle|walking)$"]({b});'),
+    "trail": (
+        'way["highway"~"^(path|footway|cycleway|track|bridleway)$"]["name"]({b});'
+        'relation["route"~"^(hiking|foot|bicycle|walking)$"]({b});'
+    ),
     "park": 'nwr["leisure"~"^(park|nature_reserve|garden|playground|dog_park|fishing)$"]["name"]({b});'
-            'nwr["boundary"="protected_area"]["name"]({b});',
+    'nwr["boundary"="protected_area"]["name"]({b});',
     "restroom": 'nwr["amenity"="toilets"]({b});nwr["changing_table"]({b});',
-    "culture": ('nwr["tourism"~"^(museum|gallery|attraction|zoo|aquarium|theme_park|viewpoint|picnic_site)$"]'
-                '({b});nwr["amenity"~"^(theatre|arts_centre|library|cinema|community_centre|place_of_worship)$"]'
-                '["name"]({b});'),
-    "recreation": ('nwr["leisure"~"^(sports_centre|stadium|swimming_pool|fitness_centre|pitch|ice_rink|'
-                   'bowling_alley)$"]["name"]({b});'),
+    "culture": (
+        'nwr["tourism"~"^(museum|gallery|attraction|zoo|aquarium|theme_park|viewpoint|picnic_site)$"]'
+        '({b});nwr["amenity"~"^(theatre|arts_centre|library|cinema|community_centre|place_of_worship)$"]'
+        '["name"]({b});'
+    ),
+    "recreation": (
+        'nwr["leisure"~"^(sports_centre|stadium|swimming_pool|fitness_centre|pitch|ice_rink|'
+        'bowling_alley)$"]["name"]({b});'
+    ),
 }
 
 
 def _geom(el):
     if el["type"] == "relation":
-        lines = [LineString([(p["lon"], p["lat"]) for p in m["geometry"]])
-                 for m in el.get("members", []) if m.get("geometry") and len(m["geometry"]) > 1]
+        lines = [
+            LineString([(p["lon"], p["lat"]) for p in m["geometry"]])
+            for m in el.get("members", [])
+            if m.get("geometry") and len(m["geometry"]) > 1
+        ]
         return MultiLineString(lines) if lines else None
     if el.get("geometry") and len(el["geometry"]) > 1:
         return LineString([(p["lon"], p["lat"]) for p in el["geometry"]])
@@ -57,19 +78,42 @@ def run(name: str, spec: dict, region: str) -> None:
             if eid in rows or (g := _geom(el)) is None:
                 continue
             t = el.get("tags", {})
-            rows[eid] = {"entity_id": eid, "entity_type": layer, "name": t.get("name", ""),
-                         "category": next((f"{k}={t[k]}" for k in ("route", "highway", "leisure", "amenity",
-                                           "tourism", "boundary") if k in t), ""),
-                         "tags": json.dumps(t, sort_keys=True), "geometry": g}
+            rows[eid] = {
+                "entity_id": eid,
+                "entity_type": layer,
+                "name": t.get("name", ""),
+                "category": next(
+                    (
+                        f"{k}={t[k]}"
+                        for k in ("route", "highway", "leisure", "amenity", "tourism", "boundary")
+                        if k in t
+                    ),
+                    "",
+                ),
+                "tags": json.dumps(t, sort_keys=True),
+                "geometry": g,
+            }
     ent = gpd.GeoDataFrame(list(rows.values()), crs=WGS84)
     ent = ent[ent.intersects(poly)].copy()
-    long = ent.assign(tag=ent["tags"].map(json.loads).map(
-        lambda t: [(k, v) for k, v in t.items() if k in OBS])).explode("tag").dropna(subset=["tag"])
+    long = (
+        ent.assign(tag=ent["tags"].map(json.loads).map(lambda t: [(k, v) for k, v in t.items() if k in OBS]))
+        .explode("tag")
+        .dropna(subset=["tag"])
+    )
     long["attribute"], long["value"] = long["tag"].str[0], long["tag"].str[1]
     obs = observations(
-        long, entity_id=long.entity_id, entity_type=long.entity_type, name=long.name,
-        category=long.category, attribute=long.attribute, value=long.value,
+        long,
+        entity_id=long.entity_id,
+        entity_type=long.entity_type,
+        name=long.name,
+        category=long.category,
+        attribute=long.attribute,
+        value=long.value,
         signal=[signal(a, v) for a, v in zip(long.attribute, long.value, strict=True)],
-        source=name, source_ref="https://www.openstreetmap.org/" + long.entity_id.str[4:],
-        retrieved_at=retrieved, license=spec["license"], region=region)
+        source=name,
+        source_ref="https://www.openstreetmap.org/" + long.entity_id.str[4:],
+        retrieved_at=retrieved,
+        license=spec["license"],
+        region=region,
+    )
     save(region, name, ent, obs)

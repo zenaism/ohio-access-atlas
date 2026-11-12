@@ -638,3 +638,66 @@ web_oxford_retry:   # retries of pages that timed out on 2026-11-12
     - https://www.butlercountyrta.com/ada-paratransit
     - https://www.oacbdd.org/aws/OACB/pt/sd/news_article/628351/_PARENT/layout_details/false   # copy of the WCPO story (2026-06-12)
   license: official websites and news; facts with short quotes and links only
+
+web_cincinnati_more:   # gaps from the question bank (2026-11-12): paratransit, CRC, Findlay/OTR, mobility services
+  type: web
+  render: true
+  regions: [cincinnati]
+  author_type: official
+  max_pages: 70
+  assets: true
+  urls:
+    - https://www.go-metro.com/?p=36676
+    - https://go-metro.com/wp-content/uploads/2025/01/Application-for-ADA-Complementary-Paratransit-Services-final.pdf
+    - https://www.tankbus.org/ramp-paratransit/paratransit-application/
+    - https://cincinnati-oh.gov/recreation/programs/therapeutic-recreation
+    - https://www.cincinnati-oh.gov/crc/programs/therapeutic-recreation-and-inclusion
+    - https://www.cincinnati-oh.gov/crc/aquatics/pool-membership/
+    - https://www.cincinnati-oh.gov/cincyparks/visit-a-park/general-information/
+    - https://www.cincinnati-oh.gov/manager/aging-and-accessibility/accesscincy/accesscincy-parks-and-recreation
+    - https://www.findlaymarket.org/
+    - http://www.washingtonpark.org/
+    - https://washingtonpark.org/directions/
+    - http://www.myfountainsquare.com
+    - https://www.mobilityworks.com/locations/wheelchair-vans-for-sale-in-sharonville-cincinnati-ohio/
+    - https://www.mobilityplus.com/fid75/Cincinnati-OH-45246
+    - https://www.mobilityplus.com/cincinnati-east-oh/
+    - https://superiorvan.com/locations/covington-ky/
+    - https://cincinnatimobilityscooterrentals.com
+    - https://www.imsforyou.com
+    - https://www.godasco.com
+    - http://kleinmedicalsupply.com
+    - http://www.metroscooter.com/
+  follow:
+    - https://www.findlaymarket.org/visit
+    - https://www.findlaymarket.org/plan
+    - https://www.findlaymarket.org/faq
+    - https://www.findlaymarket.org/parking
+    - https://washingtonpark.org/faq
+    - https://washingtonpark.org/visit
+    - https://myfountainsquare.com/faq
+    - https://www.myfountainsquare.com/faq
+    - https://www.cincinnati-oh.gov/crc/programs/therapeutic
+    - https://www.go-metro.com/riding-metro/accessib
+    - https://www.go-metro.com/accessib
+  license: official and business websites; facts with short quotes and links only
+
+web_mobility_services:   # wheelchair repair, rental, accessible vans, medical equipment (businesses found in Overture)
+  type: web
+  render: false
+  regions: [cincinnati]
+  author_type: business
+  max_pages: 30
+  assets: false
+  urls:
+    - https://www.mobilityworks.com/locations/wheelchair-vans-for-sale-in-sharonville-cincinnati-ohio/
+    - https://www.mobilityplus.com/fid75/Cincinnati-OH-45246
+    - https://www.mobilityplus.com/cincinnati-east-oh/
+    - https://superiorvan.com/locations/covington-ky/
+    - https://cincinnatimobilityscooterrentals.com
+    - https://www.imsforyou.com
+    - https://www.godasco.com
+    - http://kleinmedicalsupply.com
+    - http://www.metroscooter.com/
+    - http://www.myfountainsquare.com
+  license: business websites; services and contact only

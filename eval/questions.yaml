@@ -104,9 +104,8 @@
 - id: metro-access
   category: getting there
   question: How do I sign up for Metro Access paratransit?
-  call: {tool: search_places, args: {query: paratransit}}
-  expect_unknown: true
-  gap: Metro Access (Cincinnati) program page not collected; only BCRTA paratransit (Oxford) via the Miami campus record
+  call: {tool: search_places, args: {query: paratransit, region: cincinnati}}
+  expect_any: [Metro Access (Cincinnati Metro paratransit), Greater Cincinnati buses (Metro, TANK, BCRTA)]
 
 - id: paved-trails-cincinnati
   category: trails
@@ -212,15 +211,14 @@
 - id: wheelchair-repair
   category: services
   question: Where can I get my wheelchair fixed in Cincinnati?
-  call: {tool: search_places, args: {query: wheelchair repair, region: cincinnati}}
-  expect_unknown: true
-  gap: medical-equipment shops not collected (Overture has categories; not mapped yet)
+  call: {tool: search_places, args: {region: cincinnati, need: mobility_service}}
+  expect_any: [Mobility Plus Cincinnati East, MobilityWorks of Sharonville-Cincinnati, OH, Superior Van & Mobility]
+  note: Mobility Plus says service and rentals; the business sites do not list wheelchair repair prices or hours
 - id: report-ramp
   category: services
   question: Who do I call to report a broken curb ramp?
-  call: {tool: search_places, args: {query: 311}}
-  expect_unknown: true
-  gap: the 311 instructions (AccessCincy page) are saved but not a kb record yet
+  call: {tool: search_places, args: {query: report curb ramp 311, region: cincinnati}}
+  expect_any: [City of Cincinnati 311 (accessibility reports)]
 - id: oxford-roll-in
   category: services
   question: Which hotels in Oxford have roll-in showers?
@@ -234,9 +232,8 @@
 - id: van-rental
   category: services
   question: Where can I rent a wheelchair-accessible van?
-  call: {tool: search_places, args: {query: van rental}}
-  expect_unknown: true
-  gap: not collected
+  call: {tool: search_places, args: {query: van rental, need: mobility_service}}
+  expect_any: [Superior Van & Mobility, MobilityWorks of Sharonville-Cincinnati, OH]
 
 - id: up-to-date
   category: trust

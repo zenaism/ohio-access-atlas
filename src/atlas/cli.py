@@ -1,4 +1,5 @@
 """atlas fetch <source|all> --region <region|all>  |  atlas report --region <region|all>"""
+
 from __future__ import annotations
 
 import argparse
@@ -31,24 +32,29 @@ def main() -> None:
         return
     if a.command == "map":
         from .export_map import write as write_map
+
         for f in write_map():
             print(f)
         return
     if a.command == "inventory":
         from .inventory import write
+
         print(write())
         return
     if a.command == "equity":
         from .analysis.equity import run
+
         print(run())
         return
     if a.command == "dem":
         from .dem import download
+
         for r in regions:
             download(r)
         return
     if a.command == "report":
         from .report import write
+
         for r in regions:
             print(write(r))
         return

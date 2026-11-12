@@ -41,6 +41,8 @@ NEEDS = {
     "service_animals": {"facts": ["Service animals"]},
     "sensory_friendly": {"facts": ["Sensory-friendly", "Quiet room"]},
     "listed_wheelchair_accessible": {"facts": ["Listed wheelchair accessible", "wheelchair"]},
+    "mobility_service": {"facts": ["Mobility service"]},
+    "paratransit": {"facts": ["Transit"]},
 }
 POSITIVE = ("yes", "designated", "limited")
 

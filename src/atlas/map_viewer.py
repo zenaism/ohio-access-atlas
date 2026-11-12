@@ -26,16 +26,46 @@ RATING_HELP = {
 
 # 20x20 pictograms; "currentColor" takes the glyph colour of the rating
 ICONS = {
-    "culture": ("Museum or attraction", '<path d="M10 3 17 7H3z" fill="currentColor"/><path d="M5 8v6M8.3 8v6M11.7 8v6M15 8v6" stroke="currentColor" stroke-width="1.6"/><path d="M3 15.5h14" stroke="currentColor" stroke-width="1.8"/>'),
-    "park": ("Park or garden", '<circle cx="10" cy="8" r="5" fill="currentColor"/><path d="M10 11v6" stroke="currentColor" stroke-width="2"/>'),
-    "restroom": ("Restroom", '<text x="10" y="14" text-anchor="middle" font-size="9" font-weight="700" font-family="Arial,sans-serif" fill="currentColor">WC</text>'),
-    "adaptive_recreation": ("Adaptive recreation", '<circle cx="11" cy="4" r="1.8" fill="currentColor"/><path d="M10.5 6.5v5h4l2 4" stroke="currentColor" stroke-width="1.7" fill="none"/><circle cx="8.5" cy="13" r="4" stroke="currentColor" stroke-width="1.7" fill="none"/>'),
-    "lodging": ("Lodging", '<path d="M3 15V6M3 12h14v3M17 15v-3" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="6.5" cy="9.5" r="1.6" fill="currentColor"/><path d="M9 11V8.5h6.5a1.5 1.5 0 0 1 1.5 1.5v1" fill="currentColor"/>'),
-    "event": ("Event venue", '<rect x="3.5" y="5" width="13" height="11" rx="1.5" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M3.5 8.5h13M7 3v3.5M13 3v3.5" stroke="currentColor" stroke-width="1.7"/>'),
-    "building": ("Building (campus or public)", '<path d="M4 17V5l6-2 6 2v12" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M8.5 17v-4h3v4M7 7.5h2M11 7.5h2M7 10.5h2M11 10.5h2" stroke="currentColor" stroke-width="1.5"/>'),
-    "food_drink": ("Food and drink", '<path d="M6 3v6a2 2 0 0 0 2 2v6M8 3v5M4 3v5a2 2 0 0 0 2 2" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M14 17V3c-2 1.5-2.5 4-2.5 7H14" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>'),
-    "service": ("Shop or service", '<path d="M4 7h12l-1 10H5z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/><path d="M7.5 7V5.5a2.5 2.5 0 0 1 5 0V7" stroke="currentColor" stroke-width="1.6" fill="none"/>'),
-    "trail": ("Trail", '<path d="M3 16c3-2 3-6 7-7s4-4 7-6" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/>'),
+    "culture": (
+        "Museum or attraction",
+        '<path d="M10 3 17 7H3z" fill="currentColor"/><path d="M5 8v6M8.3 8v6M11.7 8v6M15 8v6" stroke="currentColor" stroke-width="1.6"/><path d="M3 15.5h14" stroke="currentColor" stroke-width="1.8"/>',
+    ),
+    "park": (
+        "Park or garden",
+        '<circle cx="10" cy="8" r="5" fill="currentColor"/><path d="M10 11v6" stroke="currentColor" stroke-width="2"/>',
+    ),
+    "restroom": (
+        "Restroom",
+        '<text x="10" y="14" text-anchor="middle" font-size="9" font-weight="700" font-family="Arial,sans-serif" fill="currentColor">WC</text>',
+    ),
+    "adaptive_recreation": (
+        "Adaptive recreation",
+        '<circle cx="11" cy="4" r="1.8" fill="currentColor"/><path d="M10.5 6.5v5h4l2 4" stroke="currentColor" stroke-width="1.7" fill="none"/><circle cx="8.5" cy="13" r="4" stroke="currentColor" stroke-width="1.7" fill="none"/>',
+    ),
+    "lodging": (
+        "Lodging",
+        '<path d="M3 15V6M3 12h14v3M17 15v-3" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="6.5" cy="9.5" r="1.6" fill="currentColor"/><path d="M9 11V8.5h6.5a1.5 1.5 0 0 1 1.5 1.5v1" fill="currentColor"/>',
+    ),
+    "event": (
+        "Event venue",
+        '<rect x="3.5" y="5" width="13" height="11" rx="1.5" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M3.5 8.5h13M7 3v3.5M13 3v3.5" stroke="currentColor" stroke-width="1.7"/>',
+    ),
+    "building": (
+        "Building (campus or public)",
+        '<path d="M4 17V5l6-2 6 2v12" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M8.5 17v-4h3v4M7 7.5h2M11 7.5h2M7 10.5h2M11 10.5h2" stroke="currentColor" stroke-width="1.5"/>',
+    ),
+    "food_drink": (
+        "Food and drink",
+        '<path d="M6 3v6a2 2 0 0 0 2 2v6M8 3v5M4 3v5a2 2 0 0 0 2 2" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M14 17V3c-2 1.5-2.5 4-2.5 7H14" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/>',
+    ),
+    "service": (
+        "Shop or service",
+        '<path d="M4 7h12l-1 10H5z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/><path d="M7.5 7V5.5a2.5 2.5 0 0 1 5 0V7" stroke="currentColor" stroke-width="1.6" fill="none"/>',
+    ),
+    "trail": (
+        "Trail",
+        '<path d="M3 16c3-2 3-6 7-7s4-4 7-6" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/>',
+    ),
 }
 
 TEMPLATE = r"""<!DOCTYPE html>
@@ -271,6 +301,7 @@ const NEEDS = {
   'Parks & gardens': it => it.p.layer === 'park',
   'Trails': it => it.p.layer === 'trail',
   'Events': it => it.p.layer === 'event' || !!(it.p.events && it.p.events.length),
+  'Wheelchair repair, rental & accessible vans': it => (it.p.facts || []).some(f => f.attribute === 'Mobility service'),
   'Adaptive sports & disability events': it => it.p.layer === 'adaptive_recreation' || windowEvents(it).some(e => e.disability_focused),
   'Audio described, ASL & sensory-friendly shows': it => windowEvents(it).some(e => e.access && e.access.length && e.start.slice(0, 10) >= TODAY),
   'Blind or low vision': it => (it.p.facts || []).some(f => VISION.has(f.attribute)) || it.p.getting_there?.accessible_signals > 0,

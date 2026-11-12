@@ -54,6 +54,10 @@ MPBC_ACCESS = "web_metroparks:0ec74aff1793"
 CNC_TRAILS, GP_PLAY = "web_trails_cincinnati:102b3d6cec37", "web_parks_cincinnati:2021aec48344"
 MS_2019, PAS_VENUES = "web_oxford_press:8bf506acaad3", "web_oxford_more_2:63d2066cb40d"
 OACB_AUDIT = "web_oxford_retry:5d4cbbd9e8f4"  # WCPO story reprinted by OACB, 2026-06-12
+METRO_ACCESS, TANK_RAMP = "web_cincinnati_more:e61f7e4ddde6", "web_cincinnati_more:44b238532f8d"
+ACCESSCINCY, CRC_TR = "web_cincinnati_more:affa34414708", "web_cincinnati_more:d7042171e60f"
+MW, MPE, SVM = ("web_mobility_services:d81a28edff94", "web_mobility_services:49d8f9c484f5",
+                "web_mobility_services:083d97e66848")
 BRIDGE, UCAA = "web_programs_cincinnati:aea761ad0028", "web_programs_cincinnati:75b4e5074c3e"
 
 PLACES = {  # place -> (region, address, kind); addresses from the same documents where given
@@ -118,6 +122,13 @@ PLACES = {  # place -> (region, address, kind); addresses from the same document
     "DeWitt Log Homestead": ("oxford", None, "historic_site"),
     "Oxford Municipal Court": ("oxford", None, "government"),
     "TRI Community Center Complex": ("oxford", None, "community_center"),
+    "Metro Access (Cincinnati Metro paratransit)": ("cincinnati", None, "transit_service"),
+    "Greater Cincinnati buses (Metro, TANK, BCRTA)": ("cincinnati", None, "transit_service"),
+    "City of Cincinnati 311 (accessibility reports)": ("cincinnati", None, "city_service"),
+    "Cincinnati Recreation Commission (CRC)": ("cincinnati", None, "recreation_system"),
+    "MobilityWorks of Sharonville-Cincinnati, OH": ("cincinnati", "11755 Mosteller Rd, Sharonville, OH", "mobility_dealer"),
+    "Mobility Plus Cincinnati East": ("cincinnati", "8314 Beechmont Ave, Anderson Twp, OH", "mobility_dealer"),
+    "Superior Van & Mobility": ("cincinnati", "3813 Winston Ave, Covington, KY", "mobility_dealer"),
 }
 OUT_OF_AREA = {"Five Rivers MetroParks paved trail network (Dayton)"}
 
@@ -636,6 +647,39 @@ FACTS = [
      "Greene said the ramp is also available only upon request", OACB_AUDIT),
     ("TRI Community Center Complex", "notice", "yes", "named by a Dec 2025 Miami student audit as a key area for accessibility improvement (details not public yet)",
      "the TRI Community Center, which serves as the city's recreation center", OACB_AUDIT),
+    # ---- batch 11 (2026-11-12): question-bank gaps: paratransit, 311, CRC inclusion, mobility businesses ----
+    ("Metro Access (Cincinnati Metro paratransit)", "transit_access", "yes", "door-to-door paratransit; apply and be approved first (up to 3 weeks)",
+     "To use Access, you must first apply and be approved for service, a process that can take up to three weeks.", METRO_ACCESS),
+    ("Metro Access (Cincinnati Metro paratransit)", "transit_access", "yes", "application online or PDF only (no mail or fax); then call 513-632-7586 to book an in-person skills assessment at 7000 Montgomery Rd, Silverton",
+     "Access no longer accepts applications by mail or fax. Applications are available in digital format or downloadable PDF.", METRO_ACCESS),
+    ("Metro Access (Cincinnati Metro paratransit)", "transit_access", "yes", "written decision within 21 days of the assessment",
+     "Following the functional skills assessment, applicants will receive written notice of determination of eligibility within 21 days.", METRO_ACCESS),
+    ("Metro Access (Cincinnati Metro paratransit)", "accessibility_contact", "yes", "eligibility 513-632-7586, accessinfo@go-metro.com; customer service 513-632-7575",
+     "Email: accessinfo@go-metro.com", METRO_ACCESS),
+    ("Greater Cincinnati buses (Metro, TANK, BCRTA)", "transit_access", "yes", "all fixed-route and micro-transit buses have wheelchair lifts or ramps and stop announcements",
+     "All fixed route and micro-transit services in the Greater Cincinnati region are 100% accessible with wheelchair lifts or ramps and automatic voice systems that announce key stops, transfer points, and other important information.", TANK_RAMP),
+    ("Greater Cincinnati buses (Metro, TANK, BCRTA)", "service_animals", "yes", "ride without an extra fare",
+     "Service animals are allowed to ride these services without paying an additional fare.", TANK_RAMP),
+    ("Greater Cincinnati buses (Metro, TANK, BCRTA)", "transit_access", "yes", "one shared paratransit application covers BCARE (Butler), Metro Access (Hamilton) and RAMP (Northern Kentucky)",
+     "This includes BCARE in Butler County, Metro Access in Hamilton County, and RAMP in Northern Kentucky.", TANK_RAMP),
+    ("City of Cincinnati 311 (accessibility reports)", "accessibility_contact", "yes", "report broken sidewalks, missing curb ramps, blocked sidewalks: call 311 or 513-765-1212, 311Cincy app, or online",
+     "Requests can be made by dialing 311 (or 513-765-1212), downloading the 311Cincy mobile app, or online at", ACCESSCINCY),
+    ("Cincinnati Recreation Commission (CRC)", "adaptive_recreation", "yes", "Therapeutic Recreation inclusion support in all CRC programs and facilities",
+     "We provide a consultative approach to supporting individuals with disabilities in all CRC programs and facilities.", CRC_TR),
+    ("Cincinnati Recreation Commission (CRC)", "adaptive_recreation", "yes", "22 accessible pools or spray grounds; accessible playground and workout equipment",
+     "accessible playground equipment, accessible workout equipment, or one of 22 accessible pools or spray grounds", ACCESSCINCY),
+    ("MobilityWorks of Sharonville-Cincinnati, OH", "mobility_service", "yes", "new and used wheelchair-accessible vans (side- and rear-entry)",
+     "We offer new and pre-owned wheelchair accessible vans in side-entry and rear-entry configurations", MW),
+    ("MobilityWorks of Sharonville-Cincinnati, OH", "mobility_service", "yes", "installs, services and repairs stair lifts, wheelchair ramps and platform lifts",
+     "We install, service and repair home accessibility solutions including stair lifts, wheelchair ramps and platform lifts for your home.", MW),
+    ("Mobility Plus Cincinnati East", "mobility_service", "yes", "mobility equipment sales, service and rentals (power chairs, scooters)",
+     "Mobility Equipment Sales, Services & Rentals in Cincinnati East, OH", MPE),
+    ("Mobility Plus Cincinnati East", "mobility_service", "yes", "short- and long-term rentals",
+     "Short-Term & Long-Term Rentals Available", MPE),
+    ("Superior Van & Mobility", "mobility_service", "yes", "wheelchair vans and adaptive driving equipment; ADA wheelchair van rentals",
+     "Commercial ADA Wheelchair Van Rentals", SVM),
+    ("Superior Van & Mobility", "mobility_service", "yes", "after-hours emergency service for wheelchair vans and driving equipment",
+     "Emergency After Hours Service", SVM),
 ]
 
 DATES = {VC: "2016-01-29", NPS: "2024-09-10", CMC_CHM: "2023-05-26", CMC_MNHS: "2023-05-26", CMC_TCM: "2023-05-26",

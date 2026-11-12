@@ -1,4 +1,5 @@
 """Config, polite cached HTTP, region boundaries, and the observation schema."""
+
 from __future__ import annotations
 
 import hashlib
@@ -25,17 +26,22 @@ log = logging.getLogger("atlas")
 
 # One row = one claim about one attribute of one entity, with provenance.
 OBS_COLUMNS = [
-    "entity_id",     # "<source>:<native id>"
-    "entity_type",   # poi | path_segment | crossing | kerb | curb_ramp | barrier | entrance |
-                     # transit_stop | sidewalk_polygon | reported_issue | text
-    "name", "category",
-    "attribute", "value",
-    "signal",        # supports | limited | barrier | unknown (see signals.py)
-    "source", "source_ref",
-    "observed_at",   # when the source says the fact was recorded (may be null)
+    "entity_id",  # "<source>:<native id>"
+    "entity_type",  # poi | path_segment | crossing | kerb | curb_ramp | barrier | entrance |
+    # transit_stop | sidewalk_polygon | reported_issue | text
+    "name",
+    "category",
+    "attribute",
+    "value",
+    "signal",  # supports | limited | barrier | unknown (see signals.py)
+    "source",
+    "source_ref",
+    "observed_at",  # when the source says the fact was recorded (may be null)
     "retrieved_at",  # when we fetched it
-    "license", "region",
-    "lat", "lon",
+    "license",
+    "region",
+    "lat",
+    "lon",
 ]
 
 
@@ -66,8 +72,16 @@ def _expired(path: Path) -> bool:
     return bool(max_age) and time.time() - path.stat().st_mtime > float(max_age) * 86400
 
 
-def fetch(url: str, *, method: str = "GET", params=None, data=None, timeout: int = 600,
-          retries: int = 4, min_interval: float = 1.0) -> bytes:
+def fetch(
+    url: str,
+    *,
+    method: str = "GET",
+    params=None,
+    data=None,
+    timeout: int = 600,
+    retries: int = 4,
+    min_interval: float = 1.0,
+) -> bytes:
     """GET/POST with an on-disk cache keyed by the full request.
 
     The cache is the raw-data archive: every processed table can be rebuilt offline
@@ -98,12 +112,17 @@ def fetch(url: str, *, method: str = "GET", params=None, data=None, timeout: int
 
 # --- Regions -------------------------------------------------------------------------
 
+
 @cache
 def boundary(region: str):
     """Exact administrative polygon (shapely, WGS84) from the region's OSM relation."""
     rel = config("regions")[region]["osm_relation"]
-    gj = json.loads(fetch("https://nominatim.openstreetmap.org/lookup",
-                          params={"osm_ids": f"R{rel}", "format": "geojson", "polygon_geojson": 1}))
+    gj = json.loads(
+        fetch(
+            "https://nominatim.openstreetmap.org/lookup",
+            params={"osm_ids": f"R{rel}", "format": "geojson", "polygon_geojson": 1},
+        )
+    )
     return shape(gj["features"][0]["geometry"])
 
 
@@ -123,6 +142,7 @@ def clip(gdf: gpd.GeoDataFrame, region: str) -> gpd.GeoDataFrame:
 
 # --- Observations --------------------------------------------------------------------
 
+
 def observations(gdf: gpd.GeoDataFrame, **cols) -> pd.DataFrame:
     """Build schema rows from a GeoDataFrame; `cols` are columns or constants."""
     pts = gdf.geometry.to_crs(METRIC).representative_point().to_crs(WGS84)
@@ -139,8 +159,13 @@ def save(region: str, source: str, entities: gpd.GeoDataFrame | None, obs: pd.Da
     if entities is not None and not entities.empty:
         entities.to_parquet(d / f"{source}.entities.parquet")
     obs.to_parquet(d / f"{source}.obs.parquet", index=False)
-    log.info("[%s] %s: %d entities, %d observations", region, source,
-             0 if entities is None else len(entities), len(obs))
+    log.info(
+        "[%s] %s: %d entities, %d observations",
+        region,
+        source,
+        0 if entities is None else len(entities),
+        len(obs),
+    )
 
 
 def load_obs(region: str) -> pd.DataFrame:

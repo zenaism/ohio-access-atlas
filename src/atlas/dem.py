@@ -3,6 +3,7 @@
 Local sampling replaces thousands of getSamples calls against a public server, and pins
 the exact tiles (project + publication date) used, which is good for reproducibility.
 """
+
 from __future__ import annotations
 
 import re
@@ -24,9 +25,15 @@ PREFERRED_PROJECT = "OH_Statewide_Phase3_2021"  # one consistent LiDAR collectio
 
 def tiles(region: str) -> list[dict]:
     """One product per 10 km tile: the preferred Ohio project if present, else the newest."""
-    items = requests.get(TNM, timeout=120, params={
-        "datasets": "Digital Elevation Model (DEM) 1 meter",
-        "bbox": ",".join(map(str, boundary(region).bounds)), "max": 200}).json()["items"]
+    items = requests.get(
+        TNM,
+        timeout=120,
+        params={
+            "datasets": "Digital Elevation Model (DEM) 1 meter",
+            "bbox": ",".join(map(str, boundary(region).bounds)),
+            "max": 200,
+        },
+    ).json()["items"]
     best: dict[str, dict] = {}
     for it in items:
         key = re.search(r"x\d+y\d+", it["title"]).group(0)
@@ -57,7 +64,8 @@ def download(region: str, workers: int = 4) -> list[Path]:
     log.info("[%s] %d DEM tiles, %.2f GB", region, len(ts), sum(t["sizeInBytes"] for t in ts) / 1e9)
     cols = ("title", "publicationDate", "sizeInBytes", "downloadURL")
     pd.DataFrame([{k: t[k] for k in cols} for t in ts]).to_csv(  # provenance: exact tiles used
-        DEM_DIR / f"{region}_tiles.csv", index=False)
+        DEM_DIR / f"{region}_tiles.csv", index=False
+    )
     with ThreadPoolExecutor(workers) as ex:
         return list(ex.map(_download, ts))
 

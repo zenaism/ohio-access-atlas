@@ -1,5 +1,9 @@
 region,item,kind,reason
 oxford,Oxford Municipal Court,fact place,location not stated in the source; assistant-only record
+cincinnati,Metro Access (Cincinnati Metro paratransit),fact place,"service, no single location; assistant-only"
+cincinnati,"Greater Cincinnati buses (Metro, TANK, BCRTA)",fact place,region-wide statement; assistant-only
+cincinnati,City of Cincinnati 311 (accessibility reports),fact place,service; assistant-only
+cincinnati,Cincinnati Recreation Commission (CRC),fact place,system-wide; assistant-only
 cincinnati,Cincinnati Metro buses,fact place,transit system
 cincinnati,Cincinnati Connector streetcar,fact place,transit line
 cincinnati,TANK buses (Northern Kentucky),fact place,transit system

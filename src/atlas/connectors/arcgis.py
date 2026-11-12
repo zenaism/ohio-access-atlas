@@ -3,6 +3,7 @@
 Fetches object IDs inside the region's bounding box, then features in ID chunks. ID
 chunking works on old MapServers that do not support resultOffset pagination.
 """
+
 from __future__ import annotations
 
 import json
@@ -25,17 +26,29 @@ def features(url: str, where: str, fields: list[str] | None, region: str) -> gpd
     meta = json.loads(fetch(url, params={"f": "json"}))
     chunk = min(int(meta.get("maxRecordCount") or 1000), 1000)
     minx, miny, maxx, maxy = boundary(region).bounds
-    spatial = {"geometry": f"{minx},{miny},{maxx},{maxy}", "geometryType": "esriGeometryEnvelope",
-               "inSR": 4326, "spatialRel": "esriSpatialRelIntersects", "where": where}
+    spatial = {
+        "geometry": f"{minx},{miny},{maxx},{maxy}",
+        "geometryType": "esriGeometryEnvelope",
+        "inSR": 4326,
+        "spatialRel": "esriSpatialRelIntersects",
+        "where": where,
+    }
     ids = sorted(_query(url, returnIdsOnly="true", **spatial).get("objectIds") or [])
     oid = meta.get("objectIdField") or "OBJECTID"
     out_fields = ",".join(dict.fromkeys([oid, *(fields or [])])) if fields else "*"
 
     frames = []
     for i in range(0, len(ids), chunk):
-        gj = fetch(f"{url}/query", method="POST", data={
-            "f": "geojson", "objectIds": ",".join(map(str, ids[i:i + chunk])),
-            "outFields": out_fields, "outSR": 4326})
+        gj = fetch(
+            f"{url}/query",
+            method="POST",
+            data={
+                "f": "geojson",
+                "objectIds": ",".join(map(str, ids[i : i + chunk])),
+                "outFields": out_fields,
+                "outSR": 4326,
+            },
+        )
         g = gpd.read_file(gj.decode()) if gj.strip() else None
         if g is not None and not g.empty:
             frames.append(g)
@@ -52,10 +65,19 @@ def run(name: str, spec: dict, region: str) -> pd.DataFrame:
     o = spec["observe"]
     value, sig = mapped(gdf, o)
     obs = observations(
-        gdf, entity_id=f"{name}:" + gdf["native_id"].astype(str), entity_type=spec["entity"],
-        attribute=o["attribute"], value=value, signal=sig, source=name,
+        gdf,
+        entity_id=f"{name}:" + gdf["native_id"].astype(str),
+        entity_type=spec["entity"],
+        attribute=o["attribute"],
+        value=value,
+        signal=sig,
+        source=name,
         source_ref=spec["url"] + "/query?objectIds=" + gdf["native_id"].astype(str) + "&outFields=*&f=html",
-        observed_at=_edited(gdf), retrieved_at=retrieved, license=spec["license"], region=region)
+        observed_at=_edited(gdf),
+        retrieved_at=retrieved,
+        license=spec["license"],
+        region=region,
+    )
     save(region, name, gdf, obs)
     return obs
 
@@ -72,7 +94,10 @@ def _edited(gdf: gpd.GeoDataFrame):
     for c in ("LASTEDITEDDATE", "LAST_EDITED_DATE", "EditDate"):
         if c in gdf:
             s = gdf[c]
-            s = pd.to_datetime(s, unit="ms", errors="coerce") if pd.api.types.is_numeric_dtype(s) \
+            s = (
+                pd.to_datetime(s, unit="ms", errors="coerce")
+                if pd.api.types.is_numeric_dtype(s)
                 else pd.to_datetime(s, errors="coerce")
+            )
             return s.dt.strftime("%Y-%m-%d")
     return None

@@ -4,6 +4,7 @@ Rebuilt from the files on disk every run (nothing is typed by hand), so it never
   docs/source_inventory.md   readable table, committed
   data/source_inventory.csv  same rows, for analysis
 """
+
 from __future__ import annotations
 
 import json
@@ -15,8 +16,17 @@ import pandas as pd
 from .core import PROCESSED, RAW, ROOT, config
 
 IMG = {"jpg", "jpeg", "png", "webp", "gif"}
-COUNTS = ["records", "pages", "pdfs", "images", "text_chars", "facts", "places", "failed_fetches",
-          "robots_skipped"]
+COUNTS = [
+    "records",
+    "pages",
+    "pdfs",
+    "images",
+    "text_chars",
+    "facts",
+    "places",
+    "failed_fetches",
+    "robots_skipped",
+]
 
 
 def _top(counter: Counter, n: int = 6) -> str:
@@ -80,9 +90,24 @@ def build() -> pd.DataFrame:
             row["last_retrieved"] = last
             row["collected"] = any(p.exists() for p in (ent, obs, docs, events))
             rows.append(row)
-    cols = ["source", "type", "region", "collected", "records", "categories", "pages", "pdfs", "images",
-            "text_chars", "facts", "attributes", "places", "failed_fetches", "robots_skipped",
-            "last_retrieved"]
+    cols = [
+        "source",
+        "type",
+        "region",
+        "collected",
+        "records",
+        "categories",
+        "pages",
+        "pdfs",
+        "images",
+        "text_chars",
+        "facts",
+        "attributes",
+        "places",
+        "failed_fetches",
+        "robots_skipped",
+        "last_retrieved",
+    ]
     return pd.DataFrame(rows).reindex(columns=cols)
 
 
@@ -91,21 +116,35 @@ def poster_rows() -> pd.DataFrame:
     for f in sorted((ROOT / "data/manual/posters").glob("*/extraction.json")):
         d = json.loads(f.read_text())
         n = len(d.get("trails") or d.get("segments") or d.get("wheelchair_accessible_symbols") or [])
-        rows.append({"poster folder": f.parent.name, "title": d.get("poster") or d.get("poster_set"),
-                     "items read": n, "files kept": len([p for p in f.parent.rglob("*") if p.is_file()]) - 1,
-                     "checked by a person": d.get("verified_by_human", False)})
+        rows.append(
+            {
+                "poster folder": f.parent.name,
+                "title": d.get("poster") or d.get("poster_set"),
+                "items read": n,
+                "files kept": len([p for p in f.parent.rglob("*") if p.is_file()]) - 1,
+                "checked by a person": d.get("verified_by_human", False),
+            }
+        )
     return pd.DataFrame(rows)
 
 
 EXTRACTED = {  # file -> (what it holds, script that writes it)
-    "venue_facts.jsonl": ("accessibility facts with verbatim quotes, one per line",
-                          "scripts/venue_facts_2026_11.py"),
-    "traillink_trails.jsonl": ("trails TrailLink tags as wheelchair accessible",
-                               "scripts/extract_traillink.py"),
-    "page_events.jsonl": ("dated events read from calendar pages without feeds",
-                          "scripts/extract_page_events.py"),
-    "miami_events_classified.jsonl": ("upcoming Miami events sorted by usefulness",
-                                      "scripts/classify_miami_events.py"),
+    "venue_facts.jsonl": (
+        "accessibility facts with verbatim quotes, one per line",
+        "scripts/venue_facts_2026_11.py",
+    ),
+    "traillink_trails.jsonl": (
+        "trails TrailLink tags as wheelchair accessible",
+        "scripts/extract_traillink.py",
+    ),
+    "page_events.jsonl": (
+        "dated events read from calendar pages without feeds",
+        "scripts/extract_page_events.py",
+    ),
+    "miami_events_classified.jsonl": (
+        "upcoming Miami events sorted by usefulness",
+        "scripts/classify_miami_events.py",
+    ),
 }
 
 
@@ -136,7 +175,10 @@ def write() -> Path:
         "- **failed fetches**: pages that returned an error; "
         "**robots skipped**: pages the site asks bots not to fetch.\n\n"
         + show.to_markdown(index=False)
-        + "\n\n## Extracted outputs\n\n" + extracted_rows().to_markdown(index=False)
+        + "\n\n## Extracted outputs\n\n"
+        + extracted_rows().to_markdown(index=False)
         + "\n\n## Posters and maps read by hand\n\n"
-        + poster_rows().to_markdown(index=False) + "\n")
+        + poster_rows().to_markdown(index=False)
+        + "\n"
+    )
     return out

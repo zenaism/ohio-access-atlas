@@ -9,6 +9,7 @@ Spec keys:  urls: seed pages · follow: URL prefixes whose links we also fetch (
             assets: also save linked PDFs and images (trail-map posters) · max_pages (default 40)
             author_type: official | business | community | guide
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -79,6 +80,7 @@ def _render(url: str, shot: Path) -> tuple[int, str, bytes]:
     global _browser
     if _browser is None:
         from playwright.sync_api import sync_playwright
+
         _browser = sync_playwright().start().chromium.launch()
     page = _browser.new_page(user_agent=USER_AGENT, viewport={"width": 1400, "height": 1000})
     try:
@@ -109,8 +111,11 @@ def snapshot(source: str, url: str, render: bool = False) -> dict:
         latest = None
         for line in manifest.read_text().splitlines():
             rec = json.loads(line)
-            if (rec["url"] == url and rec.get("rendered", False) == render
-                    and not str(rec["status"]).startswith("error")):  # errors are retried
+            if (
+                rec["url"] == url
+                and rec.get("rendered", False) == render
+                and not str(rec["status"]).startswith("error")
+            ):  # errors are retried
                 latest = rec
         if latest and not _too_old(latest):
             return latest
@@ -125,9 +130,15 @@ def snapshot(source: str, url: str, render: bool = False) -> dict:
             f, shot = d / f"{sha[:12]}.rendered.html", d / f"{sha[:12]}.screenshot.png"
             f.write_bytes(body)
             tmp.replace(shot)
-            rec.update(status=status, final_url=final, content_type="text/html", sha256=sha, bytes=len(body),
-                       file=str(f.relative_to(RAW.parent.parent)),
-                       screenshot=str(shot.relative_to(RAW.parent.parent)))
+            rec.update(
+                status=status,
+                final_url=final,
+                content_type="text/html",
+                sha256=sha,
+                bytes=len(body),
+                file=str(f.relative_to(RAW.parent.parent)),
+                screenshot=str(shot.relative_to(RAW.parent.parent)),
+            )
         except Exception as e:  # timeouts, crashes: logged in the manifest, run continues
             rec.update(status=f"error: {type(e).__name__}")
     else:
@@ -168,6 +179,7 @@ def _clean_html(html: bytes, base: str) -> tuple[str, str, list[str]]:
 
 def _pdf_text(data: bytes) -> str:
     from pypdf import PdfReader
+
     try:
         return "\n\n".join((p.extract_text() or "") for p in PdfReader(io.BytesIO(data)).pages)
     except Exception as e:  # damaged PDFs: keep the raw file, note the failure
@@ -196,24 +208,40 @@ def run(name: str, spec: dict, region: str) -> None:
             title, text, links = _clean_html(data, rec.get("final_url", url))
         elif ext == ".pdf":
             title, text = Path(urlparse(url).path).name, _pdf_text(data)
-        docs.append({"doc_id": f"{name}:{rec['sha256'][:12]}", "source": name, "url": url,
-                     "screenshot": rec.get("screenshot"),
-                     "title": title, "text": text, "content_type": ext.lstrip("."),
-                     "raw_file": rec["file"], "retrieved_at": rec["retrieved_at"],
-                     "author_type": spec.get("author_type", "official"), "region": region,
-                     "chars": len(text)})
+        docs.append(
+            {
+                "doc_id": f"{name}:{rec['sha256'][:12]}",
+                "source": name,
+                "url": url,
+                "screenshot": rec.get("screenshot"),
+                "title": title,
+                "text": text,
+                "content_type": ext.lstrip("."),
+                "raw_file": rec["file"],
+                "retrieved_at": rec["retrieved_at"],
+                "author_type": spec.get("author_type", "official"),
+                "region": region,
+                "chars": len(text),
+            }
+        )
         if hop[url] >= 1:
             continue
         for host in spec.get("asset_hosts", []):  # sites (Wix) that keep images in embedded JSON
-            links += re.findall(rf"https://{re.escape(host)}/[^\"'\s\\)]+?\.(?:jpe?g|png|webp|pdf)",
-                                data.decode("utf8", "ignore"))
+            links += re.findall(
+                rf"https://{re.escape(host)}/[^\"'\s\\)]+?\.(?:jpe?g|png|webp|pdf)",
+                data.decode("utf8", "ignore"),
+            )
         for link in dict.fromkeys(links):
             lext = urlparse(link).path.lower()
             same_site = urlparse(link).netloc in seed_hosts | set(spec.get("asset_hosts", []))
             pdf = lext.endswith(DOC_EXT)
             # images only when they look like trail maps / posters / guides on the source's own site
-            img = (lext.endswith(IMG_EXT) and same_site and not SKIP_WORDS.search(lext)
-                   and (MAP_WORDS.search(lext) or urlparse(link).netloc in spec.get("asset_hosts", [])))
+            img = (
+                lext.endswith(IMG_EXT)
+                and same_site
+                and not SKIP_WORDS.search(lext)
+                and (MAP_WORDS.search(lext) or urlparse(link).netloc in spec.get("asset_hosts", []))
+            )
             asset = spec.get("assets") and (pdf or img)
             page = not lext.endswith(DOC_EXT + IMG_EXT) and any(link.startswith(p) for p in follow)
             if link not in hop and (asset or page):
@@ -221,11 +249,15 @@ def run(name: str, spec: dict, region: str) -> None:
                 todo.append(link)
     df = pd.DataFrame(docs)
     df.to_parquet(out_dir(region) / f"{name}.docs.parquet", index=False)
-    log.info("[%s] %s: %d documents (%d pdf, %d image), %d chars of text", region, name, len(df),
-             (df.content_type == "pdf").sum() if len(df) else 0,
-             df.content_type.isin([e.lstrip(".") for e in IMG_EXT]).sum() if len(df) else 0,
-             df.chars.sum() if len(df) else 0)
-
+    log.info(
+        "[%s] %s: %d documents (%d pdf, %d image), %d chars of text",
+        region,
+        name,
+        len(df),
+        (df.content_type == "pdf").sum() if len(df) else 0,
+        df.content_type.isin([e.lstrip(".") for e in IMG_EXT]).sum() if len(df) else 0,
+        df.chars.sum() if len(df) else 0,
+    )
 
 
 def archived_doc(doc_id: str) -> tuple[str, str] | None:

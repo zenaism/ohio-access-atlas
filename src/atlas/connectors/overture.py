@@ -1,5 +1,6 @@
 """Overture Maps places: the full list of named places, used as the base layer that
 access facts from other sources attach to. Overture has no accessibility fields itself."""
+
 from __future__ import annotations
 
 import duckdb
@@ -29,15 +30,21 @@ def run(name: str, spec: dict, region: str) -> None:
                      addresses[1].postcode AS postcode,
                      array_to_string(list_distinct([s.dataset FOR s IN sources]), ',') AS datasets,
                      ST_AsWKB(geometry) AS wkb
-              FROM read_parquet('{S3.format(release=spec['release'])}', hive_partitioning=1)
+              FROM read_parquet('{S3.format(release=spec["release"])}', hive_partitioning=1)
               WHERE bbox.xmin BETWEEN {xmin} AND {xmax} AND bbox.ymin BETWEEN {ymin} AND {ymax}
             ) TO '{cache}' (FORMAT parquet)""")
     df = pd.read_parquet(cache)
-    gdf = gpd.GeoDataFrame(df.drop(columns="wkb"), geometry=df["wkb"].map(lambda b: wkb.loads(bytes(b))),
-                           crs=WGS84)
+    gdf = gpd.GeoDataFrame(
+        df.drop(columns="wkb"), geometry=df["wkb"].map(lambda b: wkb.loads(bytes(b))), crs=WGS84
+    )
     gdf = gdf[gdf.within(poly)].copy()
     gdf.insert(0, "entity_id", "overture:" + gdf.pop("id"))
     gdf["region"], gdf["retrieved_at"], gdf["license"] = region, now(), spec["license"]
     gdf.to_parquet(out_dir(region) / f"{name}.entities.parquet")
-    log.info("[%s] %s: %d places (%d with confidence >= 0.5)", region, name, len(gdf),
-             (gdf.confidence >= 0.5).sum())
+    log.info(
+        "[%s] %s: %d places (%d with confidence >= 0.5)",
+        region,
+        name,
+        len(gdf),
+        (gdf.confidence >= 0.5).sum(),
+    )

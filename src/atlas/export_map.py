@@ -55,6 +55,7 @@ LABELS = {  # plain-language attribute names for popups
     "assistive_listening": "Assistive listening",
     "service_animals": "Service animals",
     "notice": "Notice",
+    "mobility_service": "Mobility service",
     "listed_accessible": "Listed wheelchair accessible",
     "braille": "Braille",
     "large_print": "Large print",
@@ -773,6 +774,7 @@ KEY_FACTS = [
     ("accessible_seating", "Wheelchair seating"),
     ("wheelchair_loan", "Wheelchair loan"),
     ("listed", "Listed wheelchair accessible"),
+    ("mobility_service", "Mobility service"),
     ("braille", "Braille"),
     ("audio_description", "Audio description"),
     ("large_print", "Large print"),
@@ -801,6 +803,7 @@ KEY_SOURCES = {  # fact attribute (label or OSM tag) -> key
     "Touch / tactile": "tactile",
     "Service animals": "service_animals",
     "Listed wheelchair accessible": "listed",
+    "Mobility service": "mobility_service",
 }
 WORD = {"yes": "yes", "designated": "yes", "limited": "partly", "no": "no"}
 

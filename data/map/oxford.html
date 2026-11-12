@@ -231,6 +231,7 @@ const NEEDS = {
   'Parks & gardens': it => it.p.layer === 'park',
   'Trails': it => it.p.layer === 'trail',
   'Events': it => it.p.layer === 'event' || !!(it.p.events && it.p.events.length),
+  'Wheelchair repair, rental & accessible vans': it => (it.p.facts || []).some(f => f.attribute === 'Mobility service'),
   'Adaptive sports & disability events': it => it.p.layer === 'adaptive_recreation' || windowEvents(it).some(e => e.disability_focused),
   'Audio described, ASL & sensory-friendly shows': it => windowEvents(it).some(e => e.access && e.access.length && e.start.slice(0, 10) >= TODAY),
   'Blind or low vision': it => (it.p.facts || []).some(f => VISION.has(f.attribute)) || it.p.getting_there?.accessible_signals > 0,

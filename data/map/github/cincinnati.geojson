@@ -800,6 +800,69 @@
 {
 "type": "Feature",
 "geometry": {
+"type": "Point",
+"coordinates": [
+-84.42998353,
+39.28809224
+]
+},
+"properties": {
+"Name": "MobilityWorks of Sharonville-Cincinnati, OH",
+"Type": "Shop or service",
+"Accessibility": "Partly accessible",
+"Fact 1": "Mobility service: yes (new and used wheelchair-accessible vans (side- and rear-entry))",
+"Fact 2": "Mobility service: yes (installs, services and repairs stair lifts, wheelchair ramps and platform lifts)",
+"Source": "https://www.mobilityworks.com/locations/wheelchair-vans-for-sale-in-sharonville-cincinnati-ohio/",
+"marker-color": "#E69F00",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.32406361,
+39.07293828
+]
+},
+"properties": {
+"Name": "Mobility Plus Cincinnati East",
+"Type": "Shop or service",
+"Accessibility": "Partly accessible",
+"Fact 1": "Mobility service: yes (mobility equipment sales, service and rentals (power chairs, scooters))",
+"Fact 2": "Mobility service: yes (short- and long-term rentals)",
+"Source": "https://www.mobilityplus.com/cincinnati-east-oh/",
+"marker-color": "#E69F00",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+-84.505955,
+39.046085
+]
+},
+"properties": {
+"Name": "Superior Van & Mobility",
+"Type": "Shop or service",
+"Accessibility": "Partly accessible",
+"Fact 1": "Mobility service: yes (wheelchair vans and adaptive driving equipment; ADA wheelchair van rentals)",
+"Fact 2": "Mobility service: yes (after-hours emergency service for wheelchair vans and driving equipment)",
+"Source": "https://superiorvan.com/locations/covington-ky/",
+"marker-color": "#E69F00",
+"marker-symbol": "shop",
+"marker-size": "medium"
+}
+},
+{
+"type": "Feature",
+"geometry": {
 "type": "LineString",
 "coordinates": [
 [

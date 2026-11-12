@@ -1,6 +1,6 @@
 # Question bank: tools-only baseline
 
-Run 2026-11-12 with `scripts/eval_tools.py` (no language model). **Hit rate at 5: 29/29 = 100%** of answerable questions; 15 questions need data we do not have (listed below).
+Run 2026-11-12 with `scripts/eval_tools.py` (no language model). **Hit rate at 5: 33/33 = 100%** of answerable questions; 11 questions need data we do not have (listed below).
 
 Caveat: the expected places were written after looking at our data, so this is a regression baseline (it catches breakage when data or tools change), not an independent quality score. A real score needs expected answers written by people who know these places.
 
@@ -22,10 +22,10 @@ Caveat: the expected places were written after looking at our data, so this is a
 | gabp-parking | getting there | hit | Great American Ball Park |
 | high-street-ramps | getting there | unknown (gap) | Spring Street Treats; Maplestreet Station; Bodega; Calendula and The Lounge; Chop Bento |
 | fountain-square-closures | getting there | unknown (gap) | Restroom near Tyler Davidson Fountain; Fountain Square; Fifth Third Bank; Contemporary Arts Center; Government Square Transit Center |
-| metro-access | getting there | unknown (gap) | Miami University Oxford campus |
+| metro-access | getting there | hit | Metro Access (Cincinnati Metro paratransit); Greater Cincinnati buses (Metro, TANK, BCRTA) |
 | paved-trails-cincinnati | trails | hit | Armleder Park Trail; Armleder-Lunken Connector Trail; Creekside Trail; Five Mile Trail; Lebanon Countryside YMCA Trail |
 | oxford-flat-trail | trails | hit | Oxford Area Trails (OATS), Miami University portion; DeWitt Log Homestead; Helen S. Ruder Preserve; Leonard Howell Park; Peffer Park |
-| sharon-woods-loop | trails | hit | Sharon Woods; Sharon Woods Loop Trail; Restroom near Sharonville Presbyterian Church; Sharonville Convention Center; LaBoiteaux Woods |
+| sharon-woods-loop | trails | hit | Sharon Woods; Sharon Woods Loop Trail; MobilityWorks of Sharonville-Cincinnati, OH; Restroom near Sharonville Presbyterian Church; Sharonville Convention Center |
 | waterfall | trails | unknown (gap) | Krohn Conservatory |
 | treehouse | trails | hit | Everybody's Treehouse, Mt. Airy Forest |
 | hueston-woods | trails | hit | Hueston Woods Marina; Hueston Woods Lodge; Restroom near Hueston Woods State Nature Preserve; Restroom near Hueston Woods Sugar House |
@@ -41,11 +41,11 @@ Caveat: the expected places were written after looking at our data, so this is a
 | blink | events | hit | BLINK 2026 festival |
 | adaptive-sports | events | hit | Manuel D. & Rhoda Mayerson JCC |
 | support-groups | events | unknown (gap) | (none) |
-| wheelchair-repair | services | unknown (gap) | Cincinnati Museum Center; Music Hall; William Howard Taft National Historic Site; National Underground Railroad Freedom Center; Aronoff Center for the Arts |
-| report-ramp | services | unknown (gap) | (none) |
+| wheelchair-repair | services | hit | Mobility Plus Cincinnati East; MobilityWorks of Sharonville-Cincinnati, OH; Superior Van & Mobility |
+| report-ramp | services | hit | City of Cincinnati 311 (accessibility reports); William Howard Taft National Historic Site; Cincinnati Museum Center; Aronoff Center for the Arts; BB Riverboats |
 | oxford-roll-in | services | hit | Hueston Woods Lodge |
 | miami-entrances | services | hit | Hall Auditorium; Armstrong Student Center; Alumni Hall; Anderson Hall; Art Building |
-| van-rental | services | unknown (gap) | Donovan Arts Center; Restroom near Evanston Recreation Area; Cincinnati Museum Center; Cincinnati Zoo & Botanical Garden; Music Hall |
+| van-rental | services | hit | Superior Van & Mobility; Mobility Plus Cincinnati East; MobilityWorks of Sharonville-Cincinnati, OH |
 | up-to-date | trust | hit | Cincinnati Museum Center |
 | facebook-ramp | trust | hit | Taft Theatre |
 | google-disagrees | trust | hit | Thomson Hall |
@@ -61,10 +61,6 @@ Caveat: the expected places were written after looking at our data, so this is a
 - **Is Mt. Adams too steep to roll around?** slope data exists per path, but there is no neighborhood-level tool yet
 - **Are there curb ramps on High Street in Oxford?** no curb-ramp inventory for Oxford (CAGIS covers Hamilton County only); 2025 city claim of "every curb" is not place-level
 - **Any sidewalk closures or construction near Fountain Square this week?** no closure feed; 311 reports are counted per place but not listed
-- **How do I sign up for Metro Access paratransit?** Metro Access (Cincinnati) program page not collected; only BCRTA paratransit (Oxford) via the Miami campus record
 - **Where can I see a waterfall without stairs?** no waterfall viewpoints with access data
 - **When is Disability Pride Cincinnati this year?** Disability Pride Cincinnati site did not respond; no dated record
 - **Any support groups for new wheelchair users in Cincinnati?** CILO and similar organizations' calendars not readable
-- **Where can I get my wheelchair fixed in Cincinnati?** medical-equipment shops not collected (Overture has categories; not mapped yet)
-- **Who do I call to report a broken curb ramp?** the 311 instructions (AccessCincy page) are saved but not a kb record yet
-- **Where can I rent a wheelchair-accessible van?** not collected
