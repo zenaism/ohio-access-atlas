@@ -63,6 +63,11 @@
  .leaflet-popup-content h3{margin:0 0 4px;font-size:15px}
  .mc{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);font-weight:650;font-size:13px;
      box-shadow:0 0 0 4px rgba(17,24,39,.10),0 2px 6px rgba(17,24,39,.18)}
+ .edge{position:absolute;left:0;top:14px;z-index:1100;width:26px;height:52px;padding:0;justify-content:center;border:1px solid var(--line);
+       border-left:0;border-radius:0 12px 12px 0;background:#fff;box-shadow:var(--shadow);color:#374151}
+ .edge:hover{background:var(--soft);width:30px} .edge svg{transition:transform .2s}
+ body.list-closed .edge svg{transform:rotate(180deg)}
+ .side{transition:none} .app{transition:grid-template-columns .22s ease}
  .legend{position:absolute;right:12px;bottom:28px;z-index:1000;background:#fff;border-radius:var(--r);box-shadow:var(--shadow);font-size:13px;max-width:330px}
  .legend summary{list-style:none;cursor:pointer;padding:9px 14px;font-weight:600;display:flex;gap:8px;align-items:center}
  .legend summary::-webkit-details-marker{display:none}
@@ -78,7 +83,7 @@
    .brand{flex:1 1 100%} header h1{font-size:15.5px} header .sub{white-space:normal}
    .search{flex:1 1 auto;width:auto;min-width:0}
    #near{flex:none}
-   #toggle{display:none}
+   .edge{display:none}
    .app{display:block}
    .mapwrap{position:absolute;inset:0}
    .side{position:fixed;left:0;right:0;bottom:0;z-index:1500;border:0;border-radius:18px 18px 0 0;box-shadow:0 -6px 24px rgba(17,24,39,.16);
@@ -96,9 +101,6 @@
 </style></head><body>
 <a class="skip" href="#list-h">Skip to the list of places</a>
 <header>
- <button id="toggle" class="ghost" type="button" aria-controls="side" aria-expanded="true" title="Hide or show the list">
-  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-  <span id="toggle-label">Hide list</span></button>
  <div class="brand"><h1>Cincinnati accessibility map</h1><p class="sub">Data as of <span id="asof"></span> · <a href="oxford.html">Switch to the Oxford map</a></p></div>
  <div class="search" role="search">
   <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="m14 14 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -122,6 +124,9 @@
   </div>
  </section>
  <section class="mapwrap" aria-label="Map. Visual companion: every place on the map is also in the list.">
+  <button id="toggle" class="edge" type="button" aria-controls="side" aria-expanded="true">
+   <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   <span class="vh" id="toggle-label">Hide list</span></button>
   <div id="map"></div>
   <details class="legend" id="legend"><summary>
    <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><circle cx="5" cy="6" r="2" fill="currentColor"/><path d="M9 6h8M9 14h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="5" cy="14" r="2" fill="currentColor"/></svg>Legend</summary>
@@ -138,7 +143,8 @@ document.getElementById('asof').textContent = Object.values(DATA)[0].generated;
 
 // ---------- map ----------
 const PHONE_EARLY = window.matchMedia('(max-width:720px)');
-const map = L.map('map', {zoomControl:true, keyboard:true});
+const map = L.map('map', {zoomControl:false, keyboard:true});
+L.control.zoom({position:'topright'}).addTo(map);
 L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',
   {maxZoom:18, maxNativeZoom:16, attribution: PHONE_EARLY.matches
     ? 'Basemap: U.S. Geological Survey · Data: OpenStreetMap, Overture, venue sites'
@@ -181,6 +187,7 @@ function setList(open){
   document.body.classList.toggle('list-closed', !open);
   toggleBtn.setAttribute('aria-expanded', open);
   document.getElementById('toggle-label').textContent = open ? 'Hide list' : 'Show list';
+  toggleBtn.title = open ? 'Hide list' : 'Show list';
   try { localStorage.setItem('atlas-list-open', open ? '1' : '0'); } catch (e) {}
   setTimeout(() => map.invalidateSize(), 220);
 }
