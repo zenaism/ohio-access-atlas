@@ -17,6 +17,8 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
+from atlas.connectors.web import archived_doc
+
 ROOT = Path(__file__).resolve().parents[1]
 CMC, CMC_CHM, CMC_MNHS, CMC_TCM = ("web_venues_cincinnati:8df6c58df630", "web_venues_cincinnati:96c0f1d95ca1",
                                    "web_venues_cincinnati:7e540075700a", "web_venues_cincinnati:17a4839e1c98")
@@ -639,6 +641,10 @@ def main() -> None:
     docs = pd.concat([pd.read_parquet(f) for f in glob.glob(str(ROOT / "data/processed/*/web_*.docs.parquet"))])
     text = {r.doc_id: norm(r.text) for r in docs.itertuples()}
     url = dict(zip(docs.doc_id, docs.url, strict=False))
+    for doc in {row[5] for row in FACTS} - set(text):  # page changed since: check against the archived version
+        hit = archived_doc(doc)
+        if hit:
+            url[doc], text[doc] = hit[0], norm(hit[1])
     vocab = set(yaml.safe_load((ROOT / "config/attributes.yaml").read_text()))
     out, bad = [], []
     for row in FACTS:

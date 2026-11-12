@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import os
 import time
 from datetime import UTC, datetime
 from functools import cache
@@ -59,6 +60,12 @@ _session = requests.Session()
 _session.headers["User-Agent"] = USER_AGENT
 
 
+def _expired(path: Path) -> bool:
+    """With ATLAS_MAX_AGE_DAYS set (weekly refresh), cached responses older than that are fetched again."""
+    max_age = os.environ.get("ATLAS_MAX_AGE_DAYS")
+    return bool(max_age) and time.time() - path.stat().st_mtime > float(max_age) * 86400
+
+
 def fetch(url: str, *, method: str = "GET", params=None, data=None, timeout: int = 600,
           retries: int = 4, min_interval: float = 1.0) -> bytes:
     """GET/POST with an on-disk cache keyed by the full request.
@@ -68,7 +75,7 @@ def fetch(url: str, *, method: str = "GET", params=None, data=None, timeout: int
     """
     key = hashlib.sha256(json.dumps([method, url, params, data], sort_keys=True).encode()).hexdigest()[:20]
     path = RAW / f"{key}.bin"
-    if path.exists():
+    if path.exists() and not _expired(path):
         return path.read_bytes()
     RAW.mkdir(parents=True, exist_ok=True)
     for attempt in range(1, retries + 1):

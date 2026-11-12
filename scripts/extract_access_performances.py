@@ -225,7 +225,12 @@ def main() -> None:
             bad.append(r)
     if bad:
         raise SystemExit(f"{len(bad)} events whose quote is not in the page, e.g. {bad[0]['quote']!r}")
-    rows = sorted({r["event_id"]: r for r in rows}.values(), key=lambda r: r["start"])
+    # one event per id; a theatre may serve one page under two URLs ("hamlet-2027" and "show-6"):
+    # keep the readable one so reruns give the same result
+    rows.sort(key=lambda r: (r["event_id"], bool(re.search(r"/show-\d+/?$", r["url"])), r["url"]))
+    rows = sorted(
+        {r["event_id"]: r for r in reversed(rows)}.values(), key=lambda r: (r["start"], r["event_id"])
+    )
     OUT.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows))
     up = [r for r in rows if r["start"][:10] >= TODAY]
     by = pd.Series([f"{r['venue']}: {'+'.join(r['access'])}" for r in up]).value_counts()

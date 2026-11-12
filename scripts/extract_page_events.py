@@ -15,6 +15,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from atlas.connectors.web import archived_doc
+
 ROOT = Path(__file__).resolve().parents[1]
 BRIDGE = "web_programs_cincinnati:aea761ad0028"
 GREAT = "web_programs_cincinnati:9a5f21f8734e"
@@ -53,6 +55,10 @@ def main() -> None:
     docs = pd.concat([pd.read_parquet(f) for f in glob.glob(str(ROOT / "data/processed/*/web_*.docs.parquet"))])
     text = {r.doc_id: norm(r.text) for r in docs.itertuples()}
     url = dict(zip(docs.doc_id, docs.url, strict=False))
+    for doc in {e[7] for e in EVENTS} - set(text):  # page changed since: check against the archived version
+        hit = archived_doc(doc)
+        if hit:
+            url[doc], text[doc] = hit[0], norm(hit[1])
     out, bad = [], []
     for title, date_text, start, end, loc, cost, audience, doc, focused in EVENTS:
         t = text.get(doc, "")

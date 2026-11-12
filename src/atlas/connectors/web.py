@@ -15,9 +15,11 @@ import hashlib
 import io
 import json
 import logging
+import os
 import re
 import time
 import urllib.robotparser
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from urllib.parse import urldefrag, urljoin, urlparse
 
@@ -88,17 +90,30 @@ def _render(url: str, shot: Path) -> tuple[int, str, bytes]:
         page.close()
 
 
+def _too_old(rec: dict) -> bool:
+    """With ATLAS_MAX_AGE_DAYS set (weekly refresh), copies older than that are fetched again."""
+    days = os.environ.get("ATLAS_MAX_AGE_DAYS")
+    if not days:
+        return False
+    age = datetime.now(UTC) - datetime.fromisoformat(rec["retrieved_at"])
+    return age > timedelta(days=float(days))
+
+
 def snapshot(source: str, url: str, render: bool = False) -> dict:
-    """Fetch once per source (cached via the manifest); return the manifest record."""
+    """Fetch once per source (cached via the manifest); return the manifest record.
+    The manifest keeps every copy ever fetched; the newest good copy is used."""
     d = WEB / source
     d.mkdir(parents=True, exist_ok=True)
     manifest = d / "manifest.jsonl"
     if manifest.exists():
+        latest = None
         for line in manifest.read_text().splitlines():
             rec = json.loads(line)
             if (rec["url"] == url and rec.get("rendered", False) == render
                     and not str(rec["status"]).startswith("error")):  # errors are retried
-                return rec
+                latest = rec
+        if latest and not _too_old(latest):
+            return latest
     rec = {"url": url, "retrieved_at": now(), "rendered": render}
     if not _allowed(url):
         rec.update(status="robots_disallowed")
@@ -211,3 +226,23 @@ def run(name: str, spec: dict, region: str) -> None:
              df.content_type.isin([e.lstrip(".") for e in IMG_EXT]).sum() if len(df) else 0,
              df.chars.sum() if len(df) else 0)
 
+
+
+def archived_doc(doc_id: str) -> tuple[str, str] | None:
+    """(url, text) of an archived page version by its doc_id ("source:sha12"), even after a newer
+    version replaced it in the processed table. Facts quote a specific version; this keeps them checkable."""
+    source, sha = doc_id.split(":", 1)
+    manifest = WEB / source / "manifest.jsonl"
+    if not manifest.exists():
+        return None
+    for line in manifest.read_text().splitlines():
+        rec = json.loads(line)
+        if str(rec.get("sha256", "")).startswith(sha) and rec.get("file"):
+            data = (RAW.parent.parent / rec["file"]).read_bytes()
+            ext = Path(rec["file"]).suffix
+            if ext == ".html":
+                return rec["url"], _clean_html(data, rec.get("final_url", rec["url"]))[1]
+            if ext == ".pdf":
+                return rec["url"], _pdf_text(data)
+            return rec["url"], ""
+    return None

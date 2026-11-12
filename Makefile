@@ -17,6 +17,9 @@ extract:          ## rebuild data/extracted/* from saved pages (quotes are re-ch
 	$(PY) scripts/extract_page_events.py && $(PY) scripts/classify_miami_events.py && \
 	$(PY) scripts/extract_access_performances.py && $(PY) scripts/extract_enjoyoxford_restaurants.py
 
+refresh:          ## weekly: re-fetch calendars + theatre schedules, rebuild, commit map/data, push (NO_PUSH=1 to test)
+	scripts/refresh.sh
+
 map:              ## GeoJSON per region, the two maps, text page per place, review.csv
 	$(PY) -m atlas.cli map
 
