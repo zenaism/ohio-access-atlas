@@ -439,7 +439,9 @@ TOOLS["area_conditions"] = area_conditions
 
 
 # ------------------------------------------------------------------ routes ----
-def accessible_route(to: str, from_lat: float | None = None, from_lon: float | None = None) -> dict | None:
+def accessible_route(
+    to: str, from_lat: float | None = None, from_lon: float | None = None, profile: str = "wheelchair"
+) -> dict | None:
     """Step-free route to a place, in words. Without a start point, returns the precomputed route
     from the place's nearest bus stop. Avoids mapped stairs and steep sections; not checked on site."""
     from ..routing import route
@@ -453,10 +455,12 @@ def accessible_route(to: str, from_lat: float | None = None, from_lon: float | N
     ).fetchone()
     if from_lat is None or from_lon is None:
         r = (p.get("getting_there") or {}).get("route")
-        return {"place": p["name"], **r} if r else None
+        if r and profile == "blind" and r.get("blind"):
+            return {"place": p["name"], "from": r["from"], "to": r["to"], **r["blind"]}
+        return {"place": p["name"], **{k: v for k, v in r.items() if k != "blind"}} if r else None
     if lat is None:
         return None
-    r = route(region, from_lat, from_lon, lat, lon)
+    r = route(region, from_lat, from_lon, lat, lon, profile=profile)
     if r is None:
         return None
     r.pop("line", None)
@@ -475,6 +479,11 @@ TOOL_SPECS.append(
                 "to": {"type": "string"},
                 "from_lat": {"type": "number"},
                 "from_lon": {"type": "number"},
+                "profile": {
+                    "type": "string",
+                    "enum": ["wheelchair", "blind"],
+                    "description": "blind: also prefer signalised crossings and avoid unmarked ones",
+                },
             },
             "required": ["to"],
         },
