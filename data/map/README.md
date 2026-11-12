@@ -2,11 +2,10 @@
 
 **Open the interactive maps** (icons, legend, filters, clickable facts with sources):
 
-- [Cincinnati map](https://raw.githack.com/zenaism/ohio-access-atlas/main/data/map/cincinnati.html)
-- [Oxford map](https://raw.githack.com/zenaism/ohio-access-atlas/main/data/map/oxford.html)
+- [Cincinnati map](https://zenaism.github.io/ohio-access-atlas/data/map/cincinnati.html)
+- [Oxford map](https://zenaism.github.io/ohio-access-atlas/data/map/oxford.html)
 
-These links serve the HTML files in this folder through raw.githack.com, so no GitHub Pages setup
-is needed.
+They are served by GitHub Pages from this folder and update whenever `make map` output is pushed.
 
 **Quick preview inside GitHub:** click [github/cincinnati.geojson](github/cincinnati.geojson) or
 [github/oxford.geojson](github/oxford.geojson). GitHub draws them as maps; click a marker for its facts.
