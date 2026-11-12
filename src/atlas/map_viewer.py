@@ -70,7 +70,8 @@ TEMPLATE = r"""<!DOCTYPE html>
  .search input{width:100%;font:inherit;font-size:14px;padding:10px 12px 10px 36px;border-radius:10px;border:1px solid var(--line);background:var(--soft)}
  .search input:focus{background:#fff}
  /* layout */
- .app{flex:1;min-height:0;display:grid;grid-template-columns:var(--side) 1fr;position:relative}
+ .app{flex:1;min-height:0;display:grid;grid-template-columns:var(--side) 1fr;grid-template-rows:minmax(0,1fr);position:relative;overflow:hidden}
+ body{overflow:hidden}  /* the list scrolls inside its panel; the page itself never scrolls */
  body.list-closed .app{grid-template-columns:0 1fr}
  .side{min-height:0;display:flex;flex-direction:column;border-right:1px solid var(--line);background:#fff;overflow:hidden}
  body.list-closed .side{visibility:hidden}
@@ -367,7 +368,8 @@ function openCard(i){
   render(false);
   const li = document.getElementById('card-' + i); toggle(it, li.querySelector('[data-a=det]'), true);
   if (PHONE.matches) setSheet(true); else setList(true);
-  li.scrollIntoView({block:'start'}); li.querySelector('h3').focus();
+  const box = PHONE.matches ? document.getElementById('side-body') : li.closest('.side-body');
+  box.scrollTop = li.offsetTop - box.offsetTop - 8; li.querySelector('h3').focus({preventScroll:true});
 }
 [need, known, when].forEach(el => el.onchange = () => { when.hidden = need.value !== 'Events'; shown = PAGE; render(); });
 q.oninput = () => { shown = PAGE; render(); };
