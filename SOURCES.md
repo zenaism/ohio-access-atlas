@@ -29,6 +29,7 @@ This list separates data already collected from ideas for later. Google Places m
 - BCRTA accessibility / paratransit 🔜: https://www.butlercountyrta.com/accessibility/
 - The Bridge Adaptive Sports & Recreation (programs, events) 🔜: https://www.thebridgeadaptive.org/
 - Grandma's Marathon (wheelchair/adaptive divisions) 🔜, but note it is held in Duluth, Minnesota, outside our area; check whether a local race (e.g. the Flying Pig Marathon, Cincinnati) was meant: https://grandmasmarathon.com/
+- Flying Pig Marathon community events (Cincinnati; wheelchair/adaptive divisions, event access) 🔜: https://flyingpigmarathon.com/community-events
 - University of Cincinnati (campus accessibility, buildings, parking) 🔜: https://www.uc.edu/
 - UC Health (hospital and clinic accessibility, parking, services) 🔜: https://www.uchealth.com/
 - Cincinnati Children's Hospital (accessibility, parking, family services, events) 🔜: https://www.cincinnatichildrens.org/
