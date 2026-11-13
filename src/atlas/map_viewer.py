@@ -10,7 +10,10 @@ Okabe-Ito (colour-blind safe); marker glyphs meet 3:1 contrast against their dis
 from __future__ import annotations
 
 import json
-from urllib.parse import quote
+
+import yaml
+
+from .core import ROOT
 
 RATINGS = {  # value -> (label, colour, symbol, glyph colour on the disc)
     "accessible": ("Accessible", "#0072B2", "✓", "#ffffff"),
@@ -78,7 +81,7 @@ TEMPLATE = r"""<!DOCTYPE html>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-__GOOGLE_API_SCRIPT__
+
 <style>
  :root{--ink:#111827;--muted:#6b7280;--line:#eceef1;--soft:#f6f7f9;--accent:#111827;--focus:#2563eb;--side:380px;--head:60px;
        --shadow:0 1px 2px rgba(17,24,39,.06),0 4px 16px rgba(17,24,39,.08);--r:14px}
@@ -111,6 +114,8 @@ __GOOGLE_API_SCRIPT__
  .side-body{overflow-y:auto;padding:14px 16px 24px;flex:1}
  .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
  .filters select{font:inherit;font-size:14px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#fff;flex:1;min-width:160px}
+ .filters .sortby{display:flex;align-items:center;gap:8px;width:100%;font-size:13.5px;color:#374151}
+ .filters .sortby label{flex:none;font-weight:550}
  .filters label.cb{display:flex;gap:8px;align-items:center;font-size:13.5px;color:#374151;width:100%}
  #status{font-size:12.5px;color:var(--muted);margin:6px 0 8px}
  ol#list{list-style:none;margin:0;padding:0}
@@ -181,6 +186,21 @@ __GOOGLE_API_SCRIPT__
    .leaflet-bottom .leaflet-control-attribution{margin-bottom:64px;font-size:9.5px}
  }
  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+ .comm{color:#374151;font-weight:550} .comm:empty{display:none} .comm b{color:#b45309}
+ .rate{margin:14px 0 4px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+ .rate h4{margin:0 0 4px} .rate fieldset{border:0;padding:0;margin:10px 0 0;min-width:0}
+ .rate legend{font-weight:600;font-size:13.5px;padding:0;margin-bottom:2px}
+ .stars{display:flex;align-items:center;gap:2px;flex-wrap:wrap}
+ .stars input{position:absolute;opacity:0;width:1px;height:1px}
+ .stars label{cursor:pointer;font-size:26px;line-height:1;padding:4px 3px;color:#c4c8cf;border-radius:6px}
+ .stars label.na{font-size:13px;padding:8px 6px;color:var(--muted)}
+ .stars label.on{color:#b45309} .stars input:focus-visible+label{outline:2.5px solid var(--focus);outline-offset:1px}
+ .stars input:checked+label.na{color:var(--ink);font-weight:600;text-decoration:underline}
+ .stars .word{font-size:13px;color:#374151;margin-left:8px;min-width:9em}
+ .rate .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px} .rate .row label{display:flex;flex-direction:column;gap:3px;font-size:13px;font-weight:600}
+ .rate select,.rate input[type=month],.rate textarea{font:inherit;font-size:14px;padding:7px 9px;border:1px solid #d1d5db;border-radius:8px;background:#fff}
+ .rate textarea{width:100%;min-height:64px;resize:vertical} .rate .more summary{cursor:pointer;margin-top:10px;font-size:13.5px;font-weight:600}
+ .rate .msg{margin:8px 0 0;font-size:13.5px} .rate .msg.err{color:#b91c1c}
  .route{margin:.2rem 0 .6rem;padding-left:1.3rem} .route li{margin:.15rem 0}
  .note{font-size:.8rem;color:#555;margin:.2rem 0 .6rem} .side-body h4{margin:.8rem 0 .3rem;font-size:.95rem}
 </style></head><body>
@@ -203,6 +223,10 @@ __GOOGLE_API_SCRIPT__
     <label for="need" class="vh">Show</label><select id="need"></select>
     <label for="when" class="vh">When</label><select id="when" hidden>
      <option value="0">Any date</option><option value="1">Today</option><option value="7">Next 7 days</option><option value="30">Next 30 days</option></select>
+    <div class="sortby"><label for="sort">Sort by</label><select id="sort">
+     <option value="access">Most accessible first</option><option value="near">Nearest first</option>
+     <option value="name">Name (A to Z)</option><option value="info">Most information first</option>
+     <option value="recent">Most recently checked</option></select></div>
     <label class="cb"><input type="checkbox" id="known"> Only places with accessibility information</label>
    </div>
    <p id="status" role="status" aria-live="polite"></p>
@@ -223,21 +247,8 @@ __GOOGLE_API_SCRIPT__
 <script>
 (async () => {
 const GOOGLE_ENABLED = false;
-let GOOGLE_PLACES_ENABLED = __GOOGLE_PLACES_ENABLED__;
-const GOOGLE_PLACE_IDS = __GOOGLE_PLACE_IDS__;
-let googleMaps = null, GooglePlace = null, googleInfoWindow = null;
-let googleWarning = '';
-if (GOOGLE_PLACES_ENABLED) {
-  try {
-    const placesLibrary = await google.maps.importLibrary('places');
-    GooglePlace = placesLibrary.Place;
-  } catch (error) {
-    GOOGLE_PLACES_ENABLED = false;
-    googleWarning = ' Google Places details could not start; the original atlas map remains available.';
-    console.error('Google Places initialization failed', error);
-  }
-}
-const DATA = __DATA__, RATINGS = __RATINGS__, HELP = __HELP__, ICONS = __ICONS__;
+let googleMaps = null, googleInfoWindow = null;
+const DATA = __DATA__, RATINGS = __RATINGS__, HELP = __HELP__, ICONS = __ICONS__, RATECFG = __RATECFG__;
 const PAGE = 20;
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const svg = (layer, colour, size=20) => `<svg aria-hidden="true" width="${size}" height="${size}" viewBox="0 0 20 20" style="color:${colour}">${ICONS[layer][1]}</svg>`;
@@ -281,34 +292,15 @@ if (!GOOGLE_ENABLED) new MutationObserver(() => document.querySelectorAll('#map 
 
 // ---------- items ----------
 const ITEMS = [];
-const googleDetailCache = new Map();
-async function fetchGoogleDetails(placeId){
-  if (!googleDetailCache.has(placeId)){
-    const request = (async () => {
-      const place = new GooglePlace({id:placeId});
-      await place.fetchFields({fields:['displayName','formattedAddress','googleMapsURI','accessibilityOptions','attributions']});
-      if (!place.displayName) throw new Error('Google Places returned no place details.');
-      return {
-        displayName:place.displayName,
-        formattedAddress:place.formattedAddress,
-        googleMapsURI:place.googleMapsURI,
-        accessibilityOptions:place.accessibilityOptions,
-        attributions:place.attributions
-      };
-    })();
-    googleDetailCache.set(placeId, request);
-  }
-  try { return await googleDetailCache.get(placeId); }
-  catch (error) { googleDetailCache.delete(placeId); throw error; }
-}
 function googleDetailsNode(detail){
   const root = document.createElement('section');
   root.className = 'google-accessibility';
   const heading = document.createElement('h4');
   heading.textContent = 'Google Maps accessibility details';
   root.append(heading);
-  if (detail.displayName){
-    const name = document.createElement('p'); name.textContent = detail.displayName; root.append(name);
+  const displayName = typeof detail.displayName === 'string' ? detail.displayName : detail.displayName?.text;
+  if (displayName){
+    const name = document.createElement('p'); name.textContent = displayName; root.append(name);
   }
   if (detail.formattedAddress){
     const address = document.createElement('p'); address.textContent = detail.formattedAddress; root.append(address);
@@ -335,23 +327,13 @@ function googleDetailsNode(detail){
     providers.textContent = `Data providers: ${detail.attributions.map(item => item.provider).filter(Boolean).join(', ')}`;
     root.append(providers);
   }
-  if (detail.googleMapsURI){
+  const googleMapsUri = detail.googleMapsUri || detail.googleMapsURI;
+  if (googleMapsUri){
     const link = document.createElement('a');
-    link.href = detail.googleMapsURI; link.target = '_blank'; link.rel = 'noopener noreferrer';
+    link.href = googleMapsUri; link.target = '_blank'; link.rel = 'noopener noreferrer';
     link.textContent = 'Open in Google Maps'; root.append(link);
   }
   return root;
-}
-function loadGoogleDetails(it, target){
-  if (!it.googlePlaceId) return;
-  target.textContent = 'Loading live accessibility details from Google Places...';
-  fetchGoogleDetails(it.googlePlaceId)
-    .then(detail => target.replaceChildren(googleDetailsNode(detail)))
-    .catch(error => {
-      target.textContent = 'Google Places details could not be loaded. Check the browser key, API access, and referrer restrictions.';
-      document.getElementById('status').textContent = 'A Google Places request failed. Check the browser key, API access, and referrer restrictions.';
-      console.error('Google Places detail request failed', error);
-    });
 }
 function googleInfoContent(it){
   const root = document.createElement('div');
@@ -359,8 +341,8 @@ function googleInfoContent(it){
   const rating = document.createElement('p'); rating.textContent = RATINGS[it.p.access_rating][0]; root.append(rating);
   const summary = document.createElement('p'); summary.textContent = it.p.summary; root.append(summary);
   const details = document.createElement('div'); root.append(details);
-  if (GOOGLE_PLACES_ENABLED && it.googlePlaceId) loadGoogleDetails(it, details);
-  else details.textContent = 'No matched Google Place for this location.';
+  if (it.p.google_place) details.append(googleDetailsNode(it.p.google_place));
+  else details.textContent = 'No saved Google Places details for this location.';
   const button = document.createElement('button'); button.type = 'button'; button.textContent = 'Details in the list';
   button.addEventListener('click', () => openCard(it.i)); root.append(button);
   return root;
@@ -380,8 +362,7 @@ for (const region of Object.keys(DATA)) for (const f of DATA[region].features){
     : [[f.geometry.coordinates[1], f.geometry.coordinates[0]]];
   const it = {
     i, p, pts, leaf:null, googleMarker:null, googleLine:null,
-    googlePlaceId:GOOGLE_PLACE_IDS[p.link_id] || null,
-    dist:null, dir:'', text:(p.name + ' ' + p.summary).toLowerCase()
+    dist:null, dir:'', comm:null, text:(p.name + ' ' + p.summary).toLowerCase()
   };
   if (GOOGLE_ENABLED){
     if (p.layer === 'trail'){
@@ -405,7 +386,7 @@ for (const region of Object.keys(DATA)) for (const f of DATA[region].features){
       ? L.geoJSON(f, {style:{color:RATINGS[p.access_rating][1], weight:5, opacity:.9}}).addTo(trails)
       : L.marker(pts[0], {icon:markerIcon(p.layer, p.access_rating), keyboard:false, title:p.name});
     if (p.layer !== 'trail') cluster.addLayer(it.leaf);
-    it.leaf.bindPopup(() => `<h3>${esc(p.name)}</h3>${badge(p.access_rating)}<p>${esc(p.summary)}</p><button type="button" onclick="openCard(${i})">Details in the list</button>`, {maxWidth:320});
+    it.leaf.bindPopup(() => `<h3>${esc(p.name)}</h3>${badge(p.access_rating)}<p>${esc(p.summary)}</p>${commText(it)}<p><button type="button" onclick="openCard(${i})">Details in the list</button>${canRate(it) ? ` <button type="button" onclick="openCard(${i}, true)">Rate it</button>` : ''}</p>`, {maxWidth:320});
   }
   ITEMS.push(it);
 }
@@ -454,6 +435,8 @@ const NEEDS = {
   'Adaptive recreation': it => it.p.layer === 'adaptive_recreation',
   'Lodging': it => it.p.layer === 'lodging',
 };
+const sort = document.getElementById('sort');
+if (RATECFG) sort.add(new Option('Highest visitor rating', 'community'));
 const need = document.getElementById('need'), known = document.getElementById('known'), q = document.getElementById('q'), when = document.getElementById('when');
 Object.keys(NEEDS).forEach(k => need.add(new Option(k, k)));
 const RANK = {accessible:0, partial:1, not_accessible:2, unknown:3};
@@ -481,15 +464,25 @@ function current(){
   let list = ITEMS.filter(NEEDS[need.value]).filter(it => !known.checked || it.p.access_rating !== 'unknown')
                   .filter(it => !t || it.text.includes(t))
                   .filter(it => need.value !== 'Events' || windowEvents(it).length);
-  if (here) list.sort((a, b) => a.dist - b.dist);
-  else list.sort((a, b) => RANK[a.p.access_rating] - RANK[b.p.access_rating] || LAYER_RANK[a.p.layer] - LAYER_RANK[b.p.layer] || a.p.name.localeCompare(b.p.name));
-  return list;
+  return list.sort(SORTS[sort.value] || SORTS.access);
 }
+const byName = (a, b) => a.p.name.localeCompare(b.p.name, undefined, {sensitivity:'base', numeric:true});
+const byAccess = (a, b) => RANK[a.p.access_rating] - RANK[b.p.access_rating] || LAYER_RANK[a.p.layer] - LAYER_RANK[b.p.layer] || byName(a, b);
+const SORTS = {
+  access: byAccess,
+  near: (a, b) => here ? a.dist - b.dist : byAccess(a, b),   // until a location is known
+  name: byName,
+  info: (a, b) => (b.p.facts || []).length - (a.p.facts || []).length || byAccess(a, b),
+  recent: (a, b) => (b.p.newest_source || '').localeCompare(a.p.newest_source || '') || byAccess(a, b),
+};
+SORTS.community = (a, b) => (b.comm ? b.comm.score : -1) - (a.comm ? a.comm.score : -1) || byAccess(a, b);
+const SORT_TEXT = {community:'highest visitor rating first', access:'most accessible first', near:'nearest first', name:'by name, A to Z',
+  info:'most information first', recent:'most recently checked first'};
 function directions(it){ const [la, lo] = here ? it.near : it.pts[0];
   return `https://www.google.com/maps/dir/?api=1&destination=${la},${lo}&travelmode=walking`; }
 function details(it){
   const p = it.p; let h = '';
-  if (GOOGLE_PLACES_ENABLED && it.googlePlaceId)
+  if (p.google_place)
     h += `<div class="google-details" id="google-details-${it.i}"></div>`;
   if (keyLine(p) && p.summary.length > 160) h += `<p class="sum">${esc(p.summary)}</p>`;
   if (p.facts && p.facts.length){
@@ -539,6 +532,8 @@ function details(it){
   const c = p.contacts || {emails:[], phones:[]};
   if (c.emails.length || c.phones.length)
     h += '<p><strong>Ask before you go:</strong> ' + [...c.emails.map(e => `<a href="mailto:${esc(e)}">${esc(e)}</a>`), ...c.phones.map(t => `<a href="tel:${esc(t.replace(/\D/g,''))}">${esc(t)}</a>`)].join(' · ') + '</p>';
+  h += `<div id="commdet-${it.i}">${commDetails(it)}</div>`;
+  if (canRate(it)) h += rateForm(it);
   const issue = 'https://github.com/zenaism/ohio-access-atlas/issues/new?title=' + encodeURIComponent('Report: ' + p.name)
     + '&body=' + encodeURIComponent(`Place: ${p.name}\nLink: ${placeUrl(it)}\n\nWhat is wrong or missing? (for example: ramp broken, restroom not accessible, new information)\n\n`);
   h += `<div class="links"><a class="btn ghost" href="places/${esc(p.region)}/${esc(p.link_id)}.html">Text-only page<span class="vh"> for ${esc(p.name)}</span></a><button type="button" class="ghost" data-a="copy">Copy link<span class="vh"> to ${esc(p.name)}</span></button>`
@@ -567,7 +562,7 @@ function card(it){
   const notice = p.notice ? `<span class="old">Notice: ${esc(p.notice)}</span>` : '';
   const old = p.newest_source && p.newest_source < OLD ? `<span class="old">Source from ${p.newest_source.slice(0, 4)}, may be out of date</span>` : '';
   li.innerHTML = `<h3 tabindex="-1">${esc(p.name)}</h3>
-    <p class="meta">${badge(p.access_rating)}<span>${ICONS[p.layer][0]}</span>${where}${evline}${notice}${old}</p>
+    <p class="meta">${badge(p.access_rating)}<span>${ICONS[p.layer][0]}</span><span class="comm" id="comm-${it.i}">${commText(it)}</span>${where}${evline}${notice}${old}</p>
     ${keys}
     ${longSum ? '' : `<p class="sum">${esc(p.summary)}</p>`}
     <div class="actions">
@@ -607,10 +602,11 @@ function toggle(it, btn, force){
   if (open && !box.innerHTML){
     box.innerHTML = details(it);
     const googleBox = box.querySelector('.google-details');
-    if (googleBox) loadGoogleDetails(it, googleBox);
+    if (googleBox) googleBox.replaceChildren(googleDetailsNode(it.p.google_place));
     box.querySelector('[data-a=copy]').onclick = () => copyLink(it);
     const rb = box.querySelector('[data-a=route]'); if (rb) rb.onclick = () => showRoute(it);
     const rbb = box.querySelector('[data-a=route-blind]'); if (rbb) rbb.onclick = () => showRoute(it, true);
+    const form = box.querySelector('form.rate'); if (form) bindRateForm(it, form);
   }
 }
 // the map shows the same places as the list (filters and search apply to both)
@@ -641,7 +637,7 @@ function render(announce){
     const t = q.value.trim();
     document.getElementById('sheet-label').textContent = `${list.length} place${list.length === 1 ? '' : 's'}`;
     document.getElementById('status').textContent = `${list.length} place${list.length === 1 ? '' : 's'}`
-      + (t ? ` matching “${t}”` : '') + (here ? ', nearest first' : ', best documented first') + '.';
+      + (t ? ` matching “${t}”` : '') + ', ' + SORT_TEXT[sort.value] + '.';
   }
 }
 function showOnMap(it){
@@ -663,7 +659,7 @@ function showOnMap(it){
   if (it.p.layer === 'trail'){ map.fitBounds(it.leaf.getBounds(), {maxZoom:15}); it.leaf.openPopup(); return; }
   cluster.zoomToShowLayer(it.leaf, () => it.leaf.openPopup());
 }
-function openCard(i){
+function openCard(i, rate){
   if (GOOGLE_ENABLED) googleInfoWindow.close(); else map.closePopup();
   const it = ITEMS[i]; let idx = current().indexOf(it);
   if (idx < 0){ q.value = ''; need.value = 'All places'; known.checked = false; idx = current().indexOf(it); }
@@ -672,11 +668,14 @@ function openCard(i){
   const li = document.getElementById('card-' + i); toggle(it, li.querySelector('[data-a=det]'), true);
   if (PHONE.matches) setSheet(true); else setList(true);
   const box = PHONE.matches ? document.getElementById('side-body') : li.closest('.side-body');
-  box.scrollTop = li.offsetTop - box.offsetTop - 8; li.querySelector('h3').focus({preventScroll:true});
+  const form = rate && li.querySelector('form.rate'), target = form || li;
+  box.scrollTop = target.offsetTop - box.offsetTop - 8;
+  (form ? form.querySelector('h4') : li.querySelector('h3')).focus({preventScroll:true});
 }
 window.openCard = openCard;
 [need, known, when].forEach(el => el.onchange = () => { when.hidden = !/[Ee]vents|shows/.test(need.value); page = 0; render(); });
 q.oninput = () => { page = 0; render(); };
+sort.onchange = () => { page = 0; if (sort.value === 'near' && !here) locate(); else render(); };
 // ---------- paging ----------
 function pageNumbers(n, cur){  // 1 … 4 5 6 … 24 (0-based in, mixed out)
   const keep = new Set([0, n - 1, cur - 1, cur, cur + 1]), out = [];
@@ -716,7 +715,7 @@ function openFromHash(){
 window.addEventListener('hashchange', openFromHash);
 // ---------- near me ----------
 function setHere(latlng, note){
-  here = latlng;
+  here = latlng; sort.value = 'near';
   ITEMS.forEach(it => { let best = Infinity, near = it.pts[0];
     for (const pt of it.pts){ const d = metres(here, pt); if (d < best){ best = d; near = pt; } }
     it.dist = best; it.near = near; it.dir = bearing(here, near); });
@@ -738,7 +737,7 @@ function setHere(latlng, note){
   if (PHONE.matches) setSheet(true); else setList(true);
   document.getElementById('status').textContent += ' ' + note + ' Distances are straight-line, not routes.';
 }
-document.getElementById('near').onclick = () => {
+function locate(){
   const centre = () => {
     const c = map.getCenter();
     setHere(GOOGLE_ENABLED ? [c.lat(), c.lng()] : [c.lat, c.lng], 'Location not shared, so distances are from the centre of the map.');
@@ -747,7 +746,111 @@ document.getElementById('near').onclick = () => {
   document.getElementById('status').textContent = 'Finding your location…';
   navigator.geolocation.getCurrentPosition(pos => setHere([pos.coords.latitude, pos.coords.longitude], 'Measured from your location.'),
     centre, {enableHighAccuracy:true, timeout:8000, maximumAge:60000});
-};
+}
+document.getElementById('near').onclick = locate;
+// ---------- community ratings (Supabase; hidden when config/ratings.yaml is empty) ----------
+const STAR_WORDS = ['', 'Not accessible', 'Hard to use', 'Usable with effort', 'Mostly accessible', 'Fully accessible'];
+const ASPECTS = [['entrance', 'Getting in (entrance, doors)'], ['restroom', 'Restroom'], ['parking', 'Parking and drop-off'],
+                 ['inside', 'Moving around inside or on the path']];
+const PROFILES = [['', 'Prefer not to say'], ['wheelchair', 'I use a wheelchair or scooter'], ['mobility_aid', 'I use a cane, crutches or walker'],
+                  ['blind_low_vision', 'I am blind or have low vision'], ['deaf_hoh', 'I am Deaf or hard of hearing'],
+                  ['companion', 'I was with someone who needs access'], ['other', 'Other']];
+const canRate = it => !!RATECFG && it.p.layer !== 'event';
+const store = {get(k){ try { return localStorage.getItem(k); } catch (e) { return null; } },
+               set(k, v){ try { localStorage.setItem(k, v); } catch (e) {} }};
+let DEVICE = store.get('atlas-device');
+if (!DEVICE){ DEVICE = crypto.randomUUID ? crypto.randomUUID() : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g,
+  c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)); store.set('atlas-device', DEVICE); }
+const one = x => Number(x).toFixed(1);
+function commText(it){
+  const c = it.comm; if (!c || !c.n) return '';
+  return `<span aria-hidden="true"><b>★</b> ${one(c.overall)} visitors (${c.n})</span>`
+    + `<span class="vh">Visitor rating ${one(c.overall)} out of 5 from ${c.n} rating${c.n > 1 ? 's' : ''}</span>`;
+}
+function commDetails(it){
+  const c = it.comm; if (!c || !c.n) return '';
+  const rows = [['Overall', c.overall, c.n], ...ASPECTS.map(([k, label]) => [label, c[k], c['n_' + k]]),
+    ['Overall, from wheelchair users', c.wheelchair, c.n_wheelchair], ['Overall, from blind or low-vision visitors', c.blind, c.n_blind]]
+    .filter(r => r[2]);
+  return `<h4>What visitors say</h4><table><caption class="vh">Visitor ratings for ${esc(it.p.name)}</caption><tbody>`
+    + rows.map(([k, v, n]) => `<tr><th scope="row">${esc(k)}</th><td>${one(v)} out of 5 <span class="q">(${n} rating${n > 1 ? 's' : ''})</span></td></tr>`).join('')
+    + '</tbody></table><p class="note">Ratings from people using this map, not checked by us. They are kept separate from the sourced rating above.</p>';
+}
+function starsField(it, name, legend, required, mine){
+  const id = `r${it.i}-${name}`;
+  let h = `<fieldset class="stars-f"><legend>${esc(legend)}${required ? '' : ' <span class="q">(optional)</span>'}</legend><div class="stars">`;
+  if (!required) h += `<input type="radio" id="${id}-0" name="${name}" value="" ${mine ? '' : 'checked'}><label class="na" for="${id}-0">No answer</label>`;
+  for (let v = 1; v <= 5; v++)
+    h += `<input type="radio" id="${id}-${v}" name="${name}" value="${v}" ${mine === v ? 'checked' : ''} ${required && v === 1 ? 'required' : ''}>`
+      + `<label for="${id}-${v}" title="${STAR_WORDS[v]}"><span aria-hidden="true">★</span><span class="vh">${v} star${v > 1 ? 's' : ''}, ${STAR_WORDS[v]}</span></label>`;
+  return h + '<span class="word" aria-hidden="true"></span></div></fieldset>';
+}
+function rateForm(it){
+  let mine = null; try { mine = JSON.parse(store.get('atlas-rated-' + it.p.link_id)); } catch (e) {}
+  const m = mine || {};
+  return `<form class="rate" novalidate><h4 tabindex="-1">${mine ? 'Change your rating' : 'Rate how accessible it is'}</h4>`
+    + `<p class="note">${mine ? `You rated this ${m.overall} of 5 on ${esc(m.on)}. Sending again replaces it.` : 'Have you been here? Your stars are added to the visitor average for everyone to see.'}</p>`
+    + starsField(it, 'overall', 'Overall, how accessible was it?', true, m.overall)
+    + `<details class="more"${ASPECTS.some(([k]) => m[k]) ? ' open' : ''}><summary>Rate specific parts (optional)</summary>`
+    + ASPECTS.map(([k, label]) => starsField(it, k, label, false, m[k])).join('') + '</details>'
+    + `<div class="row"><label>I am rating as<select name="profile">${PROFILES.map(([v, l]) => `<option value="${v}" ${m.profile === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>`
+    + `<label>When did you visit? <span class="q">(optional)</span><input type="month" name="visited" max="${TODAY.slice(0, 7)}" value="${esc(m.visited || '')}"></label></div>`
+    + `<div class="row"><label style="flex:1">Comment <span class="q">(optional; only read by the researcher, not published; please no names)</span><textarea name="comment" maxlength="500">${esc(m.comment || '')}</textarea></label></div>`
+    + `<div class="row"><button type="submit" class="primary">${mine ? 'Update rating' : 'Send rating'}<span class="vh"> for ${esc(it.p.name)}</span></button></div>`
+    + '<p class="msg" role="status" aria-live="polite"></p></form>';
+}
+function bindRateForm(it, form){
+  form.querySelectorAll('.stars').forEach(row => {
+    const word = row.querySelector('.word');
+    const paint = v => { row.querySelectorAll('label:not(.na)').forEach((l, k) => l.classList.toggle('on', k < v)); word.textContent = STAR_WORDS[v] || ''; };
+    const checked = () => +(row.querySelector('input:checked')?.value || 0);
+    row.querySelectorAll('input').forEach(inp => inp.addEventListener('change', () => paint(checked())));
+    row.querySelectorAll('label:not(.na)').forEach((l, k) => { l.onmouseenter = () => paint(k + 1); });
+    row.onmouseleave = () => paint(checked());
+    paint(checked());
+  });
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const msg = form.querySelector('.msg'), btn = form.querySelector('button[type=submit]'), fd = new FormData(form);
+    const num = k => fd.get(k) ? +fd.get(k) : null;
+    if (!num('overall')){ msg.className = 'msg err'; msg.textContent = 'Choose 1 to 5 stars for “Overall” first.'; form.querySelector('[name=overall]').focus(); return; }
+    const body = {p_link_id:it.p.link_id, p_region:it.p.region, p_device_id:DEVICE, p_overall:num('overall'),
+      p_entrance:num('entrance'), p_restroom:num('restroom'), p_parking:num('parking'), p_inside:num('inside'),
+      p_profile:fd.get('profile') || null, p_visited:fd.get('visited') ? fd.get('visited') + '-01' : null,
+      p_comment:(fd.get('comment') || '').trim() || null};
+    btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Sending…';
+    try {
+      const r = await fetch(RATECFG.url + '/rest/v1/rpc/submit_rating', {method:'POST', headers:apiHeaders({'Content-Type':'application/json'}), body:JSON.stringify(body)});
+      if (!r.ok){ let m = ''; try { m = (await r.json()).message; } catch (x) {} throw new Error(m || `server said ${r.status}`); }
+      store.set('atlas-rated-' + it.p.link_id, JSON.stringify({overall:body.p_overall, entrance:body.p_entrance, restroom:body.p_restroom,
+        parking:body.p_parking, inside:body.p_inside, profile:fd.get('profile'), visited:fd.get('visited'), comment:body.p_comment, on:TODAY}));
+      msg.textContent = `Thank you. Your rating of ${body.p_overall} out of 5 for ${it.p.name} was saved.`;
+      loadCommunity(it.p.link_id);
+    } catch (err){
+      msg.className = 'msg err'; msg.textContent = `Could not save your rating (${err.message}). Please try again later.`;
+    } finally { btn.disabled = false; }
+  };
+}
+function apiHeaders(extra = {}){  // legacy anon keys are JWTs (also sent as Bearer); new sb_publishable_ keys go in apikey only
+  return Object.assign({apikey:RATECFG.key}, RATECFG.key.startsWith('eyJ') ? {Authorization:'Bearer ' + RATECFG.key} : {}, extra);
+}
+async function loadCommunity(linkId){
+  if (!RATECFG) return;
+  try {
+    const q = linkId ? `&link_id=eq.${encodeURIComponent(linkId)}` : '';
+    const r = await fetch(`${RATECFG.url}/rest/v1/rating_summary?select=*${q}`, {headers:apiHeaders()});
+    if (!r.ok) return;
+    const rows = await r.json(), by = Object.fromEntries(rows.map(x => [x.link_id, x]));
+    ITEMS.forEach(it => {
+      if (linkId && it.p.link_id !== linkId) return;
+      it.comm = by[it.p.link_id] || null;
+      const span = document.getElementById('comm-' + it.i); if (span) span.innerHTML = commText(it);
+      const det = document.getElementById('commdet-' + it.i); if (det) det.innerHTML = commDetails(it);
+    });
+    if (!linkId && sort.value === 'community') render(false);
+  } catch (e) { /* offline or blocked: the map works without visitor ratings */ }
+}
+loadCommunity();
 // ---------- legend ----------
 document.getElementById('legend-body').innerHTML = '<ul>'
   + Object.entries(RATINGS).map(([k, r]) => `<li>${badge(k)}<span>${HELP[k]}</span></li>`).join('') + '</ul><ul>'
@@ -756,10 +859,9 @@ document.getElementById('legend-body').innerHTML = '<ul>'
     ? '<li><span>Google Maps markers</span><span>Zoom in to separate nearby places</span></li></ul>'
     : '<li><span class="mc" style="width:22px;height:22px;font-size:11px;box-shadow:none">5</span><span>Group of nearby places: zoom in</span></li></ul>');
 render();
-if (googleWarning) document.getElementById('status').textContent += googleWarning;
 openFromHash();
 })().catch(error => {
-  document.getElementById('status').textContent = 'The map could not be initialized. Check the browser key, APIs, and network, then reload.';
+document.getElementById('status').textContent = 'The map could not be initialized. Check the network, then reload.';
   console.error('Atlas initialization failed', error);
 });
 </script></body></html>
@@ -770,35 +872,24 @@ def render(
     data: dict,
     title: str = "Ohio Access Atlas",
     nav: str = "",
-    google_api_key: str = "",
-    google_place_ids: dict[str, str] | None = None,
 ) -> str:
     """data = {region: FeatureCollection}; nav = extra HTML after the date (e.g. a link to the other city)."""
-    google_places_enabled = bool(google_api_key)
-    visible_link_ids = {
-        feature["properties"]["link_id"]
-        for collection in data.values()
-        for feature in collection["features"]
-    }
-    google_ids = {
-        link_id: place_id
-        for link_id, place_id in (google_place_ids or {}).items()
-        if google_places_enabled and link_id in visible_link_ids
-    }
-    google_ids_json = json.dumps(google_ids, ensure_ascii=False).replace("<", "\\u003c")
-    google_api_script = (
-        f'<script src="https://maps.googleapis.com/maps/api/js?key={quote(google_api_key, safe="")}&v=weekly&libraries=places"></script>'
-        if google_places_enabled
-        else ""
-    )
     return (
-        TEMPLATE.replace("__DATA__", json.dumps(data, ensure_ascii=False))
+        TEMPLATE.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("<", "\\u003c"))
         .replace("__TITLE__", title)
         .replace("__NAV__", nav)
-        .replace("__GOOGLE_API_SCRIPT__", google_api_script)
-        .replace("__GOOGLE_PLACES_ENABLED__", str(google_places_enabled).lower())
-        .replace("__GOOGLE_PLACE_IDS__", google_ids_json)
         .replace("__RATINGS__", json.dumps(RATINGS, ensure_ascii=False))
         .replace("__HELP__", json.dumps(RATING_HELP))
         .replace("__ICONS__", json.dumps(ICONS))
+        .replace("__RATECFG__", json.dumps(ratings_config()))
     )
+
+
+def ratings_config(path=ROOT / "config" / "ratings.yaml") -> dict | None:
+    """Public Supabase URL + publishable key for community ratings; None hides the rating form."""
+    try:
+        c = yaml.safe_load(path.read_text()) or {}
+    except FileNotFoundError:
+        return None
+    url, key = str(c.get("url") or "").rstrip("/"), str(c.get("key") or "")
+    return {"url": url, "key": key} if url.startswith("https://") and key else None

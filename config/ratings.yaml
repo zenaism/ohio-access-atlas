@@ -1,0 +1,5 @@
+# Community accessibility ratings (Supabase). Both values are PUBLIC by design: they go into the
+# published map pages. Use the project URL and the *publishable* (anon) key, never the secret /
+# service_role key. Leave empty to hide the rating form. Database setup: supabase/ratings.sql.
+url: "https://bzpijgyyhjslmezmcrwq.supabase.co"
+key: "sb_publishable_T-ELUbFVxLxXcAmYL4byQw_EZ47cHF-"

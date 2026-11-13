@@ -1,0 +1,9 @@
+# Repo gitleaks config: default rules, plus one allowlist entry.
+# Supabase *publishable* keys are public by design (they ship in the map pages; access is limited
+# by row-level security in supabase/ratings.sql). Secret keys (sb_secret_...) are still blocked.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Supabase publishable key (public)"
+regexes = ['''sb_publishable_[A-Za-z0-9_-]+''']

@@ -255,7 +255,7 @@
 "Type": "Museum / venue / attraction",
 "Accessibility": "Partly accessible",
 "Fact 1": "Getting around inside: yes (long sloped interior walkway to Palm House and waterfall)",
-"Upcoming events": "160: 2026-11-12 A Spider's Gift; 2026-11-13 A Spider's Gift; 2026-11-13 Krohn Early Closures 11/13",
+"Upcoming events": "159: 2026-11-13 A Spider's Gift; 2026-11-13 Krohn Early Closures 11/13; 2026-11-14 A Spider's Gift",
 "Source": "https://www.cincinnati-oh.gov/cincyparks/news/top-10-ada-accessible-features-in-cincy-parks/",
 "marker-color": "#E69F00",
 "marker-symbol": "museum",
@@ -14745,7 +14745,7 @@
 "Name": "Manuel D. & Rhoda Mayerson JCC",
 "Type": "Event venue",
 "Accessibility": "Partly accessible",
-"Upcoming events": "30: 2026-11-12 Mindful Meditations; 2026-11-15 JCC Fall Doubles Pickleball Tournament; 2026-11-15 Fitness and Friends (Fall 2026)",
+"Upcoming events": "29: 2026-11-15 JCC Fall Doubles Pickleball Tournament; 2026-11-15 Fitness and Friends (Fall 2026); 2026-11-15 Adapted Powerlifting",
 "marker-color": "#E69F00",
 "marker-symbol": "star",
 "marker-size": "medium"
@@ -14784,25 +14784,6 @@
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "1: 2026-12-09 SAVE THE DATE: 20th Annual International Education Summit",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.519123,
-39.1214543
-]
-},
-"properties": {
-"Name": "Bellevue Hill Park",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "1: 2026-11-12 Bellevue Hill Park and Fairview Park Conservation Work Days",
 "marker-color": "#8C8C8C",
 "marker-symbol": "star",
 "marker-size": "medium"
@@ -14936,25 +14917,6 @@
 "Type": "Event venue",
 "Accessibility": "No information yet",
 "Upcoming events": "1: 2026-11-14 Power Soccer Fall Practices",
-"marker-color": "#8C8C8C",
-"marker-symbol": "star",
-"marker-size": "medium"
-}
-},
-{
-"type": "Feature",
-"geometry": {
-"type": "Point",
-"coordinates": [
--84.7438520097831,
-39.2581270606402
-]
-},
-"properties": {
-"Name": "Miami Whitewater Forest",
-"Type": "Event venue",
-"Accessibility": "No information yet",
-"Upcoming events": "1: 2026-11-12 Creature Chronicles for Kids",
 "marker-color": "#8C8C8C",
 "marker-symbol": "star",
 "marker-size": "medium"

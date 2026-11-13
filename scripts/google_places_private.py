@@ -1,7 +1,4 @@
-"""Match existing atlas places to Google Place IDs and refresh the same map pages.
-
-New results retain only matched Place IDs and local query status; details load live in Google Maps.
-"""
+"""Match existing atlas places, save Google Places details, and refresh the same map pages."""
 
 from __future__ import annotations
 
@@ -18,6 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 PRIVATE = ROOT / "data/private"
 URL = "https://places.googleapis.com/v1/places:searchText"
 MASK = "places.id,places.displayName,places.location"
+DETAILS_URL = "https://places.googleapis.com/v1/places/{}"
+DETAILS_MASK = "id,displayName,formattedAddress,googleMapsUri,accessibilityOptions,attributions"
+DETAILS_FILE = PRIVATE / "google_place_details.json"
 CITY = {"cincinnati": "Cincinnati, OH", "oxford": "Oxford, OH"}
 
 
@@ -134,7 +134,7 @@ def fetch() -> dict:
         json.dumps(
             {
                 "fetched": date.today().isoformat(),
-                "note": "Only matched Place IDs are retained; place details load live in Google Maps.",
+                "note": "Matched Place IDs are stored here; details are cached privately and exported with the Atlas map.",
                 "places": out,
                 "checked": sorted(checked),
             },
@@ -146,21 +146,76 @@ def fetch() -> dict:
     return out
 
 
+def fetch_place_details(
+    k: str,
+    place_ids: dict[str, str],
+    max_requests: int | None = None,
+) -> tuple[dict[str, dict], list[str], list[tuple[str, int | str]]]:
+    """Fetch and persist detail responses, resuming from the private cache when possible."""
+    cache = json.loads(DETAILS_FILE.read_text()) if DETAILS_FILE.exists() else {}
+    records = cache.get("places", {})
+    requests_made = 0
+    failures = []
+    for link_id, place_id in place_ids.items():
+        existing = records.get(link_id)
+        if isinstance(existing, dict) and existing.get("id") == place_id:
+            continue
+        if max_requests is not None and requests_made >= max_requests:
+            break
+        response = requests.get(
+            DETAILS_URL.format(place_id),
+            timeout=30,
+            headers={"X-Goog-Api-Key": k, "X-Goog-FieldMask": DETAILS_MASK},
+        )
+        requests_made += 1
+        if response.status_code != 200:
+            failures.append((link_id, response.status_code))
+            time.sleep(0.1)
+            continue
+        detail = response.json()
+        if detail.get("id") != place_id:
+            failures.append((link_id, "Place ID mismatch"))
+            time.sleep(0.1)
+            continue
+        records[link_id] = detail
+        DETAILS_FILE.parent.mkdir(parents=True, exist_ok=True)
+        temporary = DETAILS_FILE.with_suffix(".tmp")
+        temporary.write_text(
+            json.dumps(
+                {"fetched": date.today().isoformat(), "field_mask": DETAILS_MASK, "places": records},
+                indent=2,
+                ensure_ascii=False,
+            )
+        )
+        temporary.replace(DETAILS_FILE)
+        time.sleep(0.1)
+    unresolved = [
+        link_id
+        for link_id, place_id in place_ids.items()
+        if not isinstance(records.get(link_id), dict) or records[link_id].get("id") != place_id
+    ]
+    return records, unresolved, failures
+
+
 if __name__ == "__main__":
     if "--areas" in sys.argv:
         raise SystemExit(
             "--areas is no longer supported; Google matches are for places already on the atlas."
         )
     google = fetch()
+    details, unresolved, failures = fetch_place_details(key(), google)
+    print(f"Saved Google Places details for {len(google) - len(unresolved)} of {len(google)} matches.")
+    if unresolved:
+        print(f"{len(unresolved)} matches remain without full Place Details.")
+    if failures:
+        summary = ", ".join(f"{link_id} ({status})" for link_id, status in failures)
+        print(f"Google Place Details failed for {len(failures)} match(es): {summary}")
     sys.path.insert(0, str(ROOT / "src"))
-    from atlas.google_places import browser_api_key
+    from atlas.export_map import write
 
-    if not browser_api_key():
-        print("Google data was fetched locally. Configure GOOGLE_MAPS_BROWSER_API_KEY, then run `make map`.")
-    else:
-        from atlas.export_map import write
-
-        pages = [path for path in write() if path.name in {"cincinnati.html", "oxford.html", "index.html"}]
-        print(f"Updated existing map pages with {len(google)} Google matches.")
-        for page in pages:
-            print(page.relative_to(ROOT))
+    pages = [path for path in write() if path.name in {"cincinnati.html", "oxford.html", "index.html"}]
+    print(f"Updated existing map pages with {len(details)} saved Google detail records.")
+    for page in pages:
+        print(page.relative_to(ROOT))
+    if failures:
+        raise SystemExit(1)

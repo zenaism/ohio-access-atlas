@@ -3,6 +3,7 @@
   data/map/<region>_atlas.geojson   FeatureCollection (WGS84), one feature per place/trail/event venue
   data/map/atlas_viewer.html        open by double-click: icons per layer, colour per access rating, legend
   data/map/review.csv               everything that could not be placed, and why
+  data/map/google_places_enriched.geojson Atlas features and saved Google Places details
   data/map/google_place_matches.csv Atlas features joined to cached Google Place IDs
 
 Nothing is placed by fuzzy guessing: fact places are pinned in config/place_matches.yaml; event venues
@@ -638,33 +639,50 @@ def write() -> list[Path]:
         log.info("[%s] map: %d features %s", region, len(fc["features"]), counts)
     pd.DataFrame(review).drop_duplicates().to_csv(MAP / "review.csv", index=False)
     from .google_places import (
+        GOOGLE_PLACES_FILE,
         PLACE_MATCH_CSV_FIELDS,
-        browser_api_key,
+        enrich_google_places,
         place_match_rows,
         public_place_ids,
+        saved_google_place_details,
     )
     from .map_viewer import render
 
-    google_api_key = browser_api_key()
     all_google_place_ids = public_place_ids()
-    google_place_ids = all_google_place_ids if google_api_key else {}
+    enrich_google_places(data, all_google_place_ids, saved_google_place_details(all_google_place_ids))
     matches_path = MAP / "google_place_matches.csv"
     with matches_path.open("w", encoding="utf-8", newline="") as output:
         writer = csv.DictWriter(output, fieldnames=PLACE_MATCH_CSV_FIELDS)
         writer.writeheader()
         writer.writerows(place_match_rows(data, all_google_place_ids))
     written.append(matches_path)
-    if google_api_key and not google_place_ids:
-        log.warning(
-            "Google Maps is enabled, but no matched Google Place IDs were found; "
-            "run the Places fetch script."
-        )
-    elif not google_api_key:
-        log.info("No browser Maps key configured; generating atlas maps with the existing basemap.")
+    combined = {
+        "type": "FeatureCollection",
+        "name": "ohio_access_atlas_with_google_places",
+        "generated": TODAY,
+        "rating_rule": rate.__doc__.strip(),
+        "features": [feature for collection in data.values() for feature in collection["features"]],
+    }
+    GOOGLE_PLACES_FILE.write_text(
+        json.dumps(combined, ensure_ascii=False, separators=(",", ":"))
+    )
+    written.append(GOOGLE_PLACES_FILE)
+    combined = json.loads(GOOGLE_PLACES_FILE.read_text())
+    map_data = {
+        region: {
+            **collection,
+            "features": [
+                feature
+                for feature in combined["features"]
+                if feature["properties"]["region"] == region
+            ],
+        }
+        for region, collection in data.items()
+    }
 
     # one page per city (for GitHub Pages links) + an index page with both
     other = {"cincinnati": "oxford", "oxford": "cincinnati"}
-    for region in data:
+    for region in map_data:
         page = MAP / f"{region}.html"
         nav = (
             f' · <a href="{other[region]}.html">Switch to the {other[region].title()} map</a>'
@@ -673,7 +691,7 @@ def write() -> list[Path]:
                 f' · <a href="places/{region}/shows.html">Accessible shows by date</a>'
                 if any(
                     e.get("access")
-                    for f in data[region]["features"]
+                    for f in map_data[region]["features"]
                     for e in f["properties"].get("events") or []
                 )
                 else ""
@@ -681,29 +699,25 @@ def write() -> list[Path]:
         )
         page.write_text(
             render(
-                {region: data[region]},
+                {region: map_data[region]},
                 f"{region.title()} accessibility map",
                 nav,
-                google_api_key,
-                google_place_ids,
             )
         )
         written.append(page)
     (MAP / "index.html").write_text(
         render(
-            data,
+            map_data,
             "Ohio Access Atlas: Cincinnati and Oxford",
-            google_api_key=google_api_key,
-            google_place_ids=google_place_ids,
         )
     )
     old = MAP / "atlas_viewer.html"
     if old.exists():
         old.unlink()  # replaced by index.html
-    written += write_github(data)
+    written += write_github(map_data)
     from .place_pages import write as write_places
 
-    written += write_places(data, MAP)
+    written += write_places(map_data, MAP)
     return [*written, MAP / "review.csv", MAP / "index.html"]
 
 
