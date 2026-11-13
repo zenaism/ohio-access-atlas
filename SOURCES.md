@@ -27,6 +27,11 @@ This list separates data already collected from ideas for later. Google Places m
 - Mapillary street imagery + detections 🔜: https://www.mapillary.com/developer
 - Cincinnati ADA / AccessCincy 🔜: https://www.cincinnati-oh.gov/manager/aging-and-accessibility/ada/
 - BCRTA accessibility / paratransit 🔜: https://www.butlercountyrta.com/accessibility/
+- The Bridge Adaptive Sports & Recreation (programs, events) 🔜: https://www.thebridgeadaptive.org/
+- Grandma's Marathon (wheelchair/adaptive divisions) 🔜, but note it is held in Duluth, Minnesota, outside our area; check whether a local race (e.g. the Flying Pig Marathon, Cincinnati) was meant: https://grandmasmarathon.com/
+- University of Cincinnati (campus accessibility, buildings, parking) 🔜: https://www.uc.edu/
+- UC Health (hospital and clinic accessibility, parking, services) 🔜: https://www.uchealth.com/
+- Cincinnati Children's Hospital (accessibility, parking, family services, events) 🔜: https://www.cincinnatichildrens.org/
 - NPS API (Taft NHS, accessibility fields) 🔜: https://www.nps.gov/subjects/developer/api-documentation.htm
 - Great Parks of Hamilton County trails 🔜: https://services.arcgis.com/JyZag7oO4NteHGiq/arcgis/rest/services/Great_Parks_of_Hamilton_County_Trails/FeatureServer
 
