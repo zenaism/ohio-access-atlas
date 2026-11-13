@@ -43,11 +43,13 @@ needed. Deleting a file in a later commit does not remove copies from Git histor
 
 ## Visitor ratings (optional)
 
-Each place's Details section can show a **"Rate how accessible it is"** form: 1 to 5 stars overall, plus
-optional stars for the entrance, restroom, parking and moving around inside, an optional "I am rating as"
-(wheelchair user, blind or low vision, …), visit month and comment. The map popup has a **Rate it** button.
-Cards show the visitor average ("★ 4.3 visitors (3)"), Details shows a breakdown, and the list can be sorted
-by **Highest visitor rating**. Visitor ratings stay separate from the sourced rating.
+Click a place on the map and the popup asks **"How accessible was it for you?"**: one tap on 1 to 5 stars saves
+the rating. Optional one-tap extras then appear: Entrance / Restroom / Parking / Inside as **Good** or **Hard**,
+and "I use" (wheelchair, cane or walker, blind or low vision, other). Nothing to type; every tap saves, and tapping
+again changes it. The same widget is in each place's Details in the list, for keyboard and screen-reader users
+(map markers are not in the tab order). Cards show the visitor average ("★ 4.3 visitors (3)"), Details shows a
+breakdown, and the list can be sorted by **Highest visitor rating**. Visitor ratings stay separate from the
+sourced rating.
 
 Ratings are stored in Supabase (Postgres):
 

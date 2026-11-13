@@ -187,20 +187,20 @@ TEMPLATE = r"""<!DOCTYPE html>
  }
  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
  .comm{color:#374151;font-weight:550} .comm:empty{display:none} .comm b{color:#b45309}
- .rate{margin:14px 0 4px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}
- .rate h4{margin:0 0 4px} .rate fieldset{border:0;padding:0;margin:10px 0 0;min-width:0}
- .rate legend{font-weight:600;font-size:13.5px;padding:0;margin-bottom:2px}
- .stars{display:flex;align-items:center;gap:2px;flex-wrap:wrap}
- .stars input{position:absolute;opacity:0;width:1px;height:1px}
- .stars label{cursor:pointer;font-size:26px;line-height:1;padding:4px 3px;color:#c4c8cf;border-radius:6px}
- .stars label.na{font-size:13px;padding:8px 6px;color:var(--muted)}
- .stars label.on{color:#b45309} .stars input:focus-visible+label{outline:2.5px solid var(--focus);outline-offset:1px}
- .stars input:checked+label.na{color:var(--ink);font-weight:600;text-decoration:underline}
- .stars .word{font-size:13px;color:#374151;margin-left:8px;min-width:9em}
- .rate .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px} .rate .row label{display:flex;flex-direction:column;gap:3px;font-size:13px;font-weight:600}
- .rate select,.rate input[type=month],.rate textarea{font:inherit;font-size:14px;padding:7px 9px;border:1px solid #d1d5db;border-radius:8px;background:#fff}
- .rate textarea{width:100%;min-height:64px;resize:vertical} .rate .more summary{cursor:pointer;margin-top:10px;font-size:13.5px;font-weight:600}
- .rate .msg{margin:8px 0 0;font-size:13.5px} .rate .msg.err{color:#b91c1c}
+ .qr{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:13.5px}
+ .qr p{margin:0} .qr .ask{font-weight:600;margin-bottom:2px}
+ .qr .stars{display:flex;align-items:center;gap:0;flex-wrap:wrap}
+ .qr .stars button{font-size:28px;line-height:1;padding:3px 3px;border:0;background:none;color:#c4c8cf;border-radius:8px;min-width:40px;min-height:40px;justify-content:center}
+ .qr .stars button.on{color:#b45309} .qr .stars button:hover{background:var(--soft)}
+ .qr .word{font-size:13px;color:#374151;margin-left:4px}
+ .qr .more{margin-top:8px;display:grid;gap:5px}
+ .qr .part{display:flex;align-items:center;gap:6px;flex-wrap:wrap} .qr .part>span{min-width:66px;font-weight:550}
+ .qr .chip{font-size:13px;padding:6px 10px;border-radius:999px;min-height:32px}
+ .qr .chip[aria-pressed=true].good{background:#0072B2;border-color:#0072B2;color:#fff}
+ .qr .chip[aria-pressed=true].hard{background:#D55E00;border-color:#D55E00;color:#fff}
+ .qr .chip[aria-pressed=true].who{background:var(--ink);border-color:var(--ink);color:#fff}
+ .qr .msg{font-size:12.5px;color:var(--muted);margin-top:4px;min-height:1.2em} .qr .msg.err{color:#b91c1c}
+ .leaflet-popup-content .qr{border:0;padding:8px 0 0;margin-top:8px;border-top:1px solid var(--line);border-radius:0}
  .route{margin:.2rem 0 .6rem;padding-left:1.3rem} .route li{margin:.15rem 0}
  .note{font-size:.8rem;color:#555;margin:.2rem 0 .6rem} .side-body h4{margin:.8rem 0 .3rem;font-size:.95rem}
 </style></head><body>
@@ -386,7 +386,7 @@ for (const region of Object.keys(DATA)) for (const f of DATA[region].features){
       ? L.geoJSON(f, {style:{color:RATINGS[p.access_rating][1], weight:5, opacity:.9}}).addTo(trails)
       : L.marker(pts[0], {icon:markerIcon(p.layer, p.access_rating), keyboard:false, title:p.name});
     if (p.layer !== 'trail') cluster.addLayer(it.leaf);
-    it.leaf.bindPopup(() => `<h3>${esc(p.name)}</h3>${badge(p.access_rating)}<p>${esc(p.summary)}</p>${commText(it)}<p><button type="button" onclick="openCard(${i})">Details in the list</button>${canRate(it) ? ` <button type="button" onclick="openCard(${i}, true)">Rate it</button>` : ''}</p>`, {maxWidth:320});
+    it.leaf.bindPopup(() => popupContent(it), {maxWidth:320, minWidth:260, autoPanPadding:[20, 20]});
   }
   ITEMS.push(it);
 }
@@ -533,7 +533,7 @@ function details(it){
   if (c.emails.length || c.phones.length)
     h += '<p><strong>Ask before you go:</strong> ' + [...c.emails.map(e => `<a href="mailto:${esc(e)}">${esc(e)}</a>`), ...c.phones.map(t => `<a href="tel:${esc(t.replace(/\D/g,''))}">${esc(t)}</a>`)].join(' · ') + '</p>';
   h += `<div id="commdet-${it.i}">${commDetails(it)}</div>`;
-  if (canRate(it)) h += rateForm(it);
+  if (canRate(it)) h += '<h4>Your rating</h4><div class="qr-slot"></div>';
   const issue = 'https://github.com/zenaism/ohio-access-atlas/issues/new?title=' + encodeURIComponent('Report: ' + p.name)
     + '&body=' + encodeURIComponent(`Place: ${p.name}\nLink: ${placeUrl(it)}\n\nWhat is wrong or missing? (for example: ramp broken, restroom not accessible, new information)\n\n`);
   h += `<div class="links"><a class="btn ghost" href="places/${esc(p.region)}/${esc(p.link_id)}.html">Text-only page<span class="vh"> for ${esc(p.name)}</span></a><button type="button" class="ghost" data-a="copy">Copy link<span class="vh"> to ${esc(p.name)}</span></button>`
@@ -606,7 +606,7 @@ function toggle(it, btn, force){
     box.querySelector('[data-a=copy]').onclick = () => copyLink(it);
     const rb = box.querySelector('[data-a=route]'); if (rb) rb.onclick = () => showRoute(it);
     const rbb = box.querySelector('[data-a=route-blind]'); if (rbb) rbb.onclick = () => showRoute(it, true);
-    const form = box.querySelector('form.rate'); if (form) bindRateForm(it, form);
+    const slot = box.querySelector('.qr-slot'); if (slot) slot.replaceWith(quickRate(it));
   }
 }
 // the map shows the same places as the list (filters and search apply to both)
@@ -668,9 +668,9 @@ function openCard(i, rate){
   const li = document.getElementById('card-' + i); toggle(it, li.querySelector('[data-a=det]'), true);
   if (PHONE.matches) setSheet(true); else setList(true);
   const box = PHONE.matches ? document.getElementById('side-body') : li.closest('.side-body');
-  const form = rate && li.querySelector('form.rate'), target = form || li;
+  const form = rate && li.querySelector('.qr'), target = form || li;
   box.scrollTop = target.offsetTop - box.offsetTop - 8;
-  (form ? form.querySelector('h4') : li.querySelector('h3')).focus({preventScroll:true});
+  (form ? form.querySelector('.stars button') : li.querySelector('h3')).focus({preventScroll:true});
 }
 window.openCard = openCard;
 [need, known, when].forEach(el => el.onchange = () => { when.hidden = !/[Ee]vents|shows/.test(need.value); page = 0; render(); });
@@ -750,11 +750,7 @@ function locate(){
 document.getElementById('near').onclick = locate;
 // ---------- community ratings (Supabase; hidden when config/ratings.yaml is empty) ----------
 const STAR_WORDS = ['', 'Not accessible', 'Hard to use', 'Usable with effort', 'Mostly accessible', 'Fully accessible'];
-const ASPECTS = [['entrance', 'Getting in (entrance, doors)'], ['restroom', 'Restroom'], ['parking', 'Parking and drop-off'],
-                 ['inside', 'Moving around inside or on the path']];
-const PROFILES = [['', 'Prefer not to say'], ['wheelchair', 'I use a wheelchair or scooter'], ['mobility_aid', 'I use a cane, crutches or walker'],
-                  ['blind_low_vision', 'I am blind or have low vision'], ['deaf_hoh', 'I am Deaf or hard of hearing'],
-                  ['companion', 'I was with someone who needs access'], ['other', 'Other']];
+const ASPECTS = [['entrance', 'Entrance'], ['restroom', 'Restroom'], ['parking', 'Parking'], ['inside', 'Moving around inside']];
 const canRate = it => !!RATECFG && it.p.layer !== 'event';
 const store = {get(k){ try { return localStorage.getItem(k); } catch (e) { return null; } },
                set(k, v){ try { localStorage.setItem(k, v); } catch (e) {} }};
@@ -769,67 +765,89 @@ function commText(it){
 }
 function commDetails(it){
   const c = it.comm; if (!c || !c.n) return '';
-  const rows = [['Overall', c.overall, c.n], ...ASPECTS.map(([k, label]) => [label, c[k], c['n_' + k]]),
-    ['Overall, from wheelchair users', c.wheelchair, c.n_wheelchair], ['Overall, from blind or low-vision visitors', c.blind, c.n_blind]]
-    .filter(r => r[2]);
+  const pl = n => `${n} visitor${n > 1 ? 's' : ''}`;
+  const rows = [['Overall', `${one(c.overall)} out of 5 stars <span class="q">(${pl(c.n)})</span>`]];
+  for (const [k, label] of ASPECTS) if (c['n_' + k]){   // parts are tapped as Good (5) or Hard (1)
+    const n = c['n_' + k], good = Math.round((c[k] - 1) / 4 * n);
+    rows.push([label, `${good} of ${n} say good`]);
+  }
+  if (c.n_wheelchair) rows.push(['Wheelchair users', `${one(c.wheelchair)} out of 5 <span class="q">(${pl(c.n_wheelchair)})</span>`]);
+  if (c.n_blind) rows.push(['Blind or low-vision visitors', `${one(c.blind)} out of 5 <span class="q">(${pl(c.n_blind)})</span>`]);
   return `<h4>What visitors say</h4><table><caption class="vh">Visitor ratings for ${esc(it.p.name)}</caption><tbody>`
-    + rows.map(([k, v, n]) => `<tr><th scope="row">${esc(k)}</th><td>${one(v)} out of 5 <span class="q">(${n} rating${n > 1 ? 's' : ''})</span></td></tr>`).join('')
-    + '</tbody></table><p class="note">Ratings from people using this map, not checked by us. They are kept separate from the sourced rating above.</p>';
+    + rows.map(([k, v]) => `<tr><th scope="row">${esc(k)}</th><td>${v}</td></tr>`).join('')
+    + '</tbody></table><p class="note">From people using this map, not checked by us; kept separate from the sourced rating above.</p>';
 }
-function starsField(it, name, legend, required, mine){
-  const id = `r${it.i}-${name}`;
-  let h = `<fieldset class="stars-f"><legend>${esc(legend)}${required ? '' : ' <span class="q">(optional)</span>'}</legend><div class="stars">`;
-  if (!required) h += `<input type="radio" id="${id}-0" name="${name}" value="" ${mine ? '' : 'checked'}><label class="na" for="${id}-0">No answer</label>`;
-  for (let v = 1; v <= 5; v++)
-    h += `<input type="radio" id="${id}-${v}" name="${name}" value="${v}" ${mine === v ? 'checked' : ''} ${required && v === 1 ? 'required' : ''}>`
-      + `<label for="${id}-${v}" title="${STAR_WORDS[v]}"><span aria-hidden="true">★</span><span class="vh">${v} star${v > 1 ? 's' : ''}, ${STAR_WORDS[v]}</span></label>`;
-  return h + '<span class="word" aria-hidden="true"></span></div></fieldset>';
+function popupContent(it){
+  const p = it.p, el = document.createElement('div'), short = p.summary.length > 120 ? p.summary.slice(0, 110).replace(/\s+\S*$/, '') + '…' : p.summary;
+  el.innerHTML = `<h3>${esc(p.name)}</h3>${badge(p.access_rating)}<p>${esc(short)}</p><p class="comm pop-comm">${commText(it)}</p>`
+    + `<p><button type="button" class="ghost" data-a="list">Details in the list</button></p>`;
+  el.querySelector('[data-a=list]').onclick = () => openCard(it.i);
+  if (canRate(it)) el.append(quickRate(it));
+  return el;
 }
-function rateForm(it){
-  let mine = null; try { mine = JSON.parse(store.get('atlas-rated-' + it.p.link_id)); } catch (e) {}
-  const m = mine || {};
-  return `<form class="rate" novalidate><h4 tabindex="-1">${mine ? 'Change your rating' : 'Rate how accessible it is'}</h4>`
-    + `<p class="note">${mine ? `You rated this ${m.overall} of 5 on ${esc(m.on)}. Sending again replaces it.` : 'Have you been here? Your stars are added to the visitor average for everyone to see.'}</p>`
-    + starsField(it, 'overall', 'Overall, how accessible was it?', true, m.overall)
-    + `<details class="more"${ASPECTS.some(([k]) => m[k]) ? ' open' : ''}><summary>Rate specific parts (optional)</summary>`
-    + ASPECTS.map(([k, label]) => starsField(it, k, label, false, m[k])).join('') + '</details>'
-    + `<div class="row"><label>I am rating as<select name="profile">${PROFILES.map(([v, l]) => `<option value="${v}" ${m.profile === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>`
-    + `<label>When did you visit? <span class="q">(optional)</span><input type="month" name="visited" max="${TODAY.slice(0, 7)}" value="${esc(m.visited || '')}"></label></div>`
-    + `<div class="row"><label style="flex:1">Comment <span class="q">(optional; only read by the researcher, not published; please no names)</span><textarea name="comment" maxlength="500">${esc(m.comment || '')}</textarea></label></div>`
-    + `<div class="row"><button type="submit" class="primary">${mine ? 'Update rating' : 'Send rating'}<span class="vh"> for ${esc(it.p.name)}</span></button></div>`
-    + '<p class="msg" role="status" aria-live="polite"></p></form>';
-}
-function bindRateForm(it, form){
-  form.querySelectorAll('.stars').forEach(row => {
-    const word = row.querySelector('.word');
-    const paint = v => { row.querySelectorAll('label:not(.na)').forEach((l, k) => l.classList.toggle('on', k < v)); word.textContent = STAR_WORDS[v] || ''; };
-    const checked = () => +(row.querySelector('input:checked')?.value || 0);
-    row.querySelectorAll('input').forEach(inp => inp.addEventListener('change', () => paint(checked())));
-    row.querySelectorAll('label:not(.na)').forEach((l, k) => { l.onmouseenter = () => paint(k + 1); });
-    row.onmouseleave = () => paint(checked());
-    paint(checked());
-  });
-  form.onsubmit = async e => {
-    e.preventDefault();
-    const msg = form.querySelector('.msg'), btn = form.querySelector('button[type=submit]'), fd = new FormData(form);
-    const num = k => fd.get(k) ? +fd.get(k) : null;
-    if (!num('overall')){ msg.className = 'msg err'; msg.textContent = 'Choose 1 to 5 stars for “Overall” first.'; form.querySelector('[name=overall]').focus(); return; }
-    const body = {p_link_id:it.p.link_id, p_region:it.p.region, p_device_id:DEVICE, p_overall:num('overall'),
-      p_entrance:num('entrance'), p_restroom:num('restroom'), p_parking:num('parking'), p_inside:num('inside'),
-      p_profile:fd.get('profile') || null, p_visited:fd.get('visited') ? fd.get('visited') + '-01' : null,
-      p_comment:(fd.get('comment') || '').trim() || null};
-    btn.disabled = true; msg.className = 'msg'; msg.textContent = 'Sending…';
-    try {
-      const r = await fetch(RATECFG.url + '/rest/v1/rpc/submit_rating', {method:'POST', headers:apiHeaders({'Content-Type':'application/json'}), body:JSON.stringify(body)});
-      if (!r.ok){ let m = ''; try { m = (await r.json()).message; } catch (x) {} throw new Error(m || `server said ${r.status}`); }
-      store.set('atlas-rated-' + it.p.link_id, JSON.stringify({overall:body.p_overall, entrance:body.p_entrance, restroom:body.p_restroom,
-        parking:body.p_parking, inside:body.p_inside, profile:fd.get('profile'), visited:fd.get('visited'), comment:body.p_comment, on:TODAY}));
-      msg.textContent = `Thank you. Your rating of ${body.p_overall} out of 5 for ${it.p.name} was saved.`;
-      loadCommunity(it.p.link_id);
-    } catch (err){
-      msg.className = 'msg err'; msg.textContent = `Could not save your rating (${err.message}). Please try again later.`;
-    } finally { btn.disabled = false; }
+// One tap on a star saves; the optional extras below are taps too, each saved straight away (same row, updated).
+const PARTS = [['entrance', 'Entrance'], ['restroom', 'Restroom'], ['parking', 'Parking'], ['inside', 'Inside']];
+const WHO = [['wheelchair', 'Wheelchair'], ['mobility_aid', 'Cane or walker'], ['blind_low_vision', 'Blind or low vision'], ['other', 'Other']];
+function quickRate(it){
+  let mine = {}; try { mine = JSON.parse(store.get('atlas-rated-' + it.p.link_id)) || {}; } catch (e) {}
+  const el = document.createElement('div'); el.className = 'qr';
+  const name = esc(it.p.name);
+  el.innerHTML = `<p class="ask" id="qr-ask-${it.i}">${mine.overall ? 'Your rating' : 'How accessible was it for you?'}</p>`
+    + `<div class="stars" role="group" aria-labelledby="qr-ask-${it.i}">`
+    + [1, 2, 3, 4, 5].map(v => `<button type="button" data-v="${v}" aria-label="${v} star${v > 1 ? 's' : ''}, ${STAR_WORDS[v]}, for ${name}" title="${STAR_WORDS[v]}">★</button>`).join('')
+    + '<span class="word" aria-hidden="true"></span></div>'
+    + `<div class="more" hidden><p class="ask">Optional, tap any:</p>`
+    + PARTS.map(([k, label]) => `<div class="part" role="group" aria-label="${label}"><span>${label}</span>`
+        + `<button type="button" class="chip good" data-k="${k}" data-v="5" aria-pressed="false">✓ Good<span class="vh"> ${label.toLowerCase()}</span></button>`
+        + `<button type="button" class="chip hard" data-k="${k}" data-v="1" aria-pressed="false">✕ Hard<span class="vh"> ${label.toLowerCase()}</span></button></div>`).join('')
+    + `<div class="part" role="group" aria-label="I use"><span>I use</span>`
+    + WHO.map(([k, label]) => `<button type="button" class="chip who" data-who="${k}" aria-pressed="false">${label}</button>`).join('') + '</div></div>'
+    + '<p class="msg" role="status" aria-live="polite"></p>';
+  const stars = [...el.querySelectorAll('.stars button')], word = el.querySelector('.word'), more = el.querySelector('.more'), msg = el.querySelector('.msg');
+  const paint = v => { stars.forEach((b, k) => b.classList.toggle('on', k < v)); word.textContent = STAR_WORDS[v] || ''; };
+  const sync = () => {
+    paint(mine.overall || 0);
+    stars.forEach(b => b.setAttribute('aria-pressed', +b.dataset.v === mine.overall));
+    el.querySelectorAll('.chip[data-k]').forEach(b => b.setAttribute('aria-pressed', mine[b.dataset.k] === +b.dataset.v));
+    el.querySelectorAll('.chip[data-who]').forEach(b => b.setAttribute('aria-pressed', mine.profile === b.dataset.who));
+    const grew = more.hidden && mine.overall;
+    more.hidden = !mine.overall;
+    if (grew && el.closest('.leaflet-popup')) requestAnimationFrame(() => {   // the popup grew upward: pan so its top stays visible
+      const top = el.closest('.leaflet-popup').getBoundingClientRect().top - document.getElementById('map').getBoundingClientRect().top;
+      if (top < 12) map.panBy([0, top - 12]);
+    });
   };
+  stars.forEach(b => { b.onmouseenter = () => paint(+b.dataset.v); b.onfocus = () => paint(+b.dataset.v); });
+  el.querySelector('.stars').onmouseleave = () => paint(mine.overall || 0);
+  let timer = null;
+  const save = (thanks) => {
+    store.set('atlas-rated-' + it.p.link_id, JSON.stringify(mine)); sync();
+    msg.className = 'msg'; msg.textContent = 'Saving…';
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      try {
+        await sendRating(it, mine);
+        msg.textContent = thanks;
+        await loadCommunity(it.p.link_id);
+        el.closest('.leaflet-popup-content')?.querySelector('.pop-comm')?.replaceChildren(...htmlNodes(commText(it)));
+      } catch (err){ msg.className = 'msg err'; msg.textContent = `Not saved (${err.message}). Please try again.`; }
+    }, 400);
+  };
+  stars.forEach(b => b.onclick = () => { mine.overall = +b.dataset.v; save(`Saved: ${mine.overall} of 5. Thank you!`); });
+  el.querySelectorAll('.chip[data-k]').forEach(b => b.onclick = () => {
+    const k = b.dataset.k, v = +b.dataset.v; mine[k] = mine[k] === v ? null : v; save('Saved. Thank you!'); });
+  el.querySelectorAll('.chip[data-who]').forEach(b => b.onclick = () => {
+    mine.profile = mine.profile === b.dataset.who ? null : b.dataset.who; save('Saved. Thank you!'); });
+  sync();
+  return el;
+}
+const htmlNodes = h => { const t = document.createElement('template'); t.innerHTML = h; return [...t.content.childNodes]; };
+async function sendRating(it, m){
+  const body = {p_link_id:it.p.link_id, p_region:it.p.region, p_device_id:DEVICE, p_overall:m.overall,
+    p_entrance:m.entrance || null, p_restroom:m.restroom || null, p_parking:m.parking || null, p_inside:m.inside || null,
+    p_profile:m.profile || null};
+  const r = await fetch(RATECFG.url + '/rest/v1/rpc/submit_rating', {method:'POST', headers:apiHeaders({'Content-Type':'application/json'}), body:JSON.stringify(body)});
+  if (!r.ok){ let t = ''; try { t = (await r.json()).message; } catch (x) {} throw new Error(t || `server said ${r.status}`); }
 }
 function apiHeaders(extra = {}){  // legacy anon keys are JWTs (also sent as Bearer); new sb_publishable_ keys go in apikey only
   return Object.assign({apikey:RATECFG.key}, RATECFG.key.startsWith('eyJ') ? {Authorization:'Bearer ' + RATECFG.key} : {}, extra);
